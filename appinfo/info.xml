@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<info>
+    <id>money</id>
+    <name>Money</name>
+    <description>Money for ownCloud.</description>
+    <licence>AGPL</licence>
+    <author>Paul Tirk</author>
+    <version>0.1</version>
+    <documentation>
+    	<user></user>
+    	<admin></admin>
+    	<developer></developer>
+    </documentation>
+    <category>tool</category>
+    <website>https://github.com/powerpaul17/ownmoney</website>
+    <bugs>https://github.com/powerpaul17/ownmoney/issues</bugs>
+    <repository type="git">https://github.com/powerpaul17/ownmoney.git</repository>
+    <dependencies>
+        <owncloud min-version="9.0" max-version="9.2" />
+    </dependencies>
+    <ocsid></ocsid>
+</info>
