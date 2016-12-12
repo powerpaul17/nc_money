@@ -12,5 +12,6 @@
 return [
     'routes' => [
 	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+     ['name' => 'money_api#accounts', 'url' => '/api/v0.1/accounts', 'verb' => 'GET']
     ]
 ];

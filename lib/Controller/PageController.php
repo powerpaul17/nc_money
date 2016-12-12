@@ -18,6 +18,10 @@ use OCP\AppFramework\Controller;
 
 class PageController extends Controller {
 
+	public function __construct($appName, IRequest $request) {
+		parent::__construct($appName, $request);
+	}
+
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
