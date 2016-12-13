@@ -10,8 +10,13 @@
  */
 
 return [
-    'routes' => [
-	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-     ['name' => 'money_api#accounts', 'url' => '/api/v0.1/accounts', 'verb' => 'GET']
-    ]
+  'resources' => [
+    'money_api' => ['url' => '/api/v0.1/money']
+  ],
+  'routes' => [
+    ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+    ['name' => 'money_api#preflighted_cors', 'url' => '/api/v0.1/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')],
+
+    ['name' => 'money_api#getaccounts', 'url' => '/api/v0.1/getaccounts', 'verb' => 'GET']
+  ]
 ];

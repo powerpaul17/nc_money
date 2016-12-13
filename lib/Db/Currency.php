@@ -6,19 +6,17 @@ use JsonSerializable;
 
 use OCP\AppFramework\Db\Entity;
 
-class Account extends Entity implements JsonSerializable {
+class Currency extends Entity implements JsonSerializable {
 
   protected $userId;
   protected $name;
-  protected $type;
-  protected $currencyId;
+  protected $abbreviation;
 
   public funtion jsonSerialize() {
     return [
       'id' => $this->id,
       'name' => $this->name,
-      'type' => $this->type,
-      'currencyId' => $this->currencyId;
+      'abbreviation' => $this->abbreviation
     ];
   }
 

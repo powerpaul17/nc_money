@@ -1,16 +1,4 @@
 angular.module('moneyApp')
-.directive('newAccountButton', function() {
-	return {
-		restrict: 'EA', // has to be an attribute to work with core css
-		scope: {},
-		controller: 'newAccountButtonCtrl',
-		controllerAs: 'ctrl',
-		bindToController: {},
-		templateUrl: OC.linkTo('money', 'templates/newAccountButton.html')
-	};
-});
-
-angular.module('moneyApp')
 .controller('newAccountButtonCtrl', function($scope, AccountService, $routeParams) {
 	var ctrl = this;
 
@@ -19,7 +7,7 @@ angular.module('moneyApp')
 	};
 
 	ctrl.createAccount = function() {
-		// AccountService.create().then(function(account) {
+		AccountService.create().then(function(account) {
 		// 	['tel', 'adr', 'email'].forEach(function(field) {
 		// 		var defaultValue = vCardPropertiesService.getMeta(field).defaultValue || {value: ''};
 		// 		contact.addProperty(field, defaultValue);
@@ -30,6 +18,18 @@ angular.module('moneyApp')
 		// 		contact.categories('');
 		// 	}
 		// 	$('#details-fullName').focus();
-		// });
+		});
+	};
+});
+
+angular.module('moneyApp')
+.directive('newAccountButton', function() {
+	return {
+		restrict: 'EA', // has to be an attribute to work with core css
+		scope: {},
+		controller: 'newAccountButtonCtrl',
+		controllerAs: 'ctrl',
+		bindToController: {},
+		templateUrl: OC.linkTo('money', 'templates/newAccountButton.html')
 	};
 });

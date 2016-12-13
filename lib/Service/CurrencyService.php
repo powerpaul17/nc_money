@@ -7,14 +7,14 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use OCA\Money\Db\Account;
-use OCA\Money\Db\AccountMapper;
+use OCA\Money\Db\Currency;
+use OCA\Money\Db\CurrencyMapper;
 
-class AccountService {
+class CurrencyService {
 
   private $mapper;
 
-  public function __construct(AccountMapper $mapper) {
+  public function __construct(CurrencyMapper $mapper) {
     $this->mapper = $mapper;
   }
 
@@ -39,22 +39,20 @@ class AccountService {
     }
   }
 
-  public function create($name, $type, $currencyId, $userId) {
-    $account = new Account();
-    $account->setName($name);
-    $account->setType($type);
-    $account->setCurrencyId($currencyId);
-    $account->setUserId($userId);
-    return $this->mapper->insert($account);
+  public function create($name, $abbreviation, $userId) {
+    $currency = new Currency();
+    $currency->setName($name);
+    $currency->setAbbreviation($abbreviation);
+    $currency->setUserId($userId);
+    return $this->mapper->insert($currency);
   }
 
-  public function update($id, $name, $type, $currencyId, $userId) {
+  public function update($id, $name, $abbreviation, $userId) {
     try {
-      $account = $this->mapper->find($id, $userId);
-      $account->setName($name);
-      $account->setType($type);
-      $account->setCurrencyId($currencyId);
-      return $this->mapper->update($account);
+      $currency = $this->mapper->find($id, $userId);
+      $currency->setName($name);
+      $currency->setAbbreviation($abbreviation);
+      return $this->mapper->update($currency);
     } catch(Exception $e) {
       $this->handleException($e);
     }

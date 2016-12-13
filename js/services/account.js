@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.service('AccountService', function() {
+.service('AccountService', function($q, CacheFactory, uuid4, $http) {
   var cacheFilled = false;
   var accounts = CacheFactory('money');
   var observerCallbacks = [];
@@ -21,9 +21,11 @@ angular.module('moneyApp')
   };
 
   this.fillCache = function() {
-    if(_.isUndefined(loadPromise)) {
-      loadPromise =
-    }
+    var responsePromise = $http.get("api/v0.1/getaccounts");
+    responsePromise.success(function(data, status, headers, config) {
+      accounts.put(data.id, data.name);
+      cacheFilled = true;
+    });
   };
 
   this.getAll = function() {
@@ -46,6 +48,47 @@ angular.module('moneyApp')
   	}
   };
 
+  this.update = function(account) {
+  	// return DavClient.updateCard(contact.data, {json: true}).then(function(xhr) {
+  	// 	notifyObservers('update', account.uid());
+  	// });
+  };
+
+  this.create = function(newAccount, uid) {
+//  	newAccount = newAccount || new Contact(addressBook);
+  	// var newUid = '';
+  	// if(uuid4.validate(uid)) {
+  	// 	newUid = uid;
+  	// } else {
+  	// 	newUid = uuid4.generate();
+  	// }
+  // 		newContact.uid(newUid);
+  // 		if (_.isUndefined(newContact.fullName()) || newContact.fullName() === '') {
+  // 			newContact.fullName(t('contacts', 'New contact'));
+  // 		}
+  //
+  // 		return DavClient.createCard(
+  // 			addressBook,
+  // 			{
+  // 				data: newContact.data.addressData,
+  // 				filename: newUid + '.vcf'
+  // 			}
+  // 		).then(function(xhr) {
+  // 			newContact.setETag(xhr.getResponseHeader('ETag'));
+  // 			contacts.put(newUid, newContact);
+  // 			notifyObservers('create', newUid);
+  // 			return newContact;
+  // 		}).catch(function(xhr) {
+  // 			var msg = t('contacts', 'Contact could not be created.');
+  // 			if (!angular.isUndefined(xhr) && !angular.isUndefined(xhr.responseXML) && !angular.isUndefined(xhr.responseXML.getElementsByTagNameNS('http://sabredav.org/ns', 'message'))) {
+  // 				if ($(xhr.responseXML.getElementsByTagNameNS('http://sabredav.org/ns', 'message')).text()) {
+  // 					msg = $(xhr.responseXML.getElementsByTagNameNS('http://sabredav.org/ns', 'message')).text();
+  // 				}
+  // 			}
+  //
+  // 			OC.Notification.showTemporary(msg);
+  // 		});
+  };
 
 });
 
@@ -91,46 +134,6 @@ angular.module('moneyApp')
 // 		});
 // 	};
 //
-
-//
-// 	this.create = function(newContact, addressBook, uid) {
-// 		addressBook = addressBook || AddressBookService.getDefaultAddressBook();
-// 		newContact = newContact || new Contact(addressBook);
-// 		var newUid = '';
-// 		if(uuid4.validate(uid)) {
-// 			newUid = uid;
-// 		} else {
-// 			newUid = uuid4.generate();
-// 		}
-// 		newContact.uid(newUid);
-// 		newContact.setUrl(addressBook, newUid);
-// 		newContact.addressBookId = addressBook.displayName;
-// 		if (_.isUndefined(newContact.fullName()) || newContact.fullName() === '') {
-// 			newContact.fullName(t('contacts', 'New contact'));
-// 		}
-//
-// 		return DavClient.createCard(
-// 			addressBook,
-// 			{
-// 				data: newContact.data.addressData,
-// 				filename: newUid + '.vcf'
-// 			}
-// 		).then(function(xhr) {
-// 			newContact.setETag(xhr.getResponseHeader('ETag'));
-// 			contacts.put(newUid, newContact);
-// 			notifyObservers('create', newUid);
-// 			return newContact;
-// 		}).catch(function(xhr) {
-// 			var msg = t('contacts', 'Contact could not be created.');
-// 			if (!angular.isUndefined(xhr) && !angular.isUndefined(xhr.responseXML) && !angular.isUndefined(xhr.responseXML.getElementsByTagNameNS('http://sabredav.org/ns', 'message'))) {
-// 				if ($(xhr.responseXML.getElementsByTagNameNS('http://sabredav.org/ns', 'message')).text()) {
-// 					msg = $(xhr.responseXML.getElementsByTagNameNS('http://sabredav.org/ns', 'message')).text();
-// 				}
-// 			}
-//
-// 			OC.Notification.showTemporary(msg);
-// 		});
-// 	};
 //
 // 	this.import = function(data, type, addressBook, progressCallback) {
 // 		addressBook = addressBook || AddressBookService.getDefaultAddressBook();
@@ -179,18 +182,6 @@ angular.module('moneyApp')
 //
 // 		// create the contact in the new target addressbook
 // 		this.create(clone, addressbook, uid);
-// 	};
-//
-// 	this.update = function(contact) {
-// 		// update rev field
-// 		contact.syncVCard();
-//
-// 		// update contact on server
-// 		return DavClient.updateCard(contact.data, {json: true}).then(function(xhr) {
-// 			var newEtag = xhr.getResponseHeader('ETag');
-// 			contact.setETag(newEtag);
-// 			notifyObservers('update', contact.uid());
-// 		});
 // 	};
 //
 // 	this.delete = function(contact) {

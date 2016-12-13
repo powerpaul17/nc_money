@@ -19,9 +19,11 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 // compiled version of app javascript
 //script('money', 'public/script');
 script('money', 'main');
+script('money', 'services/search');
+script('money', 'services/account');
+script('money', 'components/account');
 script('money', 'components/accountList');
 script('money', 'components/newAccountButton');
-script('money', 'services/account');
 
 // all styles
 style('money', 'public/style');
@@ -31,10 +33,10 @@ vendor_style('select2/select2');
 <div id="app" ng-app="moneyApp">
 	<div id="app-navigation">
 
-		<ul account-list></ul>
 		<new-account-button></new-account-button>
+<!--		<ul account-list></ul> -->
 
-		<div id="app-settings">
+		<!-- <div id="app-settings">
 			<div id="app-settings-header">
 				<button class="settings-button"
 						data-apps-slide-toggle="#app-settings-content">
@@ -42,15 +44,14 @@ vendor_style('select2/select2');
 				</button>
 			</div>
 			<div id="app-settings-content">
-				<book-list></book-list>
-				<transaction-import></transaction-import>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<div id="app-content">
 		<div class="app-content-list">
-			<transactionList></transactionList>
+			<account-list></account-list>
+			<!-- <transaction-list></transaction-list> -->
 		</div>
 		<div class="app-content-detail" ng-view></div>
 	</div>

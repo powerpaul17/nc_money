@@ -463,8 +463,8 @@ ul.addressBook-share-list li {
 	height: calc(100% - 24px);
 }
 
-/* styling for contact count in contact list */
-.contacts-list-count {
+/* styling for account count in account list */
+.accounts-list-count {
 	text-align:center;
 	color: #333;
 	padding:25px;
@@ -534,7 +534,7 @@ detailsitem .select2-container {
 	}
 
 	.wrapper-show:not(.mobile-show),
-	.contacts-list:not(.mobile-show) {
+	.accounts-list:not(.mobile-show) {
 		display: none;
 	}
 

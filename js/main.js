@@ -11,9 +11,9 @@
 angular.module('moneyApp', ['uuid4', 'angular-cache', 'ngRoute', 'ui.bootstrap', 'ui.select', 'ngSanitize', 'ngclipboard'])
 .config(function($routeProvider) {
 
-	// $routeProvider.when('/:gid', {
-	// 	template: '<contactdetails></contactdetails>'
-	// });
+	$routeProvider.when('/:uid', {
+		template: '<accountdetails></accountdetails>'
+	});
 	//
 	// $routeProvider.when('/:gid/:uid', {
 	// 	template: '<contactdetails></contactdetails>'
