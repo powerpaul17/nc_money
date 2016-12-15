@@ -5,7 +5,7 @@ namespace OCA\Money\Db;
 use OCP\IDb;
 use OCP\AppFramework\Db\Mapper;
 
-class AccountMapper extends Mapper{
+class AccountMapper extends Mapper {
 
   public function __construct(IDb $db) {
     parent::__construct($db, 'money_accounts', '\OCA\Money\Db\Account');
@@ -17,7 +17,7 @@ class AccountMapper extends Mapper{
   }
 
   public function findAll($userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_accounts WHERE user_id =?';
+    $sql = 'SELECT * FROM *PREFIX*money_accounts WHERE user_id = ?';
     return $this->findEntities($sql, [$userId]);
   }
 

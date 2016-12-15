@@ -15,8 +15,8 @@ return [
   ],
   'routes' => [
     ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-    ['name' => 'money_api#preflighted_cors', 'url' => '/api/v0.1/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')],
-
-    ['name' => 'money_api#getaccounts', 'url' => '/api/v0.1/getaccounts', 'verb' => 'GET']
+    ['name' => 'money_api#get_accounts', 'url' => '/ajax/get-accounts', 'verb' => 'GET'],
+    ['name' => 'money_api#get_currencies', 'url' => '/ajax/get-currencies', 'verb' => 'GET'],
+//    ['name' => 'money_api#preflighted_cors', 'url' => '/api/v0.1/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')],
   ]
 ];

@@ -1,41 +1,16 @@
 angular.module('moneyApp')
-.controller('accountListCtrl', function($scope, $filter, $route, $routeParams, AccountService, SearchService) {
+.controller('accountListCtrl', function($scope, $filter, $route, $routeParams, AccountService) {
 	var ctrl = this;
 
 	ctrl.routeParams = $routeParams;
 
 	ctrl.accountList = [];
-	ctrl.searchTerm = '';
 	ctrl.show = true;
 	ctrl.invalid = false;
-
-	ctrl.t = {
-		emptySearch : t('money', 'No search result for {query}', {query: ctrl.searchTerm})
-	};
 
 	$scope.getCountString = function(accounts) {
 		return n('accounts', '%n account', '%n accounts', accounts.length);
 	};
-
-	$scope.query = function(account) {
-		return account.matches(SearchService.getSearchTerm());
-	};
-
-	SearchService.registerObserverCallback(function(ev) {
-		if (ev.event === 'submitSearch') {
-			var uid = !_.isEmpty(ctrl.accountList) ? ctrl.accountList[0].uid() : undefined;
-			ctrl.setSelectedId(uid);
-			$scope.$apply();
-		}
-		if (ev.event === 'changeSearch') {
-			ctrl.searchTerm = ev.searchTerm;
-			ctrl.t.emptySearch = t('accounts',
-								   'No search result for {query}',
-								   {query: ctrl.searchTerm}
-								  );
-			$scope.$apply();
-		}
-	});
 
 	ctrl.loading = true;
 
@@ -69,21 +44,21 @@ angular.module('moneyApp')
 	// Get accounts
 	AccountService.getAll().then(function(accounts) {
 		if(accounts.length>0) {
-			$scope.$apply(function() {
+			//$scope.$apply(function() {
 				ctrl.accounts = accounts;
-			});
+			//});
 		} else {
 			ctrl.loading = false;
 		}
 	});
 
-	// Wait for ctrl.accountList to be updated, load the first account and kill the watch
+	//Wait for ctrl.accountList to be updated, load the first account and kill the watch
 	var unbindListWatch = $scope.$watch('ctrl.accountList', function() {
 		if(ctrl.accountList && ctrl.accountList.length > 0) {
 			// Check if a specific uid is requested
 			if($routeParams.uid) {
 				ctrl.accountList.forEach(function(account) {
-					if(account.uid() === $routeParams.uid) {
+					if(account.id === $routeParams.uid) {
 						ctrl.setSelectedId($routeParams.uid);
 						ctrl.loading = false;
 					}
@@ -91,64 +66,64 @@ angular.module('moneyApp')
 			}
 			// No account previously loaded, let's load the first of the list if not in mobile mode
 			if(ctrl.loading && $(window).width() > 768) {
-				ctrl.setSelectedId(ctrl.accountList[0].uid());
+				ctrl.setSelectedId(ctrl.accountList[0].id);
 			}
 			ctrl.loading = false;
 			unbindListWatch();
 		}
 	});
 
-	$scope.$watch('ctrl.routeParams.uid', function(newValue, oldValue) {
-		// Used for mobile view to clear the url
-		if(typeof oldValue != 'undefined' && typeof newValue == 'undefined' && $(window).width() <= 768) {
-			// no account selected
-			ctrl.show = true;
-			return;
-		}
-		if(newValue === undefined) {
-			// we might have to wait until ng-repeat filled the accountList
-			if(ctrl.accountList && ctrl.accountList.length > 0) {
-				$route.updateParams({
-					uid: ctrl.accountList[0].uid()
-				});
-			} else {
-				// watch for next accountList update
-				var unbindWatch = $scope.$watch('ctrl.accountList', function() {
-					if(ctrl.accountList && ctrl.accountList.length > 0) {
-						$route.updateParams({
-							uid: ctrl.accountList[0].uid()
-						});
-					}
-					unbindWatch(); // unbind as we only want one update
-				});
-			}
-		} else {
-			// displaying account details
-			ctrl.show = false;
-		}
-	});
+	// $scope.$watch('ctrl.routeParams.uid', function(newValue, oldValue) {
+	// 	// Used for mobile view to clear the url
+	// 	if(typeof oldValue != 'undefined' && typeof newValue == 'undefined' && $(window).width() <= 768) {
+	// 		// no account selected
+	// 		ctrl.show = true;
+	// 		return;
+	// 	}
+	// 	if(newValue === undefined) {
+	// 		// we might have to wait until ng-repeat filled the accountList
+	// 		if(ctrl.accountList && ctrl.accountList.length > 0) {
+	// 			$route.updateParams({
+	// 				uid: ctrl.accountList[0].id
+	// 			});
+	// 		} else {
+	// 			// watch for next accountList update
+	// 			var unbindWatch = $scope.$watch('ctrl.accountList', function() {
+	// 				if(ctrl.accountList && ctrl.accountList.length > 0) {
+	// 					$route.updateParams({
+	// 						uid: ctrl.accountList[0].uid()
+	// 					});
+	// 				}
+	// 				unbindWatch(); // unbind as we only want one update
+	// 			});
+	// 		}
+	// 	} else {
+	// 		// displaying account details
+	// 		ctrl.show = false;
+	// 	}
+	// });
 
-	$scope.$watch('ctrl.routeParams.gid', function() {
-		// we might have to wait until ng-repeat filled the accountList
-		ctrl.accountList = [];
-		// not in mobile mode
-		if($(window).width() > 768) {
-			// watch for next accountList update
-			var unbindWatch = $scope.$watch('ctrl.accountList', function() {
-				if(ctrl.accountList && ctrl.accountList.length > 0) {
-					$route.updateParams({
-						uid: ctrl.contactList[0].uid()
-					});
-				}
-				unbindWatch(); // unbind as we only want one update
-			});
-		}
-	});
+	// $scope.$watch('ctrl.routeParams.gid', function() {
+	// 	// we might have to wait until ng-repeat filled the accountList
+	// 	ctrl.accountList = [];
+	// 	// not in mobile mode
+	// 	if($(window).width() > 768) {
+	// 		// watch for next accountList update
+	// 		var unbindWatch = $scope.$watch('ctrl.accountList', function() {
+	// 			if(ctrl.accountList && ctrl.accountList.length > 0) {
+	// 				$route.updateParams({
+	// 					uid: ctrl.contactList[0].uid()
+	// 				});
+	// 			}
+	// 			unbindWatch(); // unbind as we only want one update
+	// 		});
+	// 	}
+	// });
 
-	// Watch if we have an invalid account
-	$scope.$watch('ctrl.accountList[0].displayName()', function(displayName) {
-		ctrl.invalid = (displayName === '');
-	});
+	// //Watch if we have an invalid account
+	// $scope.$watch('ctrl.accountList[0].displayName()', function(displayName) {
+	// 	ctrl.invalid = (displayName === '');
+	// });
 
 	ctrl.hasAccounts = function () {
 		if (!ctrl.accounts) {

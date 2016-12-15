@@ -21,11 +21,16 @@ angular.module('moneyApp')
   };
 
   this.fillCache = function() {
-    var responsePromise = $http.get("api/v0.1/getaccounts");
-    responsePromise.success(function(data, status, headers, config) {
-      accounts.put(data.id, data.name);
-      cacheFilled = true;
-    });
+    if(_.isUndefined(loadPromise)) {
+      loadPromise = $http.get("ajax/get-accounts");
+      loadPromise.success(function(data, status, headers, config) {
+        for(var i in data) {
+          accounts.put(data[i].id, data[i]);
+        }
+        cacheFilled = true;
+      });
+    }
+    return loadPromise;
   };
 
   this.getAll = function() {
@@ -38,15 +43,15 @@ angular.module('moneyApp')
     }
   };
 
-  this.getById = function(uid) {
-  	if(cacheFilled === false) {
-  		return this.fillCache().then(function() {
-  			return accounts.get(uid);
-  		});
-  	} else {
-  		return $q.when(accounts.get(uid));
-  	}
-  };
+  // this.getById = function(uid) {
+  // 	if(cacheFilled === false) {
+  // 		return this.fillCache().then(function() {
+  // 			return accounts.get(uid);
+  // 		});
+  // 	} else {
+  // 		return $q.when(accounts.get(uid));
+  // 	}
+  // };
 
   this.update = function(account) {
   	// return DavClient.updateCard(contact.data, {json: true}).then(function(xhr) {
@@ -90,7 +95,15 @@ angular.module('moneyApp')
   // 		});
   };
 
-});
+  	// this.getGroups = function () {
+  		// return this.getAll().then(function(contacts) {
+  		// 	return _.uniq(contacts.map(function (element) {
+  		// 		return element.categories();
+  		// 	}).reduce(function(a, b) {
+  		// 		return a.concat(b);
+  		// 	}, []).sort(), true);
+  		// });
+  	// };
 
 // function(DavClient, AddressBookService, Contact, $q, CacheFactory, uuid4) {
 //
@@ -124,15 +137,7 @@ angular.module('moneyApp')
 //
 
 //
-// 	this.getGroups = function () {
-// 		return this.getAll().then(function(contacts) {
-// 			return _.uniq(contacts.map(function (element) {
-// 				return element.categories();
-// 			}).reduce(function(a, b) {
-// 				return a.concat(b);
-// 			}, []).sort(), true);
-// 		});
-// 	};
+
 //
 //
 // 	this.import = function(data, type, addressBook, progressCallback) {
@@ -191,4 +196,4 @@ angular.module('moneyApp')
 // 			notifyObservers('delete', contact.uid());
 // 		});
 // 	};
-// });
+});

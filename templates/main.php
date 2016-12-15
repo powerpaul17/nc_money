@@ -19,6 +19,7 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 // compiled version of app javascript
 //script('money', 'public/script');
 script('money', 'main');
+//script('money', 'models/account');
 script('money', 'services/search');
 script('money', 'services/account');
 script('money', 'components/account');
@@ -40,7 +41,7 @@ vendor_style('select2/select2');
 			<div id="app-settings-header">
 				<button class="settings-button"
 						data-apps-slide-toggle="#app-settings-content">
-					<?php p($l->t('Settings'));?>
+					<?php //p($l->t('Settings'));?>
 				</button>
 			</div>
 			<div id="app-settings-content">

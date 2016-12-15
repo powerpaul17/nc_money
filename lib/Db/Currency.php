@@ -12,7 +12,7 @@ class Currency extends Entity implements JsonSerializable {
   protected $name;
   protected $abbreviation;
 
-  public funtion jsonSerialize() {
+  public function jsonSerialize() {
     return [
       'id' => $this->id,
       'name' => $this->name,

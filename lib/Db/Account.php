@@ -8,17 +8,22 @@ use OCP\AppFramework\Db\Entity;
 
 class Account extends Entity implements JsonSerializable {
 
-  protected $userId;
   protected $name;
   protected $type;
   protected $currencyId;
+  protected $userId;
 
-  public funtion jsonSerialize() {
+  public function __construct() {
+    $this->addType('type', 'integer');
+    $this->addType('currencyId', 'integer');
+  }
+
+  public function jsonSerialize() {
     return [
       'id' => $this->id,
       'name' => $this->name,
       'type' => $this->type,
-      'currencyId' => $this->currencyId;
+      'currencyId' => $this->currencyId
     ];
   }
 

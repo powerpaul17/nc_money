@@ -1,15 +1,9 @@
 <div style="height: 90%" class="accounts-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
         <div class="app-content-list-item"
-			 ng-repeat="account in ctrl.accountList = (ctrl.accounts | accountGroupFilter:ctrl.routeParams.gid | localeOrderBy:'displayName' | filter:query) as filtered track by account.uid()"
+			 ng-repeat="account in ctrl.accountList = (ctrl.accounts) as filtered track by account.id"
 			 account data="account"
-			 ng-click="setSelected(account.uid())"
-			 ng-class="{active: account.uid() === ctrl.getSelectedId()}">
-	</div>
-	<div ng-show="!ctrl.accountList.length && !ctrl.loading && ctrl.searchTerm !== ''">
-	        <div id="emptycontent" class="emptycontent-search">
-		        <div class="icon-search"></div>
-			<h2>{{ctrl.t.emptySearch}}</h2>
-		</div>
+			 ng-click=""
+			 ng-class="">
 	</div>
 	<div ng-if="filtered.length>0" class="accounts-list-count">
 		{{ getCountString(filtered) }}

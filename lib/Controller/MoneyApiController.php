@@ -18,27 +18,27 @@ class MoneyApiController extends ApiController {
 
   use Errors;
 
-  public function __construct($appName, IRequest $request, AccountService $accountService, CurrencyService $currencyService, $userId) {
-    parent::__construct($appName, $request);
+  public function __construct($AppName, IRequest $request, AccountService $accountService, CurrencyService $currencyService, $UserId) {
+    parent::__construct($AppName, $request);
     $this->accountService = $accountService;
     $this->currencyService = $currencyService;
-    $this->userId = $userId;
+    $this->userId = $UserId;
   }
 
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
   */
-  public function getAccounts($userId) {
-    return new DataResponse($this->accountService->findAll($userId));
+  public function getAccounts() {
+    return new DataResponse($this->accountService->findAll($this->userId));
   }
 
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
   */
-  public function getCurrencies($userId) {
-    return new DataResponse($this->currencyService->findAll($userId));
+  public function getCurrencies() {
+    return new DataResponse($this->currencyService->findAll($this->userId));
   }
 }
 

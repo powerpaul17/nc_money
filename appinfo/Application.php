@@ -4,11 +4,10 @@ namespace OCA\Money\AppInfo;
 
 use \OCP\AppFramework\App;
 
-use \OCA\Money\ApiController\MoneyApiController;
-
+use \OCA\Money\Controller\PageController;
+use \OCA\Money\Controller\MoneyApiController;
 use \OCA\Money\Service\AccountService;
 use \OCA\Money\Service\CurrencyService;
-
 use \OCA\Money\Db\AccountMapper;
 use \OCA\Money\Db\CurrencyMapper;
 
@@ -19,6 +18,15 @@ class Application extends App {
 
     $container = $this->getContainer();
 
+    // Controllers
+
+    $container->registerService('PageController', function($c) {
+      return new PageController(
+        $c->query('AppName'),
+        $c->query('Request')
+      );
+    });
+
     $container->registerService('MoneyApiController', function($c) {
       return new MoneyApiController(
         $c->query('AppName'),
@@ -27,6 +35,8 @@ class Application extends App {
         $c->query('CurrencyService')
       );
     });
+
+    // Services
 
     $container->registerService('AccountService', function($c) {
       return new AccountService(
@@ -39,6 +49,8 @@ class Application extends App {
         $c->query('CurrencyMapper')
       );
     });
+
+    // Mappers
 
     $container->registerService('AccountMapper', function($c) {
       return new AccountMapper(

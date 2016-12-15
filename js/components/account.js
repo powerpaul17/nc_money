@@ -3,8 +3,9 @@ angular.module('moneyApp')
 	var ctrl = this;
 
 	ctrl.openAccount = function() {
+		alert("Jui");
 		$route.updateParams({
-			uid: ctrl.account.uid()
+			uid: ctrl.account.id()
 		})
 	};
 
@@ -13,12 +14,11 @@ angular.module('moneyApp')
 angular.module('moneyApp')
 .directive('account', function() {
 	return {
-		restrict: 'A', // has to be an attribute to work with core css
 		scope: {},
 		controller: 'accountCtrl',
 		controllerAs: 'ctrl',
 		bindToController: {
-			group: '=data'
+//			group: '=data'
 		},
 		templateUrl: OC.linkTo('money', 'templates/account.html')
 	};
