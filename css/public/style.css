@@ -1,4 +1,4 @@
-/*.contactdetails__header {
+.accountdetails__header {
 	height: 100px;
 	padding-left: 20px;
 	display: flex;
@@ -7,21 +7,21 @@
 	align-items: center;
 }
 
-.contactdetails__header #details-contact-infos {
+.accountdetails__header #details-account-infos {
 	width: 80%;
 	margin: 2px 6px 0px;
 	flex-grow: 1;
 }
-.contactdetails__header h2 {
+.accountdetails__header h2 {
 	margin: 0;
 }
-.contactdetails__header #details-org-container {
+.accountdetails__header #details-org-container {
 	display: flex;
 	flex-wrap: wrap;
 }
-.contactdetails__header .contactdetails__name,
-.contactdetails__header .contactdetails__org,
-.contactdetails__header .contactdetails__title {
+.accountdetails__header .accountdetails__name,
+.accountdetails__header .accountdetails__org,
+.accountdetails__header .accountdetails__title {
 	font-size: inherit;
 	color: #fff !important; /* override focus,active&hover */
 	background: transparent;
@@ -33,56 +33,56 @@
 	margin: 0;
 	padding: 4px 5px;
 }
-.contactdetails__header .contactdetails__org,
-.contactdetails__header .contactdetails__title {
+.accountdetails__header .accountdetails__org,
+.accountdetails__header .accountdetails__title {
 	max-width: 50%;
 	min-width: 150px;
 }
-.contactdetails__header .contactdetails__name {
+.accountdetails__header .accountdetails__name {
 	width: 100%;
 }
-.contactdetails__header #details-actions {
+.accountdetails__header #details-actions {
 	display: flex;
 	flex-shrink: 0;
 }
 /* fix placeholder color */
-.contactdetails__header .contactdetails__name::-webkit-input-placeholder,
-.contactdetails__header .contactdetails__org::-webkit-input-placeholder,
-.contactdetails__header .contactdetails__title::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+.accountdetails__header .accountdetails__name::-webkit-input-placeholder,
+.accountdetails__header .accountdetails__org::-webkit-input-placeholder,
+.accountdetails__header .accountdetails__title::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	color: #fff;
 	opacity: .8;
 }
-.contactdetails__header .contactdetails__name::-moz-placeholder,
-.contactdetails__header .contactdetails__org::-moz-placeholder,
-.contactdetails__header .contactdetails__title::-moz-placeholder { /* Mozilla Firefox 19+ */
+.accountdetails__header .accountdetails__name::-moz-placeholder,
+.accountdetails__header .accountdetails__org::-moz-placeholder,
+.accountdetails__header .accountdetails__title::-moz-placeholder { /* Mozilla Firefox 19+ */
 	color: #fff;
 	opacity: .8;
 }
-.contactdetails__header .contactdetails__name:-ms-input-placeholder,
-.contactdetails__header .contactdetails__org:-ms-input-placeholder,
-.contactdetails__header .contactdetails__title:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.accountdetails__header .accountdetails__name:-ms-input-placeholder,
+.accountdetails__header .accountdetails__org:-ms-input-placeholder,
+.accountdetails__header .accountdetails__title:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	color: #fff;
 	opacity: .8;
 }
-.contactdetails__header .contactdetails__name:placeholder-shown,
-.contactdetails__header .contactdetails__org:placeholder-shown,
-.contactdetails__header .contactdetails__title:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+.accountdetails__header .accountdetails__name:placeholder-shown,
+.accountdetails__header .accountdetails__org:placeholder-shown,
+.accountdetails__header .accountdetails__title:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
 	color: #fff;
 	opacity: .8;
 }
 
-.contactdetails__header .icon-delete-white,
-.contactdetails__header #contact-export-link {
+.accountdetails__header .icon-delete-white,
+.accountdetails__header #account-export-link {
 	padding: 15px;
 	background-color: transparent;
 	border: none;
 	opacity: .5;
 	margin: 3px;
 }
-.contactdetails__header .icon-delete-white:hover,
-.contactdetails__header .icon-delete-white:focus,
-.contactdetails__header #contact-export-link:hover,
-.contactdetails__header #contact-export-link:focus {
+.accountdetails__header .icon-delete-white:hover,
+.accountdetails__header .icon-delete-white:focus,
+.accountdetails__header #account-export-link:hover,
+.accountdetails__header #account-export-link:focus {
 	opacity: .7
 }
 
@@ -126,7 +126,7 @@ avatar.avatar--missing .avatar-upload {
 	display: block;
 }
 
-.contactdetails__logo {
+.accountdetails__logo {
 	height: 75px;
 	width: 75px;
 	object-fit: cover;
@@ -140,7 +140,7 @@ avatar.avatar--missing .avatar-upload {
 	left: 68px;
 }
 
-.contact__icon {
+.account__icon {
 	display: inline-block;
 	height: 40px;
 	width: 40px;
@@ -155,7 +155,7 @@ avatar.avatar--missing .avatar-upload {
 	object-fit: cover;
 }
 
-.contactdetails__header + section {
+.accountdetails__header + section {
 	padding: 20px 20px 100px;
 }
 
@@ -291,7 +291,7 @@ ul.dropdown-menu li.active {
 	background: #eee;
 }
 
-div.app-contacts span.utils {
+div.app-accounts span.utils {
 	padding: 0 !important;
 	float: right;
 	position: relative !important;
@@ -346,7 +346,7 @@ li.addressBook-share-item span.shareeIdentifier {
 
 /* Account List */
 #new-account-button {
-	margin: 14px auto; /* to have the same height than a contact*/
+	margin: 14px auto; /* to have the same height than a account*/
 	width: calc(100% - 20px) !important;
 	text-align: left;
 	padding-left: 34px;
@@ -357,7 +357,7 @@ li.addressBook-share-item span.shareeIdentifier {
 
 /* app content list & detail view */
 /* TO BE MOVED TO CORE apps.css ONCE STANDARDIZED ACROSS APPS */
-/* DO NOT MAKE ANY CHANGES SPECIFIC TO CONTACTS HERE! */
+/* DO NOT MAKE ANY CHANGES SPECIFIC TO accountS HERE! */
 
 .app-content-list {
 	width: 30%;
@@ -560,7 +560,7 @@ detailsitem .select2-container {
 	/* end of media query */
 }
 
-.contact-details-wrapper {
+.account-details-wrapper {
 	position: relative;
 	background: white;
 }

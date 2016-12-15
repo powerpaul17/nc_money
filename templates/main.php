@@ -19,12 +19,13 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 // compiled version of app javascript
 //script('money', 'public/script');
 script('money', 'main');
-//script('money', 'models/account');
+script('money', 'filters/accountColor');
+script('money', 'filters/firstCharacter');
 script('money', 'services/search');
-script('money', 'services/account');
-script('money', 'components/account');
 script('money', 'components/accountList');
 script('money', 'components/newAccountButton');
+script('money', 'components/accountDetails');
+script('money', 'components/transactionList');
 
 // all styles
 style('money', 'public/style');
@@ -52,7 +53,6 @@ vendor_style('select2/select2');
 	<div id="app-content">
 		<div class="app-content-list">
 			<account-list></account-list>
-			<!-- <transaction-list></transaction-list> -->
 		</div>
 		<div class="app-content-detail" ng-view></div>
 	</div>

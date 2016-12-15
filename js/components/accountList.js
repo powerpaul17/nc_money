@@ -1,158 +1,22 @@
 angular.module('moneyApp')
-.controller('accountListCtrl', function($scope, $filter, $route, $routeParams, AccountService) {
+.controller('accountListController', function($scope, $http, $route, $routeParams) {
+
 	var ctrl = this;
 
-	ctrl.routeParams = $routeParams;
-
-	ctrl.accountList = [];
-	ctrl.show = true;
-	ctrl.invalid = false;
+	// Get accounts
+	$http.get('ajax/get-accounts').then(function(response) {
+		ctrl.accounts = response.data;
+	});
 
 	$scope.getCountString = function(accounts) {
-		return n('accounts', '%n account', '%n accounts', accounts.length);
-	};
+		return n('money', '%n account', '%n accounts', accounts.length);
+	}
 
-	ctrl.loading = true;
-
-	AccountService.registerObserverCallback(function(ev) {
-		$scope.$apply(function() {
-			if (ev.event === 'delete') {
-				if (ctrl.accountList.length === 1) {
-					$route.updateParams({
-						uid: undefined
-					});
-				} else {
-					for (var i = 0, length = ctrl.accountList.length; i < length; i++) {
-						if (ctrl.accountList[i].uid() === ev.uid) {
-							$route.updateParams({
-								uid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].uid() : ctrl.accountList[i-1].uid()
-							});
-							break;
-						}
-					}
-				}
-			}
-			else if (ev.event === 'create') {
-				$route.updateParams({
-					uid: ev.uid
-				});
-			}
-			ctrl.accounts = ev.accounts;
-		});
-	});
-
-	// Get accounts
-	AccountService.getAll().then(function(accounts) {
-		if(accounts.length>0) {
-			//$scope.$apply(function() {
-				ctrl.accounts = accounts;
-			//});
-		} else {
-			ctrl.loading = false;
-		}
-	});
-
-	//Wait for ctrl.accountList to be updated, load the first account and kill the watch
-	var unbindListWatch = $scope.$watch('ctrl.accountList', function() {
-		if(ctrl.accountList && ctrl.accountList.length > 0) {
-			// Check if a specific uid is requested
-			if($routeParams.uid) {
-				ctrl.accountList.forEach(function(account) {
-					if(account.id === $routeParams.uid) {
-						ctrl.setSelectedId($routeParams.uid);
-						ctrl.loading = false;
-					}
-				});
-			}
-			// No account previously loaded, let's load the first of the list if not in mobile mode
-			if(ctrl.loading && $(window).width() > 768) {
-				ctrl.setSelectedId(ctrl.accountList[0].id);
-			}
-			ctrl.loading = false;
-			unbindListWatch();
-		}
-	});
-
-	// $scope.$watch('ctrl.routeParams.uid', function(newValue, oldValue) {
-	// 	// Used for mobile view to clear the url
-	// 	if(typeof oldValue != 'undefined' && typeof newValue == 'undefined' && $(window).width() <= 768) {
-	// 		// no account selected
-	// 		ctrl.show = true;
-	// 		return;
-	// 	}
-	// 	if(newValue === undefined) {
-	// 		// we might have to wait until ng-repeat filled the accountList
-	// 		if(ctrl.accountList && ctrl.accountList.length > 0) {
-	// 			$route.updateParams({
-	// 				uid: ctrl.accountList[0].id
-	// 			});
-	// 		} else {
-	// 			// watch for next accountList update
-	// 			var unbindWatch = $scope.$watch('ctrl.accountList', function() {
-	// 				if(ctrl.accountList && ctrl.accountList.length > 0) {
-	// 					$route.updateParams({
-	// 						uid: ctrl.accountList[0].uid()
-	// 					});
-	// 				}
-	// 				unbindWatch(); // unbind as we only want one update
-	// 			});
-	// 		}
-	// 	} else {
-	// 		// displaying account details
-	// 		ctrl.show = false;
-	// 	}
-	// });
-
-	// $scope.$watch('ctrl.routeParams.gid', function() {
-	// 	// we might have to wait until ng-repeat filled the accountList
-	// 	ctrl.accountList = [];
-	// 	// not in mobile mode
-	// 	if($(window).width() > 768) {
-	// 		// watch for next accountList update
-	// 		var unbindWatch = $scope.$watch('ctrl.accountList', function() {
-	// 			if(ctrl.accountList && ctrl.accountList.length > 0) {
-	// 				$route.updateParams({
-	// 					uid: ctrl.contactList[0].uid()
-	// 				});
-	// 			}
-	// 			unbindWatch(); // unbind as we only want one update
-	// 		});
-	// 	}
-	// });
-
-	// //Watch if we have an invalid account
-	// $scope.$watch('ctrl.accountList[0].displayName()', function(displayName) {
-	// 	ctrl.invalid = (displayName === '');
-	// });
-
-	ctrl.hasAccounts = function () {
-		if (!ctrl.accounts) {
-			return false;
-		}
-		return ctrl.accounts.length > 0;
-	};
-
-	ctrl.setSelectedId = function (accountId) {
-		$route.updateParams({
-			uid: accountId
-		});
-	};
-
-	ctrl.getSelectedId = function() {
-		return $routeParams.uid;
-	};
-
-});
-
-angular.module('moneyApp')
+})
 .directive('accountList', function() {
 	return {
-		priority: 1,
-		//restrict: 'EA', // has to be an attribute to work with core css
-		scope: {},
-		controller: 'accountListCtrl',
+		controller: 'accountListController',
 		controllerAs: 'ctrl',
-		bindToController: {},
 		templateUrl: OC.linkTo('money', 'templates/accountList.html')
 	};
 });

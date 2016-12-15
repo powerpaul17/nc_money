@@ -1,9 +1,12 @@
 <div style="height: 90%" class="accounts-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
-        <div class="app-content-list-item"
-			 ng-repeat="account in ctrl.accountList = (ctrl.accounts) as filtered track by account.id"
-			 account data="account"
-			 ng-click=""
-			 ng-class="">
+  <div class="app-content-list-item"
+	     ng-repeat="account in ctrl.accounts as filtered">
+    <a class="app-content-list-item-link" href="#{{account.id}}">
+      <div class="app-content-list-item-icon account__icon" ng-style="{'background-color': ( account.type | accountColor ) }">{{ account.name | firstCharacter }}</div>
+      <div class="app-content-list-item-star icon-star" data-starred="false"></div>
+      <div class="app-content-list-item-line-one" ng-class="{}">{{ account.name }}</div>
+      <div class="app-content-list-item-line-two">{{ account.currencyId }} &nbsp; {{ account }}</div>
+    </a>
 	</div>
 	<div ng-if="filtered.length>0" class="accounts-list-count">
 		{{ getCountString(filtered) }}

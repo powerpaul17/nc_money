@@ -37,6 +37,22 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   */
+  public function getAccount($accountId) {
+    return new DataResponse($this->accountService->find($accountId, $this->userId));
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function updateAccount($accountId, $name, $type, $currencyId) {
+    return $this->accountService->update($accountId, $name, $type, $currencyId, $this->userId);
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
   public function getCurrencies() {
     return new DataResponse($this->currencyService->findAll($this->userId));
   }
