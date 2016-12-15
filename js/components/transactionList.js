@@ -17,5 +17,4 @@ angular.module('moneyApp')
 		controller: 'transactionListController',
 		controllerAs: 'ctrl',
 		templateUrl: OC.linkTo('money', 'templates/transactionList.html')
-	};
 });
