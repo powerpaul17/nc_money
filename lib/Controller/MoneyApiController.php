@@ -8,6 +8,7 @@ use OCP\AppFramework\ApiController;
 
 use OCA\Money\Service\AccountService;
 use OCA\Money\Service\CurrencyService;
+use OCA\Money\Service\TransactionService;
 
 class MoneyApiController extends ApiController {
 
@@ -15,13 +16,15 @@ class MoneyApiController extends ApiController {
 
   private $accountService;
   private $currencyService;
+  private $transactionService;
 
   use Errors;
 
-  public function __construct($AppName, IRequest $request, AccountService $accountService, CurrencyService $currencyService, $UserId) {
+  public function __construct($AppName, IRequest $request, AccountService $accountService, CurrencyService $currencyService, TransactionService $transactionService, $UserId) {
     parent::__construct($AppName, $request);
     $this->accountService = $accountService;
     $this->currencyService = $currencyService;
+    $this->transactionService = $transactionService;
     $this->userId = $UserId;
   }
 
@@ -56,6 +59,15 @@ class MoneyApiController extends ApiController {
   public function getCurrencies() {
     return new DataResponse($this->currencyService->findAll($this->userId));
   }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function getTransactionsForAccount($accountId) {
+    return new DataResponse($this->transactionService->findTransactionsBelongingToAccount($accountId, $this->userId));
+  }
+
 }
 
 ?>

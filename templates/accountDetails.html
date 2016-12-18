@@ -12,14 +12,11 @@
 			<div id="details-account-infos">
 				<h2>
 					<input type="text" id="details-fullName" class="accountdetails__name" placeholder="{{ctrl.t.placeholderName}}" autocomplete="off"
-						   name="fullname" ng-model="ctrl.account.name" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value="" />
+						   name="fullname" ng-model="ctrl.account.name" ng-change="ctrl.updateAccount()" value="" />
 				</h2>
 				<div id="details-org-container">
-					<input type="text" id="details-org" class="accountdetails__org" placeholder="{{ctrl.t.placeholderOrg}}" autocomplete="off"
-						   name="org" ng-model="ctrl.account.org" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value=""
-						   inputresize size="{{ctrl.account.org().length > 1 ? ctrl.account.org().length : '1'}}" />
 					<input type="text" id="details-title" class="accountdetails__title" placeholder="{{ctrl.t.placeholderTitle}}" autocomplete="off"
-						   name="title" ng-model="ctrl.account.title" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value=""
+						   name="title" value=""
 						   inputresize size="{{ctrl.account.title().length > 1 ? ctrl.account.title().length : '1'}}" />
 				</div>
 			</div>
@@ -29,6 +26,25 @@
 			</div>
 		</header>
 		<section>
+			<div id="add-transaction-container">
+				<input type="text" id="" class="" placeholder="Date" autocomplete="off"
+				       name="date" value=""
+							 inputresize size=""
+				/>
+				<input type="text" id="" class="" placeholder="Description" autocomplete="off"
+			 	       name="description" value=""
+							 inputresize size=""
+				/>
+				<input type="text" id="" class="" placeholder="Account" autocomplete="off"
+			 	       name="destination-account" value=""
+			 				 inputresize size=""
+				/>
+				<input type="text" id="" class="" placeholder="Amount" autocomplete="off"
+			 	       name="amount" value=""
+			 				 inputresize size=""
+				/>
+				<button ng-click="ctrl.enterTransaction()" class="icon-download-black" title="Enter"></button>
+			</div>
 			<transaction-list></transaction-list>
 		</section>
 	</div>

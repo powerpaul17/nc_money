@@ -18,3 +18,11 @@ angular.module('moneyApp', ['uuid4', 'angular-cache', 'ngRoute', 'ui.bootstrap',
 	$routeProvider.otherwise('/');
 
 });
+
+angular.module('moneyApp')
+.constant('ACCOUNT_TYPES', [
+	'Assets',
+	'Liabilities',
+	'Income',
+	'Expenses'
+]);

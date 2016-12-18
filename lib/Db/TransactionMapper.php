@@ -21,6 +21,14 @@ class TransactionMapper extends Mapper {
     return $this->findEntities($sql, [$userId]);
   }
 
+
+  /* Testing */
+
+  public function findAllTransactionsBelongingToAccount($userId, $accountId) {
+    $sql = 'SELECT a.id, a.date, a.description, b.value FROM (*PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON ((a.id = b.transaction_id))) WHERE a.user_id = ? AND b.dest_account_id = ?';
+    return $this->findEntities($sql, [$userId, $accountId]);
+  }
+
 }
 
 ?>

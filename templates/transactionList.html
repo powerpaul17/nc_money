@@ -2,10 +2,10 @@
   <div class="app-content-list-item"
 	     ng-repeat="transaction in ctrl.transactions as filtered">
     <a class="app-content-list-item-link" href="#">
-      <div class="app-content-list-item-icon transaction__icon" ng-style="">{{ transaction.name | firstCharacter }}</div>
+      <div class="app-content-list-item-icon transaction__icon" ng-style="">{{ transaction.description | firstCharacter }}</div>
       <div class="app-content-list-item-star icon-star" data-starred="false"></div>
-      <div class="app-content-list-item-line-one" ng-class="{}">{{ transaction.name }}</div>
-      <div class="app-content-list-item-line-two">{{ transaction.name }} &nbsp; {{ transaction }}</div>
+      <div class="app-content-list-item-line-one" ng-class="{}">{{ transaction.description }}</div>
+      <div class="app-content-list-item-line-two">{{ transaction.value }} &nbsp; {{ transaction }}</div>
     </a>
 	</div>
 	<div ng-if="filtered.length>0" class="transactions-list-count">

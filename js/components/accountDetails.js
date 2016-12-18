@@ -35,10 +35,8 @@ angular.module('moneyApp')
 	// });
 
 })
-.directive('accountDetails', function() {
-	return {
+.component('accountDetails', {
 		controller: 'accountDetailsController',
 		controllerAs: 'ctrl',
 		templateUrl: OC.linkTo('money', 'templates/accountDetails.html')
-	};
 });

@@ -21,9 +21,10 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 script('money', 'main');
 script('money', 'filters/accountColor');
 script('money', 'filters/firstCharacter');
+script('money', 'services/account');
 script('money', 'services/search');
 script('money', 'components/accountList');
-script('money', 'components/newAccountButton');
+//script('money', 'components/newAccountButton');
 script('money', 'components/accountDetails');
 script('money', 'components/transactionList');
 
@@ -51,8 +52,23 @@ vendor_style('select2/select2');
 	</div>
 
 	<div id="app-content">
-		<div class="app-content-list">
-			<account-list></account-list>
+		<div class="app-content-list" ng-controller="accountListController as ctrl">
+
+			<div style="height: 90%" class="accounts-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
+			  <div class="app-content-list-item"
+				     ng-repeat="account in ctrl.accounts as filtered">
+			    <a class="app-content-list-item-link" href="#{{account.id}}">
+			      <div class="app-content-list-item-icon account__icon" ng-style="{'background-color': ( account.type | accountColor ) }">{{ account.name | firstCharacter }}</div>
+			      <div class="app-content-list-item-star icon-star" data-starred="false"></div>
+			      <div class="app-content-list-item-line-one" ng-class="{}">{{ account.name }}</div>
+			      <div class="app-content-list-item-line-two">{{ account.currencyId }} &nbsp; {{ account }}</div>
+			    </a>
+				</div>
+				<div ng-if="filtered.length>0" class="accounts-list-count">
+					{{ getCountString(filtered) }}
+				</div>
+			</div>
+
 		</div>
 		<div class="app-content-detail" ng-view></div>
 	</div>

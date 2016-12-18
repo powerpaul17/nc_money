@@ -4,9 +4,11 @@ angular.module('moneyApp')
 	var ctrl = this;
 
 	// Get transactions
-	// $http.get('ajax/get-transactions').then(function(response) {
-	// 	ctrl.transactions = response.data;
-	// });
+	$http.get('ajax/get-transactions-for-account', {
+		'params' : {'accountId': $routeParams.accountId}
+	}).then(function(response) {
+		ctrl.transactions = response.data;
+	});
 
 	$scope.getCountString = function(transactions) {
 		return n('money', '%n transaction', '%n transactions', transactions.length);

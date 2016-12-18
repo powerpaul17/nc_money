@@ -1,9 +1,12 @@
 angular.module('moneyApp')
-.controller('accountListController', function($scope, $http, $route, $routeParams) {
+.controller('accountListController', function($scope, $http, $route, $routeParams, accountService) {
 
 	var ctrl = this;
 
 	// Get accounts
+	// $scope.accounts = accountService.getAccounts().then(function (result) {
+	// 	console.log(result);
+	// });
 	$http.get('ajax/get-accounts').then(function(response) {
 		ctrl.accounts = response.data;
 	});
@@ -13,10 +16,8 @@ angular.module('moneyApp')
 	}
 
 })
-.directive('accountList', function() {
-	return {
+.component('accountList', {
 		controller: 'accountListController',
 		controllerAs: 'ctrl',
 		templateUrl: OC.linkTo('money', 'templates/accountList.html')
-	};
 });
