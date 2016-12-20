@@ -23,7 +23,6 @@ class Transaction extends Entity implements JsonSerializable {
     return [
       'id' => $this->id,
       'description' => $this->description,
-      'currencyId' => $this->currencyId,
       'date' => $this->date,
       'value' => $this->value
     ];

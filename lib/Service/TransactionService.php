@@ -43,32 +43,32 @@ class TransactionService {
     }
   }
 
-  public function findTransactionsBelongingToAccount($accountId, $userId) {
+  public function findTransactionsOfAccount($accountId, $userId) {
     try {
-      return $this->transactionMapper->findAllTransactionsBelongingToAccount($userId, $accountId);
+      return $this->transactionMapper->findAllTransactionsOfAccount($userId, $accountId);
     } catch(Exception $e) {
       $this->handleException($e);
     }
   }
 
-  public function create($description, $date, $userId) {
-    $transaction = new Transaction();
-    $transaction->setUserId($userId);
-    $transaction->setDescription($description);
-    $transaction->setDate($date);
-    return $this->mapper->insert($account);
-  }
-
-  public function update($id, $description, $date, $userId) {
-    try {
-      $transaction = $this->transactionMapper->find($id, $userId);
-      $transaction->setDescription($description);
-      $transaction->setDate($date);
-      return $this->transactionMapper->update($transaction);
-    } catch(Exception $e) {
-      $this->handleException($e);
-    }
-  }
+  // public function create($description, $date, $userId) {
+  //   $transaction = new Transaction();
+  //   $transaction->setUserId($userId);
+  //   $transaction->setDescription($description);
+  //   $transaction->setDate($date);
+  //   return $this->mapper->insert($account);
+  // }
+  //
+  // public function update($id, $description, $date, $userId) {
+  //   try {
+  //     $transaction = $this->transactionMapper->find($id, $userId);
+  //     $transaction->setDescription($description);
+  //     $transaction->setDate($date);
+  //     return $this->transactionMapper->update($transaction);
+  //   } catch(Exception $e) {
+  //     $this->handleException($e);
+  //   }
+  // }
 
 }
 

@@ -9,6 +9,7 @@ use OCP\AppFramework\ApiController;
 use OCA\Money\Service\AccountService;
 use OCA\Money\Service\CurrencyService;
 use OCA\Money\Service\TransactionService;
+use OCA\Money\Service\SplitService;
 
 class MoneyApiController extends ApiController {
 
@@ -17,14 +18,16 @@ class MoneyApiController extends ApiController {
   private $accountService;
   private $currencyService;
   private $transactionService;
+  private $splitService;
 
   use Errors;
 
-  public function __construct($AppName, IRequest $request, AccountService $accountService, CurrencyService $currencyService, TransactionService $transactionService, $UserId) {
+  public function __construct($AppName, IRequest $request, AccountService $accountService, CurrencyService $currencyService, TransactionService $transactionService, SplitService $splitService, $UserId) {
     parent::__construct($AppName, $request);
     $this->accountService = $accountService;
     $this->currencyService = $currencyService;
     $this->transactionService = $transactionService;
+    $this->splitService = $splitService;
     $this->userId = $UserId;
   }
 
@@ -65,7 +68,15 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getTransactionsForAccount($accountId) {
-    return new DataResponse($this->transactionService->findTransactionsBelongingToAccount($accountId, $this->userId));
+    return new DataResponse($this->transactionService->findTransactionsOfAccount($accountId, $this->userId));
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function getSplitsForTransaction($transactionId) {
+    return new DataResponse($this->splitService->findSplitsOfTransaction($transactionId, $this->userId));
   }
 
 }

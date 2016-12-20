@@ -464,7 +464,8 @@ ul.addressBook-share-list li {
 }
 
 /* styling for account count in account list */
-.accounts-list-count {
+.accounts-list-count,
+.transactions-list-count {
 	text-align:center;
 	color: #333;
 	padding:25px;
@@ -534,7 +535,8 @@ detailsitem .select2-container {
 	}
 
 	.wrapper-show:not(.mobile-show),
-	.accounts-list:not(.mobile-show) {
+	.accounts-list:not(.mobile-show),
+	.transactions-list:not(.mobile-show) {
 		display: none;
 	}
 
