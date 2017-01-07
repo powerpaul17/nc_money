@@ -1,0 +1,6 @@
+<a class="app-content-list-item-link" ng-click="ctrl.openAccount()">
+  <div class="app-content-list-item-icon account__icon" ng-style="{'background-color': ( ctrl.account.type | accountColor ) }">{{ ctrl.account.name | firstCharacter }}</div>
+  <div class="app-content-list-item-star icon-star" data-starred="false"></div>
+  <div class="app-content-list-item-line-one" ng-class="{}">{{ ctrl.account.name }}</div>
+  <div class="app-content-list-item-line-two">{{ ctrl.account.currencyId }} &nbsp; {{ ctrl.account }}</div>
+</a>

@@ -11,18 +11,24 @@
 angular.module('moneyApp', ['uuid4', 'angular-cache', 'ngRoute', 'ui.bootstrap', 'ui.select', 'ngSanitize', 'ngclipboard'])
 .config(function($routeProvider) {
 
-	$routeProvider.when('/:accountId', {
+	$routeProvider.when('/:tid', {
 		template: '<account-details></account-details>'
 	});
 
-	$routeProvider.otherwise('/');
+	$routeProvider.when('/:tid/:aid', {
+		template: '<account-details></account-details>'
+	});
+
+	$routeProvider.otherwise({redirectTo: '/'});
 
 });
+
+// Account type constants (service)
 
 angular.module('moneyApp')
 .constant('ACCOUNT_TYPES', [
 	'Assets',
 	'Liabilities',
-	'Income',
+	'Incomes',
 	'Expenses'
 ]);
