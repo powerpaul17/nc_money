@@ -51,8 +51,16 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   */
-  public function updateAccount($accountId, $name, $type, $currencyId) {
-    return $this->accountService->update($accountId, $name, $type, $currencyId, $this->userId);
+  public function updateAccount($id, $name, $type, $currencyId, $description) {
+    return $this->accountService->update($id, $name, $type, $currencyId, $description, $this->userId);
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function addAccount($name, $type, $currencyId, $description) {
+    return $this->accountService->create($name, $type, $currencyId, $description, $this->userId);
   }
 
   /**
@@ -75,8 +83,53 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   */
+  public function updateTransaction($id, $description, $timestamp) {
+    return $this->transactionService->update($id, $description, $timestamp, $this->userId);
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $timestamp, $description) {
+    $newTransaction = $this->transactionService->create($description, $timestamp, $this->userId);
+
+    $this->splitService->create($newTransaction->id, $destAccountId, $value/$convertRate, $convertRate, $timestamp, $description, $this->userId);
+    $this->splitService->create($newTransaction->id, $srcAccountId, -$value, 1, $timestamp, $description, $this->userId);
+
+    return $newTransaction;
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function addSplitTransaction() {
+    // TODO
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
   public function getSplitsForTransaction($transactionId) {
     return new DataResponse($this->splitService->findSplitsOfTransaction($transactionId, $this->userId));
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function updateSplit($id, $transactionId, $destAccountId, $value, $convertRate, $timestamp, $description) {
+    return $this->splitService->update($id, $transactionId, $destAccountId, $value, $convertRate, $timestamp, $description, $this->userId);
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function addSplit($transactionId, $destAccountId, $value, $convertRate, $timestamp, $description) {
+    return $this->splitService->create($transactionId, $destAccountId, $value, $convertRate, $timestamp, $description, $this->userId);
   }
 
 }

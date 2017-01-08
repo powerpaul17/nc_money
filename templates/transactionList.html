@@ -1,0 +1,9 @@
+<div class="transactions-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
+  <div class="app-content-list-item"
+       ng-repeat="transaction in ctrl.transactionList = (ctrl.transactions) as filtered track by transaction.id"
+       transaction-list-item data="transaction"
+       ng-click="setSelected(transaction.id)"
+       ng-class="{active: transaction.id === ctrl.getSelectedId()}"
+  >
+  </div>
+</div>

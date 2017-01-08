@@ -23,11 +23,14 @@ script('money', 'filters/accountColor');
 script('money', 'filters/firstCharacter');
 script('money', 'filters/accountType');
 script('money', 'services/account');
+script('money', 'services/transaction');
 //script('money', 'services/search');
 script('money', 'components/accountTypesList');
 script('money', 'components/accountType');
 script('money', 'components/accountList');
 script('money', 'components/accountListItem');
+script('money', 'components/accountDetails');
+script('money', 'components/transactionList');
 
 // all styles
 style('money', 'public/style');

@@ -10,7 +10,7 @@ class Transaction extends Entity implements JsonSerializable {
 
   protected $description;
   protected $currencyId;
-  protected $date;
+  protected $timestamp;
   protected $value;
   protected $userId;
 
@@ -23,7 +23,7 @@ class Transaction extends Entity implements JsonSerializable {
     return [
       'id' => $this->id,
       'description' => $this->description,
-      'date' => $this->date,
+      'timestamp' => $this->timestamp,
       'value' => $this->value
     ];
   }

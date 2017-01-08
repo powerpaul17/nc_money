@@ -35,6 +35,13 @@
         <length>10</length>
       </field>
       <field>
+        <name>description</name>
+        <type>text</type>
+        <length>200</length>
+        <default></default>
+        <notnull>false</notnull>
+      </field>
+      <field>
         <name>user_id</name>
         <type>text</type>
         <length>200</length>
@@ -61,15 +68,8 @@
         <length>150</length>
       </field>
       <field>
-        <name>currency_id</name>
-        <type>integer</type>
-        <unsigned>1</unsigned>
-        <notnull>true</notnull>
-        <length>10</length>
-      </field>
-      <field>
-        <name>date</name>
-        <type>date</type>
+        <name>timestamp</name>
+        <type>timestamp</type>
         <notnull>true</notnull>
       </field>
       <field>
@@ -121,8 +121,8 @@
         <default>1</default>
       </field>
       <field>
-        <name>date</name>
-        <type>date</type>
+        <name>timestamp</name>
+        <type>timestamp</type>
         <notnull>true</notnull>
       </field>
       <field>

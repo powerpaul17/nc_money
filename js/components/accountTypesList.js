@@ -12,6 +12,11 @@ angular.module('moneyApp')
 		$routeParams.tid = selectedType;
 	};
 
+	ctrl.showUnbalanced = function() {
+		$routeParams.tid = 'Unbalanced';
+		$routeParams.aid = undefined;
+	};
+
 });
 
 angular.module('moneyApp')

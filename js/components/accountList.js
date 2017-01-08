@@ -10,34 +10,52 @@ angular.module('moneyApp')
 
   ctrl.loading = true;
 
-  // AccountService.registerObserverCallback(function(ev) {
-  //   $scope.$apply(function() {
-  //     if (ev.event === 'delete') {
-  //       if (ctrl.accountList.length === 1) {
-  //         $route.updateParams({
-  //           tid: $routeParams.tid,
-  //           aid: undefined
-  //         });
-  //       } else {
-  //         for (var i = 0, length = ctrl.accountList.length; i < length; i++) {
-  //           if (ctrl.accountList[i].id() === ev.aid) {
-  //             $route.updateParams({
-  //               tid: $routeParams.tid,
-  //               aid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].id() : ctrl.accountList[i-1].id()
-  //             });
-  //             break;
-  //           }
-  //         }
-  //       }
-  //     } else if (ev.event === 'create') {
-  //       $route.updateParams({
-  //         tid: $routeParams.tid,
-  //         aid: ev.aid
-  //       });
-  //     }
-  //     ctrl.accounts = ev.accounts;
-  //   });
-  // });
+  // Reflect account changes in accountList
+  AccountService.registerObserverCallback(function(ev) {
+    // $scope.$apply(function() {
+      if (ev.event === 'delete') {
+        if (ctrl.accountList.length === 1) {
+          $route.updateParams({
+            tid: $routeParams.tid,
+            aid: undefined
+          });
+        } else {
+          for (var i = 0, length = ctrl.accountList.length; i < length; i++) {
+            if (ctrl.accountList[i].id() === ev.aid) {
+              $route.updateParams({
+                tid: $routeParams.tid,
+                aid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].id() : ctrl.accountList[i-1].id()
+              });
+              break;
+            }
+          }
+        }
+        for (var i = 0; i < ctrl.accounts.length; i++) {
+          if (ctrl.accounts[i].id === ev.aid) {
+            ctrl.accounts.splice(i,1);
+          }
+        }
+      } else if (ev.event === 'create') {
+        $route.updateParams({
+          tid: $routeParams.tid,
+          aid: ev.aid
+        });
+        AccountService.getById(ev.aid).then(function(account) {
+          ctrl.accounts.push(account);
+        });
+      } else if (ev.event === 'update') {
+        ctrl.newAccount = 0;
+        AccountService.getById(ev.aid).then(function(account) {
+          ctrl.newAccount = account;
+          for (var i = 0; i < ctrl.accounts.length; i++) {
+            if (ctrl.accounts[i].id === ev.aid) {
+              ctrl.accounts[i] = ctrl.newAccount;
+            }
+          }
+        });
+      }
+    // });
+  });
 
   // Get accounts
   AccountService.getAccounts().then(function(accounts) {

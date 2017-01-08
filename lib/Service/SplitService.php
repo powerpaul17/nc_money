@@ -7,19 +7,14 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-//use OCA\Money\Db\Transaction;
-//use OCA\Money\Db\TransactionMapper;
 use OCA\Money\Db\Split;
 use OCA\Money\Db\SplitMapper;
 
 class SplitService {
 
-  //private $transactionMapper;
   private $splitMapper;
 
-  //public function __construct(TransactionMapper $transactionMapper, SplitMapper $splitMapper) {
   public function __construct(SplitMapper $splitMapper) {
-    //$this->transactionMapper = $transactionMapper;
     $this->splitMapper = $splitMapper;
   }
 
@@ -52,12 +47,12 @@ class SplitService {
     }
   }
 
-  public function create($description, $date, $transactionId, $destAccountId, $convertRate, $value, $userId) {
+  public function create($transactionId, $destAccountId, $value, $convertRate, $timestamp, $description, $userId) {
     $split = new Split();
     $split->setUserId($userId);
 
     $split->setDescription($description);
-    $split->setDate($date);
+    $split->setTimestamp($timestamp);
     $split->setTransactionId($transactionId);
     $split->setDestAccountId($destAccountId);
     $split->convertRate($convertRate);
@@ -66,17 +61,17 @@ class SplitService {
     return $this->splitMapper->insert($split);
   }
 
-  public function update($id, $description, $date, $transactionId, $destAccountId, $convertRate, $value, $userId) {
+  public function update($id, $transactionId, $destAccountId, $value, $convertRate, $timestamp, $description, $userId) {
     try {
       $split = $this->splitMapper->find($id, $userId);
 
       $split->setDescription($description);
-      $split->setDate($date);
+      $split->setTimestamp($timestamp);
       $split->setTransactionId($transactionId);
       $split->setDestAccountId($destAccountId);
       $split->convertRate($convertRate);
       $split->value($value);
-      
+
       return $this->splitMapper->update($split);
     } catch(Exception $e) {
       $this->handleException($e);

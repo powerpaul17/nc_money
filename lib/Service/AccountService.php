@@ -39,21 +39,23 @@ class AccountService {
     }
   }
 
-  public function create($name, $type, $currencyId, $userId) {
+  public function create($name, $type, $currencyId, $description, $userId) {
     $account = new Account();
     $account->setName($name);
     $account->setType($type);
     $account->setCurrencyId($currencyId);
+    $account->setDescription($description);
     $account->setUserId($userId);
     return $this->mapper->insert($account);
   }
 
-  public function update($id, $name, $type, $currencyId, $userId) {
+  public function update($id, $name, $type, $currencyId, $description, $userId) {
     try {
       $account = $this->mapper->find($id, $userId);
       $account->setName($name);
       $account->setType($type);
       $account->setCurrencyId($currencyId);
+      $account->setDescription($description);
       return $this->mapper->update($account);
     } catch(Exception $e) {
       $this->handleException($e);

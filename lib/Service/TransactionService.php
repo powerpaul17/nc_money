@@ -9,17 +9,13 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use OCA\Money\Db\Transaction;
 use OCA\Money\Db\TransactionMapper;
-use OCA\Money\Db\Split;
-use OCA\Money\Db\SplitMapper;
 
 class TransactionService {
 
   private $transactionMapper;
-  private $splitMapper;
 
-  public function __construct(TransactionMapper $transactionMapper, SplitMapper $splitMapper) {
+  public function __construct(TransactionMapper $transactionMapper) {
     $this->transactionMapper = $transactionMapper;
-    $this->splitMapper = $splitMapper;
   }
 
   public function findAll($userId) {
@@ -51,24 +47,28 @@ class TransactionService {
     }
   }
 
-  // public function create($description, $date, $userId) {
-  //   $transaction = new Transaction();
-  //   $transaction->setUserId($userId);
-  //   $transaction->setDescription($description);
-  //   $transaction->setDate($date);
-  //   return $this->mapper->insert($account);
-  // }
-  //
-  // public function update($id, $description, $date, $userId) {
-  //   try {
-  //     $transaction = $this->transactionMapper->find($id, $userId);
-  //     $transaction->setDescription($description);
-  //     $transaction->setDate($date);
-  //     return $this->transactionMapper->update($transaction);
-  //   } catch(Exception $e) {
-  //     $this->handleException($e);
-  //   }
-  // }
+  public function create($description, $timestamp, $userId) {
+    $transaction = new Transaction();
+    $transaction->setUserId($userId);
+
+    $transaction->setDescription($description);
+    $transaction->setTimestamp($timestamp);
+
+    return $this->transactionMapper->insert($transaction);
+  }
+
+  public function update($id, $description, $timestamp, $userId) {
+    try {
+      $transaction = $this->transactionMapper->find($id, $userId);
+
+      $transaction->setDescription($description);
+      $transaction->setTimestamp($timestamp);
+
+      return $this->transactionMapper->update($transaction);
+    } catch(Exception $e) {
+      $this->handleException($e);
+    }
+  }
 
 }
 
