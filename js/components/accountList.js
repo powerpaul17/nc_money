@@ -4,6 +4,7 @@ angular.module('moneyApp')
 
   ctrl.routeParams = $routeParams;
 
+  ctrl.accounts = [];
   ctrl.accountList = [];
   ctrl.show = true;
   ctrl.invalid = false;
@@ -21,7 +22,7 @@ angular.module('moneyApp')
           });
         } else {
           for (var i = 0, length = ctrl.accountList.length; i < length; i++) {
-            if (ctrl.accountList[i].id() === ev.aid) {
+            if (ctrl.accountList[i].id() === ev.accountId) {
               $route.updateParams({
                 tid: $routeParams.tid,
                 aid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].id() : ctrl.accountList[i-1].id()
@@ -31,24 +32,24 @@ angular.module('moneyApp')
           }
         }
         for (var i = 0; i < ctrl.accounts.length; i++) {
-          if (ctrl.accounts[i].id === ev.aid) {
+          if (ctrl.accounts[i].id === ev.accountId) {
             ctrl.accounts.splice(i,1);
           }
         }
       } else if (ev.event === 'create') {
         $route.updateParams({
           tid: $routeParams.tid,
-          aid: ev.aid
+          aid: ev.accountId
         });
-        AccountService.getById(ev.aid).then(function(account) {
+        AccountService.getById(ev.accountId).then(function(account) {
           ctrl.accounts.push(account);
         });
       } else if (ev.event === 'update') {
         ctrl.newAccount = 0;
-        AccountService.getById(ev.aid).then(function(account) {
+        AccountService.getById(ev.accountId).then(function(account) {
           ctrl.newAccount = account;
           for (var i = 0; i < ctrl.accounts.length; i++) {
-            if (ctrl.accounts[i].id === ev.aid) {
+            if (ctrl.accounts[i].id === ev.accountId) {
               ctrl.accounts[i] = ctrl.newAccount;
             }
           }

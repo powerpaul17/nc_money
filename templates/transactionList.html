@@ -1,9 +1,41 @@
+<form ng-submit="ctrl.submitTransaction()">
+  <table>
+    <tr>
+      <td></td>
+      <td>
+        <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderTimestamp}}" autocomplete="off" autocorrect="off" spellcheck="false"
+               name="timestamp" ng-model="ctrl.newTransaction.timestamp" value="" />
+      </td>
+      <td>
+        <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
+               name="description" ng-model="ctrl.newTransaction.description" value="" />
+      </td>
+      <td>
+        <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDestAccount}}" autocomplete="off" autocorrect="off" spellcheck="false"
+               name="destAccount" ng-model="ctrl.newTransaction.destAccountId" value="" />
+      </td>
+      <td>
+        <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
+               name="value" ng-model="ctrl.newTransaction.value" value="" />
+      </td>
+      <td>
+        <input type="submit" value="" class="submitTransaction icon-confirm action pull-right" />
+      </td>
+    </tr>
+  </table>
+</form>
 <div class="transactions-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
   <div class="app-content-list-item"
-       ng-repeat="transaction in ctrl.transactionList = (ctrl.transactions) as filtered track by transaction.id"
+       ng-repeat="transaction in ctrl.transactionList = (ctrl.transactions | orderBy: 'timestamp') as filtered track by transaction.id"
        transaction-list-item data="transaction"
        ng-click="setSelected(transaction.id)"
        ng-class="{active: transaction.id === ctrl.getSelectedId()}"
   >
+    <a class="app-content-list-item-link" ng-click="ctrl.openTransaction()">
+      <div class="app-content-list-item-icon account__icon" ng-style="{'background-color': ( transaction.id | accountColor ) }">{{ transaction.description | firstCharacter }}</div>
+      <div class="app-content-list-item-star icon-star" data-starred="false">{{ transaction.value }}</div>
+      <div class="app-content-list-item-line-one" ng-class="{}">{{ transaction.description }}</div>
+      <div class="app-content-list-item-line-two">{{ transaction.timestamp }} &nbsp; {{ transaction.destAccountId }}</div>
+    </a>
   </div>
 </div>

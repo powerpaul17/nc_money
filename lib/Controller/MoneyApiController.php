@@ -83,6 +83,14 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   */
+  public function getTransaction($transactionId) {
+    return new DataResponse($this->transactionService->find($transactionId, $this->userId));
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
   public function updateTransaction($id, $description, $timestamp) {
     return $this->transactionService->update($id, $description, $timestamp, $this->userId);
   }

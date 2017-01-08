@@ -55,8 +55,8 @@ class SplitService {
     $split->setTimestamp($timestamp);
     $split->setTransactionId($transactionId);
     $split->setDestAccountId($destAccountId);
-    $split->convertRate($convertRate);
-    $split->value($value);
+    $split->setConvertRate($convertRate);
+    $split->setValue($value);
 
     return $this->splitMapper->insert($split);
   }
@@ -69,8 +69,8 @@ class SplitService {
       $split->setTimestamp($timestamp);
       $split->setTransactionId($transactionId);
       $split->setDestAccountId($destAccountId);
-      $split->convertRate($convertRate);
-      $split->value($value);
+      $split->setConvertRate($convertRate);
+      $split->setValue($value);
 
       return $this->splitMapper->update($split);
     } catch(Exception $e) {

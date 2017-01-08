@@ -9,10 +9,10 @@ angular.module('moneyApp')
     observerCallbacks.push(callback);
   };
 
-  var notifyObservers = function(eventname, aid) {
+  var notifyObservers = function(eventname, accountId) {
     var ev = {
       event: eventname,
-      aid: aid
+      accountId: accountId
     };
     angular.forEach(observerCallbacks, function(callback) {
       callback(ev);
@@ -25,7 +25,6 @@ angular.module('moneyApp')
   	});
   };
 
-  // TODO
   ctrl.getById = function(aid) {
     return $http.get('ajax/get-account', {
       params: {
@@ -39,6 +38,12 @@ angular.module('moneyApp')
   ctrl.update = function(account) {
     return $http.put('ajax/update-account', account).then(function(response) {
       notifyObservers('update', account.id);
+    });
+  };
+
+  ctrl.create = function(account) {
+    return $http.post('ajax/add-account', account).then(function(response) {
+      notifyObservers('create', response.data.id)
     });
   };
 
