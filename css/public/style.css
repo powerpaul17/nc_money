@@ -159,13 +159,13 @@ avatar.avatar--missing .avatar-upload {
 	padding: 20px 20px 100px;
 }
 
-@media screen and (min-width: 1450px) {
+/* @media screen and (min-width: 1450px) {
 	section {
 		-webkit-column-count: 2; /* Chrome, Safari, Opera */
-		-moz-column-count: 2; /* Firefox */
-		column-count: 2;
+/*		-moz-column-count: 2; /* Firefox */
+/*		column-count: 2;
 	}
-}
+}*/
 
 /* General details item styles */
 
@@ -399,10 +399,8 @@ li.addressBook-share-item span.shareeIdentifier {
 }
 
 .app-content-list-item-icon {
-	position: absolute;
+	margin: 10px;
 	display: inline-block;
-	left: 6px;
-	top: 14px;
 }
 
 .app-content-list-item-star {
@@ -421,7 +419,6 @@ li.addressBook-share-item span.shareeIdentifier {
 	display: inline-block;
 	width: 100%;
 	padding: 12px;
-	padding-left: 50px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -535,8 +532,7 @@ detailsitem .select2-container {
 	}
 
 	.wrapper-show:not(.mobile-show),
-	.accounts-list:not(.mobile-show),
-	.transactions-list:not(.mobile-show) {
+	.accounts-list:not(.mobile-show) {
 		display: none;
 	}
 
@@ -593,4 +589,40 @@ detailsitem .select2-container {
 	top: 1px;
 	background-color: white;
 	border: none;
-}*/
+}
+
+/* transaction list */
+
+.transaction-list {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+/* transaction list item */
+
+.transaction-list-item td {
+	border: 1px solid #ddd;
+	padding: 5px;
+	/*height: 68px;*/
+	/*margin-top: 5px;*/
+	/*margin-bottom: 5px;*/
+}
+
+.transaction-list-item-link {
+	display: block;
+	height: 100%;
+	padding: 10px;
+}
+
+.transaction-list-item-date,
+.transaction-list-item-description,
+.transaction-list-item-destination-account,
+.transaction-list-item-value {
+	/*display: inline-block;*/
+	/*width: 24%;*/
+	vertical-align: middle;
+}
+
+.transaction-list-item-value {
+	font-size: 1.5em;
+}

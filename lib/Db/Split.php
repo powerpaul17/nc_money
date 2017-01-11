@@ -12,7 +12,6 @@ class Split extends Entity implements JsonSerializable {
   protected $destAccountId;
   protected $value;
   protected $convertRate;
-  protected $timestamp;
   protected $description;
   protected $userId;
 
@@ -31,7 +30,6 @@ class Split extends Entity implements JsonSerializable {
       'destAccountId' => $this->destAccountId,
       'value' => $this->value,
       'convertRate' => $this->convertRate,
-      'timestamp' => $this->timestamp,
       'description' => $this->description
     ];
   }

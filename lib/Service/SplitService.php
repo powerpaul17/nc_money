@@ -47,12 +47,11 @@ class SplitService {
     }
   }
 
-  public function create($transactionId, $destAccountId, $value, $convertRate, $timestamp, $description, $userId) {
+  public function create($transactionId, $destAccountId, $value, $convertRate, $description, $userId) {
     $split = new Split();
     $split->setUserId($userId);
 
     $split->setDescription($description);
-    $split->setTimestamp($timestamp);
     $split->setTransactionId($transactionId);
     $split->setDestAccountId($destAccountId);
     $split->setConvertRate($convertRate);
@@ -61,12 +60,11 @@ class SplitService {
     return $this->splitMapper->insert($split);
   }
 
-  public function update($id, $transactionId, $destAccountId, $value, $convertRate, $timestamp, $description, $userId) {
+  public function update($id, $transactionId, $destAccountId, $value, $convertRate, $description, $userId) {
     try {
       $split = $this->splitMapper->find($id, $userId);
 
       $split->setDescription($description);
-      $split->setTimestamp($timestamp);
       $split->setTransactionId($transactionId);
       $split->setDestAccountId($destAccountId);
       $split->setConvertRate($convertRate);

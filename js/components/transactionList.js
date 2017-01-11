@@ -1,16 +1,22 @@
 angular.module('moneyApp')
-.controller('transactionListCtrl', function(TransactionService) {
+.controller('transactionListCtrl', function(TransactionService, AccountService) {
   var ctrl = this;
 
   ctrl.transactions = [];
   ctrl.transactionList = [];
+
+  ctrl.availableAccounts = [];
+
+  AccountService.getAccounts().then(function(accounts) {
+    ctrl.availableAccounts = _.unique(accounts);
+  });
 
   ctrl.loading = true;
 
   ctrl.t = {
     noTransactions : t('money', 'No transactions.'),
     placeholderDestAccount : t('money', 'Destination Account'),
-    placeholderTimestamp : t('money', 'Date/Time'),
+    placeholderDate : t('money', 'Date'),
     placeholderDescription : t('money', 'Description'),
     placeholderValue : t('money', 'Value'),
   };
@@ -18,7 +24,7 @@ angular.module('moneyApp')
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
-      TransactionService.getById(ev.transactionId).then(function(transaction) {
+      TransactionService.getTransactionById(ev.transactionId).then(function(transaction) {
         ctrl.transactions.push(transaction);
       });
     }
@@ -37,7 +43,7 @@ angular.module('moneyApp')
   });
 
   ctrl.submitTransaction = function() {
-    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, ctrl.newTransaction.value, 1, ctrl.newTransaction.timestamp, ctrl.newTransaction.description);
+    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, ctrl.newTransaction.value, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
   };
 
 });

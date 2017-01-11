@@ -29,7 +29,7 @@ angular.module('moneyApp')
   	});
   };
 
-  ctrl.getById = function(transactionId) {
+  ctrl.getTransactionById = function(transactionId) {
     return $http.get('ajax/get-transaction', {
       params: {
         transactionId: transactionId
@@ -39,14 +39,14 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.create = function(srcAccountId, destAccountId, value, convertRate, timestamp, description) {
-    // API: addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $timestamp, $description)
+  ctrl.create = function(srcAccountId, destAccountId, value, convertRate, date, description) {
+    // API: addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description)
     return $http.post('ajax/add-simple-transaction', {
       srcAccountId: srcAccountId,
       destAccountId: destAccountId,
       value: value,
       convertRate: convertRate,
-      timestamp: timestamp,
+      date: date,
       description: description
     }).then(function(response) {
       notifyObservers('create', response.data.id);

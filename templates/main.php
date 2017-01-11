@@ -31,6 +31,7 @@ script('money', 'components/accountList');
 script('money', 'components/accountListItem');
 script('money', 'components/accountDetails');
 script('money', 'components/transactionList');
+script('money', 'components/transactionListItem');
 
 // all styles
 style('money', 'public/style');

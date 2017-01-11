@@ -41,12 +41,12 @@ angular.module('moneyApp')
           tid: $routeParams.tid,
           aid: ev.accountId
         });
-        AccountService.getById(ev.accountId).then(function(account) {
+        AccountService.getAccountById(ev.accountId).then(function(account) {
           ctrl.accounts.push(account);
         });
       } else if (ev.event === 'update') {
         ctrl.newAccount = 0;
-        AccountService.getById(ev.accountId).then(function(account) {
+        AccountService.getAccountById(ev.accountId).then(function(account) {
           ctrl.newAccount = account;
           for (var i = 0; i < ctrl.accounts.length; i++) {
             if (ctrl.accounts[i].id === ev.accountId) {

@@ -5,6 +5,12 @@ angular.module('moneyApp')
   ctrl.loading = true;
   ctrl.show = false;
 
+  ctrl.availableCurrencies = [];
+
+  AccountService.getCurrencies().then(function(currencies) {
+    ctrl.availableCurrencies = _.unique(currencies);
+  });
+
   ctrl.closeAccount = function() {
     $route.updateParams({
       tid: $routeParams.tid,
@@ -14,7 +20,7 @@ angular.module('moneyApp')
     ctrl.account = undefined;
   }
 
-  ctrl.aid = $routeParams.aid;
+  ctrl.accountId = $routeParams.aid;
 
   ctrl.t = {
     noAccount : t('money', 'No account opened.'),
@@ -22,20 +28,21 @@ angular.module('moneyApp')
     placeholderCurrency : t('money', 'Currency'),
     placeholderDescription : t('money', 'Description'),
     download : t('money', 'Download'),
-    delete : t('money', 'Delete')
+    delete : t('money', 'Delete'),
+    newCurrency: t('money', 'New currency'),
   };
 
-  $scope.$watch('ctrl.aid', function(newValue) {
+  $scope.$watch('ctrl.accountId', function(newValue) {
     ctrl.changeAccount(newValue);
   });
 
-  ctrl.changeAccount = function(aid) {
-    if (typeof aid === 'undefined') {
+  ctrl.changeAccount = function(accountId) {
+    if (typeof accountId === 'undefined') {
       ctrl.show = false;
       $('#app-navigation-toggle').removeClass('showdetails');
       return;
     }
-    AccountService.getById(aid).then(function(account) {
+    AccountService.getAccountById(accountId).then(function(account) {
       if (angular.isUndefined(account)) {
         ctrl.closeAccount();
         return;

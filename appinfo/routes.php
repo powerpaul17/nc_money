@@ -27,7 +27,7 @@ return [
     ['name' => 'money_api#get_splits_for_transaction', 'url' => '/ajax/get-splits-for-transaction', 'verb' => 'GET'],
     ['name' => 'money_api#update_split', 'url' => '/ajax/update-split', 'verb' => 'PUT'],
     ['name' => 'money_api#add_split', 'url' => '/ajax/add-split', 'verb' => 'POST'],
-    //    ['name' => 'money_api#get_currencies', 'url' => '/ajax/get-currencies', 'verb' => 'GET'],
+    ['name' => 'money_api#get_account_balance', 'url' => '/ajax/get-account-balance', 'verb' => 'GET'],
 //    ['name' => 'money_api#preflighted_cors', 'url' => '/api/v0.1/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')],
   ]
 ];

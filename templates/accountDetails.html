@@ -15,9 +15,12 @@
 						   name="name" ng-model="ctrl.account.name" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value="" />
 				</h2>
 				<div id="details-org-container">
-					<input type="text" id="details-currency" class="accountdetails__currency" placeholder="{{ctrl.t.placeholderCurrency}}" autocomplete="off" autocorrect="off" spellcheck="false"
-						   name="currency" ng-model="ctrl.account.currency" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value=""
-               inputresize size="{{ctrl.account.currency.length > 1 ? ctrl.account.currency.length : '1'}}" />
+					<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging>
+		 	      <ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
+		 	      <ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
+		 	        <span ng-bind-html="currency | highlight: $select.search"></span>
+		 	      </ui-select-choices>
+		 	    </ui-select>
 					<input type="text" id="details-description" class="accountdetails__description" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
 						   name="description" ng-model="ctrl.account.description" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value=""
                inputresize size="{{ctrl.account.description.length > 1 ? ctrl.account.description.length : '1'}}" />

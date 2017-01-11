@@ -8,7 +8,7 @@ angular.module('moneyApp')
     var filter = [];
     if (accounts.length > 0) {
       for (var i = 0; i < accounts.length; i++) {
-        if (ACCOUNT_TYPES.indexOf(type) === accounts[i].type) {
+        if (ACCOUNT_TYPES.indexOf(type) === parseInt(accounts[i].type)) {
           filter.push(accounts[i]);
         }
       }

@@ -1,0 +1,7 @@
+<!-- <a class="transaction-list-item-link" ng-click="ctrl.openTransaction()"> -->
+  <td class="transaction-list-item-date">{{ ctrl.transaction.date }}</td>
+  <td class="transaction-list-item-description" ng-class="{}">{{ ctrl.transaction.description }}</td>
+  <td class="transaction-list-item-destination-account">{{ ctrl.transaction.destAccountId }} &nbsp; {{ ctrl.transaction.destAccountId }}</td>
+  <td class="transaction-list-item-value">{{ ctrl.transaction.value > 0 ? ctrl.transaction.value : "" }}</td>
+  <td class="transaction-list-item-value">{{ ctrl.transaction.value < 0 ? -ctrl.transaction.value : "" }}</td>
+<!-- </a> -->

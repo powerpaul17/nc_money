@@ -2,5 +2,5 @@
   <div class="app-content-list-item-icon account__icon" ng-style="{'background-color': ( ctrl.account.id | accountColor ) }">{{ ctrl.account.name | firstCharacter }}</div>
   <div class="app-content-list-item-star icon-star" data-starred="false"></div>
   <div class="app-content-list-item-line-one" ng-class="{}">{{ ctrl.account.name }}</div>
-  <div class="app-content-list-item-line-two">{{ ctrl.account.currencyId }} &nbsp; {{ ctrl.account.description }}</div>
+  <div class="app-content-list-item-line-two">{{ ctrl.account.balance }} &nbsp; {{ ctrl.account.currency }} - {{ ctrl.account.description }}</div>
 </a>

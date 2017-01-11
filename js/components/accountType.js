@@ -1,6 +1,9 @@
 angular.module('moneyApp')
-.controller('accountTypeCtrl', function() {
+.controller('accountTypeCtrl', function(AccountService) {
   var ctrl = this;
+
+  ctrl.balance = AccountService.getAccountTypeBalance(ctrl.type);
+
 });
 
 angular.module('moneyApp')

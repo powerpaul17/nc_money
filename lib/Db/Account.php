@@ -10,13 +10,12 @@ class Account extends Entity implements JsonSerializable {
 
   protected $name;
   protected $type;
-  protected $currencyId;
+  protected $currency;
   protected $description;
   protected $userId;
 
   public function __construct() {
     $this->addType('type', 'integer');
-    $this->addType('currencyId', 'integer');
   }
 
   public function jsonSerialize() {
@@ -24,7 +23,7 @@ class Account extends Entity implements JsonSerializable {
       'id' => $this->id,
       'name' => $this->name,
       'type' => $this->type,
-      'currencyId' => $this->currencyId,
+      'currency' => $this->currency,
       'description' => $this->description
     ];
   }

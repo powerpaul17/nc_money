@@ -47,22 +47,23 @@ class TransactionService {
     }
   }
 
-  public function create($description, $timestamp, $userId) {
+  public function create($description, $date, $userId) {
     $transaction = new Transaction();
     $transaction->setUserId($userId);
 
     $transaction->setDescription($description);
-    $transaction->setTimestamp($timestamp);
+    $transaction->setDate($date);
+    $transaction->setTimestampAdded(date('Y-m-d H:i:s'));
 
     return $this->transactionMapper->insert($transaction);
   }
 
-  public function update($id, $description, $timestamp, $userId) {
+  public function update($id, $description, $date, $userId) {
     try {
       $transaction = $this->transactionMapper->find($id, $userId);
 
       $transaction->setDescription($description);
-      $transaction->setTimestamp($timestamp);
+      $transaction->setDate($date);
 
       return $this->transactionMapper->update($transaction);
     } catch(Exception $e) {

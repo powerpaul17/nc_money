@@ -28,8 +28,8 @@
         <notnull>true</notnull>
       </field>
       <field>
-        <name>currency_id</name>
-        <type>integer</type>
+        <name>currency</name>
+        <type>text</type>
         <unsigned>1</unsigned>
         <notnull>true</notnull>
         <length>10</length>
@@ -68,7 +68,12 @@
         <length>150</length>
       </field>
       <field>
-        <name>timestamp</name>
+        <name>date</name>
+        <type>date</type>
+        <notnull>true</notnull>
+      </field>
+      <field>
+        <name>timestamp_added</name>
         <type>timestamp</type>
         <notnull>true</notnull>
       </field>
@@ -121,11 +126,6 @@
         <default>1</default>
       </field>
       <field>
-        <name>timestamp</name>
-        <type>timestamp</type>
-        <notnull>true</notnull>
-      </field>
-      <field>
         <name>description</name>
         <type>text</type>
         <notnull>true</notnull>
@@ -141,35 +141,4 @@
     </declaration>
   </table>
 
-  <table>
-    <name>*dbprefix*money_currencies</name>
-    <declaration>
-      <field>
-        <name>id</name>
-        <type>integer</type>
-        <unsigned>1</unsigned>
-        <notnull>true</notnull>
-        <length>10</length>
-      </field>
-      <field>
-        <name>name</name>
-        <type>text</type>
-        <notnull>true</notnull>
-        <length>45</length>
-      </field>
-      <field>
-        <name>abbreviation</name>
-        <type>text</type>
-        <notnull>true</notnull>
-        <length>10</length>
-      </field>
-      <field>
-        <name>user_id</name>
-        <type>text</type>
-        <length>200</length>
-        <default></default>
-        <notnull>true</notnull>
-      </field>
-    </declaration>
-  </table>
 </database>
