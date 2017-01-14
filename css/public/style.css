@@ -473,6 +473,10 @@ ul.addressBook-share-list li {
 
 /* SELECT2 styling - MOVE TO CORE FOR 9.1! */
 
+.select2-container .select2-choice {
+		padding: 0;
+}
+
 detailsitem .select2-container {
 	width: 245px;
 }
@@ -594,18 +598,41 @@ detailsitem .select2-container {
 /* transaction list */
 
 .transaction-list {
+
+}
+
+.transaction-list-transaction {
+	display: table-row-group;
+}
+
+.transaction-list-table {
 	border-collapse: collapse;
 	width: 100%;
+	display: table;
+}
+
+.transaction-list-header,
+.transaction-list-item {
+	display: table-row;
+}
+
+.transaction-list-header-item {
+	display: table-cell;
 }
 
 /* transaction list item */
 
-.transaction-list-item td {
+.transaction-list-item-cell,
+.split-list-item-cell {
 	border: 1px solid #ddd;
-	padding: 5px;
+	display: table-cell;
 	/*height: 68px;*/
 	/*margin-top: 5px;*/
 	/*margin-bottom: 5px;*/
+}
+
+.split-list-item-cell {
+	background-color: #bbb;
 }
 
 .transaction-list-item-link {
@@ -618,7 +645,7 @@ detailsitem .select2-container {
 .transaction-list-item-description,
 .transaction-list-item-destination-account,
 .transaction-list-item-value {
-	/*display: inline-block;*/
+	display: table-cell;
 	/*width: 24%;*/
 	vertical-align: middle;
 }

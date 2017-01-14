@@ -3,7 +3,6 @@ angular.module('moneyApp')
   var ctrl = this;
 
   ctrl.transactions = [];
-  ctrl.transactionList = [];
 
   ctrl.availableAccounts = [];
 
@@ -24,9 +23,7 @@ angular.module('moneyApp')
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
-      TransactionService.getTransactionById(ev.transactionId).then(function(transaction) {
-        ctrl.transactions.push(transaction);
-      });
+      ctrl.transactions.push(ev.transaction);
     }
   });
 
@@ -42,8 +39,23 @@ angular.module('moneyApp')
     }
   });
 
+  ctrl.resetForm = function() {
+    ctrl.newTransaction.date = "";
+    ctrl.newTransaction.description = "";
+    ctrl.newTransaction.destAccountId = undefined;
+    ctrl.newTransaction.inValue = undefined;
+    ctrl.newTransaction.outValue = undefined;
+  };
+
   ctrl.submitTransaction = function() {
-    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, ctrl.newTransaction.value, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
+    if(ctrl.newTransaction.inValue === undefined) {
+      ctrl.newTransaction.inValue = 0;
+    };
+    if(ctrl.newTransaction.outValue === undefined) {
+      ctrl.newTransaction.outValue = 0;
+    };
+    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
+    ctrl.resetForm();
   };
 
 });

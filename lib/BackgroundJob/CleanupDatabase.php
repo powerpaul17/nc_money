@@ -7,7 +7,7 @@ use OC\BackgroundJob\TimedJob;
 class CleanupDatabase extends TimedJob {
 
   public function __construct() {
-    $this->interval = 60*15; // run every 15 minutes
+    $this->interval = 60*60; // run every 60 minutes
   }
 
   /**
@@ -18,6 +18,12 @@ class CleanupDatabase extends TimedJob {
   public function run($argument) {
     $connection = \OC::$server->getDatabaseConnection();
     $logger = \OC::$server->getLogger();
+
+    // Remove splits with value = 0
+
+    $sql = 'DELETE FROM *PREFIX*money_splits WHERE value = 0;';
+    $deletedEntries = $connection->executeUpdate($sql);
+    $logger->debug("$deletedEntries split(s) with zero value deleted", ['app' => 'Money']);
 
     // Remove orphaned splits (not belonging to any account or transaction)
 

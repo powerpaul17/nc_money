@@ -13,10 +13,10 @@ angular.module('moneyApp')
     observerCallbacks.push(callback);
   };
 
-  var notifyObservers = function(eventname, accountId) {
+  var notifyObservers = function(eventname, response) {
     var ev = {
       event: eventname,
-      accountId: accountId
+      account: response
     };
     angular.forEach(observerCallbacks, function(callback) {
       callback(ev);
@@ -79,15 +79,23 @@ angular.module('moneyApp')
 
   ctrl.update = function(account) {
     return $http.put('ajax/update-account', account).then(function(response) {
-      notifyObservers('update', account.id);
+      notifyObservers('update', response.data);
     });
   };
 
   ctrl.create = function(account) {
     return $http.post('ajax/add-account', account).then(function(response) {
-      notifyObservers('create', response.data.id)
+      accounts.put(response.data.id, response.data);
+      notifyObservers('create', response.data);
     });
   };
+
+  ctrl.delete = function(account) {
+    return $http.post('ajax/delete-account', {id: account.id}).then(function(response) {
+      accounts.remove(account.id);
+      notifyObservers('delete', response.data);
+    })
+  }
 
   ctrl.getAccountBalance = function(accountId) {
     return $http.get('ajax/get-account-balance', {

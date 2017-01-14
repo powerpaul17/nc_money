@@ -68,9 +68,27 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   */
+  public function deleteAccount($id) {
+    return $this->handleNotFound(function() use ($id) {
+      return $this->accountService->delete($id, $this->userId);
+    });
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
   public function getTransactionsForAccount($accountId) {
     $query = \OCP\DB::prepare('SELECT a.*, FORMAT(SUM(b.value), 2) AS value FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;');
-    return $query->execute([$accountId, $this->userId])->fetchAll();
+    //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
+    $transactions = $query->execute([$accountId, $this->userId])->fetchAll();
+
+    foreach($transactions as &$transaction) {
+      $transaction['splits'] = $this->getSplitsForTransaction($transaction['id']);
+    }
+    unset($transaction);
+
+    return $transactions;
     //return new DataResponse($this->transactionService->findTransactionsOfAccount($accountId, $this->userId));
   }
 
@@ -79,8 +97,13 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getTransaction($transactionId) {
-    $query = \OCP\DB::prepare('SELECT a.*, FORMAT(SUM(b.value), 2) AS value FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.id = ? AND a.user_id = ? GROUP BY a.id;');
-    return $query->execute([$transactionId, $this->userId])->fetch();
+    $query = \OCP\DB::prepare('SELECT a.* FROM *PREFIX*money_transactions a WHERE a.id = ? AND a.user_id = ?;');
+    $transaction = $query->execute([$transactionId, $this->userId])->fetch();
+    //$transaction = $this->transactionService->find($transactionId, $this->userId);
+
+    $transaction['splits'] = $this->getSplitsForTransaction($transactionId);
+
+    return $transaction;
     //return new DataResponse($this->transactionService->find($transactionId, $this->userId));
   }
 
@@ -118,7 +141,7 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getSplitsForTransaction($transactionId) {
-    return new DataResponse($this->splitService->findSplitsOfTransaction($transactionId, $this->userId));
+    return $this->splitService->findSplitsOfTransaction($transactionId, $this->userId);
   }
 
   /**

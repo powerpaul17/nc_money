@@ -22,38 +22,34 @@ angular.module('moneyApp')
           });
         } else {
           for (var i = 0, length = ctrl.accountList.length; i < length; i++) {
-            if (ctrl.accountList[i].id() === ev.accountId) {
+            if (ctrl.accountList[i].id === ev.account.id) {
               $route.updateParams({
                 tid: $routeParams.tid,
-                aid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].id() : ctrl.accountList[i-1].id()
+                aid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].id : ctrl.accountList[i-1].id
               });
               break;
             }
           }
         }
         for (var i = 0; i < ctrl.accounts.length; i++) {
-          if (ctrl.accounts[i].id === ev.accountId) {
+          if (parseInt(ctrl.accounts[i].id) === parseInt(ev.account.id)) {
             ctrl.accounts.splice(i,1);
           }
         }
       } else if (ev.event === 'create') {
+        ctrl.accounts.push(ev.account);
         $route.updateParams({
           tid: $routeParams.tid,
-          aid: ev.accountId
-        });
-        AccountService.getAccountById(ev.accountId).then(function(account) {
-          ctrl.accounts.push(account);
+          aid: ev.account.id
         });
       } else if (ev.event === 'update') {
         ctrl.newAccount = 0;
-        AccountService.getAccountById(ev.accountId).then(function(account) {
-          ctrl.newAccount = account;
+          ctrl.newAccount = ev.account;
           for (var i = 0; i < ctrl.accounts.length; i++) {
-            if (ctrl.accounts[i].id === ev.accountId) {
+            if (ctrl.accounts[i].id === ev.account.id) {
               ctrl.accounts[i] = ctrl.newAccount;
             }
           }
-        });
       }
     // });
   });
@@ -88,46 +84,46 @@ angular.module('moneyApp')
   //   }
   // });
 
-  $scope.$watch('ctrl.routeParams.aid', function(newValue, oldValue) {
-    if(typeof oldValue != 'undefined' && typeof newValue == 'undefined' && $(window).width() <= 768) {
-      ctrl.show = true;
-      return;
-    }
-    if (newValue === undefined) {
-      if(ctrl.accountList && ctrl.accountList.length > 0) {
-        $route.updateParams({
-          tid: $routeParams.tid,
-          aid: ctrl.accountList[0].id
-        });
-      } else {
-        // watch for next accountList update
-        var unbindWatch = $scope.$watch('ctrl.accountList', function() {
-          if (ctrl.accountList && ctrl.accountList.length > 0) {
-            $route.updateParams({
-              tid: $routeParams.tid,
-              aid: ctrl.accountList[0].id
-            });
-          }
-          unbindWatch();
-        });
-      }
-    } else {
-      ctrl.show = false;
-    }
-  });
+  // $scope.$watch('ctrl.routeParams.aid', function(newValue, oldValue) {
+  //   if(typeof oldValue != 'undefined' && typeof newValue == 'undefined' && $(window).width() <= 768) {
+  //     ctrl.show = true;
+  //     return;
+  //   }
+  //   if (newValue === undefined) {
+  //     if(ctrl.accountList && ctrl.accountList.length > 0) {
+  //       $route.updateParams({
+  //         tid: $routeParams.tid,
+  //         aid: ctrl.accountList[0].id
+  //       });
+  //     } else {
+  //       // watch for next accountList update
+  //       // var unbindWatch = $scope.$watch('ctrl.accountList', function() {
+  //         if (ctrl.accountList && ctrl.accountList.length > 0) {
+  //           $route.updateParams({
+  //             tid: $routeParams.tid,
+  //             aid: ctrl.accountList[0].id
+  //           });
+  //         }
+  //         // unbindWatch();
+  //       // });
+  //     }
+  //   } else {
+  //     ctrl.show = false;
+  //   }
+  // });
 
   // $scope.$watch('ctrl.routeParams.tid', function() {
   //   ctrl.accountList = [];
   //   if($(window).width() > 768) {
-  //     var unbindWatch = $scope.$watch('ctrl.accountList', function() {
+  //     // var unbindWatch = $scope.$watch('ctrl.accountList', function() {
   //       if (ctrl.accountList && ctrl.accountList.length > 0) {
   //         $route.updateParams({
   //           tid: $routeParams.tid,
   //           aid: ctrl.accountList[0].id
   //         });
   //       }
-  //       unbindWatch();
-  //     });
+  //       // unbindWatch();
+  //     // });
   //   }
   // });
 

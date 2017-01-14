@@ -62,6 +62,16 @@ class AccountService {
     }
   }
 
+  public function delete($id, $userId) {
+    try {
+      $account = $this->mapper->find($id, $userId);
+      $this->mapper->delete($account);
+      return $account;
+    } catch(Exception $e) {
+      $this->handleException($e);
+    }
+  }
+
 }
 
 ?>

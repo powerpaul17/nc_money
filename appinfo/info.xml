@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
-<info>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>money</id>
     <name>Money</name>
-    <description>Money for ownCloud.</description>
+    <summary>Manage your finances.</summary>
+    <description>Finance manager for NC/OC.</description>
     <licence>AGPL</licence>
-    <author>Paul Tirk</author>
+    <author mail="paultirk@paultirk.com">Paul Tirk</author>
     <version>0.1.10</version>
+    <namespace>Money</namespace>
     <documentation>
     	<user></user>
     	<admin></admin>
@@ -16,8 +19,8 @@
     <bugs>https://github.com/powerpaul17/ownmoney/issues</bugs>
     <repository type="git">https://github.com/powerpaul17/ownmoney.git</repository>
     <dependencies>
-      <owncloud min-version="9.0" max-version="9.2" />
-      <nextcloud min-version="9.0" max-version="11.0" />
+      <owncloud min-version="9.2" />
+      <nextcloud min-version="11" max-version="11" />
     </dependencies>
     <background-jobs>
       <job>OCA\Money\BackgroundJob\CleanupDatabase</job>

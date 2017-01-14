@@ -9,10 +9,10 @@ angular.module('moneyApp')
     observerCallbacks.push(callback);
   };
 
-  var notifyObservers = function(eventname, transactionId) {
+  var notifyObservers = function(eventname, response) {
     var ev = {
       event: eventname,
-      transactionId: transactionId
+      transaction: response
     };
     angular.forEach(observerCallbacks, function(callback) {
       callback(ev);
@@ -49,8 +49,11 @@ angular.module('moneyApp')
       date: date,
       description: description
     }).then(function(response) {
-      notifyObservers('create', response.data.id);
+      notifyObservers('create', response.data);
     });
   };
 
+  ctrl.update = function() {
+    console.log("transaction update: TODO!");
+  }
 });

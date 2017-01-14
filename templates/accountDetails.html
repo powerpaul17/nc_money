@@ -15,7 +15,7 @@
 						   name="name" ng-model="ctrl.account.name" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value="" />
 				</h2>
 				<div id="details-org-container">
-					<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging>
+					<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging tagging-label="false">
 		 	      <ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
 		 	      <ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
 		 	        <span ng-bind-html="currency | highlight: $select.search"></span>

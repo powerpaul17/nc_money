@@ -19,6 +19,7 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 // compiled version of app javascript
 //script('money', 'public/script');
 script('money', 'main');
+script('money', 'datepicker');
 script('money', 'filters/accountColor');
 script('money', 'filters/firstCharacter');
 script('money', 'filters/accountType');
@@ -26,15 +27,18 @@ script('money', 'services/account');
 script('money', 'services/transaction');
 //script('money', 'services/search');
 script('money', 'components/accountTypesList');
-script('money', 'components/accountType');
+script('money', 'components/accountTypesListItem');
 script('money', 'components/accountList');
 script('money', 'components/accountListItem');
 script('money', 'components/accountDetails');
 script('money', 'components/transactionList');
 script('money', 'components/transactionListItem');
+script('money', 'components/newAccountButton');
+script('money', 'components/splitListItem');
 
 // all styles
 style('money', 'public/style');
+style('money', 'vendor/ui-select/dist/select');
 vendor_style('select2/select2');
 ?>
 
@@ -48,7 +52,7 @@ vendor_style('select2/select2');
 				</button>
 			</div>
 			<div id="app-settings-content">
-
+				<new-account-button></new-account-button>
 			</div>
 		</div>
 	</div>

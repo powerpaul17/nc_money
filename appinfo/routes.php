@@ -19,6 +19,7 @@ return [
     ['name' => 'money_api#get_account', 'url' => '/ajax/get-account', 'verb' => 'GET'],
     ['name' => 'money_api#update_account', 'url' => '/ajax/update-account', 'verb' => 'PUT'],
     ['name' => 'money_api#add_account', 'url' => '/ajax/add-account', 'verb' => 'POST'],
+    ['name' => 'money_api#delete_account', 'url' => '/ajax/delete-account', 'verb' => 'POST'],
     ['name' => 'money_api#get_transactions_for_account', 'url' => '/ajax/get-transactions-for-account', 'verb' => 'GET'],
     ['name' => 'money_api#get_transaction', 'url' => '/ajax/get-transaction', 'verb' => 'GET'],
     ['name' => 'money_api#update_transaction', 'url' => '/ajax/update-transaction', 'verb' => 'PUT'],
