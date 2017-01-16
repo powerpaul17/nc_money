@@ -11,5 +11,8 @@
     </ui-select-choices>
   </ui-select>
 </div>
-<div class="split-list-item-cell transaction-list-item-value">{{ ctrl.split.value > 0 ? ctrl.split.value : "" }}</div>
-<div class="split-list-item-cell transaction-list-item-value">{{ ctrl.split.value < 0 ? -ctrl.split.value : "" }}</div>
+<div class="split-list-item-cell transaction-list-item-value">{{ ctrl.split.inValue }}</div>
+<div class="split-list-item-cell transaction-list-item-value">{{ ctrl.split.outValue }}</div>
+<div class="split-list-item-cell transaction-list-item-actions">
+  <button ng-click="ctrl.deleteSplit()" class="icon-delete" title="{{ctrl.t.delete}}"></button>
+</div>

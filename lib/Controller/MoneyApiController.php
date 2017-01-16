@@ -164,6 +164,17 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   */
+  public function deleteSplit($splitId) {
+    return $this->handleNotFound(function() use ($splitId) {
+      return $this->splitService->delete($splitId, $this->userId);
+    });
+  }
+
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
   public function getAccountBalance($accountId) {
     $query = \OCP\DB::prepare('SELECT FORMAT(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ?;');
     $result = $query->execute([$accountId])->fetch();

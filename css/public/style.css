@@ -611,9 +611,25 @@ detailsitem .select2-container {
 	display: table;
 }
 
-.transaction-list-header,
+.transaction-list-table input {
+	border: 0;
+}
+
 .transaction-list-item {
+	box-shadow: 1px 1px 3px #ddd;
+}
+
+.transaction-list-header,
+.transaction-list-item,
+.transaction-list-item-split {
 	display: table-row;
+}
+
+.transaction-list-item-split {
+	background-color:
+}
+.transaction-list-item-split:nth-child(even) {
+	/*background-color: #ccc;*/
 }
 
 .transaction-list-header-item {
@@ -629,10 +645,6 @@ detailsitem .select2-container {
 	/*height: 68px;*/
 	/*margin-top: 5px;*/
 	/*margin-bottom: 5px;*/
-}
-
-.split-list-item-cell {
-	background-color: #bbb;
 }
 
 .transaction-list-item-link {
@@ -651,5 +663,12 @@ detailsitem .select2-container {
 }
 
 .transaction-list-item-value {
-	font-size: 1.5em;
+	font-size: 1.1rem;
+	text-align: right;
+}
+
+.row-separator {
+	display: table-row;
+	height: 15px;
+	border: 0;
 }

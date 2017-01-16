@@ -1,5 +1,5 @@
-<!-- <a class="transaction-list-item-link" ng-click="ctrl.openTransaction()"> -->
-<div class="transaction-list-item" ng-click="ctrl.toggleTransaction()">
+<div class="row-separator"></div>
+<div class="transaction-list-item">
   <div class="transaction-list-item-cell transaction-list-item-date">
     <input type="text" ng-model="ctrl.transaction.date" datepicker ng-change="ctrl.updateTransaction()" />
   </div>
@@ -17,5 +17,6 @@
   </div>
   <div class="transaction-list-item-cell transaction-list-item-value">{{ ctrl.transaction.value > 0 ? ctrl.transaction.value : "" }}</div>
   <div class="transaction-list-item-cell transaction-list-item-value">{{ ctrl.transaction.value < 0 ? -ctrl.transaction.value : "" }}</div>
+  <div class="transaction-list-item-cell transaction-list-item-actions" ng-click="ctrl.toggleTransaction()"></div>
 </div>
-<div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" class="transaction-list-item" data="split" ng-show="ctrl.showSplits"></div>
+<div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" class="transaction-list-item-split" data="split" ng-show="ctrl.showSplits"></div>

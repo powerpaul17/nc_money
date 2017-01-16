@@ -76,6 +76,16 @@ class SplitService {
     }
   }
 
+  public function delete($id, $userId) {
+    try {
+      $split = $this->splitMapper->find($id, $userId);
+      $this->splitMapper->delete($split);
+      return $split;
+    } catch(Exception $e) {
+      $this->handleException($e);
+    }
+  }
+
 }
 
 ?>
