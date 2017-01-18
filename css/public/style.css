@@ -601,6 +601,15 @@ detailsitem .select2-container {
 
 }
 
+.transaction-list input {
+	border: 0;
+	width: 100%;
+}
+
+.transaction-list .select2-container {
+	width: 100%;
+}
+
 .transaction-list-transaction {
 	display: table-row-group;
 }
@@ -645,6 +654,10 @@ detailsitem .select2-container {
 	/*height: 68px;*/
 	/*margin-top: 5px;*/
 	/*margin-bottom: 5px;*/
+}
+
+.split-list-item-empty-cell {
+	border: 0;
 }
 
 .transaction-list-item-link {
