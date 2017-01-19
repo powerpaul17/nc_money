@@ -6,7 +6,7 @@ script('money', 'vendor/angular-uuid4/angular-uuid4');
 script('money', 'vendor/angular-cache/dist/angular-cache');
 script('money', 'vendor/angular-sanitize/angular-sanitize');
 script('money', 'vendor/ui-select/dist/select');
-
+script('money', 'vendor/ui-scroll/dist/ui-scroll');
 script('money', 'vendor/angular-bootstrap/ui-bootstrap.min');
 script('money', 'vendor/angular-bootstrap/ui-bootstrap-tpls.min');
 script('money', 'vendor/jquery-timepicker/jquery.ui.timepicker');

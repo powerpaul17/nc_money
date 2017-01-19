@@ -1,6 +1,10 @@
 angular.module('moneyApp')
-.controller('splitListItemCtrl', function($http) {
+.controller('splitListItemCtrl', function($http, AccountService) {
   var ctrl = this;
+
+  AccountService.getAccounts().then(function(accounts) {
+    ctrl.availableAccounts = _.unique(accounts);
+  });
 
   ctrl.split.inValue = 0;
   ctrl.split.outValue = 0;

@@ -7,13 +7,14 @@
     <input type="text" ng-model="ctrl.transaction.description" ng-model-options="{ getterSetter: true, debounce: 500}" ng-change="ctrl.updateTransaction()" />
   </div>
   <div class="transaction-list-item-cell transaction-list-item-destination-account">
-    <ui-select ng-model="ctrl.transaction.destAccountId" theme="select2">
+    <ui-select ng-model="ctrl.transaction.destAccountId" theme="select2" ng-show="!ctrl.transaction.multipleSplits">
       <ui-select-match placeholder="Select or search an account in the list...">{{$select.selected.name}}</ui-select-match>
       <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
         <span ng-bind-html="account.name | highlight: $select.search"></span>
         <small ng-bind-html="account.description | highlight: $select.search"></small>
       </ui-select-choices>
     </ui-select>
+    {{ ctrl.transaction.multipleSplits ? '( Multiple Accounts )' : '' }}
   </div>
   <div class="transaction-list-item-cell transaction-list-item-value">{{ ctrl.transaction.value > 0 ? ctrl.transaction.value : "" }}</div>
   <div class="transaction-list-item-cell transaction-list-item-value">{{ ctrl.transaction.value < 0 ? -ctrl.transaction.value : "" }}</div>
@@ -25,7 +26,7 @@
 <div class="transaction-list-item-split" ng-show="ctrl.showSplits">
   <div class="split-list-item-empty-cell"></div>
   <div class="split-list-item-cell transaction-list-item-description" ng-class="{}">
-    <input type="text" ng-model="ctrl.newSplit.description" ng-model-options="{ getterSetter: true, debounce: 500}" />
+    <input type="text" ng-model="ctrl.newSplit.description" ng-model-options="{ getterSetter: true, debounce: 500}" placeholder="Comment" />
   </div>
   <div class="split-list-item-cell transaction-list-item-destination-account">
     <ui-select ng-model="ctrl.newSplit.destAccountId" theme="select2">
@@ -36,9 +37,9 @@
       </ui-select-choices>
     </ui-select>
   </div>
-  <div class="split-list-item-cell transaction-list-item-value">{{ ctrl.split.inValue }}</div>
-  <div class="split-list-item-cell transaction-list-item-value">{{ ctrl.split.outValue }}</div>
+  <div class="split-list-item-cell transaction-list-item-value"><input type="number" ng-model="ctrl.newSplit.inValue" /></div>
+  <div class="split-list-item-cell transaction-list-item-value"><input type="number" ng-model="ctrl.newSplit.outValue" /></div>
   <div class="split-list-item-cell transaction-list-item-actions">
-    <button ng-click="" class="icon-confirm action pull-right" title=""></button>
+    <button ng-click="ctrl.addSplit()" class="icon-confirm action pull-right" title=""></button>
   </div>
 <div>

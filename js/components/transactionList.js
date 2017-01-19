@@ -55,7 +55,7 @@ angular.module('moneyApp')
       ctrl.newTransaction.outValue = 0;
     };
     TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
-    ctrl.resetForm();
+    // ctrl.resetForm(); TODO with notification
   };
 
 });

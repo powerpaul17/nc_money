@@ -50,10 +50,27 @@ angular.module('moneyApp')
       description: description
     }).then(function(response) {
       notifyObservers('create', response.data);
+    }, function(errorResponse) {
+      
     });
   };
 
   ctrl.update = function() {
     console.log("transaction update: TODO!");
-  }
+  };
+
+  ctrl.addSplit = function(transactionId, destAccountId, value, convertRate, description) {
+    return $http.post('ajax/add-split', {
+      transactionId: transactionId,
+      destAccountId: destAccountId,
+      value: value,
+      convertRate: convertRate,
+      description: description
+    }).then(function(response) {
+      notifyObservers('addedSplit', response.data);
+    }, function(errorResponse) {
+
+    });
+  };
+
 });

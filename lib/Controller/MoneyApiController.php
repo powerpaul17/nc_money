@@ -122,8 +122,8 @@ class MoneyApiController extends ApiController {
   public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description) {
     $newTransaction = $this->transactionService->create($description, $date, $this->userId);
 
-    $this->splitService->create($newTransaction->id, $destAccountId, $value/$convertRate, $convertRate, $description, $this->userId);
-    $this->splitService->create($newTransaction->id, $srcAccountId, -$value, 1, $description, $this->userId);
+    $this->splitService->create($newTransaction->id, $destAccountId, $value/$convertRate, $convertRate, "", $this->userId);
+    $this->splitService->create($newTransaction->id, $srcAccountId, -$value, 1, "", $this->userId);
 
     return $this->getTransaction($newTransaction->getId());
   }

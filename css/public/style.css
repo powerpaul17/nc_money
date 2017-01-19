@@ -604,10 +604,17 @@ detailsitem .select2-container {
 .transaction-list input {
 	border: 0;
 	width: 100%;
+	margin: 0;
+	background: none;
 }
 
 .transaction-list .select2-container {
 	width: 100%;
+	margin: 0;
+}
+
+.transaction-list .select2-container .select2-choice {
+	border: 0;
 }
 
 .transaction-list-transaction {
@@ -654,6 +661,8 @@ detailsitem .select2-container {
 	/*height: 68px;*/
 	/*margin-top: 5px;*/
 	/*margin-bottom: 5px;*/
+	padding-left: 7px;
+	padding-right: 7px;
 }
 
 .split-list-item-empty-cell {
@@ -676,7 +685,7 @@ detailsitem .select2-container {
 }
 
 .transaction-list-item-value {
-	font-size: 1.1rem;
+	/*font-size: 1.1rem;*/
 	text-align: right;
 }
 

@@ -1,15 +1,6 @@
 <div class="transaction-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
-  <!-- <table class="transaction-list"> -->
   <div class="transaction-list-table">
-    <!-- <thead> -->
-      <!-- <tr> -->
       <div class="transaction-list-header">
-        <!-- <th>Date</th>
-        <th>Description</th>
-        <th>Destination</th>
-        <th>In</th>
-        <th>Out</th>
-        <th></th> -->
         <div class="transaction-list-header-item">Date</div>
         <div class="transaction-list-header-item">Description</div>
         <div class="transaction-list-header-item">Destination</div>
@@ -17,23 +8,19 @@
         <div class="transaction-list-header-item">Out</div>
         <div class="transaction-list-header-item"></div>
       </div>
-      <!-- </tr> -->
-    <!-- </thead> -->
-    <!-- <tbody> -->
-      <!-- <tr> -->
       <div class="transaction-list-item">
         <div class="transaction-list-item-cell">
           <!-- <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDate}}" autocomplete="off" autocorrect="off" spellcheck="false"
                  name="timestamp" ng-model="ctrl.newTransaction.date" value="" /> -->
-          <input type="text" ng-model="ctrl.newTransaction.date" datepicker />
+          <input type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." required />
         </div>
         <div class="transaction-list-item-cell">
           <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="description" ng-model="ctrl.newTransaction.description" value="" />
+                 name="description" ng-model="ctrl.newTransaction.description" value="" required />
         </div>
         <div class="transaction-list-item-cell">
           <!-- <select name="destAccount" ng-options="option.id as option.name for option in ctrl.availableAccounts"></select> -->
-          <ui-select title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2">
+          <ui-select title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" required>
             <ui-select-match placeholder="Select or search an account in the list...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
               <span ng-bind-html="account.name | highlight: $select.search"></span>
@@ -43,24 +30,21 @@
         </div>
          <div class="transaction-list-item-cell">
           <input type="number" id="" class="" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="inValue" ng-model="ctrl.newTransaction.inValue" value="" />
+                 name="inValue" ng-model="ctrl.newTransaction.inValue" value="" ng-pattern="/^[0-9]+(\.[0-9])*/" />
         </div>
         <div class="transaction-list-item-cell">
           <input type="number" id="" class="" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="outValue" ng-model="ctrl.newTransaction.outValue" value="" />
+                 name="outValue" ng-model="ctrl.newTransaction.outValue" value="" ng-pattern="/^[0-9]+(\.[0-9])*/" />
         </div>
         <div class="transaction-list-item-cell">
           <button ng-click="ctrl.submitTransaction()" class="submitTransaction icon-confirm action pull-right" />
         </div>
-      <!-- </tr> -->
     </div>
-  <div transaction-list-item class="transaction-list-transaction"
-       ng-repeat="transaction in (ctrl.transactions | orderBy:['date','timestampAdded']:true) as filtered track by transaction.id"
-       data="transaction" account="ctrl.account"
-       ng-click="setSelected(transaction.id)"
-       ng-class="{active: transaction.id === ctrl.getSelectedId()}"
-  ></div>
-<!-- </tbody> -->
-  <!-- </table> -->
+    <div transaction-list-item class="transaction-list-transaction"
+         ng-repeat="transaction in (ctrl.transactions | orderBy:['date','timestampAdded']:true) as filtered track by transaction.id"
+         data="transaction" account="ctrl.account"
+         ng-click="setSelected(transaction.id)"
+         ng-class="{active: transaction.id === ctrl.getSelectedId()}"
+    ></div>
   </div>
 </div>

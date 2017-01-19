@@ -28,6 +28,7 @@ angular.module('moneyApp')
       loadPromise = $http.get('ajax/get-accounts').then(function(response) {
       	//ctrl.accounts = response.data;
         for (var i in response.data) {
+          response.data[i].id = parseInt(response.data[i].id);
           accounts.put(response.data[i].id, response.data[i]);
         }
         cacheFilled = true;
