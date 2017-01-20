@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.controller('splitListItemCtrl', function($http, AccountService) {
+.controller('splitListItemCtrl', function($http, AccountService, TransactionService) {
   var ctrl = this;
 
   AccountService.getAccounts().then(function(accounts) {
@@ -16,10 +16,7 @@ angular.module('moneyApp')
   }
 
   ctrl.deleteSplit = function() {
-    return $http.post('ajax/delete-split', {splitId: ctrl.split.id}).then(function(response) {
-      // accounts.remove(account.id);
-      // notifyObservers('delete', response.data);
-    });
+    TransactionService.deleteSplit(ctrl.split.id);
   };
 
 });

@@ -427,6 +427,9 @@ li.addressBook-share-item span.shareeIdentifier {
 	padding-top: 24px;
 	padding-bottom: 24px;
 }
+.app-content-list-item-line-one {
+	font-size: 1.1rem;
+}
 .app-content-list-item-line-two {
 	top: 25px;
 	opacity: .5;
@@ -593,6 +596,10 @@ detailsitem .select2-container {
 	top: 1px;
 	background-color: white;
 	border: none;
+}
+
+.account-types-list-item {
+	font-size: 1.1rem;
 }
 
 /* transaction list */

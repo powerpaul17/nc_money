@@ -20,10 +20,36 @@ angular.module('moneyApp')
     placeholderValue : t('money', 'Value'),
   };
 
+  // Initialize newTransaction
+  ctrl.newTransaction = [];
+
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
-      ctrl.transactions.push(ev.transaction);
+      ctrl.transactions.push(ev.response);
+      ctrl.resetForm();
+    } else if (ev.event === 'addedSplit') {
+      for (var i = 0; i < ctrl.transactions.length; i++) {
+        if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
+          ctrl.transactions[i].splits.push(ev.response);
+          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+        }
+      }
+    } else if (ev.event === 'deletedSplit') {
+      for (var i = 0; i < ctrl.transactions.length; i++) {
+        if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
+          for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
+            if (parseInt(ctrl.transactions[i].splits[j].id) === ev.response.id) {
+              ctrl.transactions[i].splits.splice(j,1);
+            }
+          }
+          if(ctrl.transactions[i].splits.length === 0) {
+            ctrl.transactions.splice(i,1);
+          } else {
+            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+          }
+        }
+      }
     }
   });
 
@@ -55,7 +81,6 @@ angular.module('moneyApp')
       ctrl.newTransaction.outValue = 0;
     };
     TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
-    // ctrl.resetForm(); TODO with notification
   };
 
 });
