@@ -30,6 +30,7 @@ return [
     ['name' => 'money_api#add_split', 'url' => '/ajax/add-split', 'verb' => 'POST'],
     ['name' => 'money_api#delete_split', 'url' => '/ajax/delete-split', 'verb' => 'POST'],
     ['name' => 'money_api#get_account_balance', 'url' => '/ajax/get-account-balance', 'verb' => 'GET'],
+    ['name' => 'money_api#get_unbalanced_transactions', 'url' => '/ajax/get-unbalanced-transactions', 'verb' => 'GET'],
 //    ['name' => 'money_api#preflighted_cors', 'url' => '/api/v0.1/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')],
   ]
 ];

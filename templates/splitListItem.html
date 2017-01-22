@@ -4,7 +4,7 @@
 </div>
 <div class="split-list-item-cell transaction-list-item-destination-account">
   <ui-select ng-model="ctrl.split.destAccountId" theme="select2">
-    <ui-select-match placeholder="Select or search an account in the list...">{{$select.selected.name}}</ui-select-match>
+    <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
     <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
       <span ng-bind-html="account.name | highlight: $select.search"></span>
       <small ng-bind-html="account.description | highlight: $select.search"></small>

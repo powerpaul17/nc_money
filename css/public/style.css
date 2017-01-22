@@ -156,7 +156,7 @@ avatar.avatar--missing .avatar-upload {
 }
 
 .accountdetails__header + section {
-	padding: 20px 20px 100px;
+	/*padding: 20px 20px 100px;*/
 }
 
 /* @media screen and (min-width: 1450px) {
@@ -435,6 +435,12 @@ li.addressBook-share-item span.shareeIdentifier {
 	opacity: .5;
 }
 
+.app-content-list-item-value {
+	float: right;
+	font-size: 1.1rem;
+	padding: 12px;
+}
+
 ul.addressBookList li {
 	margin-bottom: 5px;
 }
@@ -461,6 +467,16 @@ ul.addressBook-share-list li {
 
 #app-navigation > ul {
 	height: calc(100% - 24px);
+}
+
+#app-navigation li {
+	padding: 0 12px;
+	min-height: 44px;
+	line-height: 44px;
+}
+
+#app-navigation li > a {
+	padding: 0;
 }
 
 /* styling for account count in account list */
@@ -615,6 +631,11 @@ detailsitem .select2-container {
 	background: none;
 }
 
+.transaction-list button {
+	border: 0;
+	background-color: transparent;
+}
+
 .transaction-list .select2-container {
 	width: 100%;
 	margin: 0;
@@ -639,7 +660,7 @@ detailsitem .select2-container {
 }
 
 .transaction-list-item {
-	box-shadow: 1px 1px 3px #ddd;
+	/*box-shadow: 1px 1px 3px #ddd;*/
 }
 
 .transaction-list-header,
@@ -696,8 +717,22 @@ detailsitem .select2-container {
 	text-align: right;
 }
 
+.transaction-list-item-status {
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
 .row-separator {
 	display: table-row;
 	height: 15px;
 	border: 0;
+}
+
+/* Unbalanced Transactions View */
+
+.unbalanced-transactions__header {
+	background-color: #aaa;
 }

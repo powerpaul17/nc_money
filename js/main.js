@@ -11,6 +11,10 @@
 angular.module('moneyApp', ['uuid4', 'angular-cache', 'ngRoute', 'ui.bootstrap', 'ui.select', 'ngSanitize', 'ngclipboard'])
 .config(function($routeProvider) {
 
+	$routeProvider.when('/Unbalanced', {
+		template: '<unbalanced-transactions></unbalanced-transactions>'
+	});
+
 	$routeProvider.when('/:tid', {
 		template: '<account-details></account-details>'
 	});
@@ -31,4 +35,13 @@ angular.module('moneyApp')
 	'Liabilities',
 	'Incomes',
 	'Expenses'
+]);
+
+// Transaction status constants (service)
+
+angular.module('moneyApp')
+.constant('TRANSACTION_STATUS', [
+	'UNDEFINED',
+	'BALANCED',
+	'UNBALANCED'
 ]);

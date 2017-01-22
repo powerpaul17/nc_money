@@ -33,7 +33,7 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getAccounts() {
-    $query = \OCP\DB::prepare('SELECT a.*, FORMAT(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.user_id = ? GROUP BY a.id;');
+    $query = \OCP\DB::prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.user_id = ? GROUP BY a.id;');
     return $query->execute([$this->userId])->fetchAll();
     //return new DataResponse($this->accountService->findAll($this->userId));
   }
@@ -43,7 +43,7 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getAccount($accountId) {
-    $query = \OCP\DB::prepare('SELECT a.*, FORMAT(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.id = ? AND a.user_id = ? GROUP BY a.id;');
+    $query = \OCP\DB::prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.id = ? AND a.user_id = ? GROUP BY a.id;');
     return $query->execute([$accountId, $this->userId])->fetch();
     //return new DataResponse($this->accountService->find($accountId, $this->userId));
   }
@@ -79,7 +79,7 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getTransactionsForAccount($accountId) {
-    $query = \OCP\DB::prepare('SELECT a.*, FORMAT(SUM(b.value), 2) AS value FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;');
+    $query = \OCP\DB::prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS value FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;');
     //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
     $transactions = $query->execute([$accountId, $this->userId])->fetchAll();
 
@@ -176,9 +176,24 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getAccountBalance($accountId) {
-    $query = \OCP\DB::prepare('SELECT FORMAT(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ?;');
+    $query = \OCP\DB::prepare('SELECT ROUND(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ?;');
     $result = $query->execute([$accountId])->fetch();
     return $result;
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function getUnbalancedTransactions() {
+    $query = \OCP\DB::prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.user_id = ? GROUP BY a.id HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0;');
+    $transactions = $query->execute([$this->userId])->fetchAll();
+
+    foreach($transactions as &$transaction) {
+      $transaction['splits'] = $this->getSplitsForTransaction($transaction['id']);
+    }
+    unset($transaction);
+    return $transactions;
   }
 
 // Sum over all accounts for each category

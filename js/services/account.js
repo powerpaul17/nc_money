@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.service('AccountService', function($http, CacheFactory, $q) {
+.service('AccountService', function($http, CacheFactory, $q, TransactionService) {
 
   var ctrl = this;
 
@@ -23,12 +23,26 @@ angular.module('moneyApp')
     });
   };
 
+  TransactionService.registerObserverCallback(function(ev) {
+    if(ev.event === 'create') {
+      for(var i = 0; i < ev.response.splits.length; i++) {
+        accounts.get(ev.response.splits[i].destAccountId).balance = parseFloat(accounts.get(ev.response.splits[i].destAccountId).balance) + parseFloat(ev.response.splits[i].value);
+      }
+    } else if(ev.event === 'addedSplit') {
+      accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) - parseFloat(ev.response.value);
+    } else if(ev.event === 'deletedSplit') {
+      accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) - parseFloat(ev.response.value);
+    }
+  });
+
   ctrl.fillCache = function() {
     if (_.isUndefined(loadPromise)) {
       loadPromise = $http.get('ajax/get-accounts').then(function(response) {
       	//ctrl.accounts = response.data;
         for (var i in response.data) {
           response.data[i].id = parseInt(response.data[i].id);
+          response.data[i].type = parseInt(response.data[i].type);
+          response.data[i].balance = parseFloat(response.data[i].balance);
           accounts.put(response.data[i].id, response.data[i]);
         }
         cacheFilled = true;
@@ -109,7 +123,15 @@ angular.module('moneyApp')
   };
 
   ctrl.getAccountTypeBalance = function(accountType) {
-    // TODO
+    return this.getAccounts().then(function(accounts) {
+      var balance = 0;
+      for(var i = 0; i < accounts.length; i++) {
+        if(accounts[i].type === accountType) {
+          balance += accounts[i].balance;
+        }
+      }
+      return balance;
+    });
   };
 
 });

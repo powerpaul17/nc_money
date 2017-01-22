@@ -20,6 +20,7 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 script('money', 'main');
 script('money', 'datepicker');
 script('money', 'filters/accountColor');
+script('money', 'filters/transactionStatusColor');
 script('money', 'filters/firstCharacter');
 script('money', 'filters/accountType');
 script('money', 'services/account');
@@ -34,6 +35,8 @@ script('money', 'components/transactionList');
 script('money', 'components/transactionListItem');
 script('money', 'components/newAccountButton');
 script('money', 'components/splitListItem');
+script('money', 'components/unbalancedTransactions');
+script('money', 'components/unbalancedTransactionList');
 
 // all styles
 style('money', 'public/style');

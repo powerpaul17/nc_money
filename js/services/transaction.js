@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.service('TransactionService', function($http) {
+.service('TransactionService', function($http, TRANSACTION_STATUS) {
 
   var ctrl = this;
 
@@ -39,6 +39,44 @@ angular.module('moneyApp')
     transaction.value = value;
   }
 
+  ctrl.isBalanced = function(transaction) {
+    var value = 0;
+    for(var i = 0; i < transaction.splits.length; i++) {
+      value += transaction.splits[i].value;
+    }
+    if(value === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ctrl.checkStatus = function(transaction) {
+    if(ctrl.isBalanced(transaction)) {
+      transaction.status = TRANSACTION_STATUS.indexOf('BALANCED');
+    } else {
+      transaction.status = TRANSACTION_STATUS.indexOf('UNBALANCED');
+    }
+  }
+
+  ctrl.normalizeValues = function(transaction) {
+    transaction.id = parseInt(transaction.id);
+    transaction.value = parseFloat(transaction.value);
+    var value = 0;
+    for(var i = 0; i < transaction.splits.length; i++) {
+      transaction.splits[i].id = parseInt(transaction.splits[i].id);
+      transaction.splits[i].transactionId = parseInt(transaction.splits[i].transactionId);
+      transaction.splits[i].destAccountId = parseInt(transaction.splits[i].destAccountId);
+      transaction.splits[i].value = parseFloat(transaction.splits[i].value);
+      value += transaction.splits[i].value;
+    }
+    if(value === 0) {
+      transaction.status = TRANSACTION_STATUS.indexOf('BALANCED');
+    } else {
+      transaction.status = TRANSACTION_STATUS.indexOf('UNBALANCED');
+    }
+  };
+
   ctrl.getTransactionsForAccount = function(accountId) {
     return $http.get('ajax/get-transactions-for-account', {
       params: {
@@ -48,6 +86,7 @@ angular.module('moneyApp')
       // add and calculate additional data to each transaction
       for(var i = 0; i < response.data.length; i++) {
         // calculate total value and destination account for transaction
+        ctrl.normalizeValues(response.data[i]);
         ctrl.calculateValue(response.data[i], accountId);
       }
   		return response.data;
@@ -74,6 +113,7 @@ angular.module('moneyApp')
       date: date,
       description: description
     }).then(function(response) {
+      ctrl.normalizeValues(response.data);
       ctrl.calculateValue(response.data, srcAccountId);
       notifyObservers('create', response.data);
     }, function(errorResponse) {
@@ -103,6 +143,22 @@ angular.module('moneyApp')
     return $http.post('ajax/delete-split', {splitId: splitId}).then(function(response) {
       notifyObservers('deletedSplit', response.data);
     }, function(errorResponse) {
+
+    });
+  };
+
+  ctrl.getUnbalancedTransactions = function() {
+    return $http.get('ajax/get-unbalanced-transactions').then(function(response) {
+      // add and calculate additional data to each transaction
+      if(response.data !== null) {
+        for(var i = 0; i < response.data.length; i++) {
+          // calculate total value and destination account for transaction
+          ctrl.normalizeValues(response.data[i]);
+          // ctrl.calculateValue(response.data[i], accountId);
+        }
+      }
+  		return response.data;
+  	}, function(errorResponse) {
 
     });
   };

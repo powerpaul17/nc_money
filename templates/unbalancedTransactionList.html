@@ -1,0 +1,18 @@
+<div class="transaction-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
+  <div class="transaction-list-table">
+      <div class="transaction-list-header">
+        <div class="transaction-list-header-item">Date</div>
+        <div class="transaction-list-header-item">Description</div>
+        <div class="transaction-list-header-item">Destination</div>
+        <div class="transaction-list-header-item">In</div>
+        <div class="transaction-list-header-item">Out</div>
+        <div class="transaction-list-header-item"></div>
+      </div>
+    <div transaction-list-item class="transaction-list-transaction"
+         ng-repeat="transaction in (ctrl.transactions | orderBy:['date','timestampAdded']:true) as filtered track by transaction.id"
+         data="transaction" account="ctrl.account"
+         ng-click="setSelected(transaction.id)"
+         ng-class="{active: transaction.id === ctrl.getSelectedId()}"
+    ></div>
+  </div>
+</div>

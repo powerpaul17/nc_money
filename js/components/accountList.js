@@ -13,7 +13,6 @@ angular.module('moneyApp')
 
   // Reflect account changes in accountList
   AccountService.registerObserverCallback(function(ev) {
-    // $scope.$apply(function() {
       if (ev.event === 'delete') {
         if (ctrl.accountList.length === 1) {
           $route.updateParams({
@@ -37,6 +36,7 @@ angular.module('moneyApp')
           }
         }
       } else if (ev.event === 'create') {
+        ev.account.balance = 0;
         ctrl.accounts.push(ev.account);
         $route.updateParams({
           tid: $routeParams.tid,
@@ -47,11 +47,11 @@ angular.module('moneyApp')
           ctrl.newAccount = ev.account;
           for (var i = 0; i < ctrl.accounts.length; i++) {
             if (ctrl.accounts[i].id === ev.account.id) {
+              ctrl.newAccount.balance = ctrl.accounts[i].balance;
               ctrl.accounts[i] = ctrl.newAccount;
             }
           }
       }
-    // });
   });
 
   // Get accounts

@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.controller('transactionListCtrl', function(TransactionService, AccountService) {
+.controller('unbalancedTransactionListCtrl', function(TransactionService, AccountService) {
   var ctrl = this;
 
   ctrl.transactions = [];
@@ -20,9 +20,6 @@ angular.module('moneyApp')
     placeholderValue : t('money', 'Value'),
   };
 
-  // Initialize newTransaction
-  ctrl.newTransaction = [];
-
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
@@ -32,7 +29,7 @@ angular.module('moneyApp')
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
           ctrl.transactions[i].splits.push(ev.response);
-          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+          // TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
           TransactionService.checkStatus(ctrl.transactions[i]);
         }
       }
@@ -47,7 +44,7 @@ angular.module('moneyApp')
           if(ctrl.transactions[i].splits.length === 0) {
             ctrl.transactions.splice(i,1);
           } else {
-            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+            // TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
             TransactionService.checkStatus(ctrl.transactions[i]);
           }
         }
@@ -56,7 +53,7 @@ angular.module('moneyApp')
   });
 
   // Get transactions for account
-  TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
+  TransactionService.getUnbalancedTransactions().then(function(transactions) {
     if (transactions.length > 0) {
       //$scope.$apply(function() {
         ctrl.transactions = transactions;
@@ -67,36 +64,16 @@ angular.module('moneyApp')
     }
   });
 
-  ctrl.resetForm = function() {
-    ctrl.newTransaction.date = "";
-    ctrl.newTransaction.description = "";
-    ctrl.newTransaction.destAccountId = undefined;
-    ctrl.newTransaction.inValue = undefined;
-    ctrl.newTransaction.outValue = undefined;
-  };
-
-  ctrl.submitTransaction = function() {
-    if(ctrl.newTransaction.inValue === undefined) {
-      ctrl.newTransaction.inValue = 0;
-    };
-    if(ctrl.newTransaction.outValue === undefined) {
-      ctrl.newTransaction.outValue = 0;
-    };
-    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
-  };
-
 });
 
 angular.module('moneyApp')
-.directive('transactionList', function() {
+.directive('unbalancedTransactionList', function() {
   return {
     restrict: 'EA',
     scope: {},
-    controller: 'transactionListCtrl',
+    controller: 'unbalancedTransactionListCtrl',
     controllerAs: 'ctrl',
-    bindToController: {
-      account: '=account'
-    },
-    templateUrl: OC.linkTo('money', 'templates/transactionList.html')
+    bindToController: {},
+    templateUrl: OC.linkTo('money', 'templates/unbalancedTransactionList.html')
   };
 });
