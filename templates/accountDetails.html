@@ -8,7 +8,7 @@
 	</div>
 	<div ng-if="ctrl.account!==undefined">
 		<header class="accountdetails__header" ng-style="{'background-color': (ctrl.account.id | accountColor)}">
-      <avatar data="ctrl.account" ng-class="{'avatar--missing': ctrl.account.avatar()===undefined}"></avatar>
+      <!-- <avatar data="ctrl.account" ng-class="{'avatar--missing': ctrl.account.avatar()===undefined}"></avatar> -->
 			<div id="details-account-infos">
 				<h2>
 					<input type="text" id="details-fullName" class="accountdetails__name" placeholder="{{ctrl.t.placeholderName}}" autocomplete="off" autocorrect="off" spellcheck="false"

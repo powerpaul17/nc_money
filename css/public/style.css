@@ -614,8 +614,18 @@ detailsitem .select2-container {
 	border: none;
 }
 
+/* account types list */
+
 .account-types-list-item {
 	font-size: 1.1rem;
+}
+
+.account-types-list-item-value {
+	float: right;
+}
+
+.account-types-list-item-name {
+	float: left;
 }
 
 /* transaction list */

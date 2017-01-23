@@ -10,9 +10,7 @@
       </div>
     <div transaction-list-item class="transaction-list-transaction"
          ng-repeat="transaction in (ctrl.transactions | orderBy:['date','timestampAdded']:true) as filtered track by transaction.id"
-         data="transaction" account="ctrl.account"
-         ng-click="setSelected(transaction.id)"
-         ng-class="{active: transaction.id === ctrl.getSelectedId()}"
+         data="transaction"
     ></div>
   </div>
 </div>

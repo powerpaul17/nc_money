@@ -23,8 +23,7 @@ angular.module('moneyApp')
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
-      ctrl.transactions.push(ev.response);
-      ctrl.resetForm();
+      // Not needed in unbalanced transactions list
     } else if (ev.event === 'addedSplit') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {

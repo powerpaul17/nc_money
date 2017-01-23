@@ -20,8 +20,6 @@ angular.module('moneyApp')
     ctrl.account = undefined;
   }
 
-  ctrl.accountId = $routeParams.aid;
-
   ctrl.t = {
     noAccount : t('money', 'No account opened.'),
     placeholderName : t('money', 'Name'),
@@ -30,35 +28,6 @@ angular.module('moneyApp')
     download : t('money', 'Download'),
     delete : t('money', 'Delete'),
     newCurrency: t('money', 'New currency'),
-  };
-
-  $scope.$watch('ctrl.accountId', function(newValue) {
-    ctrl.changeAccount(newValue);
-  });
-
-  ctrl.changeAccount = function(accountId) {
-    if (typeof accountId === 'undefined') {
-      ctrl.show = false;
-      $('#app-navigation-toggle').removeClass('showdetails');
-      return;
-    }
-    AccountService.getAccountById(accountId).then(function(account) {
-      if (angular.isUndefined(account)) {
-        ctrl.closeAccount();
-        return;
-      }
-      ctrl.account = account;
-      ctrl.show = true;
-      $('#app-navigation-toggle').addClass('showdetails');
-    });
-  };
-
-  ctrl.updateAccount = function() {
-    AccountService.update(ctrl.account);
-  };
-
-  ctrl.deleteAccount = function() {
-    AccountService.delete(ctrl.account);
   };
 
 });
