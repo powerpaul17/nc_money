@@ -19,6 +19,7 @@ script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 //script('money', 'public/script');
 script('money', 'main');
 script('money', 'datepicker');
+script('money', 'currencyInputDirective');
 script('money', 'filters/accountColor');
 script('money', 'filters/transactionStatusColor');
 script('money', 'filters/firstCharacter');

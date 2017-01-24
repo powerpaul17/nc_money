@@ -7,6 +7,10 @@
 	align-items: center;
 }
 
+.accountdetails__header input {
+	width: initial;
+}
+
 .accountdetails__header #details-account-infos {
 	width: 80%;
 	margin: 2px 6px 0px;
@@ -167,89 +171,7 @@ avatar.avatar--missing .avatar-upload {
 	}
 }*/
 
-/* General details item styles */
-
-detailsitem {
-	display: block;
-	position: relative;
-}
-
-detailsitem input[type="tel"],
-detailsitem input[type="email"],
-detailsitem input[type="text"],
-detailsitem input[type="url"],
-detailsitem textarea,
-.select-addressbook select,
-.add-field {
-	width: 245px;
-}
-
-.select-addressbook,
-.add-field {
-	margin-left: 106px;
-}
-
-detailsitem select {
-	width: 100px;
-}
-
-detailsitem label {
-	margin: 3px 3px 3px 0;
-
-	display: inline-block;
-	width: 100px;
-	padding: 7px 0px;
-	text-align: right;
-	opacity: .5;
-	white-space: nowrap;
-	overflow: hidden;
-	overflow-x: hidden;
-	text-overflow: ellipsis;
-	vertical-align: middle;
-}
-
-detailsitem .icon-delete {
-	position: absolute;
-	vertical-align: middle;
-	padding: 16px;
-	background-color: transparent;
-	border: none;
-	opacity: .2;
-}
-
-detailsitem .url-link {
-	position: absolute;
-	padding: 8px 10px;
-	margin-left: -30px;
-	opacity: .5;
-}
-
-detailsitem.details-item-adr .icon-delete, detailsitem.details-item-n .icon-delete {
-	vertical-align: middle;
-	left: 354px;
-}
-
-detailsitem.details-item-adr {
-	padding: 20px 0;
-}
-
-detailsitem.details-item-n {
-	padding: 20px 0;
-}
-
-detailsitem.details-item-note label {
-	vertical-align: top;
-}
-
-/* Prevent delete for last adr/mail/tel item  */
-.last-details > detailsitem.details-item-adr .icon-delete,
-.last-details > detailsitem.details-item-email .icon-delete,
-.last-details > detailsitem.details-item-tel .icon-delete {
-	display: none;
-}
-
 /* addressbook settings */
-
 
 ul.addressBookList li {
 	padding: 6px 0;
@@ -626,6 +548,12 @@ detailsitem .select2-container {
 
 .account-types-list-item-name {
 	float: left;
+}
+
+/* currency input */
+
+input[currency-input] {
+	text-align: right;
 }
 
 /* transaction list */

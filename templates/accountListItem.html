@@ -1,6 +1,6 @@
 <a class="app-content-list-item-link" ng-click="ctrl.openAccount()">
   <!-- <div class="app-content-list-item-icon account__icon" ng-style="{'background-color': ( ctrl.account.id | accountColor ) }">{{ ctrl.account.name | firstCharacter }}</div> -->
   <div class="app-content-list-item-line-one">{{ ctrl.account.name }}</div>
-  <div class="app-content-list-item-value">{{ ctrl.account.balance }}</div>
+  <div class="app-content-list-item-value">{{ ctrl.account.balance | currency : "" }}</div>
   <div class="app-content-list-item-line-two">{{ ctrl.account.currency }} - {{ ctrl.account.description }}</div>
 </a>

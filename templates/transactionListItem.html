@@ -1,13 +1,13 @@
 <!-- <div class="row-separator"></div> -->
-<div class="transaction-list-item">
+<div class="transaction-list-item" ng-form name="ctrl.transactionForm">
   <div class="transaction-list-item-cell transaction-list-item-date">
-    <input type="text" ng-model="ctrl.transaction.date" datepicker ng-change="ctrl.updateTransaction()" />
+    <input type="text" ng-model="ctrl.transaction.date" datepicker />
   </div>
   <div class="transaction-list-item-cell transaction-list-item-description" ng-class="{}">
-    <input type="text" ng-model="ctrl.transaction.description" ng-model-options="{ getterSetter: true, debounce: 500}" ng-change="ctrl.updateTransaction()" />
+    <input type="text" ng-model="ctrl.transaction.description" ng-model-options="{ getterSetter: true, debounce: 500}" />
   </div>
   <div class="transaction-list-item-cell transaction-list-item-destination-account">
-    <ui-select ng-disabled="!ctrl.transaction.destAccountId" ng-model="ctrl.transaction.destAccountId" theme="select2" ng-show="!ctrl.transaction.multipleSplits">
+    <ui-select ng-disabled="!ctrl.transaction.destAccountId" ng-model="ctrl.transaction.destAccountId" theme="select2" ng-hide="ctrl.transaction.multipleSplits || ctrl.showSplits">
       <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
       <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
         <span ng-bind-html="account.name | highlight: $select.search"></span>
@@ -16,20 +16,24 @@
     </ui-select>
     {{ ctrl.transaction.multipleSplits ? '( Multiple Accounts )' : '' }}
   </div>
-  <div class="transaction-list-item-cell transaction-list-item-value">{{ ctrl.transaction.value > 0 ? ctrl.transaction.value : "" }}</div>
-  <div class="transaction-list-item-cell transaction-list-item-value">{{ ctrl.transaction.value < 0 ? -ctrl.transaction.value : "" }}</div>
-  <div class="transaction-list-item-cell transaction-list-item-actions" ng-click="ctrl.toggleTransaction()"><div class="transaction-list-item-status" ng-style="{'background-color': (ctrl.transaction.status | transactionStatusColor)}"></div></div>
+  <div class="transaction-list-item-cell transaction-list-item-value">{{ ( ctrl.transaction.value > 0 ? ctrl.transaction.value : "" | currency : "" ) }}</div>
+  <div class="transaction-list-item-cell transaction-list-item-value">{{ ( ctrl.transaction.value < 0 ? -ctrl.transaction.value : "" | currency : "" ) }}</div>
+  <div class="transaction-list-item-cell transaction-list-item-actions">
+    <div ng-class="{loading: ctrl.transactionItemLoading}"></div>
+    <div class="transaction-list-item-status" ng-click="ctrl.toggleTransaction()" ng-style="{'background-color': (ctrl.transaction.status | transactionStatusColor)}" ng-show="!ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></div>
+    <button ng-click="ctrl.updateTransaction()" class="icon-checkmark" title="{{ctrl.t.update}}" ng-show="ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></button>
+  </div>
 </div>
 
-<div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" class="transaction-list-item-split" data="split" ng-show="ctrl.showSplits"></div>
+<div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" data="split" ng-show="ctrl.showSplits"></div>
 
-<div class="transaction-list-item-split" ng-show="ctrl.showSplits">
+<div class="transaction-list-item-split" ng-show="ctrl.showSplits" ng-form name="ctrl.newSplitForm">
   <div class="split-list-item-empty-cell"></div>
-  <div class="split-list-item-cell transaction-list-item-description" ng-class="{}">
-    <input type="text" ng-model="ctrl.newSplit.description" ng-model-options="{ getterSetter: true, debounce: 500}" placeholder="Comment" />
+  <div class="split-list-item-cell transaction-list-item-description">
+    <input name="newSplitDescription" type="text" ng-model="ctrl.newSplit.description" ng-model-options="{ getterSetter: true, debounce: 500}" placeholder="Comment" />
   </div>
-  <div class="split-list-item-cell transaction-list-item-destination-account">
-    <ui-select ng-model="ctrl.newSplit.destAccountId" theme="select2">
+  <div name="newSplitDestAccount" class="split-list-item-cell transaction-list-item-destination-account">
+    <ui-select ng-model="ctrl.newSplit.destAccountId" theme="select2" ng-required="true">
       <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
       <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
         <span ng-bind-html="account.name | highlight: $select.search"></span>
@@ -37,10 +41,11 @@
       </ui-select-choices>
     </ui-select>
   </div>
-  <div class="split-list-item-cell transaction-list-item-value"><input type="number" ng-model="ctrl.newSplit.inValue" /></div>
-  <div class="split-list-item-cell transaction-list-item-value"><input type="number" ng-model="ctrl.newSplit.outValue" /></div>
+  <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitInValue" type="text" ng-model="ctrl.newSplit.inValue" placeholder="Value" ng-required="true"/></div>
+  <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitOutValue" type="text" ng-model="ctrl.newSplit.outValue" placeholder="Value" ng-required="true"/></div>
   <div class="split-list-item-cell transaction-list-item-actions">
-    <button ng-click="ctrl.addSplit()" class="icon-add action pull-right" title=""></button>
+    <div ng-class="{loading: ctrl.newSplitLoading}"></div>
+    <button ng-click="ctrl.addSplit()" class="icon-add action pull-right" title="" ng-show="ctrl.newSplitForm.$valid" ng-hide="ctrl.newSplitLoading"></button>
   </div>
 </div>
 <div class="row-separator" ng-show="ctrl.showSplits"></div>

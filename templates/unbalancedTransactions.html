@@ -13,7 +13,7 @@
 					<span class="accountdetails__name">Unbalanced Transactions</span>
 				</h2>
 				<div id="details-org-container">
-					<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging tagging-label="false">
+					<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="" theme="select2" tagging tagging-label="false">
 		 	      <ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
 		 	      <ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
 		 	        <span ng-bind-html="currency | highlight: $select.search"></span>

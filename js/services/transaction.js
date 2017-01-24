@@ -59,15 +59,28 @@ angular.module('moneyApp')
     }
   }
 
+  ctrl.normalizeSplitValues = function(split) {
+    split.id = parseInt(split.id);
+    split.transactionId = parseInt(split.transactionId);
+    split.destAccountId = parseInt(split.destAccountId);
+    split.value = parseFloat(split.value);
+
+    split.inValue = 0;
+    split.outValue = 0;
+    if (split.value > 0) {
+      split.inValue = split.value;
+    } else {
+      split.outValue = -split.value;
+    }
+
+  };
+
   ctrl.normalizeValues = function(transaction) {
     transaction.id = parseInt(transaction.id);
     transaction.value = parseFloat(transaction.value);
     var value = 0;
     for(var i = 0; i < transaction.splits.length; i++) {
-      transaction.splits[i].id = parseInt(transaction.splits[i].id);
-      transaction.splits[i].transactionId = parseInt(transaction.splits[i].transactionId);
-      transaction.splits[i].destAccountId = parseInt(transaction.splits[i].destAccountId);
-      transaction.splits[i].value = parseFloat(transaction.splits[i].value);
+      ctrl.normalizeSplitValues(transaction.splits[i]);
       value += transaction.splits[i].value;
     }
     if(value === 0) {
@@ -121,8 +134,13 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.update = function() {
-    console.log("transaction update: TODO!");
+  ctrl.update = function(transaction) {
+    return $http.put('ajax/update-transaction', transaction).then(function(response) {
+      ctrl.normalizeValues(response.data);
+      notifyObservers('update', response.data);
+    }, function(errorResponse) {
+
+    });
   };
 
   ctrl.addSplit = function(transactionId, destAccountId, value, convertRate, description) {
@@ -133,6 +151,7 @@ angular.module('moneyApp')
       convertRate: convertRate,
       description: description
     }).then(function(response) {
+      ctrl.normalizeSplitValues(response.data);
       notifyObservers('addedSplit', response.data);
     }, function(errorResponse) {
 
@@ -142,6 +161,15 @@ angular.module('moneyApp')
   ctrl.deleteSplit = function(splitId) {
     return $http.post('ajax/delete-split', {splitId: splitId}).then(function(response) {
       notifyObservers('deletedSplit', response.data);
+    }, function(errorResponse) {
+
+    });
+  };
+
+  ctrl.updateSplit = function(split) {
+    return $http.put('ajax/update-split', split).then(function(response) {
+      ctrl.normalizeSplitValues(response.data);
+      notifyObservers('updatedSplit', response.data);
     }, function(errorResponse) {
 
     });

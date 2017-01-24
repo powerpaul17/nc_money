@@ -27,13 +27,24 @@ angular.module('moneyApp')
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
       ctrl.transactions.push(ev.response);
-      ctrl.resetForm();
+      TransactionService.calculateValue(ctrl.transactions[ctrl.transactions.length-1], ctrl.account.id);
+      TransactionService.checkStatus(ctrl.transactions[ctrl.transactions.length-1]);
+    } else if (ev.event === 'update') {
+      for (var i = 0; i < ctrl.transactions.length; i++) {
+        if (ctrl.transactions[i].id === ev.response.id) {
+          ctrl.transactions[i] = ev.response;
+          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+          TransactionService.checkStatus(ctrl.transactions[i]);
+          break;
+        }
+      }
     } else if (ev.event === 'addedSplit') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
           ctrl.transactions[i].splits.push(ev.response);
           TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
           TransactionService.checkStatus(ctrl.transactions[i]);
+          break;
         }
       }
     } else if (ev.event === 'deletedSplit') {
@@ -42,9 +53,33 @@ angular.module('moneyApp')
           for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
             if (parseInt(ctrl.transactions[i].splits[j].id) === ev.response.id) {
               ctrl.transactions[i].splits.splice(j,1);
+              break;
             }
           }
           if(ctrl.transactions[i].splits.length === 0) {
+            ctrl.transactions.splice(i,1);
+          } else {
+            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+            TransactionService.checkStatus(ctrl.transactions[i]);
+          }
+        }
+      }
+    } else if (ev.event === 'updatedSplit') {
+      for (var i = 0; i < ctrl.transactions.length; i++) {
+        if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
+          for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
+            if (parseInt(ctrl.transactions[i].splits[j].id) === ev.response.id) {
+              ctrl.transactions[i].splits[j] = ev.response;
+              break;
+            }
+          }
+          var number = 0;
+          for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
+            if (parseInt(ctrl.transactions[i].splits[j].destAccountId) === ctrl.account.id) {
+              number++;
+            }
+          }
+          if (number === 0) {
             ctrl.transactions.splice(i,1);
           } else {
             TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
@@ -73,6 +108,8 @@ angular.module('moneyApp')
     ctrl.newTransaction.destAccountId = undefined;
     ctrl.newTransaction.inValue = undefined;
     ctrl.newTransaction.outValue = undefined;
+    ctrl.newTransactionForm.$setPristine();
+    ctrl.newTransactionForm.$setUntouched();
   };
 
   ctrl.submitTransaction = function() {
@@ -82,7 +119,11 @@ angular.module('moneyApp')
     if(ctrl.newTransaction.outValue === undefined) {
       ctrl.newTransaction.outValue = 0;
     };
-    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description);
+    ctrl.newTransactionLoading = true;
+    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description).then(function(response) {
+      ctrl.resetForm();
+      ctrl.newTransactionLoading = false;
+    });
   };
 
 });

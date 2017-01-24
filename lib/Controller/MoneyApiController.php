@@ -112,7 +112,9 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function updateTransaction($id, $description, $date) {
-    return $this->transactionService->update($id, $description, $date, $this->userId);
+    $transaction = $this->transactionService->update($id, $description, $date, $this->userId);
+    $transaction = $this->getTransaction($transaction->id);
+    return $transaction;
   }
 
   /**

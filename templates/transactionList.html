@@ -8,19 +8,19 @@
         <div class="transaction-list-header-item">Out</div>
         <div class="transaction-list-header-item"></div>
       </div>
-      <div class="transaction-list-item">
+      <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
         <div class="transaction-list-item-cell">
           <!-- <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDate}}" autocomplete="off" autocorrect="off" spellcheck="false"
                  name="timestamp" ng-model="ctrl.newTransaction.date" value="" /> -->
-          <input type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." required />
+          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
-          <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="description" ng-model="ctrl.newTransaction.description" value="" required />
+          <input name="newTransactionDescription" type="text" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
+                 ng-model="ctrl.newTransaction.description" value="" ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
           <!-- <select name="destAccount" ng-options="option.id as option.name for option in ctrl.availableAccounts"></select> -->
-          <ui-select title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" required>
+          <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="true">
             <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
               <span ng-bind-html="account.name | highlight: $select.search"></span>
@@ -29,20 +29,23 @@
           </ui-select>
         </div>
          <div class="transaction-list-item-cell">
-          <input type="number" id="" class="" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="inValue" ng-model="ctrl.newTransaction.inValue" value="" ng-pattern="/^[0-9]+(\.[0-9])*/" />
+          <input currency-input name="newTransactionInValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
+                 ng-model="ctrl.newTransaction.inValue" value="" ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
-          <input type="number" id="" class="" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="outValue" ng-model="ctrl.newTransaction.outValue" value="" ng-pattern="/^[0-9]+(\.[0-9])*/" />
+          <input currency-input name="newTransactionOutValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
+                 ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
-          <button ng-click="ctrl.submitTransaction()" class="submitTransaction icon-add action pull-right" />
+          <div ng-class="{loading: ctrl.newTransactionLoading}"></div>
+          <button ng-click="ctrl.submitTransaction()" class="submitTransaction icon-add action pull-right" ng-show="ctrl.newTransactionForm.$valid && !ctrl.newTransactionLoading" />
         </div>
     </div>
+
     <div transaction-list-item class="transaction-list-transaction"
          ng-repeat="transaction in (ctrl.transactions | orderBy:['date','timestampAdded']:true) as filtered track by transaction.id"
          data="transaction" account="ctrl.account"
     ></div>
+
   </div>
 </div>

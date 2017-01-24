@@ -48,6 +48,18 @@ angular.module('moneyApp')
           }
         }
       }
+    } else if (ev.event === 'updatedSplit') {
+      for (var i = 0; i < ctrl.transactions.length; i++) {
+        if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
+          for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
+            if (parseInt(ctrl.transactions[i].splits[j].id) === ev.response.id) {
+              ctrl.transactions[i].splits[j] = ev.response;
+            }
+          }
+          // TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+          TransactionService.checkStatus(ctrl.transactions[i]);
+        }
+      }
     }
   });
 

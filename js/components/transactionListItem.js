@@ -8,8 +8,8 @@ angular.module('moneyApp')
 
   // Initialize newSplit variable
   ctrl.newSplit = [];
-  ctrl.newSplit.inValue = 0;
-  ctrl.newSplit.outValue = 0;
+  ctrl.newSplit.inValue = undefined;
+  ctrl.newSplit.outValue = undefined;
   ctrl.newSplit.description = "";
   ctrl.newSplit.destAccountId = undefined;
 
@@ -18,20 +18,34 @@ angular.module('moneyApp')
   };
 
   ctrl.updateTransaction = function() {
-    TransactionService.update(ctrl.transaction);
-  };
-
-  ctrl.addSplit = function() {
-    TransactionService.addSplit(ctrl.transaction.id, ctrl.newSplit.destAccountId, ctrl.newSplit.inValue-ctrl.newSplit.outValue, ctrl.newSplit.convertRate, ctrl.newSplit.description).then(function() {
-      ctrl.resetForm();
+    ctrl.transactionItemLoading = true;
+    TransactionService.update(ctrl.transaction).then(function(response) {
+      ctrl.resetTransactionForm();
+      ctrl.transactionItemLoading = false;
     });
   };
 
-  ctrl.resetForm = function() {
-    ctrl.newSplit.inValue = 0;
-    ctrl.newSplit.outValue = 0;
+  ctrl.addSplit = function() {
+    ctrl.newSplitLoading = true;
+    ctrl.newSplit.convertRate = 1; // for the moment we do not look at convert rates ;)
+    TransactionService.addSplit(ctrl.transaction.id, ctrl.newSplit.destAccountId, ctrl.newSplit.inValue-ctrl.newSplit.outValue, ctrl.newSplit.convertRate, ctrl.newSplit.description).then(function() {
+      ctrl.resetNewSplitForm();
+      ctrl.newSplitLoading = false;
+    });
+  };
+
+  ctrl.resetTransactionForm = function() {
+    ctrl.transactionForm.$setPristine();
+    ctrl.transactionForm.$setUntouched();
+  }
+
+  ctrl.resetNewSplitForm = function() {
+    ctrl.newSplit.inValue = undefined;
+    ctrl.newSplit.outValue = undefined;
     ctrl.newSplit.description = "";
     ctrl.newSplit.destAccountId = undefined;
+    ctrl.newSplitForm.$setPristine();
+    ctrl.newSplitForm.$setUntouched();
   };
 
 });

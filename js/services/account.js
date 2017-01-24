@@ -28,10 +28,13 @@ angular.module('moneyApp')
       for(var i = 0; i < ev.response.splits.length; i++) {
         accounts.get(ev.response.splits[i].destAccountId).balance = parseFloat(accounts.get(ev.response.splits[i].destAccountId).balance) + parseFloat(ev.response.splits[i].value);
       }
-    } else if(ev.event === 'addedSplit') {
+    } else if (ev.event === 'addedSplit') {
+      accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) + parseFloat(ev.response.value);
+    } else if (ev.event === 'deletedSplit') {
       accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) - parseFloat(ev.response.value);
-    } else if(ev.event === 'deletedSplit') {
-      accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) - parseFloat(ev.response.value);
+    } else if (ev.event === 'updatedSplit') {
+      console.log("TODO! Recalculate account balance");
+      //accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) + parseFloat(ev.response.value);
     }
   });
 
@@ -42,7 +45,11 @@ angular.module('moneyApp')
         for (var i in response.data) {
           response.data[i].id = parseInt(response.data[i].id);
           response.data[i].type = parseInt(response.data[i].type);
-          response.data[i].balance = parseFloat(response.data[i].balance);
+          if(response.data[i].balance === null) {
+            response.data[i].balance = 0;
+          } else {
+            response.data[i].balance = parseFloat(response.data[i].balance);
+          }
           accounts.put(response.data[i].id, response.data[i]);
         }
         cacheFilled = true;

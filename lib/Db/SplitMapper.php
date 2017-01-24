@@ -24,7 +24,7 @@ class SplitMapper extends Mapper {
   /* Testing */
 
   public function findAllSplitsOfTransaction($userId, $transactionId) {
-    $sql = 'SELECT id, description, dest_account_id, value, convert_rate FROM *PREFIX*money_splits WHERE user_id = ? AND transaction_id = ?';
+    $sql = 'SELECT * FROM *PREFIX*money_splits WHERE user_id = ? AND transaction_id = ?';
     return $this->findEntities($sql, [$userId, $transactionId]);
   }
 
