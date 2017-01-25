@@ -2,6 +2,9 @@ angular.module('moneyApp')
 .controller('splitListItemCtrl', function($http, AccountService, TransactionService) {
   var ctrl = this;
 
+  // we save a copy before someone edits the form
+  ctrl.originalSplit = angular.copy(ctrl.split);
+
   AccountService.getAccounts().then(function(accounts) {
     ctrl.availableAccounts = _.unique(accounts);
   });
@@ -34,8 +37,11 @@ angular.module('moneyApp')
 
   ctrl.updateSplit = function() {
     ctrl.splitItemLoading = true;
+    var originalAccount = ctrl.originalSplit.destAccountId;
+    var originalValue = ctrl.originalSplit.value;
     ctrl.split.value = ctrl.split.inValue - ctrl.split.outValue;
-    TransactionService.updateSplit(ctrl.split).then(function(response) {
+    TransactionService.updateSplit(ctrl.split, originalAccount, originalValue).then(function(response) {
+      ctrl.originalSplit = angular.copy(ctrl.split);
       ctrl.resetForm();
       ctrl.splitItemLoading = false;
     });

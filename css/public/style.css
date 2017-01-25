@@ -19,7 +19,7 @@
 .accountdetails__header h2 {
 	margin: 0;
 }
-.accountdetails__header #details-org-container {
+.accountdetails__header #accountdetails-container {
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -49,6 +49,18 @@
 	display: flex;
 	flex-shrink: 0;
 }
+
+.accountdetails__header .select2-container {
+	/*width: 100%;*/
+	margin: 0;
+}
+
+.accountdetails__header .select2-container .select2-choice {
+	border: 0;
+	background: none;
+	color: inherit;
+}
+
 /* fix placeholder color */
 .accountdetails__header .accountdetails__name::-webkit-input-placeholder,
 .accountdetails__header .accountdetails__org::-webkit-input-placeholder,
@@ -88,46 +100,6 @@
 .accountdetails__header #account-export-link:hover,
 .accountdetails__header #account-export-link:focus {
 	opacity: .7
-}
-
-avatar {
-	position: relative;
-	height: 75px;
-	width: 75px;
-	border-radius: 50%;
-	overflow: hidden;
-	flex-shrink: 0;
-}
-
-.avatar-upload {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-
-	background-color: rgba(0,0,0,0.2);
-	font-size: 2.5em;
-	line-height: 75px;
-
-	display: none;
-
-}
-
-.avatar-upload > .icon-upload-white {
-	display: block;
-	width: 100%;
-	height: 100%;
-	opacity: 0.5;
-	cursor: pointer;
-}
-.avatar-upload:hover > .icon-upload-white {
-	opacity: 0.7;
-}
-
-avatar:hover .avatar-upload,
-avatar.avatar--missing .avatar-upload {
-	display: block;
 }
 
 .accountdetails__logo {
@@ -171,44 +143,6 @@ avatar.avatar--missing .avatar-upload {
 	}
 }*/
 
-/* addressbook settings */
-
-ul.addressBookList li {
-	padding: 6px 0;
-}
-
-ul.addressBook-share-list {
-	margin-top: 8px;
-	margin-bottom: 12px;
-}
-
-ul.addressBook-share-list li {
-	margin-left: 15px;
-}
-
-ul.addressBookList li .action > span {
-	padding: 10px 14px;
-}
-
-ul.addressBookList li .action > a {
-	padding: 10px 14px;
-}
-
-div.addressBookShares ul.dropdown-menu {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	width: 229px;
-	height: 200px;
-	margin-top: -5px;
-	overflow: scroll;
-}
-
-div.addressBookShares ul.dropdown-menu li > a {
-	height: 30px !important;
-	min-height: 30px !important;
-	line-height: 30px !important;
-}
-
 ul.dropdown-menu li.active {
 	background: #eee;
 }
@@ -217,41 +151,6 @@ div.app-accounts span.utils {
 	padding: 0 !important;
 	float: right;
 	position: relative !important;
-}
-
-input.newAddressBookInput, input.shareeInput, input.addressBookUrl {
-	width: 100% !important;
-}
-
-.addressBookList form {
-	position: relative;
-}
-.newAddressBookSubmit {
-	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 6px 13px;
-	background-color: transparent;
-	border: none;
-	opacity: .5;
-}
-
-ul.addressBookList li[addressbook] > span.addressBookName {
-	width: 105px;
-	overflow: hidden;
-	white-space:nowrap;
-	text-overflow: ellipsis;
-	padding-left: 7px;
-	display: inline-block;
-}
-
-li.addressBook-share-item span.shareeIdentifier {
-	max-width: 50px;
-	overflow:hidden;
-	white-space:nowrap;
-	text-overflow:ellipsis;
-	display: inline-block;
-	vertical-align: top;
 }
 
 #app-settings-content #upload.button {
@@ -600,6 +499,11 @@ input[currency-input] {
 .transaction-list-item {
 	/*box-shadow: 1px 1px 3px #ddd;*/
 }
+
+/*.transaction-list-item-actions .loading {
+	width: 10px;
+	height: 10px;
+}*/
 
 .transaction-list-header,
 .transaction-list-item,

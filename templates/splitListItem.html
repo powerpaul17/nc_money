@@ -15,7 +15,7 @@
 <div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.inValue" /></div>
 <div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.outValue" /></div>
 <div class="split-list-item-cell transaction-list-item-actions">
-  <div ng-class="{loading: ctrl.splitItemLoading}"></div>
+  <div ng-class="{'icon-loading-small': ctrl.splitItemLoading}"></div>
   <button ng-click="ctrl.deleteSplit()" class="icon-delete" title="{{ctrl.t.delete}}" ng-show="!ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
   <button ng-click="ctrl.updateSplit()" class="icon-checkmark" title="{{ctrl.t.update}}" ng-show="ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
 </div>

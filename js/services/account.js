@@ -33,8 +33,8 @@ angular.module('moneyApp')
     } else if (ev.event === 'deletedSplit') {
       accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) - parseFloat(ev.response.value);
     } else if (ev.event === 'updatedSplit') {
-      console.log("TODO! Recalculate account balance");
-      //accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) + parseFloat(ev.response.value);
+      accounts.get(ev.response.originalAccount).balance -= parseFloat(ev.response.originalValue);
+      accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
     }
   });
 
@@ -129,15 +129,18 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.getAccountTypeBalance = function(accountType) {
+  ctrl.getAccountTypeBalance = function(accountTypeId) {
     return this.getAccounts().then(function(accounts) {
       var balance = 0;
       for(var i = 0; i < accounts.length; i++) {
-        if(accounts[i].type === accountType) {
+        if(accounts[i].type === accountTypeId) {
           balance += accounts[i].balance;
         }
       }
-      return balance;
+      var result = [];
+      result['accountTypeId'] = accountTypeId;
+      result['balance'] = balance;
+      return result;
     });
   };
 

@@ -1,8 +1,26 @@
 angular.module('moneyApp')
-.controller('accountTypesListCtrl', function($scope, $routeParams, ACCOUNT_TYPES) {
+.controller('accountTypesListCtrl', function($scope, $routeParams, ACCOUNT_TYPES, AccountService, TransactionService) {
 	var ctrl = this;
 
-	ctrl.types = ACCOUNT_TYPES;
+	ctrl.types = [];
+
+	for (var i = 0; i < ACCOUNT_TYPES.length; i++) {
+		var newType = {};
+		newType.type = ACCOUNT_TYPES[i];
+		newType.balance = 0;
+		ctrl.types.push(newType);
+		AccountService.getAccountTypeBalance(i).then(function(result) {
+			ctrl.types[result.accountTypeId].balance = result.balance;
+	  });
+	}
+
+	TransactionService.registerObserverCallback(function(ev) {
+		for (var i = 0; i < ctrl.types.length; i++) {
+			AccountService.getAccountTypeBalance(i).then(function(result) {
+		    ctrl.types[result.accountTypeId].balance = result.balance;
+		  });
+		}
+  });
 
 	ctrl.getSelected = function() {
 		return $routeParams.tid;
@@ -16,6 +34,18 @@ angular.module('moneyApp')
 		$routeParams.tid = 'Unbalanced';
 		$routeParams.aid = undefined;
 	};
+
+	ctrl.getUnbalancedValue = function() {
+		var sum = 0;
+		for (var i = 0; i < ctrl.types.length; i++) {
+			sum += ctrl.types[i].balance;
+		}
+		return sum;
+	};
+
+	ctrl.getEquity = function() {
+		return ctrl.types[ACCOUNT_TYPES.indexOf('Assets')].balance + ctrl.types[ACCOUNT_TYPES.indexOf('Liabilities')].balance;
+	}
 
 });
 

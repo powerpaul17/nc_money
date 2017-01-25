@@ -1,9 +1,17 @@
 <li ng-repeat="type in ctrl.types"
     account-types-list-item data="type"
-    ng-click="ctrl.setSelected(type)"
-    ng-class="{active: type === ctrl.getSelected}"
+    ng-click="ctrl.setSelected(type.type)"
+    ng-class="{active: type.type === ctrl.getSelected}"
     class="account-types-list-item"
 ></li>
 <hr>
-<li class="account-types-list-item" ng-click="ctrl.showUnbalanced()"><a ng-href="#/Unbalanced">Unbalanced</a></li>
-<li class="account-types-list-item">Equity</li>
+<li class="account-types-list-item" ng-click="ctrl.showUnbalanced()">
+  <a ng-href="#/Unbalanced">
+    <div class="account-types-list-item-name">Unbalanced</div>
+    <div class="account-types-list-item-value">{{ ctrl.getUnbalancedValue() | currency : "" }}</div>
+  </a>
+</li>
+<li class="account-types-list-item">
+  <div class="account-types-list-item-name">Equity</div>
+  <div class="account-types-list-item-value">{{ ctrl.getEquity() | currency : "" }}</div>
+</li>

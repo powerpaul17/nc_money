@@ -2,6 +2,9 @@ angular.module('moneyApp')
 .controller('transactionListItemCtrl', function($route, $routeParams, TransactionService, AccountService) {
   var ctrl = this;
 
+  // save a copy before form was edited
+  ctrl.originalTransaction = angular.copy(ctrl.transaction);
+
   AccountService.getAccounts().then(function(accounts) {
     ctrl.availableAccounts = _.unique(accounts);
   });
@@ -19,7 +22,17 @@ angular.module('moneyApp')
 
   ctrl.updateTransaction = function() {
     ctrl.transactionItemLoading = true;
+    if (ctrl.transactionForm.destAccountId.$dirty) {
+      for (var i = 0; i < ctrl.transaction.splits.length; i++) {
+        if (ctrl.transaction.splits[i].destAccountId === ctrl.originalTransaction.destAccountId) {
+          ctrl.transaction.splits[i].destAccountId = ctrl.transaction.destAccountId;
+          TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.originalTransaction.destAccountId, ctrl.transaction.splits[i].value);
+    //       break;
+        }
+      }
+    }
     TransactionService.update(ctrl.transaction).then(function(response) {
+      ctrl.originalTransaction = angular.copy(ctrl.transaction);
       ctrl.resetTransactionForm();
       ctrl.transactionItemLoading = false;
     });

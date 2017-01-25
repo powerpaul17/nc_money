@@ -178,8 +178,8 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getAccountBalance($accountId) {
-    $query = \OCP\DB::prepare('SELECT ROUND(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ?;');
-    $result = $query->execute([$accountId])->fetch();
+    $query = \OCP\DB::prepare('SELECT ROUND(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ? AND user_id = ?;');
+    $result = $query->execute([$accountId, $this->userId])->fetch();
     return $result;
   }
 

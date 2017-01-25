@@ -166,9 +166,11 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.updateSplit = function(split) {
+  ctrl.updateSplit = function(split, originalAccount, originalValue) {
     return $http.put('ajax/update-split', split).then(function(response) {
       ctrl.normalizeSplitValues(response.data);
+      response.data.originalAccount = originalAccount;
+      response.data.originalValue = originalValue;
       notifyObservers('updatedSplit', response.data);
     }, function(errorResponse) {
 

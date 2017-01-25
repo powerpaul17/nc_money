@@ -14,17 +14,20 @@
 					<input type="text" id="details-fullName" class="accountdetails__name" placeholder="{{ctrl.t.placeholderName}}" autocomplete="off" autocorrect="off" spellcheck="false"
 						   name="name" ng-model="ctrl.account.name" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value="" />
 				</h2>
-				<div id="details-org-container">
-					<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging tagging-label="false">
-		 	      <ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
-		 	      <ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
-		 	        <span ng-bind-html="currency | highlight: $select.search"></span>
-		 	      </ui-select-choices>
-		 	    </ui-select>
+				<!-- <div id="accountdetails-container"> -->
 					<input type="text" id="details-description" class="accountdetails__description" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
 						   name="description" ng-model="ctrl.account.description" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value=""
                inputresize size="{{ctrl.account.description.length > 1 ? ctrl.account.description.length : '1'}}" />
-				</div>
+					<div class="app-content-list-item-value">
+						<span style="vertical-align: middle;">{{ ctrl.account.balance | currency : "" }}</span> &nbsp;
+						<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging tagging-label="false">
+		 					<ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
+		 					<ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
+		 		 				<span ng-bind-html="currency | highlight: $select.search"></span>
+		 		 	  	</ui-select-choices>
+		 		 		</ui-select>
+					</div>
+				<!-- </div> -->
 			</div>
 			<div id="details-actions">
 				<a href="{{ctrl.account.data.url}}" id="account-export-link"

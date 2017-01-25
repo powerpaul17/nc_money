@@ -37,7 +37,7 @@
                  ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
-          <div ng-class="{loading: ctrl.newTransactionLoading}"></div>
+          <div ng-class="{'icon-loading-small': ctrl.newTransactionLoading}"></div>
           <button ng-click="ctrl.submitTransaction()" class="submitTransaction icon-add action pull-right" ng-show="ctrl.newTransactionForm.$valid && !ctrl.newTransactionLoading" />
         </div>
     </div>
