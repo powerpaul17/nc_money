@@ -4,22 +4,24 @@
     <id>money</id>
     <name>Money</name>
     <summary>Manage your finances.</summary>
-    <description>Finance manager for NC/OC.</description>
-    <licence>AGPL</licence>
+    <description>Finance manager for Nextcloud.</description>
+    <licence>agpl</licence>
     <author mail="paultirk@paultirk.com">Paul Tirk</author>
     <version>0.1.10</version>
     <namespace>Money</namespace>
     <documentation>
-    	<user></user>
+    	<user>https://github.com/powerpaul17/nc_money/wiki</user>
     	<admin></admin>
     	<developer></developer>
     </documentation>
-    <category>tool</category>
-    <website>https://github.com/powerpaul17/ownmoney</website>
-    <bugs>https://github.com/powerpaul17/ownmoney/issues</bugs>
-    <repository type="git">https://github.com/powerpaul17/ownmoney.git</repository>
+    <category>office</category>
+    <category>organization</category>
+    <category>tools</category>
+    <website>https://github.com/powerpaul17/nc_money</website>
+    <bugs>https://github.com/powerpaul17/nc_money/issues</bugs>
+    <repository type="git">https://github.com/powerpaul17/nc_money.git</repository>
+    <screenshot>???
     <dependencies>
-      <owncloud min-version="9.2" />
       <nextcloud min-version="11" max-version="11" />
     </dependencies>
     <background-jobs>

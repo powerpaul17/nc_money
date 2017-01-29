@@ -21,7 +21,7 @@ angular.module('moneyApp')
 
   // calculate total value and destination account for transaction
   ctrl.calculateValue = function(transaction, accountId) {
-    var value = 0;
+    var value = 0.0;
     var destAccountCount = 0;
     transaction.multipleSplits = false;
     for(var j = 0; j < transaction.splits.length; j++) {
@@ -40,7 +40,7 @@ angular.module('moneyApp')
   }
 
   ctrl.isBalanced = function(transaction) {
-    var value = 0;
+    var value = 0.0;
     for(var i = 0; i < transaction.splits.length; i++) {
       value += transaction.splits[i].value;
     }

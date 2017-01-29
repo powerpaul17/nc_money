@@ -33,7 +33,7 @@ angular.module('moneyApp')
 .constant('ACCOUNT_TYPES', [
 	'Assets',
 	'Liabilities',
-	'Incomes',
+	'Income',
 	'Expenses'
 ]);
 

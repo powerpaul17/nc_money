@@ -45,7 +45,7 @@
   <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitOutValue" type="text" ng-model="ctrl.newSplit.outValue" placeholder="Value" ng-required="true"/></div>
   <div class="split-list-item-cell transaction-list-item-actions">
     <div ng-class="{'icon-loading-small': ctrl.newSplitLoading}"></div>
-    <button ng-click="ctrl.addSplit()" class="icon-add action pull-right" title="" ng-show="ctrl.newSplitForm.$valid" ng-hide="ctrl.newSplitLoading"></button>
+    <button ng-click="ctrl.addSplit()" class="icon-add action pull-right" title="" ng-show="ctrl.newSplitForm.$valid && !ctrl.newSplitLoading"></button>
   </div>
 </div>
 <div class="row-separator" ng-show="ctrl.showSplits"></div>
