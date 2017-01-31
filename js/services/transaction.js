@@ -27,6 +27,7 @@ angular.module('moneyApp')
     for(var j = 0; j < transaction.splits.length; j++) {
       if (parseInt(transaction.splits[j].destAccountId) === parseInt(accountId)) {
         value += transaction.splits[j].value;
+        value = Math.round(value*100)/100; // to avoid rounding errors
       } else {
         if(destAccountCount === 0) {
           transaction.destAccountId = transaction.splits[j].destAccountId;
@@ -43,6 +44,7 @@ angular.module('moneyApp')
     var value = 0.0;
     for(var i = 0; i < transaction.splits.length; i++) {
       value += transaction.splits[i].value;
+      value = Math.round(value*100)/100; // to avoid rounding errors
     }
     if(value === 0) {
       return true;
@@ -101,6 +103,7 @@ angular.module('moneyApp')
         // calculate total value and destination account for transaction
         ctrl.normalizeValues(response.data[i]);
         ctrl.calculateValue(response.data[i], accountId);
+        ctrl.checkStatus(response.data[i]);
       }
   		return response.data;
   	});

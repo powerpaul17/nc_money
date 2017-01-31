@@ -262,19 +262,6 @@ div.app-accounts span.utils {
 	padding: 12px;
 }
 
-ul.addressBookList li {
-	margin-bottom: 5px;
-}
-
-ul.addressBook-share-list {
-	margin-top: 8px;
-	margin-bottom: 12px;
-}
-
-ul.addressBook-share-list li {
-	margin-left: 15px;
-}
-
 #app-navigation .utils .action span {
 	cursor: pointer !important;
 }
@@ -518,14 +505,11 @@ input[currency-input] {
 	/*background-color: #ccc;*/
 }
 
-.transaction-list-header-item {
-	display: table-cell;
-}
-
 /* transaction list item */
 
 .transaction-list-item-cell,
-.split-list-item-cell {
+.split-list-item-cell,
+.transaction-list-header-item {
 	border: 1px solid #ddd;
 	display: table-cell;
 	/*height: 68px;*/
@@ -533,6 +517,13 @@ input[currency-input] {
 	/*margin-bottom: 5px;*/
 	padding-left: 7px;
 	padding-right: 7px;
+}
+
+.transaction-list-header-item {
+	font-weight: bold;
+	text-align: center;
+	padding-top: 7px;
+	padding-bottom: 5px;
 }
 
 .split-list-item-empty-cell {
