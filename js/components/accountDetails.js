@@ -2,7 +2,8 @@ angular.module('moneyApp')
 .controller('accountDetailsCtrl', function($route, $routeParams, $scope, AccountService) {
   var ctrl = this;
 
-  ctrl.loading = true;
+  ctrl.account = undefined;
+
   ctrl.show = false;
 
   ctrl.availableCurrencies = [];

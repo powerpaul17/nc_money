@@ -1,5 +1,5 @@
 <div class="transaction-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
-  <div class="transaction-list-table">
+  <div class="transaction-list-table" ng-show="!ctrl.loading">
       <div class="transaction-list-header">
         <div class="transaction-list-header-item">Date</div>
         <div class="transaction-list-header-item">Description</div>
@@ -10,8 +10,6 @@
       </div>
       <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
         <div class="transaction-list-item-cell">
-          <!-- <input type="text" id="" class="" placeholder="{{ctrl.t.placeholderDate}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 name="timestamp" ng-model="ctrl.newTransaction.date" value="" /> -->
           <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
@@ -19,7 +17,6 @@
                  ng-model="ctrl.newTransaction.description" value="" ng-required="true" />
         </div>
         <div class="transaction-list-item-cell">
-          <!-- <select name="destAccount" ng-options="option.id as option.name for option in ctrl.availableAccounts"></select> -->
           <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="true">
             <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
@@ -43,7 +40,7 @@
     </div>
 
     <div transaction-list-item class="transaction-list-transaction"
-         ng-repeat="transaction in (ctrl.transactions | orderBy:['date','timestampAdded']:true) as filtered track by transaction.id"
+         ng-repeat="transaction in ctrl.transactions as filtered track by transaction.id"
          data="transaction" account="ctrl.account"
     ></div>
 

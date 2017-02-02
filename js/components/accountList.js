@@ -20,7 +20,7 @@ angular.module('moneyApp')
           });
         } else {
           for (var i = 0, length = ctrl.accounts.length; i < length; i++) {
-            if (ctrl.accounts[i].id === ev.account.id) {
+            if (ctrl.accounts[i].id === ev.response.id) {
               $route.updateParams({
                 tid: $routeParams.tid,
                 aid: (ctrl.accounts[i+1]) ? ctrl.accounts[i+1].id : ctrl.accounts[i-1].id
@@ -30,22 +30,21 @@ angular.module('moneyApp')
           }
         }
         for (var i = 0; i < ctrl.accounts.length; i++) {
-          if (parseInt(ctrl.accounts[i].id) === parseInt(ev.account.id)) {
+          if (parseInt(ctrl.accounts[i].id) === parseInt(ev.response.id)) {
             ctrl.accounts.splice(i,1);
           }
         }
       } else if (ev.event === 'create') {
-        ev.account.balance = 0;
-        ctrl.accounts.push(ev.account);
+        ctrl.accounts.push(ev.response);
         $route.updateParams({
           tid: $routeParams.tid,
-          aid: ev.account.id
+          aid: ev.response.id
         });
       } else if (ev.event === 'update') {
         ctrl.newAccount = 0;
-        ctrl.newAccount = ev.account;
+        ctrl.newAccount = ev.response;
         for (var i = 0; i < ctrl.accounts.length; i++) {
-          if (ctrl.accounts[i].id === ev.account.id) {
+          if (ctrl.accounts[i].id === ev.response.id) {
             ctrl.newAccount.balance = ctrl.accounts[i].balance;
             ctrl.accounts[i] = ctrl.newAccount;
           }

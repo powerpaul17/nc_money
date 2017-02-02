@@ -61,7 +61,8 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function addAccount($name, $type, $currency, $description) {
-    return $this->accountService->create($name, $type, $currency, $description, $this->userId);
+    $response = $this->accountService->create($name, $type, $currency, $description, $this->userId);
+    return $this->getAccount($response->id);
   }
 
   /**

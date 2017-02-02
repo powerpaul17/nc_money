@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.controller('transactionListCtrl', function(TransactionService, AccountService) {
+.controller('transactionListCtrl', function(TransactionService, AccountService, orderByFilter) {
   var ctrl = this;
 
   ctrl.transactions = [];
@@ -23,18 +23,24 @@ angular.module('moneyApp')
   // Initialize newTransaction
   ctrl.newTransaction = [];
 
+  ctrl.reorderList = function() {
+    ctrl.transactions = orderByFilter(ctrl.transactions, ['date','timestampAdded'], true);
+  };
+
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
       ctrl.transactions.push(ev.response);
       TransactionService.calculateValue(ctrl.transactions[ctrl.transactions.length-1], ctrl.account.id);
       TransactionService.checkStatus(ctrl.transactions[ctrl.transactions.length-1]);
+      ctrl.reorderList();
     } else if (ev.event === 'update') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (ctrl.transactions[i].id === ev.response.id) {
           ctrl.transactions[i] = ev.response;
           TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
           TransactionService.checkStatus(ctrl.transactions[i]);
+          ctrl.reorderList();
           break;
         }
       }
@@ -95,6 +101,7 @@ angular.module('moneyApp')
     if (transactions.length > 0) {
       //$scope.$apply(function() {
         ctrl.transactions = transactions;
+        ctrl.reorderList();
         ctrl.loading = false;
       //});
     } else {

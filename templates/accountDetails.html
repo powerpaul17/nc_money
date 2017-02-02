@@ -1,6 +1,6 @@
 <div class="account-details-wrapper wrapper-show" ng-class="{'mobile-show':ctrl.show}">
 	<div id="app-navigation-toggle-back" class="details-back icon-download" ng-click="ctrl.closeAccount()"></div>
-	<div ng-if="ctrl.account===undefined && !ctrl.loading">
+	<div ng-if="ctrl.account===undefined">
 		<div id="emptycontent" class="">
 			<div class="icon-contacts-dark"></div>
 			<h2>{{ctrl.t.noAccount}}</h2>

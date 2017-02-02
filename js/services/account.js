@@ -16,7 +16,7 @@ angular.module('moneyApp')
   var notifyObservers = function(eventname, response) {
     var ev = {
       event: eventname,
-      account: response
+      response: response
     };
     angular.forEach(observerCallbacks, function(callback) {
       callback(ev);
@@ -26,12 +26,14 @@ angular.module('moneyApp')
   TransactionService.registerObserverCallback(function(ev) {
     if(ev.event === 'create') {
       for(var i = 0; i < ev.response.splits.length; i++) {
-        accounts.get(ev.response.splits[i].destAccountId).balance = parseFloat(accounts.get(ev.response.splits[i].destAccountId).balance) + parseFloat(ev.response.splits[i].value);
+        accounts.get(ev.response.splits[i].destAccountId).balance += parseFloat(ev.response.splits[i].value);
       }
     } else if (ev.event === 'addedSplit') {
-      accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) + parseFloat(ev.response.value);
+      console.log(accounts.get(ev.response.destAccountId));
+      accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
+      console.log(accounts.get(ev.response.destAccountId));
     } else if (ev.event === 'deletedSplit') {
-      accounts.get(ev.response.destAccountId).balance = parseFloat(accounts.get(ev.response.destAccountId).balance) - parseFloat(ev.response.value);
+      accounts.get(ev.response.destAccountId).balance -= parseFloat(ev.response.value);
     } else if (ev.event === 'updatedSplit') {
       accounts.get(ev.response.originalAccount).balance -= parseFloat(ev.response.originalValue);
       accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
@@ -107,6 +109,7 @@ angular.module('moneyApp')
 
   ctrl.create = function(account) {
     return $http.post('ajax/add-account', account).then(function(response) {
+      response.data.balance = 0.0;
       accounts.put(response.data.id, response.data);
       notifyObservers('create', response.data);
     });
