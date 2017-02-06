@@ -20,7 +20,7 @@
     <website>https://github.com/powerpaul17/nc_money</website>
     <bugs>https://github.com/powerpaul17/nc_money/issues</bugs>
     <repository type="git">https://github.com/powerpaul17/nc_money.git</repository>
-    <screenshot>???
+    <screenshot>https://github.com/powerpaul17/nc_money/raw/278ba25b4591bf34264d4029c2aa162248c3d882/appinfo/screenshot.png</screenshot>
     <dependencies>
       <nextcloud min-version="11" max-version="11" />
     </dependencies>
