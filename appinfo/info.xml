@@ -11,8 +11,6 @@
     <namespace>Money</namespace>
     <documentation>
     	<user>https://github.com/powerpaul17/nc_money/wiki</user>
-    	<admin></admin>
-    	<developer></developer>
     </documentation>
     <category>office</category>
     <category>organization</category>
@@ -20,7 +18,7 @@
     <website>https://github.com/powerpaul17/nc_money</website>
     <bugs>https://github.com/powerpaul17/nc_money/issues</bugs>
     <repository type="git">https://github.com/powerpaul17/nc_money.git</repository>
-    <screenshot>???
+    <screenshot>https://raw.githubusercontent.com/powerpaul17/nc_money/master/screenshots/screenshot.png</screenshot>
     <dependencies>
       <nextcloud min-version="11" max-version="11" />
     </dependencies>
