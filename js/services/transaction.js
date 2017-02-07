@@ -40,6 +40,16 @@ angular.module('moneyApp')
     transaction.value = value;
   }
 
+  ctrl.isFuture = function(transaction) {
+    var now = new Date();
+    var transactionDate = new Date(transaction.date);
+    if (transactionDate > now) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   ctrl.isBalanced = function(transaction) {
     var value = 0.0;
     for(var i = 0; i < transaction.splits.length; i++) {
@@ -55,7 +65,11 @@ angular.module('moneyApp')
 
   ctrl.checkStatus = function(transaction) {
     if(ctrl.isBalanced(transaction)) {
-      transaction.status = TRANSACTION_STATUS.indexOf('BALANCED');
+      if(ctrl.isFuture(transaction)) {
+        transaction.status = TRANSACTION_STATUS.indexOf('FUTURE');
+      } else {
+        transaction.status = TRANSACTION_STATUS.indexOf('BALANCED');
+      }
     } else {
       transaction.status = TRANSACTION_STATUS.indexOf('UNBALANCED');
     }
@@ -195,5 +209,16 @@ angular.module('moneyApp')
 
     });
   };
+
+  ctrl.importTransactions = function(srcAccountId, data, progressCallback) {
+    // TODO!
+    for (var i = 0; i < data.length; i++) {
+      ctrl.create(srcAccountId, -1, data[i].value, data[i].convertRate, data[i].date, data[i].description).then(function() {
+        if (progressCallback) {
+          progressCallback(i / data.length);
+        }
+      });
+    }
+  }
 
 });

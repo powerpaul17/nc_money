@@ -1,8 +1,9 @@
 .accountdetails__header {
-	height: 100px;
-	padding-left: 20px;
+	/*height: 100px;*/
+	/*padding-left: 20px;*/
 	display: flex;
-	color: #fff;
+	flex-direction: column;
+	/*color: #fff;*/
 	font-weight: bold;
 	align-items: center;
 }
@@ -12,8 +13,9 @@
 }
 
 .accountdetails__header #details-account-infos {
-	width: 80%;
-	margin: 2px 6px 0px;
+	width: 100%;
+	/*margin: 2px 6px 0px;*/
+	padding: 10px;
 	flex-grow: 1;
 }
 .accountdetails__header h2 {
@@ -27,7 +29,7 @@
 .accountdetails__header .accountdetails__currency,
 .accountdetails__header .accountdetails__description {
 	font-size: inherit;
-	color: #fff !important; /* override focus,active&hover */
+	/*color: #fff !important; /* override focus,active&hover */*/
 	background: transparent;
 	border: none;
 	text-overflow: ellipsis;
@@ -45,9 +47,18 @@
 .accountdetails__header .accountdetails__name {
 	width: 100%;
 }
-.accountdetails__header #details-actions {
+.accountdetails__header #details-actions-toggle {
 	display: flex;
 	flex-shrink: 0;
+	width: 100%;
+	padding: 10px;
+}
+
+.accountdetails__header #details-actions {
+	display: flex; /* Does not work with angularSlideable.js */
+	padding: 10px;
+	width: 100%;
+	border-top: 1px solid #ddd;
 }
 
 .accountdetails__header .select2-container {
@@ -65,19 +76,19 @@
 .accountdetails__header .accountdetails__name::-webkit-input-placeholder,
 .accountdetails__header .accountdetails__org::-webkit-input-placeholder,
 .accountdetails__header .accountdetails__title::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-	color: #fff;
+	/*color: #fff;*/
 	opacity: .8;
 }
 .accountdetails__header .accountdetails__name::-moz-placeholder,
 .accountdetails__header .accountdetails__org::-moz-placeholder,
 .accountdetails__header .accountdetails__title::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color: #fff;
+	/*color: #fff;*/
 	opacity: .8;
 }
 .accountdetails__header .accountdetails__name:-ms-input-placeholder,
 .accountdetails__header .accountdetails__org:-ms-input-placeholder,
 .accountdetails__header .accountdetails__title:-ms-input-placeholder { /* Internet Explorer 10-11 */
-	color: #fff;
+	/*color: #fff;*/
 	opacity: .8;
 }
 .accountdetails__header .accountdetails__name:placeholder-shown,
@@ -87,18 +98,21 @@
 	opacity: .8;
 }
 
-.accountdetails__header .icon-delete-white,
-.accountdetails__header #account-export-link {
+.accountdetails__header .icon-delete,
+.accountdetails__header .icon-download,
+.accountdetails__header .icon-upload {
 	padding: 15px;
 	background-color: transparent;
 	border: none;
 	opacity: .5;
 	margin: 3px;
 }
-.accountdetails__header .icon-delete-white:hover,
-.accountdetails__header .icon-delete-white:focus,
-.accountdetails__header #account-export-link:hover,
-.accountdetails__header #account-export-link:focus {
+.accountdetails__header .icon-delete:hover,
+.accountdetails__header .icon-delete:focus,
+.accountdetails__header .icon-download:hover,
+.accountdetails__header .icon-download:focus,
+.accountdetails__header .icon-upload:hover,
+.accountdetails__header .icon-upload:focus {
 	opacity: .7
 }
 
@@ -185,6 +199,7 @@ div.app-accounts span.utils {
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
+	border-right: 1px solid #eee;
 }
 
 .app-content-detail {
@@ -303,10 +318,6 @@ div.app-accounts span.utils {
 .select2-container .select2-choice {
 		padding: 0;
 }
-
-detailsitem .select2-container {
-	width: 245px;
-}
 .select2-container-multi .select2-choices {
 	border-color: #ddd !important;
 	background-image: none !important;
@@ -392,6 +403,7 @@ detailsitem .select2-container {
 .account-details-wrapper {
 	position: relative;
 	background: white;
+	height: 100%;
 }
 .wrapper-show {
 	z-index: 101;
@@ -453,6 +465,7 @@ input[currency-input] {
 	width: 100%;
 	margin: 0;
 	background: none;
+	color: inherit;
 }
 
 .transaction-list button {
@@ -467,6 +480,7 @@ input[currency-input] {
 
 .transaction-list .select2-container .select2-choice {
 	border: 0;
+	background: inherit;
 }
 
 .transaction-list-transaction {
@@ -499,8 +513,9 @@ input[currency-input] {
 }
 
 .transaction-list-item-split {
-	background-color:
+
 }
+
 .transaction-list-item-split:nth-child(even) {
 	/*background-color: #ccc;*/
 }
@@ -510,13 +525,14 @@ input[currency-input] {
 .transaction-list-item-cell,
 .split-list-item-cell,
 .transaction-list-header-item {
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 	display: table-cell;
 	/*height: 68px;*/
 	/*margin-top: 5px;*/
 	/*margin-bottom: 5px;*/
 	padding-left: 7px;
 	padding-right: 7px;
+	vertical-align: middle;
 }
 
 .transaction-list-header-item {
@@ -539,20 +555,37 @@ input[currency-input] {
 .transaction-list-item-date,
 .transaction-list-item-description,
 .transaction-list-item-destination-account,
-.transaction-list-item-value {
+.transaction-list-item-value,
+.transaction-list-item-actions {
 	display: table-cell;
-	/*width: 24%;*/
 	vertical-align: middle;
+}
+
+.transaction-list-item-date {
+	width: 8em;
+}
+
+.transaction-list-item-description {
+
+}
+
+.transaction-list-item-destination-account {
+
 }
 
 .transaction-list-item-value {
 	/*font-size: 1.1rem;*/
 	text-align: right;
+	width: 8em;
+}
+
+.transaction-list-item-actions {
+	width: 1em;
 }
 
 .transaction-list-item-status {
-	width: 1rem;
-	height: 1rem;
+	width: 1em;
+	height: 1em;
 	border-radius: 50px;
 	display: inline-block;
 	vertical-align: middle;
@@ -564,8 +597,9 @@ input[currency-input] {
 	border: 0;
 }
 
-/* Unbalanced Transactions View */
+/* Import Transactions Panel */
 
-.unbalanced-transactions__header {
-	background-color: #aaa;
+.import-transactions-panel {
+	border: 2px solid rgba(0, 0, 255, 1);
+	background: rgba(0, 0, 255, 0.2);
 }

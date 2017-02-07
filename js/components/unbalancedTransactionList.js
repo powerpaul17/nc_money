@@ -66,10 +66,8 @@ angular.module('moneyApp')
   // Get transactions for account
   TransactionService.getUnbalancedTransactions().then(function(transactions) {
     if (transactions.length > 0) {
-      //$scope.$apply(function() {
         ctrl.transactions = transactions;
         ctrl.loading = false;
-      //});
     } else {
       ctrl.loading = false;
     }

@@ -10,6 +10,10 @@ angular.module('moneyApp')
 
   ctrl.loading = true;
 
+  ctrl.t = {
+    noAccounts: t('money', 'No accounts available')
+  };
+
   // Reflect account changes in accountList
   AccountService.registerObserverCallback(function(ev) {
       if (ev.event === 'delete') {

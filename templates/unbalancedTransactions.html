@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	<div>
-		<header class="accountdetails__header unbalanced-transactions__header">
+		<header class="accountdetails__header">
 			<div id="details-account-infos">
 				<h2>
 					<span class="accountdetails__name">Unbalanced Transactions</span>
@@ -21,11 +21,7 @@
 		 	    </ui-select>
 				</div>
 			</div>
-			<div id="details-actions">
-				<a href="{{ctrl.account.data.url}}" id="account-export-link"
-				   class="icon-download-white" title="{{ctrl.t.download}}"
-				   download="{{ ctrl.account.readableFilename() }}"></a>
-			</div>
+			<!-- <div id="details-actions"></div> -->
 		</header>
 		<section>
 			<unbalanced-transaction-list></unbalanced-transaction-list>

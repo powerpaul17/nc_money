@@ -1,5 +1,5 @@
 <!-- <div class="row-separator"></div> -->
-<div class="transaction-list-item" ng-form name="ctrl.transactionForm">
+<div class="transaction-list-item" ng-form name="ctrl.transactionForm" ng-style="{'background-color': (ctrl.transaction.status | transactionStatusColor)}">
   <div class="transaction-list-item-cell transaction-list-item-date">
     <input type="text" ng-model="ctrl.transaction.date" datepicker />
   </div>
@@ -20,7 +20,8 @@
   <div class="transaction-list-item-cell transaction-list-item-value">{{ ( ctrl.transaction.value < 0 ? -ctrl.transaction.value : "" | currency : "" ) }}</div>
   <div class="transaction-list-item-cell transaction-list-item-actions">
     <div ng-class="{'icon-loading-small': ctrl.transactionItemLoading}"></div>
-    <div class="transaction-list-item-status" ng-click="ctrl.toggleTransaction()" ng-style="{'background-color': (ctrl.transaction.status | transactionStatusColor)}" ng-show="!ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></div>
+    <!-- <div class="transaction-list-item-status" ng-click="ctrl.toggleTransaction()" ng-style="{'background-color': (ctrl.transaction.status | transactionStatusColor)}" ng-show="!ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></div> -->
+    <div class="icon-more" ng-click="ctrl.toggleTransaction()" ng-show="!ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></div>
     <button ng-click="ctrl.updateTransaction()" class="icon-checkmark" title="{{ctrl.t.update}}" ng-show="ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></button>
   </div>
 </div>

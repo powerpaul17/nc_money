@@ -43,5 +43,6 @@ angular.module('moneyApp')
 .constant('TRANSACTION_STATUS', [
 	'UNDEFINED',
 	'BALANCED',
-	'UNBALANCED'
+	'UNBALANCED',
+	'FUTURE'
 ]);

@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	<div ng-if="ctrl.account!==undefined">
-		<header class="accountdetails__header" ng-style="{'background-color': (ctrl.account.id | accountColor)}">
+		<header class="accountdetails__header">
       <!-- <avatar data="ctrl.account" ng-class="{'avatar--missing': ctrl.account.avatar()===undefined}"></avatar> -->
 			<div id="details-account-infos">
 				<h2>
@@ -29,11 +29,15 @@
 					</div>
 				<!-- </div> -->
 			</div>
-			<div id="details-actions">
-				<a href="{{ctrl.account.data.url}}" id="account-export-link"
-				   class="icon-download-white" title="{{ctrl.t.download}}"
-				   download="{{ ctrl.account.readableFilename() }}"></a>
-				<button ng-click="ctrl.deleteAccount()" class="icon-delete-white" title="{{ctrl.t.delete}}"></button>
+			<div id="details-actions-toggle">
+				<a class="icon-settings" ng-click="ctrl.toggleActionsPanel()"></a>
+			</div>
+			<div id="details-actions" ng-show="ctrl.showActionsPanel">
+				<a ng-click="ctrl.exportAccount()" class="icon-download" title="{{ctrl.t.exportAccount}}"></a>
+				<a ng-click="ctrl.deleteAccount()" class="icon-delete" title="{{ctrl.t.deleteAccount}}"></a>
+				<!-- <a ng-click="ctrl.importTransactions()" class="icon-upload" title="{{ctrl.t.importTransactions}}"></a> -->
+				<input id="transactions-import" type="file" class="hidden-visually">
+				<label for="transactions-import" class="icon-upload" />
 			</div>
 		</header>
 		<section>
