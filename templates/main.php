@@ -38,6 +38,7 @@ script('money', 'components/newAccountButton');
 script('money', 'components/splitListItem');
 script('money', 'components/unbalancedTransactions');
 script('money', 'components/unbalancedTransactionList');
+script('money', 'components/importTransactionsPanel');
 
 // all styles
 style('money', 'public/style');
