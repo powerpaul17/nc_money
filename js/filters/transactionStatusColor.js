@@ -6,10 +6,10 @@ angular.module('moneyApp')
 				// return '#0f0';
 				break;
 			case TRANSACTION_STATUS.indexOf('UNBALANCED'):
-				return 'rgba(255, 255, 0, 0.2)';
+				return 'rgb(255, 128, 0)';
 				break;
 			case TRANSACTION_STATUS.indexOf('FUTURE'):
-				return 'rgba(0, 111, 255, 0.2)';
+				return 'rgb(0, 111, 255)';
 				break;
 			case TRANSACTION_STATUS.indexOf('UNDEFINED'):
 			default:

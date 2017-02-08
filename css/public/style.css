@@ -73,28 +73,20 @@
 }
 
 /* fix placeholder color */
-.accountdetails__header .accountdetails__name::-webkit-input-placeholder,
-.accountdetails__header .accountdetails__org::-webkit-input-placeholder,
-.accountdetails__header .accountdetails__title::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+.accountdetails__header .accountdetails__name::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	/*color: #fff;*/
 	opacity: .8;
 }
-.accountdetails__header .accountdetails__name::-moz-placeholder,
-.accountdetails__header .accountdetails__org::-moz-placeholder,
-.accountdetails__header .accountdetails__title::-moz-placeholder { /* Mozilla Firefox 19+ */
+.accountdetails__header .accountdetails__name::-moz-placeholder { /* Mozilla Firefox 19+ */
 	/*color: #fff;*/
 	opacity: .8;
 }
-.accountdetails__header .accountdetails__name:-ms-input-placeholder,
-.accountdetails__header .accountdetails__org:-ms-input-placeholder,
-.accountdetails__header .accountdetails__title:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.accountdetails__header .accountdetails__name:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	/*color: #fff;*/
 	opacity: .8;
 }
-.accountdetails__header .accountdetails__name:placeholder-shown,
-.accountdetails__header .accountdetails__org:placeholder-shown,
-.accountdetails__header .accountdetails__title:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-	color: #fff;
+.accountdetails__header .accountdetails__name:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+	/*color: #fff;*/
 	opacity: .8;
 }
 
@@ -318,7 +310,7 @@ div.app-accounts span.utils {
 .select2-container .select2-choice {
 		padding: 0;
 }
-.select2-container-multi .select2-choices {
+/*.select2-container-multi .select2-choices {
 	border-color: #ddd !important;
 	background-image: none !important;
 }
@@ -337,19 +329,19 @@ div.app-accounts span.utils {
 	background-image: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
-}
+}*/
 .select2-drop-active {
 	border-color: #ddd !important;
 	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .1) !important;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .1) !important;
 }
-.select2-results .select2-highlighted {
+/*.select2-results .select2-highlighted {
 	background-color: #f8f8f8 !important;
 	color: #555 !important;
 }
 .select2-results .select2-result-label span {
 	cursor: pointer !important;
-}
+}*/
 
 /* Mobile width < 768px */
 @media only screen and (max-width: 768px) {
@@ -481,10 +473,12 @@ input[currency-input] {
 .transaction-list .select2-container .select2-choice {
 	border: 0;
 	background: inherit;
+	color: inherit;
 }
 
 .transaction-list-transaction {
 	display: table-row-group;
+	border-top: 1px solid #ddd;
 }
 
 .transaction-list-table {
@@ -594,7 +588,7 @@ input[currency-input] {
 .row-separator {
 	display: table-row;
 	height: 15px;
-	border: 0;
+	/*border-top: 1px solid #ddd;*/
 }
 
 /* Import Transactions Panel */
