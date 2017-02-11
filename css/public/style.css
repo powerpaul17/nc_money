@@ -396,6 +396,8 @@ div.app-accounts span.utils {
 	position: relative;
 	background: white;
 	height: 100%;
+	width: 100%;
+	overflow-y: scroll;
 }
 .wrapper-show {
 	z-index: 101;

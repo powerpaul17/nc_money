@@ -22,10 +22,11 @@ angular.module('moneyApp')
 
   ctrl.updateTransaction = function() {
     ctrl.transactionItemLoading = true;
-    if (ctrl.transactionForm.destAccountId.$dirty) {
+    if (ctrl.transactionForm.destAccountId.$dirty || ctrl.transactionForm.inValue.$dirty || ctrl.transactionForm.outValue.$dirty) {
       for (var i = 0; i < ctrl.transaction.splits.length; i++) {
         if (ctrl.transaction.splits[i].destAccountId === ctrl.originalTransaction.destAccountId) {
           ctrl.transaction.splits[i].destAccountId = ctrl.transaction.destAccountId;
+          ctrl.transaction.splits[i].value = ctrl.transaction.outValue - ctrl.transaction.inValue;
           TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.originalTransaction.destAccountId, ctrl.transaction.splits[i].value);
     //       break;
         }

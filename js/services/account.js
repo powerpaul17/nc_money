@@ -29,9 +29,7 @@ angular.module('moneyApp')
         accounts.get(ev.response.splits[i].destAccountId).balance += parseFloat(ev.response.splits[i].value);
       }
     } else if (ev.event === 'addedSplit') {
-      console.log(accounts.get(ev.response.destAccountId));
       accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
-      console.log(accounts.get(ev.response.destAccountId));
     } else if (ev.event === 'deletedSplit') {
       accounts.get(ev.response.destAccountId).balance -= parseFloat(ev.response.value);
     } else if (ev.event === 'updatedSplit') {
@@ -101,6 +99,11 @@ angular.module('moneyApp')
     });
   };
 
+  ctrl.normalizeValues = function(account) {
+    account.id = parseInt(account.id);
+    account.type = parseInt(account.type);
+  };
+
   ctrl.update = function(account) {
     return $http.put('ajax/update-account', account).then(function(response) {
       notifyObservers('update', response.data);
@@ -109,6 +112,7 @@ angular.module('moneyApp')
 
   ctrl.create = function(account) {
     return $http.post('ajax/add-account', account).then(function(response) {
+      ctrl.normalizeValues(response.data);
       response.data.balance = 0.0;
       accounts.put(response.data.id, response.data);
       notifyObservers('create', response.data);

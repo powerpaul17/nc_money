@@ -31,6 +31,15 @@ angular.module('moneyApp')
       } else {
         if(destAccountCount === 0) {
           transaction.destAccountId = transaction.splits[j].destAccountId;
+
+          transaction.inValue = 0;
+          transaction.outValue = 0;
+          if (transaction.splits[j].value > 0) {
+            transaction.outValue = transaction.splits[j].value;
+          } else {
+            transaction.inValue = -transaction.splits[j].value;
+          }
+
           destAccountCount++;
         } else {
           transaction.multipleSplits = true;
@@ -94,15 +103,17 @@ angular.module('moneyApp')
   ctrl.normalizeValues = function(transaction) {
     transaction.id = parseInt(transaction.id);
     transaction.value = parseFloat(transaction.value);
-    var value = 0;
+
+    // transaction.inValue = 0;
+    // transaction.outValue = 0;
+    // if (transaction.value > 0) {
+    //   transaction.inValue = transaction.value;
+    // } else {
+    //   transaction.outValue = -transaction.value;
+    // }
+
     for(var i = 0; i < transaction.splits.length; i++) {
       ctrl.normalizeSplitValues(transaction.splits[i]);
-      value += transaction.splits[i].value;
-    }
-    if(value === 0) {
-      transaction.status = TRANSACTION_STATUS.indexOf('BALANCED');
-    } else {
-      transaction.status = TRANSACTION_STATUS.indexOf('UNBALANCED');
     }
   };
 
