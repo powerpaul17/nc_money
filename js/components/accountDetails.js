@@ -13,12 +13,12 @@ angular.module('moneyApp')
     deleteAccount: t('money', 'Delete account'),
     exportAccount: t('money', 'Export account'),
     importTransactions: t('money', 'Import transactions'),
-    noAccount : t('money', 'No account opened.'),
-    placeholderName : t('money', 'Name'),
-    placeholderCurrency : t('money', 'Currency'),
-    placeholderDescription : t('money', 'Description'),
-    download : t('money', 'Download'),
-    delete : t('money', 'Delete'),
+    noAccount: t('money', 'No account opened.'),
+    placeholderName: t('money', 'Name'),
+    placeholderCurrency: t('money', 'Currency'),
+    placeholderDescription: t('money', 'Description'),
+    download: t('money', 'Download'),
+    delete: t('money', 'Delete'),
     newCurrency: t('money', 'New currency'),
   };
 
@@ -60,7 +60,7 @@ angular.module('moneyApp')
 
   ctrl.toggleActionsPanel = function() {
     ctrl.showActionsPanel = !ctrl.showActionsPanel;
-  }
+  };
 
   ctrl.updateAccount = function() {
     AccountService.update(ctrl.account);
@@ -72,7 +72,7 @@ angular.module('moneyApp')
 
   ctrl.exportAccount = function() {
 
-  }
+  };
 
   ctrl.importTransactions = function() {
     ctrl.account.showImportTransactionsPanel = !ctrl.account.showImportTransactionsPanel;

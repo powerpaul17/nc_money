@@ -4,8 +4,8 @@ angular.module('moneyApp')
 
   ctrl.transactions = [];
 
+  // Get accounts for dropdown-menu
   ctrl.availableAccounts = [];
-
   AccountService.getAccounts().then(function(accounts) {
     ctrl.availableAccounts = _.unique(accounts);
   });
@@ -62,7 +62,13 @@ angular.module('moneyApp')
               break;
             }
           }
-          if(ctrl.transactions[i].splits.length === 0) {
+          var number = 0;
+          for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
+            if (parseInt(ctrl.transactions[i].splits[j].destAccountId) === ctrl.account.id) {
+              number++;
+            }
+          }
+          if(number === 0) {
             ctrl.transactions.splice(i,1);
           } else {
             TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
@@ -99,11 +105,9 @@ angular.module('moneyApp')
   // Get transactions for account
   TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
     if (transactions.length > 0) {
-      //$scope.$apply(function() {
         ctrl.transactions = transactions;
         ctrl.reorderList();
         ctrl.loading = false;
-      //});
     } else {
       ctrl.loading = false;
     }

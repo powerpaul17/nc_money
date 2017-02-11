@@ -1,7 +1,7 @@
 <div class="transaction-list-item-split" ng-form name="ctrl.splitForm">
 <div class="split-list-item-empty-cell"></div>
 <div class="split-list-item-cell transaction-list-item-description" ng-class="{}">
-  <input type="text" ng-model="ctrl.split.description" ng-model-options="{ getterSetter: true, debounce: 500}" placeholder="Comment" />
+  <input type="text" ng-model="ctrl.split.description" ng-model-options="{debounce: 500}" placeholder="Comment" />
 </div>
 <div class="split-list-item-cell transaction-list-item-destination-account">
   <ui-select ng-model="ctrl.split.destAccountId" theme="select2">
@@ -12,11 +12,11 @@
     </ui-select-choices>
   </ui-select>
 </div>
-<div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.inValue" /></div>
-<div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.outValue" /></div>
+<div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.inValue" ng-model-options="{debounce: 500}" /></div>
+<div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.outValue" ng-model-options="{debounce: 500}" /></div>
 <div class="split-list-item-cell transaction-list-item-actions">
   <div ng-class="{'icon-loading-small': ctrl.splitItemLoading}"></div>
-  <button ng-click="ctrl.deleteSplit()" class="icon-delete" title="{{ctrl.t.delete}}" ng-show="!ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
-  <button ng-click="ctrl.updateSplit()" class="icon-checkmark" title="{{ctrl.t.update}}" ng-show="ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
+  <button ng-click="ctrl.deleteSplit()" class="icon-delete" title="{{ctrl.t.delete}}" ng-if="!ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
+  <button ng-click="ctrl.updateSplit()" class="icon-checkmark" title="{{ctrl.t.update}}" ng-if="ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
 </div>
 </div>
