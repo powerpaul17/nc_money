@@ -39,9 +39,9 @@ class TransactionService {
     }
   }
 
-  public function findTransactionsOfAccount($accountId, $userId) {
+  public function findTransactionsOfAccount($accountId, $userId, $resultOffset = 0, $resultLimit = 50) {
     try {
-      return $this->transactionMapper->findAllTransactionsOfAccount($userId, $accountId);
+      return $this->transactionMapper->findAllTransactionsOfAccount($userId, $accountId, $resultOffset, $resultLimit);
     } catch(Exception $e) {
       $this->handleException($e);
     }

@@ -24,6 +24,9 @@ angular.module('moneyApp')
     var value = 0.0;
     var destAccountCount = 0;
     transaction.multipleSplits = false;
+    transaction.destAccountId = undefined;
+    transaction.inValue = 0;
+    transaction.outValue = 0;
     for(var j = 0; j < transaction.splits.length; j++) {
       if (parseInt(transaction.splits[j].destAccountId) === parseInt(accountId)) {
         value += transaction.splits[j].value;
@@ -31,15 +34,6 @@ angular.module('moneyApp')
       } else {
         if(destAccountCount === 0) {
           transaction.destAccountId = transaction.splits[j].destAccountId;
-
-          transaction.inValue = 0;
-          transaction.outValue = 0;
-          if (transaction.splits[j].value > 0) {
-            transaction.outValue = transaction.splits[j].value;
-          } else {
-            transaction.inValue = -transaction.splits[j].value;
-          }
-
           destAccountCount++;
         } else {
           transaction.multipleSplits = true;
@@ -47,6 +41,11 @@ angular.module('moneyApp')
       }
     }
     transaction.value = value;
+    if (transaction.value > 0) {
+      transaction.inValue = transaction.value;
+    } else {
+      transaction.outValue = -transaction.value;
+    }
   }
 
   ctrl.isFuture = function(transaction) {

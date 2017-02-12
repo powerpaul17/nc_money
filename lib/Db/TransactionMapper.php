@@ -21,11 +21,15 @@ class TransactionMapper extends Mapper {
     return $this->findEntities($sql, [$userId]);
   }
 
-  public function findAllTransactionsOfAccount($userId, $accountId) {
-    /* Testing */
-//    $sql = 'SELECT a.id, a.date, a.description, SUM(b.value) as value FROM (*PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id)) WHERE a.user_id = ? AND b.dest_account_id = ? GROUP BY a.id';
-    $sql = 'SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) WHERE a.user_id = ? AND b.dest_account_id = ? GROUP BY a.id';
-    return $this->findEntities($sql, [$userId, $accountId]);
+  public function findAllTransactionsOfAccount($userId, $accountId, $resultOffset = 0, $resultLimit = 50) {
+    $sql = 'SELECT a.* ' .
+           'FROM *PREFIX*money_transactions a ' .
+           'LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) ' .
+           'WHERE a.user_id = ? AND b.dest_account_id = ? ' .
+           'GROUP BY a.id ' .
+           'ORDER BY a.date DESC, a.timestamp_added DESC ' .
+           'LIMIT ?,?';
+    return $this->findEntities($sql, [$userId, $accountId, $resultOffset, $resultLimit]);
   }
 
 }

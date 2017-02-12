@@ -26,9 +26,11 @@ angular.module('moneyApp')
       for (var i = 0; i < ctrl.transaction.splits.length; i++) {
         if (ctrl.transaction.splits[i].destAccountId === ctrl.originalTransaction.destAccountId) {
           ctrl.transaction.splits[i].destAccountId = ctrl.transaction.destAccountId;
-          ctrl.transaction.splits[i].value = ctrl.transaction.outValue - ctrl.transaction.inValue;
           TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.originalTransaction.destAccountId, ctrl.transaction.splits[i].value);
-    //       break;
+          // break;
+        } else if (ctrl.transaction.splits[i].destAccountId === ctrl.account.id) {
+          ctrl.transaction.splits[i].value = ctrl.transaction.inValue - ctrl.transaction.outValue;
+          TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.account.id, ctrl.transaction.splits[i].value);
         }
       }
     }

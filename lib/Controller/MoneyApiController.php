@@ -3,7 +3,9 @@
 namespace OCA\Money\Controller;
 
 use OCP\IRequest;
+use OCP\IDBConnection;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\ApiController;
 
 use OCA\Money\Service\AccountService;
@@ -14,14 +16,17 @@ class MoneyApiController extends ApiController {
 
   private $userId;
 
+  private $db;
+
   private $accountService;
   private $transactionService;
   private $splitService;
 
   use Errors;
 
-  public function __construct($AppName, IRequest $request, AccountService $accountService, TransactionService $transactionService, SplitService $splitService, $UserId) {
+  public function __construct($AppName, IRequest $request, IDBConnection $db, AccountService $accountService, TransactionService $transactionService, SplitService $splitService, $UserId) {
     parent::__construct($AppName, $request);
+    $this->db = $db;
     $this->accountService = $accountService;
     $this->transactionService = $transactionService;
     $this->splitService = $splitService;
@@ -33,24 +38,43 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getAccounts() {
-    $query = \OCP\DB::prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.user_id = ? GROUP BY a.id;');
-    return $query->execute([$this->userId])->fetchAll();
+    $query = $this->db->prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.user_id = ? GROUP BY a.id;');
+    $query->bindParam(1, $this->userId, \PDO::PARAM_INT);
+    $query->execute();
+    $rows = $query->fetchAll();
+    $query->closeCursor();
+    return $rows;
     //return new DataResponse($this->accountService->findAll($this->userId));
   }
 
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $accountId
   */
   public function getAccount($accountId) {
-    $query = \OCP\DB::prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.id = ? AND a.user_id = ? GROUP BY a.id;');
-    return $query->execute([$accountId, $this->userId])->fetch();
+    $query = $this->db->prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.id = ? AND a.user_id = ? GROUP BY a.id;');
+
+    $query->bindParam(1, $accountId, \PDO::PARAM_INT);
+    $query->bindParam(2, $this->userId, \PDO::PARAM_STR);
+
+    $query->execute();
+
+    $row = $query->fetch();
+
+    $query->closeCursor();
+
+    return $row;
     //return new DataResponse($this->accountService->find($accountId, $this->userId));
   }
 
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $id
+  * @param int $type
   */
   public function updateAccount($id, $name, $type, $currency, $description) {
     return $this->accountService->update($id, $name, $type, $currency, $description, $this->userId);
@@ -59,6 +83,8 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $type
   */
   public function addAccount($name, $type, $currency, $description) {
     $response = $this->accountService->create($name, $type, $currency, $description, $this->userId);
@@ -68,6 +94,8 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $id
   */
   public function deleteAccount($id) {
     return $this->handleNotFound(function() use ($id) {
@@ -78,11 +106,25 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $accountId
+  * @param int $resultStart
+  * @param int $resultLimit
   */
-  public function getTransactionsForAccount($accountId) {
-    $query = \OCP\DB::prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS value FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;');
-    //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
-    $transactions = $query->execute([$accountId, $this->userId])->fetchAll();
+  public function getTransactionsForAccount($accountId, $resultOffset = 0, $resultLimit = 50) {
+    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id ORDER BY a.date DESC, a.timestamp_added DESC LIMIT ?,10;');
+    // //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
+    //
+    $query->bindValue(1, $accountId, \PDO::PARAM_INT);
+    $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
+    $query->bindValue(3, $resultOffset, \PDO::PARAM_INT);
+
+    $query->execute();
+
+    $transactions = $query->fetchAll();
+
+    $query->closeCursor();
+    // $transactions = $this->transactionService->findTransactionsOfAccount($accountId, $this->userId, $resultOffset, $resultLimit);
 
     foreach($transactions as &$transaction) {
       $transaction['splits'] = $this->getSplitsForTransaction($transaction['id']);
@@ -90,16 +132,28 @@ class MoneyApiController extends ApiController {
     unset($transaction);
 
     return $transactions;
+    // return new JSONResponse($transactions);
     //return new DataResponse($this->transactionService->findTransactionsOfAccount($accountId, $this->userId));
   }
 
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $transactionId
   */
   public function getTransaction($transactionId) {
-    $query = \OCP\DB::prepare('SELECT a.* FROM *PREFIX*money_transactions a WHERE a.id = ? AND a.user_id = ?;');
-    $transaction = $query->execute([$transactionId, $this->userId])->fetch();
+    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a WHERE a.id = ? AND a.user_id = ?;');
+
+    $query->bindValue(1, $transactionId, \PDO::PARAM_INT);
+    $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
+
+    $query->execute();
+
+    $transaction = $query->fetch();
+
+    $query->closeCursor();
+
     //$transaction = $this->transactionService->find($transactionId, $this->userId);
 
     $transaction['splits'] = $this->getSplitsForTransaction($transactionId);
@@ -111,6 +165,8 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $id
   */
   public function updateTransaction($id, $description, $date) {
     $transaction = $this->transactionService->update($id, $description, $date, $this->userId);
@@ -121,6 +177,11 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $srcAccountId
+  * @param int $destAccountId
+  * @param float $value
+  * @param float $convertRate
   */
   public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description) {
     $newTransaction = $this->transactionService->create($description, $date, $this->userId);
@@ -144,6 +205,8 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $transactionId
   */
   public function getSplitsForTransaction($transactionId) {
     return $this->splitService->findSplitsOfTransaction($transactionId, $this->userId);
@@ -152,6 +215,12 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $id
+  * @param int $transactionId
+  * @param int $destAccountId
+  * @param float $value
+  * @param float $convertRate
   */
   public function updateSplit($id, $transactionId, $destAccountId, $value, $convertRate, $description) {
     return $this->splitService->update($id, $transactionId, $destAccountId, $value, $convertRate, $description, $this->userId);
@@ -160,6 +229,11 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $transactionId
+  * @param int $destAccountId
+  * @param float $value
+  * @param float $convertRate
   */
   public function addSplit($transactionId, $destAccountId, $value, $convertRate, $description) {
     return $this->splitService->create($transactionId, $destAccountId, $value, $convertRate, $description, $this->userId);
@@ -168,6 +242,8 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $splitId
   */
   public function deleteSplit($splitId) {
     return $this->handleNotFound(function() use ($splitId) {
@@ -179,10 +255,22 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $accountId
   */
   public function getAccountBalance($accountId) {
-    $query = \OCP\DB::prepare('SELECT ROUND(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ? AND user_id = ?;');
-    $result = $query->execute([$accountId, $this->userId])->fetch();
+    $query = $this->db->prepare('SELECT ROUND(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ? AND user_id = ?;');
+
+    $query->bindValue(1, $accountId, \PDO::PARAM_INT);
+    $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
+
+    $query->execute();
+
+    $result = $query->fetch();
+
+    $query->closeCursor();
+
+    // $result = $query->execute([$accountId, $this->userId])->fetch();
     return $result;
   }
 
@@ -191,8 +279,17 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getUnbalancedTransactions() {
-    $query = \OCP\DB::prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.user_id = ? GROUP BY a.id HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0;');
-    $transactions = $query->execute([$this->userId])->fetchAll();
+    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.user_id = ? GROUP BY a.id HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0;');
+
+    $query->bindValue(1, $this->userId, \PDO::PARAM_STR);
+
+    $query->execute();
+
+    $transactions = $query->fetchAll();
+
+    $query->closeCursor();
+
+    // $transactions = $query->execute([$this->userId])->fetchAll();
 
     foreach($transactions as &$transaction) {
       $transaction['splits'] = $this->getSplitsForTransaction($transaction['id']);
