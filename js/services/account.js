@@ -46,7 +46,7 @@ angular.module('moneyApp')
           response.data[i].id = parseInt(response.data[i].id);
           response.data[i].type = parseInt(response.data[i].type);
           if(response.data[i].balance === null) {
-            response.data[i].balance = 0;
+            response.data[i].balance = 0.0;
           } else {
             response.data[i].balance = parseFloat(response.data[i].balance);
           }
@@ -106,6 +106,7 @@ angular.module('moneyApp')
 
   ctrl.update = function(account) {
     return $http.put('ajax/update-account', account).then(function(response) {
+      ctrl.normalizeValues(response.data);
       notifyObservers('update', response.data);
     });
   };

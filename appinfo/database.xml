@@ -84,6 +84,20 @@
         <default></default>
         <notnull>true</notnull>
       </field>
+      <index>
+        <name>date_index</name>
+        <field>
+          <name>date</name>
+          <sorting>descending</sorting>
+        </field>
+      </index>
+      <index>
+        <name>timestamp_added_index</name>
+        <field>
+          <name>timestamp_added</name>
+          <sorting>descending</sorting>
+        </field>
+      </index>
     </declaration>
   </table>
 
@@ -138,6 +152,20 @@
         <default></default>
         <notnull>true</notnull>
       </field>
+      <index>
+        <name>transaction_id_index</name>
+        <field>
+          <name>transaction_id</name>
+          <sorting>ascending</sorting>
+        </field>
+      </index>
+      <index>
+        <name>dest_account_id_index</name>
+        <field>
+          <name>dest_account_id</name>
+          <sorting>ascending</sorting>
+        </field>
+      </index>
     </declaration>
   </table>
 
