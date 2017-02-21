@@ -5,6 +5,7 @@ angular.module('moneyApp')
   ctrl.routeParams = $routeParams;
 
   ctrl.accounts = [];
+  ctrl.accountList = [];
   ctrl.show = true;
   ctrl.invalid = false;
 
@@ -17,22 +18,23 @@ angular.module('moneyApp')
   // Reflect account changes in accountList
   AccountService.registerObserverCallback(function(ev) {
       if (ev.event === 'delete') {
-        if (ctrl.accounts.length === 1) {
+        if (ctrl.accountList.length === 1) {
           $route.updateParams({
             tid: $routeParams.tid,
             aid: undefined
           });
         } else {
-          for (var i = 0, length = ctrl.accounts.length; i < length; i++) {
-            if (ctrl.accounts[i].id === ev.response.id) {
+          for (var i = 0, length = ctrl.accountList.length; i < length; i++) {
+            if (ctrl.accountList[i].id === ev.response.id) {
               $route.updateParams({
                 tid: $routeParams.tid,
-                aid: (ctrl.accounts[i+1]) ? ctrl.accounts[i+1].id : ctrl.accounts[i-1].id
+                aid: (ctrl.accountList[i+1]) ? ctrl.accountList[i+1].id : ctrl.accountList[i-1].id
               });
               break;
             }
           }
         }
+        // delete the account from the account array
         for (var i = 0; i < ctrl.accounts.length; i++) {
           if (parseInt(ctrl.accounts[i].id) === parseInt(ev.response.id)) {
             ctrl.accounts.splice(i,1);

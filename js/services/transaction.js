@@ -212,6 +212,7 @@ angular.module('moneyApp')
           // calculate total value and destination account for transaction
           ctrl.normalizeValues(response.data[i]);
           // ctrl.calculateValue(response.data[i], accountId);
+          ctrl.checkStatus(response.data[i]);
         }
       }
   		return response.data;
