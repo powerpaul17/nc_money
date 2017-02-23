@@ -47,14 +47,15 @@ angular.module('moneyApp')
           aid: ev.response.id
         });
       } else if (ev.event === 'update') {
-        ctrl.newAccount = 0;
-        ctrl.newAccount = ev.response;
-        for (var i = 0; i < ctrl.accounts.length; i++) {
-          if (ctrl.accounts[i].id === ev.response.id) {
-            ctrl.newAccount.balance = ctrl.accounts[i].balance;
-            ctrl.accounts[i] = ctrl.newAccount;
-          }
-        }
+        // Seems to be not necessary??
+        // ctrl.newAccount = 0;
+        // ctrl.newAccount = ev.response;
+        // for (var i = 0; i < ctrl.accounts.length; i++) {
+        //   if (ctrl.accounts[i].id === ev.response.id) {
+        //     ctrl.newAccount.balance = ctrl.accounts[i].balance;
+        //     ctrl.accounts[i] = ctrl.newAccount;
+        //   }
+        // }
       }
   });
 

@@ -6,7 +6,7 @@
        ng-class="{active: account.id === ctrl.getSelectedId()}"
   >
   </div>
-  <div ng-show="!ctrl.loading && !(ctrl.accounts | accountTypeFilter:ctrl.routeParams.tid).length">
+  <div ng-show="!ctrl.loading && !ctrl.accountList.length">
     <div id="emptycontent" class="">
 			<div class="icon-contacts-dark"></div>
 			<h2>{{ctrl.t.noAccounts}}</h2>

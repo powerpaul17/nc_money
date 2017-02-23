@@ -6,7 +6,7 @@
 			<h2>{{ctrl.t.noAccount}}</h2>
 		</div>
 	</div>
-	<div ng-if="ctrl.account!==undefined">
+	<div ng-if="ctrl.account">
 		<header class="accountdetails__header">
       <!-- <avatar data="ctrl.account" ng-class="{'avatar--missing': ctrl.account.avatar()===undefined}"></avatar> -->
 			<div id="details-account-infos">
@@ -34,7 +34,8 @@
 			</div>
 			<div id="details-actions" ng-show="ctrl.showActionsPanel">
 				<a ng-click="ctrl.exportAccount()" class="icon-download" title="{{ctrl.t.exportAccount}}"></a>
-				<a ng-click="ctrl.deleteAccount()" class="icon-delete" title="{{ctrl.t.deleteAccount}}"></a>
+				<div ng-class="{'icon-loading-small': ctrl.deleteAccountLoading}"></div>
+				<a ng-if="!ctrl.deleteAccountLoading" ng-click="ctrl.deleteAccount()" class="icon-delete" title="{{ctrl.t.deleteAccount}}"></a>
 				<!-- <a ng-click="ctrl.importTransactions()" class="icon-upload" title="{{ctrl.t.importTransactions}}"></a> -->
 				<input id="transactions-import" type="file" class="hidden-visually">
 				<label for="transactions-import" class="icon-upload" />

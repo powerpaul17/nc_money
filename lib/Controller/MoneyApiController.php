@@ -77,7 +77,8 @@ class MoneyApiController extends ApiController {
   * @param int $type
   */
   public function updateAccount($id, $name, $type, $currency, $description) {
-    return $this->accountService->update($id, $name, $type, $currency, $description, $this->userId);
+    $this->accountService->update($id, $name, $type, $currency, $description, $this->userId);
+    return $this->getAccount($id);
   }
 
   /**
@@ -113,8 +114,8 @@ class MoneyApiController extends ApiController {
   */
   public function getTransactionsForAccount($accountId, $resultOffset = 0, $resultLimit = 50) {
     $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id ORDER BY a.date DESC, a.timestamp_added DESC LIMIT ?,?;');
-    // //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
-    //
+    //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
+
     $query->bindValue(1, $accountId, \PDO::PARAM_INT);
     $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
     $query->bindValue(3, $resultOffset, \PDO::PARAM_INT);
@@ -279,11 +280,16 @@ class MoneyApiController extends ApiController {
   /**
   * @NoCSRFRequired
   * @NoAdminRequired
+  *
+  * @param int $resultStart
+  * @param int $resultLimit
   */
-  public function getUnbalancedTransactions() {
-    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.user_id = ? GROUP BY a.id HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0;');
+  public function getUnbalancedTransactions($resultOffset = 0, $resultLimit = 50) {
+    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.user_id = ? GROUP BY a.id HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0 ORDER BY a.date DESC, a.timestamp_added DESC LIMIT ?,?;');
 
     $query->bindValue(1, $this->userId, \PDO::PARAM_STR);
+    $query->bindValue(2, $resultOffset, \PDO::PARAM_INT);
+    $query->bindValue(3, $resultLimit, \PDO::PARAM_INT);
 
     $query->execute();
 

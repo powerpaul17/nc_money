@@ -102,6 +102,7 @@ angular.module('moneyApp')
   ctrl.normalizeValues = function(account) {
     account.id = parseInt(account.id);
     account.type = parseInt(account.type);
+    account.balance = parseInt(account.balance);
   };
 
   ctrl.update = function(account) {

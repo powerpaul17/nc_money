@@ -98,6 +98,7 @@
 	border: none;
 	opacity: .5;
 	margin: 3px;
+	display: block;
 }
 .accountdetails__header .icon-delete:hover,
 .accountdetails__header .icon-delete:focus,
