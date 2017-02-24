@@ -1,3 +1,7 @@
+.icon-money-dark {
+	background-image: url('../../img/money-dark.svg');
+}
+
 .accountdetails__header {
 	/*height: 100px;*/
 	/*padding-left: 20px;*/
@@ -12,7 +16,7 @@
 	width: initial;
 }
 
-/* Override input.css */ 
+/* Override input.css */
 .accountdetails__header input:disabled {
 	background: inherit;
 }
