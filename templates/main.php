@@ -36,8 +36,6 @@ script('money', 'components/transactionList');
 script('money', 'components/transactionListItem');
 script('money', 'components/newAccountButton');
 script('money', 'components/splitListItem');
-script('money', 'components/unbalancedTransactions');
-script('money', 'components/unbalancedTransactionList');
 
 // all styles
 style('money', 'public/style');

@@ -102,16 +102,29 @@ angular.module('moneyApp')
     }
   });
 
-  // Get transactions for account
-  TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
-    if (transactions.length > 0) {
+  if (ctrl.account.id === 'Unbalanced') {
+    // Get transactions for account
+    TransactionService.getUnbalancedTransactions().then(function(transactions) {
+      if (transactions.length > 0) {
+          ctrl.transactions = transactions;
+          ctrl.reorderList();
+          ctrl.loading = false;
+      } else {
+        ctrl.loading = false;
+      }
+    });
+  } else {
+    // Get transactions for account
+    TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
+      if (transactions.length > 0) {
         ctrl.transactions = transactions;
         ctrl.reorderList();
         ctrl.loading = false;
-    } else {
-      ctrl.loading = false;
-    }
-  });
+      } else {
+        ctrl.loading = false;
+      }
+    });
+  }
 
   ctrl.resetForm = function() {
     ctrl.newTransaction.date = "";

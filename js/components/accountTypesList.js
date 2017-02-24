@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.controller('accountTypesListCtrl', function($scope, $routeParams, ACCOUNT_TYPES, AccountService, TransactionService) {
+.controller('accountTypesListCtrl', function($scope, $route, $routeParams, ACCOUNT_TYPES, AccountService, TransactionService) {
 	var ctrl = this;
 
 	ctrl.types = [];
@@ -31,8 +31,10 @@ angular.module('moneyApp')
 	};
 
 	ctrl.showUnbalanced = function() {
-		$routeParams.tid = 'Unbalanced';
-		$routeParams.aid = undefined;
+		$route.updateParams({
+			tid: 'Unbalanced',
+			aid: undefined
+		});
 	};
 
 	ctrl.getUnbalancedValue = function() {
