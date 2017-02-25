@@ -26,15 +26,15 @@ angular.module('moneyApp')
   TransactionService.registerObserverCallback(function(ev) {
     if(ev.event === 'create') {
       for(var i = 0; i < ev.response.splits.length; i++) {
-        accounts.get(ev.response.splits[i].destAccountId).balance += parseFloat(ev.response.splits[i].value);
+        accounts.get(ev.response.splits[i].destAccountId).balance += ev.response.splits[i].value;
       }
     } else if (ev.event === 'addedSplit') {
-      accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
+      accounts.get(ev.response.destAccountId).balance += ev.response.value;
     } else if (ev.event === 'deletedSplit') {
-      accounts.get(ev.response.destAccountId).balance -= parseFloat(ev.response.value);
+      accounts.get(ev.response.destAccountId).balance -= ev.response.value;
     } else if (ev.event === 'updatedSplit') {
-      accounts.get(ev.response.originalAccount).balance -= parseFloat(ev.response.originalValue);
-      accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
+      accounts.get(ev.response.originalAccount).balance -= ev.response.originalValue;
+      accounts.get(ev.response.destAccountId).balance += ev.response.value;
     }
   });
 
