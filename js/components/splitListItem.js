@@ -18,6 +18,15 @@ angular.module('moneyApp')
   //   ctrl.split.outValue = -ctrl.split.value;
   // }
 
+  ctrl.split.foreignCurrency = false;
+  if (ctrl.split.destAccountId !== ctrl.account.id) {
+    AccountService.getAccountById(ctrl.split.destAccountId).then(function(destAccount) {
+      if (destAccount.currency !== ctrl.account.currency) {
+        ctrl.split.foreignCurrency = true;
+      }
+    });
+  }
+
   ctrl.resetForm = function() {
     // if(ctrl.split.value > 0) {
     //   ctrl.split.inValue = ctrl.split.value;
@@ -55,7 +64,8 @@ angular.module('moneyApp')
     controller: 'splitListItemCtrl',
     controllerAs: 'ctrl',
     bindToController: {
-      split: '=data'
+      split: '=data',
+      account: '=account'
     },
     replace: true,
     templateUrl: OC.linkTo('money', 'templates/splitListItem.html')

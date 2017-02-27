@@ -14,6 +14,7 @@
 </div>
 <div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.inValue" ng-model-options="{debounce: 500}" /></div>
 <div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.outValue" ng-model-options="{debounce: 500}" /></div>
+<div class="split-list-item-cell transaction-list-item-info"><div class="icon-info" ng-if="ctrl.split.foreignCurrency" /></div>
 <div class="split-list-item-cell transaction-list-item-actions">
   <div ng-class="{'icon-loading-small': ctrl.splitItemLoading}"></div>
   <button ng-click="ctrl.deleteSplit()" class="icon-delete" title="{{ctrl.t.delete}}" ng-if="!ctrl.splitForm.$dirty && !ctrl.splitItemLoading"></button>
