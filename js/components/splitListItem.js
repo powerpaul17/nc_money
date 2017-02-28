@@ -9,30 +9,7 @@ angular.module('moneyApp')
     ctrl.availableAccounts = _.unique(accounts);
   });
 
-  // ctrl.split.inValue = 0;
-  // ctrl.split.outValue = 0;
-  //
-  // if(ctrl.split.value > 0) {
-  //   ctrl.split.inValue = ctrl.split.value;
-  // } else {
-  //   ctrl.split.outValue = -ctrl.split.value;
-  // }
-
-  ctrl.split.foreignCurrency = false;
-  if (ctrl.split.destAccountId !== ctrl.account.id) {
-    AccountService.getAccountById(ctrl.split.destAccountId).then(function(destAccount) {
-      if (destAccount.currency !== ctrl.account.currency) {
-        ctrl.split.foreignCurrency = true;
-      }
-    });
-  }
-
   ctrl.resetForm = function() {
-    // if(ctrl.split.value > 0) {
-    //   ctrl.split.inValue = ctrl.split.value;
-    // } else {
-    //   ctrl.split.outValue = -ctrl.split.value;
-    // }
     ctrl.splitForm.$setPristine();
     ctrl.splitForm.$setUntouched();
   }
@@ -48,7 +25,15 @@ angular.module('moneyApp')
     ctrl.splitItemLoading = true;
     var originalAccount = ctrl.originalSplit.destAccountId;
     var originalValue = ctrl.originalSplit.value;
-    ctrl.split.value = ctrl.split.inValue - ctrl.split.outValue;
+    ctrl.split.shownValue = ctrl.split.inValue - ctrl.split.outValue;
+
+    // Handle multiple currencies
+    if (ctrl.split.foreignCurrency) {
+      ctrl.split.value = ctrl.split.shownValue * ctrl.transaction.convertRate / ctrl.split.convertRate;
+    } else {
+      ctrl.split.value = ctrl.split.shownValue;
+    }
+
     TransactionService.updateSplit(ctrl.split, originalAccount, originalValue).then(function(response) {
       ctrl.originalSplit = angular.copy(ctrl.split);
       ctrl.resetForm();
@@ -65,7 +50,7 @@ angular.module('moneyApp')
     controllerAs: 'ctrl',
     bindToController: {
       split: '=data',
-      account: '=account'
+      transaction: '=transaction'
     },
     replace: true,
     templateUrl: OC.linkTo('money', 'templates/splitListItem.html')

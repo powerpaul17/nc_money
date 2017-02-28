@@ -24,10 +24,20 @@ angular.module('moneyApp')
     ctrl.transactionItemLoading = true;
     if (ctrl.transactionForm.destAccountId.$dirty || ctrl.transactionForm.inValue.$dirty || ctrl.transactionForm.outValue.$dirty) {
       for (var i = 0; i < ctrl.transaction.splits.length; i++) {
+
         var originalValue = ctrl.transaction.splits[i].value;
+
         if (ctrl.transaction.splits[i].destAccountId === ctrl.originalTransaction.destAccountId) {
           ctrl.transaction.splits[i].destAccountId = ctrl.transaction.destAccountId;
-          ctrl.transaction.splits[i].value = ctrl.transaction.outValue - ctrl.transaction.inValue;
+          ctrl.transaction.splits[i].shownValue = ctrl.transaction.outValue - ctrl.transaction.inValue;
+
+          // Handle multiple currencies
+          if (ctrl.transaction.splits[i].foreignCurrency) {
+            ctrl.transaction.splits[i].value = ctrl.transaction.splits[i].shownValue * ctrl.transaction.convertRate / ctrl.transaction.splits[i].convertRate;
+          } else {
+            ctrl.transaction.splits[i].value = ctrl.transaction.splits[i].shownValue;
+          }
+
           TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.originalTransaction.destAccountId, originalValue);
           // break;
         } else if (ctrl.transaction.splits[i].destAccountId === ctrl.account.id) {
