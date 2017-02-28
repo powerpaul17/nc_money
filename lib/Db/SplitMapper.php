@@ -12,19 +12,19 @@ class SplitMapper extends Mapper {
   }
 
   public function find($id, $userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_splits WHERE id = ? AND user_id = ?';
+    $sql = 'SELECT a.*, b.currency FROM *PREFIX*money_splits a LEFT JOIN *PREFIX*money_accounts b ON b.id = a.dest_account_id WHERE a.id = ? AND a.user_id = ?';
     return $this->findEntity($sql, [$id, $userId]);
   }
 
   public function findAll($userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_splits WHERE user_id = ?';
+    $sql = 'SELECT a.*, b.currency FROM *PREFIX*money_splits a LEFT JOIN *PREFIX*money_accounts b ON b.id = a.dest_account_id WHERE a.user_id = ?';
     return $this->findEntities($sql, [$userId]);
   }
 
   /* Testing */
 
   public function findAllSplitsOfTransaction($userId, $transactionId) {
-    $sql = 'SELECT * FROM *PREFIX*money_splits WHERE user_id = ? AND transaction_id = ?';
+    $sql = 'SELECT a.*, b.currency FROM *PREFIX*money_splits a LEFT JOIN *PREFIX*money_accounts b ON b.id = a.dest_account_id WHERE a.user_id = ? AND a.transaction_id = ?';
     return $this->findEntities($sql, [$userId, $transactionId]);
   }
 
