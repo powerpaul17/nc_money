@@ -1,14 +1,14 @@
 <div class="accounts-list" ng-class="{loading: ctrl.loading, 'mobile-show': ctrl.show}">
   <div class="app-content-list-item"
-       ng-repeat="account in (ctrl.accounts | accountTypeFilter:ctrl.routeParams.tid | orderBy: 'name') as filtered track by account.id"
+       ng-repeat="account in ctrl.accountList = (ctrl.accounts | accountTypeFilter:ctrl.routeParams.tid | orderBy: 'name') as filtered track by account.id"
        account-list-item data="account"
        ng-click="setSelected(account.id)"
        ng-class="{active: account.id === ctrl.getSelectedId()}"
   >
   </div>
-  <div ng-show="!ctrl.loading && !(ctrl.accounts | accountTypeFilter:ctrl.routeParams.tid).length">
+  <div ng-show="!ctrl.loading && !ctrl.accountList.length">
     <div id="emptycontent" class="">
-			<div class="icon-contacts-dark"></div>
+			<div class="icon-money-dark"></div>
 			<h2>{{ctrl.t.noAccounts}}</h2>
 		</div>
   </div>

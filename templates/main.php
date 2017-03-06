@@ -1,11 +1,11 @@
 <?php
 // angular + components
-script('money', 'vendor/angular/angular');
-script('money', 'vendor/angular-route/angular-route');
+script('money', 'vendor/angular/angular.min');
+script('money', 'vendor/angular-route/angular-route.min');
 script('money', 'vendor/angular-uuid4/angular-uuid4');
-script('money', 'vendor/angular-cache/dist/angular-cache');
-script('money', 'vendor/angular-sanitize/angular-sanitize');
-script('money', 'vendor/ui-select/dist/select');
+script('money', 'vendor/angular-cache/dist/angular-cache.min');
+script('money', 'vendor/angular-sanitize/angular-sanitize.min');
+script('money', 'vendor/ui-select/dist/select.min');
 script('money', 'vendor/angular-bootstrap/ui-bootstrap.min');
 script('money', 'vendor/angular-bootstrap/ui-bootstrap-tpls.min');
 script('money', 'vendor/jquery-timepicker/jquery.ui.timepicker');
@@ -36,13 +36,10 @@ script('money', 'components/transactionList');
 script('money', 'components/transactionListItem');
 script('money', 'components/newAccountButton');
 script('money', 'components/splitListItem');
-script('money', 'components/unbalancedTransactions');
-script('money', 'components/unbalancedTransactionList');
-script('money', 'components/importTransactionsPanel');
 
 // all styles
 style('money', 'public/style');
-style('money', 'vendor/ui-select/dist/select');
+style('money', 'vendor/ui-select/dist/select.min');
 vendor_style('select2/select2');
 ?>
 

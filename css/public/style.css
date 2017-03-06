@@ -1,3 +1,7 @@
+.icon-money-dark {
+	background-image: url('../../img/money-dark.svg');
+}
+
 .accountdetails__header {
 	/*height: 100px;*/
 	/*padding-left: 20px;*/
@@ -10,6 +14,11 @@
 
 .accountdetails__header input {
 	width: initial;
+}
+
+/* Override input.css */
+.accountdetails__header input:disabled {
+	background: inherit;
 }
 
 .accountdetails__header #details-account-infos {
@@ -98,6 +107,7 @@
 	border: none;
 	opacity: .5;
 	margin: 3px;
+	display: block;
 }
 .accountdetails__header .icon-delete:hover,
 .accountdetails__header .icon-delete:focus,

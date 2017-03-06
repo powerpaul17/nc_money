@@ -26,15 +26,15 @@ angular.module('moneyApp')
   TransactionService.registerObserverCallback(function(ev) {
     if(ev.event === 'create') {
       for(var i = 0; i < ev.response.splits.length; i++) {
-        accounts.get(ev.response.splits[i].destAccountId).balance += parseFloat(ev.response.splits[i].value);
+        accounts.get(ev.response.splits[i].destAccountId).balance += ev.response.splits[i].value;
       }
     } else if (ev.event === 'addedSplit') {
-      accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
+      accounts.get(ev.response.destAccountId).balance += ev.response.value;
     } else if (ev.event === 'deletedSplit') {
-      accounts.get(ev.response.destAccountId).balance -= parseFloat(ev.response.value);
+      accounts.get(ev.response.destAccountId).balance -= ev.response.value;
     } else if (ev.event === 'updatedSplit') {
-      accounts.get(ev.response.originalAccount).balance -= parseFloat(ev.response.originalValue);
-      accounts.get(ev.response.destAccountId).balance += parseFloat(ev.response.value);
+      accounts.get(ev.response.originalAccount).balance -= ev.response.originalValue;
+      accounts.get(ev.response.destAccountId).balance += ev.response.value;
     }
   });
 
@@ -46,7 +46,7 @@ angular.module('moneyApp')
           response.data[i].id = parseInt(response.data[i].id);
           response.data[i].type = parseInt(response.data[i].type);
           if(response.data[i].balance === null) {
-            response.data[i].balance = 0;
+            response.data[i].balance = 0.0;
           } else {
             response.data[i].balance = parseFloat(response.data[i].balance);
           }
@@ -102,10 +102,12 @@ angular.module('moneyApp')
   ctrl.normalizeValues = function(account) {
     account.id = parseInt(account.id);
     account.type = parseInt(account.type);
+    account.balance = parseInt(account.balance);
   };
 
   ctrl.update = function(account) {
     return $http.put('ajax/update-account', account).then(function(response) {
+      ctrl.normalizeValues(response.data);
       notifyObservers('update', response.data);
     });
   };

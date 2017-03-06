@@ -23,7 +23,7 @@ angular.module('moneyApp')
   };
 
   AccountService.getCurrencies().then(function(currencies) {
-    ctrl.availableCurrencies = _.unique(currencies);
+    ctrl.availableCurrencies = currencies;
   });
 
   ctrl.closeAccount = function() {
@@ -43,19 +43,32 @@ angular.module('moneyApp')
 
   ctrl.changeAccount = function(accountId) {
     if (typeof accountId === 'undefined') {
-      ctrl.show = false;
-      $('#app-navigation-toggle').removeClass('showdetails');
-      return;
-    }
-    AccountService.getAccountById(accountId).then(function(account) {
-      if (angular.isUndefined(account)) {
-        ctrl.closeAccount();
+      if ($routeParams.tid === 'Unbalanced') {
+        ctrl.account = {};
+        ctrl.account.id = 'Unbalanced';
+        ctrl.account.name = 'Unbalanced Transactions';
+        ctrl.account.description = 'Unbalanced Transactions';
+        ctrl.account.editingEnabled = false;
+        ctrl.show = true;
+        $('#app-navigation-toggle').addClass('showdetails');
+        return;
+      } else {
+        ctrl.show = false;
+        $('#app-navigation-toggle').removeClass('showdetails');
         return;
       }
-      ctrl.account = account;
-      ctrl.show = true;
-      $('#app-navigation-toggle').addClass('showdetails');
-    });
+    } else {
+      AccountService.getAccountById(accountId).then(function(account) {
+        if (angular.isUndefined(account)) {
+          ctrl.closeAccount();
+          return;
+        }
+        ctrl.account = account;
+        ctrl.account.editingEnabled = true;
+        ctrl.show = true;
+        $('#app-navigation-toggle').addClass('showdetails');
+      });
+    }
   };
 
   ctrl.toggleActionsPanel = function() {
@@ -67,6 +80,7 @@ angular.module('moneyApp')
   };
 
   ctrl.deleteAccount = function() {
+    ctrl.deleteAccountLoading = true;
     AccountService.delete(ctrl.account);
   };
 
