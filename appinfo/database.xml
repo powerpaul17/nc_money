@@ -142,7 +142,6 @@
       <field>
         <name>description</name>
         <type>text</type>
-        <notnull>true</notnull>
         <length>150</length>
       </field>
       <field>

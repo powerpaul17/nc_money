@@ -133,6 +133,25 @@ angular.module('moneyApp')
   	});
   };
 
+  ctrl.getTransactionsForAccountByDate = function(accountId, startDate, endDate) {
+    return $http.get('ajax/get-transactions-for-account-by-date', {
+      params: {
+        accountId: accountId,
+        startDate: startDate,
+        endDate: endDate
+      }
+    }).then(function(response) {
+      // add and calculate additional data to each transaction
+      for(var i = 0; i < response.data.length; i++) {
+        // calculate total value and destination account for transaction
+        ctrl.normalizeValues(response.data[i]);
+        ctrl.calculateValue(response.data[i], accountId);
+        ctrl.checkStatus(response.data[i]);
+      }
+      return response.data;
+    });
+  };
+
   // ctrl.getTransactionById = function(transactionId) {
   //   return $http.get('ajax/get-transaction', {
   //     params: {
@@ -161,11 +180,12 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.createBatch = function(transactions) {
+  ctrl.createBatch = function(transactions, srcAccountId) {
     return $http.post('ajax/add-transactions', {
       transactions: transactions
     }).then(function(response) {
-      // TODO!
+      response.data.srcAccountId = srcAccountId;
+      notifyObservers('createBatch', response.data);
     }, function(errorResponse) {
 
     });

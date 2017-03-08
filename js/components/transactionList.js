@@ -34,6 +34,8 @@ angular.module('moneyApp')
       TransactionService.calculateValue(ctrl.transactions[ctrl.transactions.length-1], ctrl.account.id);
       TransactionService.checkStatus(ctrl.transactions[ctrl.transactions.length-1]);
       ctrl.reorderList();
+    } else if (ev.event === 'createBatch') {
+      ctrl.refetch();
     } else if (ev.event === 'update') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (ctrl.transactions[i].id === ev.response.id) {
@@ -102,29 +104,38 @@ angular.module('moneyApp')
     }
   });
 
-  if (ctrl.account.id === 'Unbalanced') {
-    // Get transactions for account
-    TransactionService.getUnbalancedTransactions().then(function(transactions) {
-      if (transactions.length > 0) {
+  ctrl.refetch = function() {
+
+    ctrl.transactions.length = 0;
+    ctrl.loading = true;
+    
+    if (ctrl.account.id === 'Unbalanced') {
+      // Get transactions for account
+      TransactionService.getUnbalancedTransactions().then(function(transactions) {
+        if (transactions.length > 0) {
           ctrl.transactions = transactions;
           ctrl.reorderList();
           ctrl.loading = false;
-      } else {
-        ctrl.loading = false;
-      }
-    });
-  } else {
-    // Get transactions for account
-    TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
-      if (transactions.length > 0) {
-        ctrl.transactions = transactions;
-        ctrl.reorderList();
-        ctrl.loading = false;
-      } else {
-        ctrl.loading = false;
-      }
-    });
-  }
+        } else {
+          ctrl.loading = false;
+        }
+      });
+    } else {
+      // Get transactions for account
+      TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
+        if (transactions.length > 0) {
+          ctrl.transactions = transactions;
+          ctrl.reorderList();
+          ctrl.loading = false;
+        } else {
+          ctrl.loading = false;
+        }
+      });
+    }
+  };
+
+  // Fetch transactions from server
+  ctrl.refetch();
 
   ctrl.resetForm = function() {
     ctrl.newTransaction.date = "";

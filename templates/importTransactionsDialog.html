@@ -67,6 +67,6 @@
 <div class="modal-footer">
   <button type="button" class="btn"
           ng-click="ctrl.close()">{{ctrl.t.closeButtonText}}</button>
-  <button class="btn btn-primary"
+  <button class="btn btn-primary" ng-class="{loading: ctrl.loading}"
           ng-click="ctrl.ok()">{{ctrl.t.actionButtonText}}</button>
 </div>

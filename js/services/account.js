@@ -28,6 +28,8 @@ angular.module('moneyApp')
       for(var i = 0; i < ev.response.splits.length; i++) {
         accounts.get(ev.response.splits[i].destAccountId).balance += ev.response.splits[i].value;
       }
+    } else if (ev.event === 'createBatch') {
+      accounts.get(ev.response.srcAccountId).balance += ev.response.totalValue;
     } else if (ev.event === 'addedSplit') {
       accounts.get(ev.response.destAccountId).balance += ev.response.value;
     } else if (ev.event === 'deletedSplit') {

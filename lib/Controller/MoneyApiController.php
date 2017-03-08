@@ -232,9 +232,21 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function addTransactions($transactions) {
+    $count = 0;
+    $value = 0.0;
     foreach($transactions as $transaction) {
-      $this->addSimpleTransaction($transaction['srcAccountId'], $transaction['destAccountId'], $transaction['value'], $transaction['convertRate'], $transaction['date'], $transaction['description'], $transaction['srcSplitComment']);
+      $newTransaction = $this->addSimpleTransaction($transaction['srcAccountId'], $transaction['destAccountId'], $transaction['value'], $transaction['convertRate'], $transaction['date'], $transaction['description'], $transaction['srcSplitComment']);
+      foreach($newTransaction['splits'] as $split) {
+        if($split->getDestAccountId() == $transaction['srcAccountId']) {
+          $value += $split->getValue();
+        }
+      }
+      $count++;
     }
+    return [
+      'transactionsAdded' => $count,
+      'totalValue' => $value
+    ];
   }
 
   /**

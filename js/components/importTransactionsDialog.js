@@ -75,6 +75,8 @@ ctrl.CSVtoArray = function(text) {
         for(var j = 0; j < ctrl.availableColumns.length; j++) {
           if(ctrl.fileRows[i][j]) {
             ctrl.availableColumns[j].lines.push(ctrl.fileRows[i][j]);
+          } else {
+            ctrl.availableColumns[j].lines.push('');
           }
         }
       }
@@ -94,11 +96,13 @@ ctrl.CSVtoArray = function(text) {
   };
 
   ctrl.ok = function() {
+    ctrl.loading = true;
     ctrl.normalizeValues(ctrl.fileRows);
     ctrl.newTransactions.length = 0;
+    ctrl.startDate = '';
+    ctrl.endDate = '';
     // Build transaction list
     for(var i = 0; i < ctrl.fileRows.length; i++) {
-      // console.log(Date.parse(ctrl.fileRows[i][ctrl.dateColumn]));
       if (
         (!isNaN(Date.parse(ctrl.fileRows[i][ctrl.dateColumn]))) &&
         (!isNaN(ctrl.fileRows[i][ctrl.inValueColumn]))
@@ -114,16 +118,37 @@ ctrl.CSVtoArray = function(text) {
             srcSplitComment: ctrl.fileRows[i][ctrl.commentColumn]
           }
         );
+        if((Date.parse(ctrl.fileRows[i][ctrl.dateColumn]) < Date.parse(ctrl.startDate)) || (ctrl.startDate == '')) {
+          ctrl.startDate = ctrl.fileRows[i][ctrl.dateColumn];
+        }
+        if((Date.parse(ctrl.fileRows[i][ctrl.dateColumn]) > Date.parse(ctrl.endDate)) || (ctrl.endDate == '')) {
+          ctrl.endDate = ctrl.fileRows[i][ctrl.dateColumn];
+        }
       }
     }
 
-console.log(ctrl.newTransactions);
+    TransactionService.getTransactionsForAccountByDate($scope.account.id, ctrl.startDate, ctrl.endDate).then(function(transactions) {
 
-    TransactionService.createBatch(ctrl.newTransactions).then(function() {
-      alert("Bing!!");
+      // Filter out duplicates
+      transactionsHashmap = [];
+      for (var i = 0; i < transactions.length; i++) {
+        transactionsHashmap[transactions[i].date + transactions[i].description + transactions[i].value] = 1;
+      }
+      for (var i = ctrl.newTransactions.length-1; i >= 0; i--) {
+        if (transactionsHashmap[ctrl.newTransactions[i].date + ctrl.newTransactions[i].description + (-ctrl.newTransactions[i].value)]) {
+          ctrl.newTransactions.splice(i,1);
+        }
+      }
+
+      if (ctrl.newTransactions.length > 0) {
+        TransactionService.createBatch(ctrl.newTransactions, $scope.account.id).then(function() {
+          $uibModalInstance.close();
+        });
+      } else {
+        $uibModalInstance.close();
+      }
     });
 
-    $uibModalInstance.close();
   };
 
   ctrl.close = function() {
