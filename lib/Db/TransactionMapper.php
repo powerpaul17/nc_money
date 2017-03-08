@@ -32,6 +32,16 @@ class TransactionMapper extends Mapper {
     return $this->findEntities($sql, [$userId, $accountId, $resultOffset, $resultLimit]);
   }
 
+  public function findAllTransactionsOfAccountByDate($userId, $accountId, $startDate, $endDate) {
+    $sql = 'SELECT a.* ' .
+           'FROM *PREFIX*money_transactions a ' .
+           'LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) ' .
+           'WHERE a.user_id = ? AND b.dest_account_id = ? AND a.date >= ? AND a.date <= ? ' .
+           'GROUP BY a.id ' .
+           'ORDER BY a.date DESC, a.timestamp_added DESC ';
+    return $this->findEntities($sql, [$userId, $accountId, $startDate, $endDate]);
+  }
+
 }
 
 ?>

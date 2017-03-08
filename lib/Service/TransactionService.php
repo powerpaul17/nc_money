@@ -47,6 +47,14 @@ class TransactionService {
     }
   }
 
+  public function findTransactionsOfAccountByDate($accountId, $userId, $startDate, $endDate) {
+    try {
+      return $this->transactionMapper->findAllTransactionsOfAccountByDate($userId, $accountId, $startDate, $endDate);
+    } catch(Exception $e) {
+      $this->handleException($e);
+    }
+  }
+
   public function create($description, $date, $userId) {
     $transaction = new Transaction();
     $transaction->setUserId($userId);

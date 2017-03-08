@@ -143,6 +143,28 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   *
+  * @param int $accountId
+  * @param string $startDate
+  * @param string $endDate
+  */
+  public function getTransactionsForAccountByDate($accountId, $startDate, $endDate) {
+    $transactions = $this->transactionService->findTransactionsOfAccountByDate($accountId, $this->userId, $startDate, $endDate);
+
+    $result = [];
+
+    foreach($transactions as &$transaction) {
+      $number = array_push($result, $transaction->jsonSerialize());
+      $result[$number-1]['splits'] = $this->getSplitsForTransaction($transaction->id);
+    }
+    unset($transaction);
+
+    return $result;
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  *
   * @param int $transactionId
   */
   public function getTransaction($transactionId) {
@@ -186,13 +208,13 @@ class MoneyApiController extends ApiController {
   * @param float $value
   * @param float $convertRate
   */
-  public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description) {
+  public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description, $srcSplitComment = '', $destSplitComment = '') {
     $newTransaction = $this->transactionService->create($description, $date, $this->userId);
 
     if ($destAccountId > 0) {
-      $this->splitService->create($newTransaction->id, $destAccountId, $value/$convertRate, $convertRate, "", $this->userId);
+      $this->splitService->create($newTransaction->id, $destAccountId, $value/$convertRate, $convertRate, $destSplitComment, $this->userId);
     }
-    $this->splitService->create($newTransaction->id, $srcAccountId, -$value, 1, "", $this->userId);
+    $this->splitService->create($newTransaction->id, $srcAccountId, -$value, 1, $srcSplitComment, $this->userId);
 
     return $this->getTransaction($newTransaction->getId());
   }
@@ -203,6 +225,16 @@ class MoneyApiController extends ApiController {
   */
   public function addSplitTransaction() {
     // TODO
+  }
+
+  /**
+  * @NoCSRFRequired
+  * @NoAdminRequired
+  */
+  public function addTransactions($transactions) {
+    foreach($transactions as $transaction) {
+      $this->addSimpleTransaction($transaction['srcAccountId'], $transaction['destAccountId'], $transaction['value'], $transaction['convertRate'], $transaction['date'], $transaction['description'], $transaction['srcSplitComment']);
+    }
   }
 
   /**
