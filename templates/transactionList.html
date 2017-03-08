@@ -9,59 +9,7 @@
         <div class="transaction-list-header-item"></div>
       </div>
 
-      <div ng-show="ctrl.account.showImportTransactionsPanel" class="transaction-list-item import-transactions-panel" ng-form name="ctrl.importTransactionsForm">
-        <div class="transaction-list-item-cell transaction-list-item-date">
-          <ui-select name="importTransactionsDateColumn" ng-model="ctrl.importTransactions.dateColumn" theme="select2" ng-required="true">
-            <ui-select-match placeholder="Select column...">{{$select.selected.lines[0]}}</ui-select-match>
-            <ui-select-choices repeat="column.id as column in ctrl.importTransactions.availableColumns">
-              <small ng-bind-html="column.lines[0] | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>
-          <small ng-repeat="line in ctrl.importTransactions.availableColumns[ctrl.importTransactions.dateColumn].lines">{{line}}<br></small>
-        </div>
-        <div class="transaction-list-item-cell transaction-list-item-description">
-          <ui-select name="importTransactionsDescriptionColumn" ng-model="ctrl.importTransactions.descriptionColumn" theme="select2" ng-required="true">
-            <ui-select-match placeholder="Select column...">{{$select.selected.lines[0]}}</ui-select-match>
-            <ui-select-choices repeat="column.id as column in ctrl.importTransactions.availableColumns">
-              <small ng-bind-html="column.lines[0] | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>
-          <small ng-repeat="line in ctrl.importTransactions.availableColumns[ctrl.importTransactions.descriptionColumn].lines">{{line}}<br></small>
-          <ui-select name="importTransactionsCommentColumn" ng-model="ctrl.importTransactions.commentColumn" theme="select2">
-            <ui-select-match placeholder="Select column...">{{$select.selected.lines[0]}}</ui-select-match>
-            <ui-select-choices repeat="column.id as column in ctrl.importTransactions.availableColumns">
-              <small ng-bind-html="column.lines[0] | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>
-          <small ng-repeat="line in ctrl.importTransactions.availableColumns[ctrl.importTransactions.commentColumn].lines">{{line}}<br></small>
-        </div>
-        <div class="transaction-list-item-cell transaction-list-item-destination-account">
-        </div>
-        <div class="transaction-list-item-cell transaction-list-item-value">
-          <ui-select name="importTransactionsInValueColumn" ng-model="ctrl.importTransactions.inValueColumn" theme="select2">
-            <ui-select-match placeholder="Select column...">{{$select.selected.lines[0]}}</ui-select-match>
-            <ui-select-choices repeat="column.id as column in ctrl.importTransactions.availableColumns">
-              <small ng-bind-html="column.lines[0] | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>
-          <small ng-repeat="line in ctrl.importTransactions.availableColumns[ctrl.importTransactions.inValueColumn].lines">{{line}}<br></small>
-        </div>
-        <div class="transaction-list-item-cell transaction-list-item-value">
-          <ui-select name="importTransactionsOutValueColumn" ng-model="ctrl.importTransactions.outValueColumn" theme="select2">
-            <ui-select-match placeholder="Select column...">{{$select.selected.lines[0]}}</ui-select-match>
-            <ui-select-choices repeat="column.id as column in ctrl.importTransactions.availableColumns">
-              <small ng-bind-html="column.lines[0] | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>
-          <small ng-repeat="line in ctrl.importTransactions.availableColumns[ctrl.importTransactions.outValueColumn].lines">{{line}}<br></small>
-        </div>
-        <div class="transaction-list-item-cell">
-          <button ng-click="ctrl.cancelImport()" class="icon-close" title="{{ctrl.t.cancel}}"></button>
-          <button ng-click="ctrl.importTransactions()" class="icon-checkmark" title="{{ctrl.t.submit}}" ng-show="ctrl.importTransactionsForm.$valid"></button>
-        </div>
-      </div>
-
-      <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm" ng-show="!ctrl.account.showImportTransactionsPanel">
+      <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
         <div class="transaction-list-item-cell">
           <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." ng-required="true" />
         </div>

@@ -88,10 +88,6 @@ angular.module('moneyApp')
 
   };
 
-  ctrl.importTransactions = function() {
-    ctrl.account.showImportTransactionsPanel = !ctrl.account.showImportTransactionsPanel;
-  };
-
 });
 
 angular.module('moneyApp')

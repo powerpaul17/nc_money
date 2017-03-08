@@ -150,25 +150,6 @@ angular.module('moneyApp')
     });
   };
 
-  // TESTING!! TODO
-  ctrl.importTransactions = {};
-  ctrl.importTransactions.availableColumns = [
-    {
-      id: 0,
-      lines: [
-        "test1",
-        "test2"
-      ]
-    },
-    {
-      id: 1,
-      lines: [
-        "line1",
-        "line2"
-      ]
-    }
-  ];
-
 });
 
 angular.module('moneyApp')
