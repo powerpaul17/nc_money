@@ -26,6 +26,7 @@ script('money', 'filters/firstCharacter');
 script('money', 'filters/accountType');
 script('money', 'services/account');
 script('money', 'services/transaction');
+script('money', 'services/modalDialog');
 //script('money', 'services/search');
 script('money', 'components/accountTypesList');
 script('money', 'components/accountTypesListItem');
@@ -36,9 +37,12 @@ script('money', 'components/transactionList');
 script('money', 'components/transactionListItem');
 script('money', 'components/newAccountButton');
 script('money', 'components/splitListItem');
+script('money', 'components/importTransactions');
+script('money', 'components/importTransactionsDialog');
 
 // all styles
 style('money', 'public/style');
+style('money', 'public/modal');
 style('money', 'vendor/ui-select/dist/select.min');
 vendor_style('select2/select2');
 ?>

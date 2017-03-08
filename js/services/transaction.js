@@ -161,6 +161,16 @@ angular.module('moneyApp')
     });
   };
 
+  ctrl.createBatch = function(transactions) {
+    return $http.post('ajax/add-transactions', {
+      transactions: transactions
+    }).then(function(response) {
+      // TODO!
+    }, function(errorResponse) {
+
+    });
+  };
+
   ctrl.update = function(transaction) {
     return $http.put('ajax/update-transaction', transaction).then(function(response) {
       ctrl.normalizeValues(response.data);

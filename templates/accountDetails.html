@@ -37,8 +37,7 @@
 				<div ng-class="{'icon-loading-small': ctrl.deleteAccountLoading}"></div>
 				<a ng-if="!ctrl.deleteAccountLoading" ng-click="ctrl.deleteAccount()" class="icon-delete" title="{{ctrl.t.deleteAccount}}"></a>
 				<!-- <a ng-click="ctrl.importTransactions()" class="icon-upload" title="{{ctrl.t.importTransactions}}"></a> -->
-				<input id="transactions-import" type="file" class="hidden-visually">
-				<label for="transactions-import" class="icon-upload" />
+				<import-transactions account="ctrl.account"></import-transactions>
 			</div>
 		</header>
 		<section>
