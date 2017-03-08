@@ -7,7 +7,7 @@
     <input type="text" ng-model="ctrl.transaction.description" ng-model-options="{debounce: 500}" />
   </div>
   <div class="transaction-list-item-cell transaction-list-item-destination-account">
-    <ui-select name="destAccountId" ng-disabled="!ctrl.transaction.destAccountId" ng-model="ctrl.transaction.destAccountId" theme="select2" ng-hide="ctrl.transaction.multipleSplits || ctrl.showSplits">
+    <ui-select name="destAccountId" ng-model="ctrl.transaction.destAccountId" theme="select2" ng-hide="ctrl.transaction.multipleSplits || ctrl.showSplits">
       <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
       <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
         <span ng-bind-html="account.name | highlight: $select.search"></span>

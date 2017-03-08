@@ -35,6 +35,10 @@ angular.module('moneyApp')
           TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.transaction.splits[i].destAccountId, originalValue);
         }
       }
+      if ((!ctrl.originalTransaction.destAccountId) && (ctrl.transaction.destAccountId)) {
+        // TODO: convert rate
+        TransactionService.addSplit(ctrl.transaction.id, ctrl.transaction.destAccountId, ctrl.transaction.outValue - ctrl.transaction.inValue, 1, '');
+      }
     }
     TransactionService.update(ctrl.transaction).then(function(response) {
       ctrl.originalTransaction = angular.copy(ctrl.transaction);
