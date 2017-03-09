@@ -25,6 +25,11 @@ angular.module('moneyApp')
 					ctrl.unbalancedValue += value;
 				});
 			}
+		} else if (ev.event === 'createBatch') {
+			AccountService.getAccountById(ev.response.srcAccountId).then(function(account) {
+				ctrl.types[account.type].balance += ev.response.totalValue;
+				ctrl.unbalancedValue += ev.response.totalValue;
+			});
 		} else if (ev.event === 'addedSplit') {
 			AccountService.getAccountById(ev.response.destAccountId).then(function(account) {
 				ctrl.types[account.type].balance += ev.response.value;

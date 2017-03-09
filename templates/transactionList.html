@@ -34,6 +34,7 @@
           <input currency-input name="newTransactionOutValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
                  ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" />
         </div>
+        <div class="transaction-list-item-cell"></div>
         <div class="transaction-list-item-cell">
           <div ng-class="{'icon-loading-small': ctrl.newTransactionLoading}"></div>
           <button ng-click="ctrl.submitTransaction()" class="submitTransaction icon-add action pull-right" ng-show="ctrl.newTransactionForm.$valid && !ctrl.newTransactionLoading" />

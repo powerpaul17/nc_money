@@ -31,7 +31,7 @@ angular.module('moneyApp')
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
       ctrl.transactions.push(ev.response);
-      TransactionService.calculateValue(ctrl.transactions[ctrl.transactions.length-1], ctrl.account.id);
+      TransactionService.calculateValue(ctrl.transactions[ctrl.transactions.length-1], ctrl.account);
       TransactionService.checkStatus(ctrl.transactions[ctrl.transactions.length-1]);
       ctrl.reorderList();
     } else if (ev.event === 'createBatch') {
@@ -40,7 +40,7 @@ angular.module('moneyApp')
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (ctrl.transactions[i].id === ev.response.id) {
           ctrl.transactions[i] = ev.response;
-          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
           TransactionService.checkStatus(ctrl.transactions[i]);
           ctrl.reorderList();
           break;
@@ -50,7 +50,7 @@ angular.module('moneyApp')
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
           ctrl.transactions[i].splits.push(ev.response);
-          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
           TransactionService.checkStatus(ctrl.transactions[i]);
           break;
         }
@@ -73,16 +73,16 @@ angular.module('moneyApp')
           if(number === 0) {
             ctrl.transactions.splice(i,1);
           } else {
-            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
             TransactionService.checkStatus(ctrl.transactions[i]);
           }
         }
       }
     } else if (ev.event === 'updatedSplit') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
-        if (parseInt(ctrl.transactions[i].id) === ev.response.transactionId) {
+        if (ctrl.transactions[i].id === ev.response.transactionId) {
           for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
-            if (parseInt(ctrl.transactions[i].splits[j].id) === ev.response.id) {
+            if (ctrl.transactions[i].splits[j].id === ev.response.id) {
               ctrl.transactions[i].splits[j] = ev.response;
               break;
             }
@@ -96,7 +96,7 @@ angular.module('moneyApp')
           if (number === 0) {
             ctrl.transactions.splice(i,1);
           } else {
-            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account.id);
+            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
             TransactionService.checkStatus(ctrl.transactions[i]);
           }
         }
@@ -108,7 +108,7 @@ angular.module('moneyApp')
 
     ctrl.transactions.length = 0;
     ctrl.loading = true;
-    
+
     if (ctrl.account.id === 'Unbalanced') {
       // Get transactions for account
       TransactionService.getUnbalancedTransactions().then(function(transactions) {
@@ -155,7 +155,8 @@ angular.module('moneyApp')
       ctrl.newTransaction.outValue = 0;
     };
     ctrl.newTransactionLoading = true;
-    TransactionService.create(ctrl.account.id, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description).then(function(response) {
+    // TODO: Check for currencies and ask for convert rate!
+    TransactionService.create(ctrl.account, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description).then(function(response) {
       ctrl.resetForm();
       ctrl.newTransactionLoading = false;
     });

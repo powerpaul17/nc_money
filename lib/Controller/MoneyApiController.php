@@ -113,30 +113,17 @@ class MoneyApiController extends ApiController {
   * @param int $resultLimit
   */
   public function getTransactionsForAccount($accountId, $resultOffset = 0, $resultLimit = 50) {
-    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id ORDER BY a.date DESC, a.timestamp_added DESC LIMIT ?,?;');
-    //$query = \OCP\DB::prepare("SELECT a.*, GROUP_CONCAT(JSON_OBJECT('id', c.id, 'value', c.value)) AS splits FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id LEFT JOIN *PREFIX*money_splits c ON c.transaction_id = a.id WHERE b.dest_account_id = ? AND b.user_id = ? GROUP BY a.id;");
+    $transactions = $this->transactionService->findTransactionsOfAccount($accountId, $this->userId, $resultOffset, $resultLimit);
 
-    $query->bindValue(1, $accountId, \PDO::PARAM_INT);
-    $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
-    $query->bindValue(3, $resultOffset, \PDO::PARAM_INT);
-    $query->bindValue(4, $resultLimit, \PDO::PARAM_INT);
-
-    $query->execute();
-
-    $transactions = $query->fetchAll();
-
-    $query->closeCursor();
-
-    // $transactions = $this->transactionService->findTransactionsOfAccount($accountId, $this->userId, $resultOffset, $resultLimit);
+    $result = [];
 
     foreach($transactions as &$transaction) {
-      $transaction['splits'] = $this->getSplitsForTransaction($transaction['id']);
+      $number = array_push($result, $transaction->jsonSerialize());
+      $result[$number-1]['splits'] = $this->getSplitsForTransaction($transaction->id);
     }
     unset($transaction);
 
-    return $transactions;
-    // return new JSONResponse($transactions);
-    //return new DataResponse($this->transactionService->findTransactionsOfAccount($accountId, $this->userId));
+    return $result;
   }
 
   /**
@@ -168,23 +155,12 @@ class MoneyApiController extends ApiController {
   * @param int $transactionId
   */
   public function getTransaction($transactionId) {
-    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a WHERE a.id = ? AND a.user_id = ?;');
+    $transaction = $this->transactionService->find($transactionId, $this->userId);
 
-    $query->bindValue(1, $transactionId, \PDO::PARAM_INT);
-    $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
+    $result = $transaction->jsonSerialize();
+    $result['splits'] = $this->getSplitsForTransaction($transactionId);
 
-    $query->execute();
-
-    $transaction = $query->fetch();
-
-    $query->closeCursor();
-
-    //$transaction = $this->transactionService->find($transactionId, $this->userId);
-
-    $transaction['splits'] = $this->getSplitsForTransaction($transactionId);
-
-    return $transaction;
-    //return new DataResponse($this->transactionService->find($transactionId, $this->userId));
+    return $result;
   }
 
   /**
