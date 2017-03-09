@@ -19,11 +19,12 @@ angular.module('moneyApp')
 	TransactionService.registerObserverCallback(function(ev) {
 		if (ev.event === 'create') {
 			for(var i = 0; i < ev.response.splits.length; i++) {
-				value = ev.response.splits[i].value;
-				AccountService.getAccountById(ev.response.splits[i].destAccountId).then(function(account) {
-					ctrl.types[account.type].balance += value;
-					ctrl.unbalancedValue += value;
-				});
+				(function(value) {
+					AccountService.getAccountById(ev.response.splits[i].destAccountId).then(function(account) {
+						ctrl.types[account.type].balance += value;
+						ctrl.unbalancedValue += value;
+					});
+				})(ev.response.splits[i].value);
 			}
 		} else if (ev.event === 'createBatch') {
 			AccountService.getAccountById(ev.response.srcAccountId).then(function(account) {
@@ -51,6 +52,13 @@ angular.module('moneyApp')
 			});
 		}
   });
+
+	AccountService.registerObserverCallback(function(ev) {
+		if (ev.event === 'delete') {
+			ctrl.types[ev.response.type].balance -= ev.response.balance;
+			ctrl.unbalancedValue -= ev.response.balance;
+		}
+	});
 
 	ctrl.getSelected = function() {
 		return $routeParams.tid;

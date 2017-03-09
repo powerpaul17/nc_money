@@ -1,0 +1,201 @@
+.show-animation.ng-hide-add,
+.show-animation.ng-hide-remove {
+  -webkit-transition: 0.25s linear all;
+  -moz-transition: 0.25s linear all;
+  -o-transition: 0.25s linear all;
+  transition: 0.25s linear all;
+}
+
+.show-animation.ng-hide-add,
+.show-animation.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+
+.show-animation.ng-hide-add.ng-hide-add-active,
+.show-animation.ng-hide-remove {
+  opacity: 0;
+}
+
+
+
+
+.repeat-animation.ng-enter {
+  -webkit-animation: 0.5s repeat-animation-enter;
+  -moz-animation: 0.5s repeat-animation-enter;
+  -o-animation: 0.5s repeat-animation-enter;
+  animation: 0.5s repeat-animation-enter;
+}
+
+.repeat-animation.ng-leave {
+  -webkit-animation: 0.5s repeat-animation-leave;
+  -moz-animation: 0.5s repeat-animation-leave;
+  -o-animation: 0.5s repeat-animation-leave;
+  animation: 0.5s repeat-animation-leave;
+}
+
+.repeat-animation.ng-move {
+  -webkit-animation: 0.5s repeat-animation-move;
+  -moz-animation: 0.5s repeat-animation-move;
+  -o-animation: 0.5s repeat-animation-move;
+  animation: 0.5s repeat-animation-move;
+}
+
+@keyframes repeat-animation-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes repeat-animation-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes repeat-animation-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes repeat-animation-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes repeat-animation-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes repeat-animation-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes repeat-animation-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes repeat-animation-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes repeat-animation-move {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes repeat-animation-move {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes repeat-animation-move {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes repeat-animation-move {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Number change animation */
+
+.change-up {
+  font-size: 110%;
+  color: lightgreen;
+}
+.change-up-add,
+.change-up-remove {
+  font-size: inherit;
+  color: inherit;
+
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s;
+}
+.change-up-add-active {
+  font-size: 110%;
+  color: lightgreen;
+}
+.change-up-remove {
+  font-size: 110%;
+  color: lightgreen;
+}
+.change-up-remove-active {
+  font-size: inherit;
+  color: inherit;
+}
+
+.change-down {
+  font-size: 110%;
+  color: red;
+}
+.change-down-add,
+.change-down-remove {
+  font-size: inherit;
+  color: inherit;
+
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s;
+}
+.change-down-add-active {
+  font-size: 110%;
+  color: red;
+}
+.change-down-remove {
+  font-size: 110%;
+  color: red;
+}
+.change-down-remove-active {
+  font-size: inherit;
+  color: inherit;
+}

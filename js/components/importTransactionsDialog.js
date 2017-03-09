@@ -10,11 +10,6 @@ angular.module('moneyApp')
   };
 
   ctrl.availableColumns = [];
-  // ctrl.dateColumn = 0;
-  // ctrl.descriptionColumn = 0;
-  // ctrl.commentColumn = 0;
-  // ctrl.inValueColumn = 0;
-  // ctrl.outValueColumn = 0;
 
   ctrl.availableSeparators = [
     ',',

@@ -1,18 +1,14 @@
 angular.module('moneyApp')
 .controller('importTransasctionsCtrl', function(TransactionService) {
+
   var ctrl = this;
 
-  // ctrl.import = ContactService.import.bind(TransationService);
-
 });
-
 
 angular.module('moneyApp')
 .directive('importTransactions', function(TransactionService, ModalDialogService) {
   return {
     link: function(scope, element) {
-      var importText = t('money', 'Import');
-      scope.importText = importText;
 
       var input = element.find('input');
       input.bind('change', function() {
@@ -28,15 +24,9 @@ angular.module('moneyApp')
         }
 
         ModalDialogService.showModal(modalDefaults, {}).then(function(result) {
-          //TODO
+
         });
-            // TransactionService.import.call(TransactionService, reader.result, file.type, null, function (progress) {
-            // 	if (progress === 1) {
-            // 		scope.importText = importText;
-            // 	} else {
-            // 		scope.importText = parseInt(Math.floor(progress * 100)) + '%';
-            // 	}
-          // });
+
         input.get(0).value = '';
       });
     },

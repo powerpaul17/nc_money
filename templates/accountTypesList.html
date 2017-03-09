@@ -8,10 +8,10 @@
 <li class="account-types-list-item" ng-click="ctrl.showUnbalanced()">
   <a ng-href="#/Unbalanced">
     <div class="account-types-list-item-name">Unbalanced</div>
-    <div class="account-types-list-item-value">{{ ctrl.unbalancedValue | currency : "" }}</div>
+    <div class="account-types-list-item-value" animate-on-change="ctrl.unbalancedValue">{{ ctrl.unbalancedValue | currency : "" }}</div>
   </a>
 </li>
 <li class="account-types-list-item">
   <div class="account-types-list-item-name">Equity</div>
-  <div class="account-types-list-item-value">{{ ctrl.getEquity() | currency : "" }}</div>
+  <div class="account-types-list-item-value" animate-on-change="ctrl.getEquity()">{{ ctrl.getEquity() | currency : "" }}</div>
 </li>

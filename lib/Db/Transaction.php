@@ -14,7 +14,7 @@ class Transaction extends Entity implements JsonSerializable {
   protected $userId;
 
   public function __construct() {
-    $this->addType('value', 'float');
+
   }
 
   public function jsonSerialize() {

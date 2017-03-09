@@ -1,6 +1,16 @@
 angular.module('moneyApp')
-.controller('newAccountButtonCtrl', function(AccountService, $route, $routeParams, ACCOUNT_TYPES) {
+.controller('newAccountButtonCtrl', function(AccountService, $scope, $route, $routeParams, ACCOUNT_TYPES) {
   var ctrl = this;
+
+  ctrl.routeParams = $routeParams;
+
+  $scope.$watch('ctrl.routeParams.tid', function() {
+    if (ctrl.routeParams.tid) {
+      ctrl.enabled = true;
+    } else {
+      ctrl.enabled = false;
+    }
+  });
 
   ctrl.t = {
     addAccount: t('money', 'Add account'),

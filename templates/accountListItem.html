@@ -1,5 +1,5 @@
 <a class="app-content-list-item-link" ng-click="ctrl.openAccount()">
   <div class="app-content-list-item-line-one">{{ ctrl.account.name }}</div>
-  <div class="app-content-list-item-value">{{ ctrl.account.balance | currency : "" }} &nbsp; {{ ctrl.account.currency }}</div>
+  <div class="app-content-list-item-value"><span animate-on-change="ctrl.account.balance">{{ ctrl.account.balance | currency : "" }}</span> &nbsp; {{ ctrl.account.currency }}</div>
   <div class="app-content-list-item-line-two">{{ ctrl.account.description }}</div>
 </a>

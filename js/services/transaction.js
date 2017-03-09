@@ -280,15 +280,4 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.importTransactions = function(srcAccountId, data, progressCallback) {
-    // TODO!
-    for (var i = 0; i < data.length; i++) {
-      ctrl.create(srcAccountId, -1, data[i].value, data[i].convertRate, data[i].date, data[i].description).then(function() {
-        if (progressCallback) {
-          progressCallback(i / data.length);
-        }
-      });
-    }
-  }
-
 });

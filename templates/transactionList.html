@@ -11,11 +11,11 @@
 
       <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
         <div class="transaction-list-item-cell">
-          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." ng-required="true" />
+          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
         <div class="transaction-list-item-cell">
           <input name="newTransactionDescription" type="text" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 ng-model="ctrl.newTransaction.description" value="" ng-required="true" />
+                 ng-model="ctrl.newTransaction.description" value="" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
         <div class="transaction-list-item-cell">
           <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="true">
@@ -28,11 +28,11 @@
         </div>
          <div class="transaction-list-item-cell">
           <input currency-input name="newTransactionInValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 ng-model="ctrl.newTransaction.inValue" value="" ng-required="true" />
+                 ng-model="ctrl.newTransaction.inValue" value="" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
         <div class="transaction-list-item-cell">
           <input currency-input name="newTransactionOutValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" />
+                 ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
         <div class="transaction-list-item-cell"></div>
         <div class="transaction-list-item-cell">

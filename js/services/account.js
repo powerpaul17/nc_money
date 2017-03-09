@@ -125,6 +125,7 @@ angular.module('moneyApp')
 
   ctrl.delete = function(account) {
     return $http.post('ajax/delete-account', {id: account.id}).then(function(response) {
+      response.data.balance = accounts.get(response.data.id).balance;
       accounts.remove(account.id);
       notifyObservers('delete', response.data);
     })

@@ -1,3 +1,8 @@
+/* avoid rotating "loading" animation on button */
+button.loading::after {
+	border: none;
+}
+
 .icon-money-dark {
 	background-image: url('../../img/money-dark.svg');
 }
@@ -291,7 +296,8 @@ div.app-accounts span.utils {
 }
 
 #app-navigation > ul {
-	height: calc(100% - 24px);
+	/*height: calc(100% - 24px);*/
+	height: auto;
 }
 
 #app-navigation li {
@@ -601,6 +607,37 @@ input[currency-input] {
 	display: table-row;
 	height: 15px;
 	/*border-top: 1px solid #ddd;*/
+}
+
+/* Foreign split information */
+
+.foreign-split-info span {
+	display: none;
+	position: absolute;
+}
+
+.foreign-split-info:hover span {
+	display: block;
+	background: #fff;
+	border-radius: 3px;
+	-webkit-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+	-moz-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+	-o-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+	filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+	padding: 8px 12px;
+}
+
+.foreign-split-info:hover span::before {
+	content: " ";
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -9px;
+	border-width: 9px;
+	border-bottom-color: white;
 }
 
 /* Import Transactions Panel */
