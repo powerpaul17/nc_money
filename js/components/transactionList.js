@@ -122,7 +122,7 @@ angular.module('moneyApp')
       });
     } else {
       // Get transactions for account
-      TransactionService.getTransactionsForAccount(ctrl.account.id).then(function(transactions) {
+      TransactionService.getTransactionsForAccount(ctrl.account).then(function(transactions) {
         if (transactions.length > 0) {
           ctrl.transactions = transactions;
           ctrl.reorderList();
