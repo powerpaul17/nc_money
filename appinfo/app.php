@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - money
+ * Nextcloud - money
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -39,3 +39,5 @@ $container->query('OCP\INavigationManager')->add(function () use ($container) {
 		'name' => $l10n->t('Money'),
 	];
 });
+
+\OCP\App::registerPersonal('money', 'lib/personal');

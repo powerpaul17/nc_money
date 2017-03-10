@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - money
+ * Nextcloud - money
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -15,6 +15,9 @@ return [
   ],
   'routes' => [
     ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+
+    ['name' => 'settings#get_config', 'url' => '/config', 'verb' => 'GET'],
+    ['name' => 'settings#set_config', 'url' => '/config', 'verb' => 'POST'],
 
     ['name' => 'money_api#get_accounts', 'url' => '/ajax/get-accounts', 'verb' => 'GET'],
     ['name' => 'money_api#get_account', 'url' => '/ajax/get-account', 'verb' => 'GET'],
