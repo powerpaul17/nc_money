@@ -8,7 +8,7 @@
  * @copyright Paul Tirk 2016
  */
 
-angular.module('moneyApp', ['uuid4', 'angular-cache', 'ngRoute', 'ui.bootstrap', 'ui.select', 'ngSanitize', 'ngclipboard', 'ngAnimate'])
+angular.module('moneyApp', [ 'angular-cache', 'ngSanitize', 'ngRoute', 'ui.bootstrap', 'ui.select', 'ngAnimate', 'ui.scroll' ])
 .config(function($routeProvider) {
 
 	$routeProvider.when('/:tid', {
