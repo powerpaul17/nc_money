@@ -109,7 +109,7 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   *
   * @param int $accountId
-  * @param int $resultStart
+  * @param int $resultOffset
   * @param int $resultLimit
   */
   public function getTransactionsForAccount($accountId, $resultOffset = 0, $resultLimit = 50) {
@@ -301,7 +301,7 @@ class MoneyApiController extends ApiController {
   * @NoCSRFRequired
   * @NoAdminRequired
   *
-  * @param int $resultStart
+  * @param int $resultOffset
   * @param int $resultLimit
   */
   public function getUnbalancedTransactions($resultOffset = 0, $resultLimit = 50) {

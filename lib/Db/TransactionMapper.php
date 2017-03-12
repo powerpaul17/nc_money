@@ -27,7 +27,7 @@ class TransactionMapper extends Mapper {
            'LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) ' .
            'WHERE a.user_id = ? AND b.dest_account_id = ? ' .
            'GROUP BY a.id ' .
-           'ORDER BY a.date DESC, a.timestamp_added DESC ' .
+           'ORDER BY a.date DESC, a.timestamp_added DESC, a.id DESC ' .
            'LIMIT ?,?';
     return $this->findEntities($sql, [$userId, $accountId, $resultOffset, $resultLimit]);
   }
@@ -38,7 +38,7 @@ class TransactionMapper extends Mapper {
            'LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) ' .
            'WHERE a.user_id = ? AND b.dest_account_id = ? AND a.date >= ? AND a.date <= ? ' .
            'GROUP BY a.id ' .
-           'ORDER BY a.date DESC, a.timestamp_added DESC ';
+           'ORDER BY a.date DESC, a.timestamp_added DESC, a.id DESC ';
     return $this->findEntities($sql, [$userId, $accountId, $startDate, $endDate]);
   }
 

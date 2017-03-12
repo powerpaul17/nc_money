@@ -1,17 +1,18 @@
 <?php
 // angular + components
-script('money', 'vendor/angular/angular.min');
-script('money', 'vendor/angular-animate/angular-animate.min');
-script('money', 'vendor/angular-route/angular-route.min');
-script('money', 'vendor/angular-uuid4/angular-uuid4');
-script('money', 'vendor/angular-cache/dist/angular-cache.min');
-script('money', 'vendor/angular-sanitize/angular-sanitize.min');
+script('money', 'vendor/angular.min');
+script('money', 'vendor/angular-animate.min');
+script('money', 'vendor/angular-route.min');
+// script('money', 'vendor/angular-uuid4/angular-uuid4');
+script('money', 'vendor/angular-cache.min');
+script('money', 'vendor/angular-sanitize.min');
 script('money', 'vendor/ui-select/dist/select.min');
 script('money', 'vendor/angular-bootstrap/ui-bootstrap.min');
 script('money', 'vendor/angular-bootstrap/ui-bootstrap-tpls.min');
 script('money', 'vendor/jquery-timepicker/jquery.ui.timepicker');
-script('money', 'vendor/clipboard/dist/clipboard.min');
-script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
+// script('money', 'vendor/clipboard/dist/clipboard.min');
+// script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
+script('money', 'vendor/ui-scroll.min');
 
 // compiled version of app javascript
 //script('money', 'public/script');
