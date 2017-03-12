@@ -154,6 +154,7 @@ button.loading::after {
 
 .accountdetails__header + section {
 	/*padding: 20px 20px 100px;*/
+	flex-grow: 1;
 }
 
 /* @media screen and (min-width: 1450px) {
@@ -422,6 +423,13 @@ div.app-accounts span.utils {
 	display: none;
 }
 
+/* not very clean solution yet, maybe define another class for that */
+.account-details-wrapper > div {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
 /* clipboard button */
 .icon-clippy {
 	background-image: url('../../img/clippy.svg');
@@ -467,7 +475,9 @@ input[currency-input] {
 /* transaction list */
 
 .transaction-list {
-
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 .transaction-list input {
@@ -495,14 +505,22 @@ input[currency-input] {
 }
 
 .transaction-list-transaction {
-	display: table-row-group;
+	/*display: table-row-group;*/
 	border-top: 1px solid #ddd;
+}
+
+.new-transaction-input-table {
+	width: 100%;
 }
 
 .transaction-list-table {
 	border-collapse: collapse;
 	width: 100%;
-	display: table;
+
+	/*display: table;*/
+	flex-grow: 1;
+
+	height: 0; /* for ui-scroll to work */
 }
 
 .transaction-list-table input {
@@ -521,7 +539,8 @@ input[currency-input] {
 .transaction-list-header,
 .transaction-list-item,
 .transaction-list-item-split {
-	display: table-row;
+	/*display: table-row;*/
+	display: flex;
 }
 
 .transaction-list-item-split {
@@ -538,7 +557,7 @@ input[currency-input] {
 .split-list-item-cell,
 .transaction-list-header-item {
 	/*border: 1px solid #ddd;*/
-	display: table-cell;
+	/*display: table-cell;*/
 	/*height: 68px;*/
 	/*margin-top: 5px;*/
 	/*margin-bottom: 5px;*/
@@ -569,7 +588,7 @@ input[currency-input] {
 .transaction-list-item-destination-account,
 .transaction-list-item-value,
 .transaction-list-item-actions {
-	display: table-cell;
+	/*display: table-cell;*/
 	vertical-align: middle;
 }
 
@@ -578,7 +597,7 @@ input[currency-input] {
 }
 
 .transaction-list-item-description {
-
+	flex-grow: 1;
 }
 
 .transaction-list-item-destination-account {
@@ -604,7 +623,7 @@ input[currency-input] {
 }
 
 .row-separator {
-	display: table-row;
+	/*display: table-row;*/
 	height: 15px;
 	/*border-top: 1px solid #ddd;*/
 }

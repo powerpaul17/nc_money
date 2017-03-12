@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.controller('transactionListCtrl', function(TransactionService, AccountService, orderByFilter) {
+.controller('transactionListCtrl', function(TransactionService, AccountService) {
   var ctrl = this;
 
   ctrl.transactions = [];
@@ -9,8 +9,6 @@ angular.module('moneyApp')
   AccountService.getAccounts().then(function(accounts) {
     ctrl.availableAccounts = _.unique(accounts);
   });
-
-  ctrl.loading = true;
 
   ctrl.t = {
     noTransactions : t('money', 'No transactions.'),
@@ -23,26 +21,33 @@ angular.module('moneyApp')
   // Initialize newTransaction
   ctrl.newTransaction = [];
 
-  ctrl.reorderList = function() {
-    ctrl.transactions = orderByFilter(ctrl.transactions, ['date','timestampAdded'], true);
-  };
-
   // Reflect changes in transactionList
   TransactionService.registerObserverCallback(function(ev) {
     if (ev.event === 'create') {
-      ctrl.transactions.push(ev.response);
-      TransactionService.calculateValue(ctrl.transactions[ctrl.transactions.length-1], ctrl.account);
-      TransactionService.checkStatus(ctrl.transactions[ctrl.transactions.length-1]);
-      ctrl.reorderList();
+      var index = ctrl.insertIntoTransactions(ev.response);
+      if (index >= 0) {
+        TransactionService.calculateValue(ctrl.transactions[index], ctrl.account);
+        TransactionService.checkStatus(ctrl.transactions[index]);
+        ctrl.transactionListScroller.applyUpdates(index, [ctrl.transactions[index], ctrl.transactions[index + 1]]);
+      }
     } else if (ev.event === 'createBatch') {
-      ctrl.refetch();
+      ctrl.transactions = 0;
+      ctrl.transactionListScroller.reload();
     } else if (ev.event === 'update') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
         if (ctrl.transactions[i].id === ev.response.id) {
-          ctrl.transactions[i] = ev.response;
-          TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
-          TransactionService.checkStatus(ctrl.transactions[i]);
-          ctrl.reorderList();
+          ctrl.transactions.splice(i,1);
+          var index = ctrl.insertIntoTransactions(ev.response);
+          if (index >= 0) {
+            TransactionService.calculateValue(ctrl.transactions[index], ctrl.account);
+            TransactionService.checkStatus(ctrl.transactions[index]);
+            if (index === i) {
+              ctrl.transactionListScroller.applyUpdates(index, ctrl.transactions[index]);
+            } else {
+              ctrl.transactionListScroller.applyUpdates(i, []);
+              ctrl.transactionListScroller.applyUpdates(index, [ctrl.transactions[index], ctrl.transactions[index + 1]]);
+            }
+          }
           break;
         }
       }
@@ -52,6 +57,7 @@ angular.module('moneyApp')
           ctrl.transactions[i].splits.push(ev.response);
           TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
           TransactionService.checkStatus(ctrl.transactions[i]);
+          ctrl.transactionListScroller.applyUpdates(i, ctrl.transactions[i]);
           break;
         }
       }
@@ -61,6 +67,7 @@ angular.module('moneyApp')
           for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
             if (parseInt(ctrl.transactions[i].splits[j].id) === ev.response.id) {
               ctrl.transactions[i].splits.splice(j,1);
+              ctrl.transactionListScroller.applyUpdates(i, ctrl.transactions[i]);
               break;
             }
           }
@@ -72,6 +79,7 @@ angular.module('moneyApp')
           }
           if(number === 0) {
             ctrl.transactions.splice(i,1);
+            ctrl.transactionListScroller.applyUpdates(i, []);
           } else {
             TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
             TransactionService.checkStatus(ctrl.transactions[i]);
@@ -84,6 +92,7 @@ angular.module('moneyApp')
           for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
             if (ctrl.transactions[i].splits[j].id === ev.response.id) {
               ctrl.transactions[i].splits[j] = ev.response;
+              ctrl.transactionListScroller.applyUpdates(i, ctrl.transactions[i]);
               break;
             }
           }
@@ -95,6 +104,7 @@ angular.module('moneyApp')
           }
           if (number === 0) {
             ctrl.transactions.splice(i,1);
+            ctrl.transactionListScroller.applyUpdates(i, []);
           } else {
             TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
             TransactionService.checkStatus(ctrl.transactions[i]);
@@ -104,38 +114,91 @@ angular.module('moneyApp')
     }
   });
 
-  ctrl.refetch = function() {
-
-    ctrl.transactions.length = 0;
-    ctrl.loading = true;
-
+  ctrl.fetchFromServer = function(resultOffset = 0, resultLimit = 50) {
     if (ctrl.account.id === 'Unbalanced') {
-      // Get transactions for account
-      TransactionService.getUnbalancedTransactions().then(function(transactions) {
-        if (transactions.length > 0) {
-          ctrl.transactions = transactions;
-          ctrl.reorderList();
-          ctrl.loading = false;
-        } else {
-          ctrl.loading = false;
-        }
-      });
+      // Get unbalanced transactions for account
+      return TransactionService.getUnbalancedTransactions(resultOffset, resultLimit);
     } else {
       // Get transactions for account
-      TransactionService.getTransactionsForAccount(ctrl.account).then(function(transactions) {
-        if (transactions.length > 0) {
-          ctrl.transactions = transactions;
-          ctrl.reorderList();
-          ctrl.loading = false;
-        } else {
-          ctrl.loading = false;
-        }
-      });
+      return TransactionService.getTransactionsForAccount(ctrl.account, resultOffset, resultLimit);
     }
   };
 
-  // Fetch transactions from server
-  ctrl.refetch();
+  // Get transactions for ui-scroller
+  ctrl.get = function(index, count, success) {
+    console.log('Get (' + index + ',' + count + ') from transactions');
+    var result = [];
+    var haveToLoadFromServer = false;
+    for (var i = 0; i < count; i++) {
+      if ((index + i) >= 0) {
+        // var cacheItem = transactionCache.get((index + i).toString());
+        var cacheItem = ctrl.transactions[index + i];
+        if (!cacheItem) {
+          haveToLoadFromServer = true;
+          break;
+        } else {
+          result.push(cacheItem);
+        }
+      }
+    }
+    if (haveToLoadFromServer) {
+      var fetchIndex = 0;
+      if (index < 0) {
+        fetchIndex = 0;
+      } else {
+        fetchIndex = index;
+      }
+      ctrl.fetchFromServer(fetchIndex).then(function(transactions) {
+        result = [];
+        ctrl.transactions.splice(fetchIndex, transactions.length);
+        for (var i = 0; i < transactions.length; i++) {
+          // transactionCache.put((fetchIndex + i).toString(), transactions[i]);
+          ctrl.transactions.splice(fetchIndex + i, 0, transactions[i]);
+          if (i < (count + fetchIndex - index)) {
+            result.push(transactions[i]);
+          }
+        }
+        success(result);
+      });
+    } else {
+      success(result);
+    }
+  };
+
+  locationOfElement = function(array, element, compareFunction, start, end) {
+    start = start || 0;
+    end = end || (array.length - 1);
+    var pivot = parseInt(start + (end - start) / 2);
+    var c = compareFunction(array[pivot], element);
+    if ((end - start) <= 1) return c < 0 ? (pivot) : (pivot + 1);
+    if (c > 0) {
+      return locationOfElement(array, element, compareFunction, pivot, end);
+    } else if (c < 0) {
+      return locationOfElement(array, element, compareFunction, start, pivot);
+    } else {
+      return pivot;
+    }
+  }
+
+  ctrl.insertIntoTransactions = function(newTransaction) {
+    var location = locationOfElement(ctrl.transactions, newTransaction, function(a, b) {
+      if (a.date === b.date) {
+        if (a.timestampAdded === b.timestampAdded) {
+          return a.id - b.id;
+        } else {
+          return new Date(a.timestampAdded) - new Date(b.timestampAdded);
+        }
+      } else {
+        return new Date(a.date) - new Date(b.date);
+      }
+    });
+    if (location < ctrl.transactions.length) {
+      ctrl.transactions.splice(location, 0, newTransaction);
+      return location;
+    } else {
+      return undefined;
+    }
+  };
 
   ctrl.resetForm = function() {
     ctrl.newTransaction.date = "";

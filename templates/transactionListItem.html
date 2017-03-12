@@ -26,9 +26,11 @@
   </div>
 </div>
 
-<div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" data="split" transaction="ctrl.transaction" ng-if="ctrl.showSplits"></div>
+<div ng-if="ctrl.showSplits">
 
-<div class="transaction-list-item-split" ng-if="ctrl.showSplits" ng-form name="ctrl.newSplitForm">
+<div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" data="split" transaction="ctrl.transaction"></div>
+
+<div class="transaction-list-item-split" ng-form name="ctrl.newSplitForm">
   <div class="split-list-item-empty-cell"></div>
   <div class="split-list-item-cell transaction-list-item-description">
     <input name="newSplitDescription" type="text" ng-model="ctrl.newSplit.description" ng-model-options="{debounce: 500}" placeholder="Comment" />
@@ -50,4 +52,6 @@
     <button ng-click="ctrl.addSplit()" class="icon-add action pull-right" title="" ng-if="ctrl.newSplitForm.$valid && !ctrl.newSplitLoading"></button>
   </div>
 </div>
-<div class="row-separator" ng-if="ctrl.showSplits"></div>
+<div class="row-separator"></div>
+
+</div>

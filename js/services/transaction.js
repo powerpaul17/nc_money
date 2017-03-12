@@ -145,10 +145,12 @@ angular.module('moneyApp')
     }
   };
 
-  ctrl.getTransactionsForAccount = function(account) {
+  ctrl.getTransactionsForAccount = function(account, resultOffset = 0, resultLimit = 50) {
     return $http.get('ajax/get-transactions-for-account', {
       params: {
-        accountId: account.id
+        accountId: account.id,
+        resultOffset: resultOffset,
+        resultLimit: resultLimit
       }
     }).then(function(response) {
       // add and calculate additional data to each transaction
@@ -263,8 +265,13 @@ angular.module('moneyApp')
     });
   };
 
-  ctrl.getUnbalancedTransactions = function() {
-    return $http.get('ajax/get-unbalanced-transactions').then(function(response) {
+  ctrl.getUnbalancedTransactions = function(resultOffset = 0, resultLimit = 50) {
+    return $http.get('ajax/get-unbalanced-transactions', {
+      params: {
+        resultOffset: resultOffset,
+        resultLimit: resultLimit
+      }
+    }).then(function(response) {
       // add and calculate additional data to each transaction
       if(response.data !== null) {
         for(var i = 0; i < response.data.length; i++) {
