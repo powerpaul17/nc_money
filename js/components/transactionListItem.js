@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.controller('transactionListItemCtrl', function($route, $routeParams, TransactionService, AccountService) {
+.controller('transactionListItemCtrl', function($route, $routeParams, TransactionService, AccountService, $q) {
   var ctrl = this;
 
   // save a copy before form was edited
@@ -22,6 +22,7 @@ angular.module('moneyApp')
 
   ctrl.updateTransaction = function() {
     ctrl.transactionItemLoading = true;
+    var promises = [];
     if (ctrl.transactionForm.destAccountId.$dirty || ctrl.transactionForm.inValue.$dirty || ctrl.transactionForm.outValue.$dirty) {
       for (var i = 0; i < ctrl.transaction.splits.length; i++) {
 
@@ -38,22 +39,24 @@ angular.module('moneyApp')
             ctrl.transaction.splits[i].value = ctrl.transaction.splits[i].shownValue;
           }
 
-          TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.originalTransaction.destAccountId, originalValue);
+          promises.push(TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.originalTransaction.destAccountId, originalValue));
           // break;
         } else if (ctrl.transaction.splits[i].destAccountId === ctrl.account.id) {
           ctrl.transaction.splits[i].value = ctrl.transaction.inValue - ctrl.transaction.outValue;
-          TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.transaction.splits[i].destAccountId, originalValue);
+          promises.push(TransactionService.updateSplit(ctrl.transaction.splits[i], ctrl.transaction.splits[i].destAccountId, originalValue));
         }
       }
       if ((!ctrl.originalTransaction.destAccountId) && (ctrl.transaction.destAccountId)) {
         // TODO: convert rate
-        TransactionService.addSplit(ctrl.transaction.id, ctrl.transaction.destAccountId, ctrl.transaction.outValue - ctrl.transaction.inValue, 1, '');
+        promises.push(TransactionService.addSplit(ctrl.transaction.id, ctrl.transaction.destAccountId, ctrl.transaction.outValue - ctrl.transaction.inValue, 1, ''));
       }
     }
-    TransactionService.update(ctrl.transaction).then(function(response) {
-      ctrl.originalTransaction = angular.copy(ctrl.transaction);
-      ctrl.resetTransactionForm();
-      ctrl.transactionItemLoading = false;
+    $q.all(promises).then(function() {
+      TransactionService.update(ctrl.transaction).then(function(response) {
+        ctrl.originalTransaction = angular.copy(ctrl.transaction);
+        ctrl.resetTransactionForm();
+        ctrl.transactionItemLoading = false;
+      });
     });
   };
 
