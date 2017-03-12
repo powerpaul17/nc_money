@@ -176,7 +176,7 @@
 }
 
 .change-down {
-  font-size: 110%;
+  font-size: 90%;
   color: red;
 }
 .change-down-add,
@@ -188,11 +188,11 @@
   transition: all 0.4s;
 }
 .change-down-add-active {
-  font-size: 110%;
+  font-size: 90%;
   color: red;
 }
 .change-down-remove {
-  font-size: 110%;
+  font-size: 90%;
   color: red;
 }
 .change-down-remove-active {
