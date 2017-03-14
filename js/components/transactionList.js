@@ -11,11 +11,12 @@ angular.module('moneyApp')
   });
 
   ctrl.t = {
-    noTransactions : t('money', 'No transactions.'),
-    placeholderDestAccount : t('money', 'Destination Account'),
-    placeholderDate : t('money', 'Date'),
-    placeholderDescription : t('money', 'Description'),
-    placeholderValue : t('money', 'Value'),
+    noTransactions: t('money', 'No transactions.'),
+    placeholderDestAccount: t('money', 'Destination Account'),
+    placeholderDate: t('money', 'Date'),
+    placeholderDescription: t('money', 'Description'),
+    placeholderInValue: t('money', 'In'),
+    placeholderOutValue: t('money', 'Out')
   };
 
   // Initialize newTransaction
@@ -114,7 +115,7 @@ angular.module('moneyApp')
     }
   });
 
-  ctrl.fetchFromServer = function(resultOffset = 0, resultLimit = 50) {
+  ctrl.fetchFromServer = function(resultOffset = 0, resultLimit = 100) {
     if (ctrl.account.id === 'Unbalanced') {
       // Get unbalanced transactions for account
       return TransactionService.getUnbalancedTransactions(resultOffset, resultLimit);

@@ -1,24 +1,25 @@
 <div class="transaction-list" ng-class="{loading: ctrl.transactionListScroller.isLoading, 'mobile-show': ctrl.show}">
   <div class="new-transaction-input-table">
       <div class="transaction-list-header">
-        <div class="transaction-list-header-item">Date</div>
-        <div class="transaction-list-header-item">Description</div>
-        <div class="transaction-list-header-item">Destination</div>
-        <div class="transaction-list-header-item">In</div>
-        <div class="transaction-list-header-item">Out</div>
-        <div class="transaction-list-header-item"></div>
+        <div class="transaction-list-header-item transaction-list-item-date">Date</div>
+        <div class="transaction-list-header-item transaction-list-item-description">Description</div>
+        <div class="transaction-list-header-item transaction-list-item-destination-account">Destination</div>
+        <div class="transaction-list-header-item transaction-list-item-value">In</div>
+        <div class="transaction-list-header-item transaction-list-item-value">Out</div>
+        <div class="transaction-list-header-item transaction-list-item-info"></div>
+        <div class="transaction-list-header-item transaction-list-item-actions"></div>
       </div>
 
       <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
-        <div class="transaction-list-item-cell">
-          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="Select a date..." ng-required="true" ng-model-options="{debounce: 500}" />
+        <div class="transaction-list-item-cell transaction-list-item-date">
+          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="{{ctrl.t.placeholderDate}}" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
-        <div class="transaction-list-item-cell">
+        <div class="transaction-list-item-cell transaction-list-item-description">
           <input name="newTransactionDescription" type="text" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
                  ng-model="ctrl.newTransaction.description" value="" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
-        <div class="transaction-list-item-cell">
-          <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="true">
+        <div class="transaction-list-item-cell transaction-list-item-destination-account">
+          <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="false">
             <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
               <span ng-bind-html="account.name | highlight: $select.search"></span>
@@ -26,16 +27,16 @@
             </ui-select-choices>
           </ui-select>
         </div>
-         <div class="transaction-list-item-cell">
-          <input currency-input name="newTransactionInValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
+         <div class="transaction-list-item-cell transaction-list-item-value">
+          <input currency-input name="newTransactionInValue" type="text" placeholder="{{ctrl.t.placeholderInValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
                  ng-model="ctrl.newTransaction.inValue" value="" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
-        <div class="transaction-list-item-cell">
-          <input currency-input name="newTransactionOutValue" type="text" placeholder="{{ctrl.t.placeholderValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
+        <div class="transaction-list-item-cell transaction-list-item-value">
+          <input currency-input name="newTransactionOutValue" type="text" placeholder="{{ctrl.t.placeholderOutValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
                  ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>
-        <div class="transaction-list-item-cell"></div>
-        <div class="transaction-list-item-cell">
+        <div class="transaction-list-item-cell transaction-list-item-info"></div>
+        <div class="transaction-list-item-cell transaction-list-item-actions">
           <div ng-class="{'icon-loading-small': ctrl.newTransactionLoading}"></div>
           <button ng-click="ctrl.submitTransaction()" class="submitTransaction icon-add action pull-right" ng-show="ctrl.newTransactionForm.$valid && !ctrl.newTransactionLoading" />
         </div>
@@ -44,7 +45,7 @@
   <div class="transaction-list-table" ui-scroll-viewport>
 
     <div transaction-list-item class="transaction-list-transaction repeat-animation"
-         ui-scroll="transaction in ctrl" adapter="ctrl.transactionListScroller" start-index="0" buffer-size="10"
+         ui-scroll="transaction in ctrl" adapter="ctrl.transactionListScroller" start-index="0" buffer-size="20" padding="1" min-index="0"
          data="transaction" account="ctrl.account"
     ></div>
 

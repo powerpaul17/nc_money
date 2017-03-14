@@ -1,5 +1,5 @@
-<!-- <div class="row-separator"></div> -->
 <div class="transaction-list-item" ng-form name="ctrl.transactionForm" ng-style="{'color': (ctrl.transaction.status | transactionStatusColor)}">
+  <div class="icon-triangle-e" ng-click="ctrl.toggleTransaction()"></div>
   <div class="transaction-list-item-cell transaction-list-item-date">
     <input type="text" ng-model="ctrl.transaction.date" datepicker ng-model-options="{debounce: 500}" />
   </div>
@@ -16,8 +16,12 @@
     </ui-select>
     {{ (ctrl.transaction.multipleSplits && !ctrl.showSplits) ? '( Multiple Accounts )' : '' }}
   </div>
-  <div class="transaction-list-item-cell transaction-list-item-value"><input currency-input type="text" name="inValue" ng-model="ctrl.transaction.inValue" ng-model-options="{debounce: 500}" /></div>
-  <div class="transaction-list-item-cell transaction-list-item-value"><input currency-input type="text" name="outValue" ng-model="ctrl.transaction.outValue" ng-model-options="{debounce: 500}" /></div>
+  <div class="transaction-list-item-cell transaction-list-item-value">
+    <input currency-input type="text" name="inValue" ng-model="ctrl.transaction.inValue" ng-model-options="{debounce: 500}" />
+  </div>
+  <div class="transaction-list-item-cell transaction-list-item-value">
+    <input currency-input type="text" name="outValue" ng-model="ctrl.transaction.outValue" ng-model-options="{debounce: 500}" />
+  </div>
   <div class="transaction-list-item-cell transaction-list-item-info"></div>
   <div class="transaction-list-item-cell transaction-list-item-actions">
     <div ng-class="{'icon-loading-small': ctrl.transactionItemLoading}"></div>
@@ -26,7 +30,7 @@
   </div>
 </div>
 
-<div ng-if="ctrl.showSplits">
+<div class="repeat-animation" ng-if="ctrl.showSplits">
 
 <div split-list-item ng-repeat="split in ctrl.transaction.splits track by split.id" data="split" transaction="ctrl.transaction"></div>
 

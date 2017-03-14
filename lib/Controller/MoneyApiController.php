@@ -305,7 +305,14 @@ class MoneyApiController extends ApiController {
   * @param int $resultLimit
   */
   public function getUnbalancedTransactions($resultOffset = 0, $resultLimit = 50) {
-    $query = $this->db->prepare('SELECT a.* FROM *PREFIX*money_transactions a LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id WHERE a.user_id = ? GROUP BY a.id HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0 ORDER BY a.date DESC, a.timestamp_added DESC LIMIT ?,?;');
+    $sql = 'SELECT a.* FROM *PREFIX*money_transactions a ' .
+           'LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id ' .
+           'WHERE a.user_id = ? ' .
+           'GROUP BY a.id ' .
+           'HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0 ' .
+           'ORDER BY a.date DESC, a.timestamp_added DESC, a.id DESC ' .
+           'LIMIT ?,?;';
+    $query = $this->db->prepare($sql);
 
     $query->bindValue(1, $this->userId, \PDO::PARAM_STR);
     $query->bindValue(2, $resultOffset, \PDO::PARAM_INT);
