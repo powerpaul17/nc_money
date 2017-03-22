@@ -53,6 +53,7 @@ ctrl.CSVtoArray = function(text) {
 
   reader.onloadend = function() {
     ctrl.fileRows = reader.result.split('\n');
+    ctrl.footerText = ctrl.fileRows.length + ' row(s) read.';
     if(ctrl.fileRows.length > 0) {
       ctrl.splitRowsIntoColumns(ctrl.fileRows);
 
@@ -113,6 +114,7 @@ ctrl.CSVtoArray = function(text) {
             srcSplitComment: ctrl.fileRows[i][ctrl.commentColumn]
           }
         );
+        ctrl.footerText = ctrl.newTransactions.length + ' transaction(s) to import. Removing duplicates...';
         if((Date.parse(ctrl.fileRows[i][ctrl.dateColumn]) < Date.parse(ctrl.startDate)) || (ctrl.startDate == '')) {
           ctrl.startDate = ctrl.fileRows[i][ctrl.dateColumn];
         }
@@ -122,12 +124,14 @@ ctrl.CSVtoArray = function(text) {
       }
     }
 
-    TransactionService.getTransactionsForAccountByDate($scope.account.id, ctrl.startDate, ctrl.endDate).then(function(transactions) {
+    ctrl.footerText = ctrl.newTransactions.length + ' transaction(s) to import. Removing duplicates...';
+
+    TransactionService.getTransactionsForAccountByDate($scope.account, ctrl.startDate, ctrl.endDate).then(function(transactions) {
 
       // Filter out duplicates
-      transactionsHashmap = [];
+      var transactionsHashmap = [];
       for (var i = 0; i < transactions.length; i++) {
-        transactionsHashmap[transactions[i].date + transactions[i].description + transactions[i].value] = 1;
+        transactionsHashmap[transactions[i].date + transactions[i].description + (transactions[i].inValue-transactions[i].outValue)] = 1;
       }
       for (var i = ctrl.newTransactions.length-1; i >= 0; i--) {
         if (transactionsHashmap[ctrl.newTransactions[i].date + ctrl.newTransactions[i].description + (-ctrl.newTransactions[i].value)]) {
@@ -136,6 +140,7 @@ ctrl.CSVtoArray = function(text) {
       }
 
       if (ctrl.newTransactions.length > 0) {
+        ctrl.footerText = 'Importing ' + ctrl.newTransactions.length + ' transaction(s)...';
         TransactionService.createBatch(ctrl.newTransactions, $scope.account.id).then(function() {
           $uibModalInstance.close();
         });

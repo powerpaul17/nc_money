@@ -32,7 +32,7 @@ angular.module('moneyApp')
         ctrl.transactionListScroller.applyUpdates(index, [ctrl.transactions[index], ctrl.transactions[index + 1]]);
       }
     } else if (ev.event === 'createBatch') {
-      ctrl.transactions = 0;
+      ctrl.transactions = [];
       ctrl.transactionListScroller.reload();
     } else if (ev.event === 'update') {
       for (var i = 0; i < ctrl.transactions.length; i++) {
@@ -50,6 +50,13 @@ angular.module('moneyApp')
             }
           }
           break;
+        }
+      }
+    } else if (ev.event === 'delete') {
+      for (var i = 0; i < ctrl.transactions.length; i++) {
+        if (ctrl.transactions[i].id === ev.response.id) {
+          ctrl.transactions.splice(i,1);
+          ctrl.transactionListScroller.applyUpdates(i, []);
         }
       }
     } else if (ev.event === 'addedSplit') {
@@ -167,6 +174,7 @@ angular.module('moneyApp')
   };
 
   locationOfElement = function(array, element, compareFunction, start, end) {
+    if (array.length <= 0) return -1;
     start = start || 0;
     end = end || (array.length - 1);
     var pivot = parseInt(start + (end - start) / 2);

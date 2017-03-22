@@ -16,8 +16,21 @@ angular.module('moneyApp')
   ctrl.newSplit.description = "";
   ctrl.newSplit.destAccountId = undefined;
 
+  if (ctrl.transaction.unbalancedValue !== 0) {
+    if (ctrl.transaction.unbalancedValue < 0) {
+      ctrl.newSplit.inValue = -ctrl.transaction.unbalancedValue;
+    } else {
+      ctrl.newSplit.outValue = ctrl.transaction.unbalancedValue;
+    }
+  }
+
   ctrl.toggleTransaction = function() {
     ctrl.showSplits = !ctrl.showSplits;
+  };
+
+  ctrl.deleteTransaction = function() {
+    ctrl.transactionItemLoading = true;
+    TransactionService.delete(ctrl.transaction);
   };
 
   ctrl.updateTransaction = function() {
@@ -92,8 +105,8 @@ angular.module('moneyApp')
     controller: 'transactionListItemCtrl',
     controllerAs: 'ctrl',
     bindToController: {
-      transaction: '=data',
-      account: '=account'
+      transaction: '<data',
+      account: '<account'
     },
     templateUrl: OC.linkTo('money', 'templates/transactionListItem.html')
   };

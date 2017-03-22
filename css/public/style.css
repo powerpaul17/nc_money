@@ -5,7 +5,7 @@ button.loading::after {
 
 /* angular form styles */
 .ng-pristine {
-  box-shadow: inherit;
+  box-shadow: none;
 }
 
 .icon-money-dark {
@@ -81,7 +81,7 @@ button.loading::after {
 }
 
 .accountdetails__header .select2-container {
-  /*width: 100%;*/
+  width: inherit;
   margin: 0;
 }
 
@@ -329,6 +329,10 @@ div.app-accounts span.utils {
 
 /* SELECT2 styling - MOVE TO CORE FOR 9.1! */
 
+.select2-container {
+  width: 100%;
+}
+
 .select2-container .select2-choice {
     padding: 0;
 }
@@ -499,7 +503,7 @@ input[currency-input] {
 }
 
 .transaction-list .select2-container {
-  width: 100%;
+  /*width: 100%;*/
   margin: 0;
 }
 
@@ -606,7 +610,7 @@ input[currency-input] {
 }
 
 .transaction-list-item-info {
-
+  width: 1em;
 }
 
 .transaction-list-item-actions {
@@ -663,4 +667,16 @@ input[currency-input] {
   /*border: 1px solid rgba(0, 0, 255, 1);
   background: rgba(0, 0, 255, 0.2);*/
   color: rgb(0, 0, 255);
+}
+
+.import-transactions-panel-column {
+	box-sizing: border-box;
+	width: 20%;
+	padding: 5px;
+}
+
+.import-transactions-preview-list {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

@@ -107,7 +107,7 @@
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
+    width: 720px;
     margin: 30px auto;
   }
   .modal-content {
@@ -135,4 +135,12 @@
 .modal-header:after,
 .modal-footer:after {
   clear: both;
+}
+
+/* custom styles */
+
+.dialog-footer-text {
+  float:left;
+  padding: 5px;
+  margin: 3px 3px 3px 0;
 }

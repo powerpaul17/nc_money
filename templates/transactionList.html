@@ -1,6 +1,6 @@
 <div class="transaction-list" ng-class="{loading: ctrl.transactionListScroller.isLoading, 'mobile-show': ctrl.show}">
   <div class="new-transaction-input-table">
-      <div class="transaction-list-header">
+      <!-- <div class="transaction-list-header">
         <div class="transaction-list-header-item transaction-list-item-date">Date</div>
         <div class="transaction-list-header-item transaction-list-item-description">Description</div>
         <div class="transaction-list-header-item transaction-list-item-destination-account">Destination</div>
@@ -8,9 +8,10 @@
         <div class="transaction-list-header-item transaction-list-item-value">Out</div>
         <div class="transaction-list-header-item transaction-list-item-info"></div>
         <div class="transaction-list-header-item transaction-list-item-actions"></div>
-      </div>
+      </div> -->
 
       <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
+        <div class="icon-triangle-e" style="visibility: hidden;"></div>
         <div class="transaction-list-item-cell transaction-list-item-date">
           <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="{{ctrl.t.placeholderDate}}" ng-required="true" ng-model-options="{debounce: 500}" />
         </div>

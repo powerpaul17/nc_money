@@ -1,5 +1,5 @@
 angular.module('moneyApp')
-.service('TransactionService', function($http, TRANSACTION_STATUS) {
+.service('TransactionService', function($http, TRANSACTION_STATUS, $q) {
 
   var ctrl = this;
 
@@ -108,6 +108,7 @@ angular.module('moneyApp')
       value += transaction.splits[i].value * transaction.splits[i].convertRate;
       value = Math.round(value*100)/100; // to avoid rounding errors
     }
+    transaction.unbalancedValue = value;
     if(value === 0) {
       return true;
     } else {
@@ -164,10 +165,10 @@ angular.module('moneyApp')
   	});
   };
 
-  ctrl.getTransactionsForAccountByDate = function(accountId, startDate, endDate) {
+  ctrl.getTransactionsForAccountByDate = function(account, startDate, endDate) {
     return $http.get('ajax/get-transactions-for-account-by-date', {
       params: {
-        accountId: accountId,
+        accountId: account.id,
         startDate: startDate,
         endDate: endDate
       }
@@ -176,7 +177,7 @@ angular.module('moneyApp')
       for(var i = 0; i < response.data.length; i++) {
         // calculate total value and destination account for transaction
         ctrl.normalizeValues(response.data[i]);
-        ctrl.calculateValue(response.data[i], accountId);
+        ctrl.calculateValue(response.data[i], account);
         ctrl.checkStatus(response.data[i]);
       }
       return response.data;
@@ -228,6 +229,16 @@ angular.module('moneyApp')
       notifyObservers('update', response.data);
     }, function(errorResponse) {
 
+    });
+  };
+
+  ctrl.delete = function(transaction) {
+    var promises = [];
+    for (var i = 0; i < transaction.splits.length; i++) {
+      promises.push(ctrl.deleteSplit(transaction.splits[i].id));
+    }
+    $q.all(promises).then(function() {
+      notifyObservers('delete', transaction);
     });
   };
 

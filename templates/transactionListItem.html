@@ -25,7 +25,7 @@
   <div class="transaction-list-item-cell transaction-list-item-info"></div>
   <div class="transaction-list-item-cell transaction-list-item-actions">
     <div ng-class="{'icon-loading-small': ctrl.transactionItemLoading}"></div>
-    <div class="icon-more" ng-click="ctrl.toggleTransaction()" ng-if="!ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></div>
+    <button class="icon-delete" ng-click="ctrl.deleteTransaction()" ng-if="!ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></button>
     <button ng-click="ctrl.updateTransaction()" class="icon-checkmark" title="{{ctrl.t.update}}" ng-if="ctrl.transactionForm.$dirty && !ctrl.transactionItemLoading"></button>
   </div>
 </div>
