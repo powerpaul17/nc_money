@@ -13,14 +13,14 @@
       <div class="transaction-list-item" ng-form name="ctrl.newTransactionForm">
         <div class="icon-triangle-e" style="visibility: hidden;"></div>
         <div class="transaction-list-item-cell transaction-list-item-date">
-          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="{{ctrl.t.placeholderDate}}" ng-required="true" ng-model-options="{debounce: 500}" />
+          <input name="newTransactionDate" type="text" ng-model="ctrl.newTransaction.date" datepicker placeholder="{{ctrl.t.placeholderDate}}" ng-required="true" ng-model-options="{debounce: 500}" ng-disabled="!ctrl.account.editingEnabled" />
         </div>
         <div class="transaction-list-item-cell transaction-list-item-description">
           <input name="newTransactionDescription" type="text" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 ng-model="ctrl.newTransaction.description" value="" ng-required="true" ng-model-options="{debounce: 500}" />
+                 ng-model="ctrl.newTransaction.description" value="" ng-required="true" ng-model-options="{debounce: 500}" ng-disabled="!ctrl.account.editingEnabled" />
         </div>
         <div class="transaction-list-item-cell transaction-list-item-destination-account">
-          <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="false">
+          <ui-select name="newTransactionDestAccount" title="Choose an account" ng-model="ctrl.newTransaction.destAccountId" theme="select2" ng-required="false" ng-disabled="!ctrl.account.editingEnabled">
             <ui-select-match placeholder="Select account...">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="account.id as account in ctrl.availableAccounts | filter: $select.search">
               <span ng-bind-html="account.name | highlight: $select.search"></span>
@@ -30,11 +30,11 @@
         </div>
          <div class="transaction-list-item-cell transaction-list-item-value">
           <input currency-input name="newTransactionInValue" type="text" placeholder="{{ctrl.t.placeholderInValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 ng-model="ctrl.newTransaction.inValue" value="" ng-required="true" ng-model-options="{debounce: 500}" />
+                 ng-model="ctrl.newTransaction.inValue" value="" ng-required="true" ng-model-options="{debounce: 500}" ng-disabled="!ctrl.account.editingEnabled" />
         </div>
         <div class="transaction-list-item-cell transaction-list-item-value">
           <input currency-input name="newTransactionOutValue" type="text" placeholder="{{ctrl.t.placeholderOutValue}}" autocomplete="off" autocorrect="off" spellcheck="false"
-                 ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" ng-model-options="{debounce: 500}" />
+                 ng-model="ctrl.newTransaction.outValue" value="" ng-required="true" ng-model-options="{debounce: 500}" ng-disabled="!ctrl.account.editingEnabled" />
         </div>
         <div class="transaction-list-item-cell transaction-list-item-info"></div>
         <div class="transaction-list-item-cell transaction-list-item-actions">
