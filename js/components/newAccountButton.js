@@ -23,7 +23,7 @@ angular.module('moneyApp')
       AccountService.create({
         name: ctrl.t.newAccount,
         type: ACCOUNT_TYPES.indexOf($routeParams.tid),
-        currency: availableCurrencies[0],
+        currency: availableCurrencies.length > 0 ? availableCurrencies[0] : "",
         description: ''
       });
     });
