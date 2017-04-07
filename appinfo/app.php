@@ -40,4 +40,4 @@ $container->query('OCP\INavigationManager')->add(function () use ($container) {
 	];
 });
 
-\OCP\App::registerPersonal('money', 'lib/personal');
+// \OCP\App::registerPersonal('money', 'lib/personal');

@@ -23,9 +23,10 @@ angular.module('moneyApp')
 
   ctrl.updateSplit = function() {
     ctrl.splitItemLoading = true;
-    var originalAccount = ctrl.originalSplit.destAccountId;
-    var originalValue = ctrl.originalSplit.value;
-    ctrl.split.shownValue = ctrl.split.inValue - ctrl.split.outValue;
+
+    if ((ctrl.split.inValue !== ctrl.originalSplit.inValue) || (ctrl.split.outValue !== ctrl.originalSplit.outValue)) {
+      ctrl.split.shownValue = ctrl.split.inValue - ctrl.split.outValue;
+    }
 
     // Handle multiple currencies
     if (ctrl.split.foreignCurrency) {
@@ -34,7 +35,7 @@ angular.module('moneyApp')
       ctrl.split.value = ctrl.split.shownValue;
     }
 
-    TransactionService.updateSplit(ctrl.split, originalAccount, originalValue).then(function(response) {
+    TransactionService.updateSplit(ctrl.split, ctrl.originalSplit.destAccountId, ctrl.originalSplit.value).then(function(response) {
       ctrl.originalSplit = angular.copy(ctrl.split);
       ctrl.resetForm();
       ctrl.splitItemLoading = false;
@@ -49,8 +50,8 @@ angular.module('moneyApp')
     controller: 'splitListItemCtrl',
     controllerAs: 'ctrl',
     bindToController: {
-      split: '=data',
-      transaction: '=transaction'
+      split: '<data',
+      transaction: '<transaction'
     },
     replace: true,
     templateUrl: OC.linkTo('money', 'templates/splitListItem.html')

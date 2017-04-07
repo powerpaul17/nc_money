@@ -4,6 +4,7 @@ namespace OCA\Money\Controller;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\AppFramework\Http;
 use OCP\IConfig;
 use OCP\IUserSession;
 use OCP\IRequest;
@@ -22,6 +23,7 @@ class SettingsController extends Controller {
   }
 
   /**
+  * @NoCSRFRequired
   * @NoAdminRequired
   *
   * @param string $key
@@ -31,11 +33,12 @@ class SettingsController extends Controller {
       case 'accountSummaryCurrency':
         return $this->getAccountSummaryCurrency();
       default:
-        return new JSONResponse([], Http:STATUS_BAD_REQUEST);
+        return new JSONResponse([], Http::STATUS_BAD_REQUEST);
     }
   }
 
   /**
+  * @NoCSRFRequired
   * @NoAdminRequired
   *
   * @param string $key
@@ -46,7 +49,7 @@ class SettingsController extends Controller {
       case 'accountSummaryCurrency':
         return $this->setAccountSummaryCurrency($value);
       default:
-        return new JSONResponse([], Http:STATUS_BAD_REQUEST);
+        return new JSONResponse([], Http::STATUS_BAD_REQUEST);
     }
   }
 

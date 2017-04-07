@@ -15,6 +15,7 @@ angular.module('moneyApp')
     placeholderDestAccount: t('money', 'Destination Account'),
     placeholderDate: t('money', 'Date'),
     placeholderDescription: t('money', 'Description'),
+    placeholderValue: t('money', 'Value'),
     placeholderInValue: t('money', 'In'),
     placeholderOutValue: t('money', 'Out')
   };
@@ -104,18 +105,20 @@ angular.module('moneyApp')
               break;
             }
           }
-          var number = 0;
-          for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
-            if (parseInt(ctrl.transactions[i].splits[j].destAccountId) === ctrl.account.id) {
-              number++;
+          if (ctrl.account.id !== 'Unbalanced') {
+            var number = 0;
+            for (var j = 0; j < ctrl.transactions[i].splits.length; j++) {
+              if (parseInt(ctrl.transactions[i].splits[j].destAccountId) === ctrl.account.id) {
+                number++;
+              }
             }
-          }
-          if (number === 0) {
-            ctrl.transactions.splice(i,1);
-            ctrl.transactionListScroller.applyUpdates(i, []);
-          } else {
-            TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
-            TransactionService.checkStatus(ctrl.transactions[i]);
+            if (number === 0) {
+              ctrl.transactions.splice(i,1);
+              ctrl.transactionListScroller.applyUpdates(i, []);
+            } else {
+              TransactionService.calculateValue(ctrl.transactions[i], ctrl.account);
+              TransactionService.checkStatus(ctrl.transactions[i]);
+            }
           }
         }
       }
@@ -139,7 +142,6 @@ angular.module('moneyApp')
     var haveToLoadFromServer = false;
     for (var i = 0; i < count; i++) {
       if ((index + i) >= 0) {
-        // var cacheItem = transactionCache.get((index + i).toString());
         var cacheItem = ctrl.transactions[index + i];
         if (!cacheItem) {
           haveToLoadFromServer = true;
@@ -160,7 +162,6 @@ angular.module('moneyApp')
         result = [];
         ctrl.transactions.splice(fetchIndex, transactions.length);
         for (var i = 0; i < transactions.length; i++) {
-          // transactionCache.put((fetchIndex + i).toString(), transactions[i]);
           ctrl.transactions.splice(fetchIndex + i, 0, transactions[i]);
           if (i < (count + fetchIndex - index)) {
             result.push(transactions[i]);
@@ -213,6 +214,7 @@ angular.module('moneyApp')
     ctrl.newTransaction.date = "";
     ctrl.newTransaction.description = "";
     ctrl.newTransaction.destAccountId = undefined;
+    ctrl.newTransaction.shownValue = undefined;
     ctrl.newTransaction.inValue = undefined;
     ctrl.newTransaction.outValue = undefined;
     ctrl.newTransactionForm.$setPristine();
@@ -226,9 +228,12 @@ angular.module('moneyApp')
     if(ctrl.newTransaction.outValue === undefined) {
       ctrl.newTransaction.outValue = 0;
     };
+    if(ctrl.newTransaction.shownValue === undefined) {
+      ctrl.newTransaction.shownValue = ctrl.newTransaction.inValue - ctrl.newTransaction.outValue;
+    }
     ctrl.newTransactionLoading = true;
     // TODO: Check for currencies and ask for convert rate!
-    TransactionService.create(ctrl.account, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.inValue+ctrl.newTransaction.outValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description).then(function(response) {
+    TransactionService.create(ctrl.account, ctrl.newTransaction.destAccountId, -ctrl.newTransaction.shownValue, 1, ctrl.newTransaction.date, ctrl.newTransaction.description).then(function(response) {
       ctrl.resetForm();
       ctrl.newTransactionLoading = false;
     });

@@ -33,7 +33,7 @@
 				<a class="icon-settings" ng-click="ctrl.toggleActionsPanel()"></a>
 			</div>
 			<div id="details-actions" ng-show="ctrl.showActionsPanel">
-				<a ng-click="ctrl.exportAccount()" class="icon-download" title="{{ctrl.t.exportAccount}}"></a>
+				<!-- <a ng-click="ctrl.exportAccount()" class="icon-download" title="{{ctrl.t.exportAccount}}"></a> -->
 				<div ng-class="{'icon-loading-small': ctrl.deleteAccountLoading}"></div>
 				<a ng-if="!ctrl.deleteAccountLoading" ng-click="ctrl.deleteAccount()" class="icon-delete" title="{{ctrl.t.deleteAccount}}"></a>
 				<!-- <a ng-click="ctrl.importTransactions()" class="icon-upload" title="{{ctrl.t.importTransactions}}"></a> -->

@@ -3,6 +3,12 @@ button.loading::after {
   border: none;
 }
 
+/* center icon-loading-small vertically */
+
+.icon-loading-small {
+  margin-top: 50%;
+}
+
 /* angular form styles */
 .ng-pristine {
   box-shadow: none;
@@ -278,16 +284,23 @@ div.app-accounts span.utils {
 }
 .app-content-list-item-line-one {
   font-size: 1.1rem;
+  display: flex;
 }
 .app-content-list-item-line-two {
   top: 25px;
   opacity: .5;
 }
 
+.app-content-list-item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
 .app-content-list-item-value {
   float: right;
   font-size: 1.1rem;
-  padding: 12px;
+  padding-left: 12px;
 }
 
 #app-navigation .utils .action span {
@@ -369,6 +382,10 @@ div.app-accounts span.utils {
   cursor: pointer !important;
 }*/
 
+.transaction-list-item-value-single {
+  display: none; /* Don't show for normal view, only in mobile view */
+}
+
 /* Mobile width < 768px */
 @media only screen and (max-width: 768px) {
 
@@ -417,6 +434,15 @@ div.app-accounts span.utils {
 
   /* transaction-list-item */
   .transaction-list-item-destination-account {
+    display: none;
+  }
+
+  /* single value input */
+  .transaction-list-item-value-single {
+    display: block;
+  }
+
+  .transaction-list-item-value {
     display: none;
   }
 
@@ -607,6 +633,10 @@ input[currency-input] {
   /*font-size: 1.1rem;*/
   text-align: right;
   width: 8em;
+}
+
+.zero-value {
+  opacity: 0.3;
 }
 
 .transaction-list-item-info {

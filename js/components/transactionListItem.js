@@ -11,16 +11,18 @@ angular.module('moneyApp')
 
   // Initialize newSplit variable
   ctrl.newSplit = [];
+  ctrl.newSplit.shownValue = undefined;
   ctrl.newSplit.inValue = undefined;
   ctrl.newSplit.outValue = undefined;
   ctrl.newSplit.description = "";
   ctrl.newSplit.destAccountId = undefined;
 
   if (ctrl.transaction.unbalancedValue !== 0) {
-    if (ctrl.transaction.unbalancedValue < 0) {
-      ctrl.newSplit.inValue = -ctrl.transaction.unbalancedValue;
+    ctrl.newSplit.shownValue = -ctrl.transaction.unbalancedValue;
+    if (ctrl.newSplit.shownValue > 0) {
+      ctrl.newSplit.inValue = ctrl.newSplit.shownValue;
     } else {
-      ctrl.newSplit.outValue = ctrl.transaction.unbalancedValue;
+      ctrl.newSplit.outValue = -ctrl.newSplit.shownValue;
     }
   }
 
@@ -74,9 +76,18 @@ angular.module('moneyApp')
   };
 
   ctrl.addSplit = function() {
+    if(ctrl.newSplit.inValue === undefined) {
+      ctrl.newSplit.inValue = 0;
+    };
+    if(ctrl.newSplit.outValue === undefined) {
+      ctrl.newSplit.outValue = 0;
+    };
+    if(ctrl.newSplit.shownValue === undefined) {
+      ctrl.newSplit.shownValue = ctrl.newSplit.inValue - ctrl.newSplit.outValue;
+    }
     ctrl.newSplitLoading = true;
     ctrl.newSplit.convertRate = 1; // for the moment we do not look at convert rates ;)
-    TransactionService.addSplit(ctrl.transaction.id, ctrl.newSplit.destAccountId, ctrl.newSplit.inValue-ctrl.newSplit.outValue, ctrl.newSplit.convertRate, ctrl.newSplit.description).then(function() {
+    TransactionService.addSplit(ctrl.transaction.id, ctrl.newSplit.destAccountId, ctrl.newSplit.shownValue, ctrl.newSplit.convertRate, ctrl.newSplit.description).then(function() {
       ctrl.resetNewSplitForm();
       ctrl.newSplitLoading = false;
     });
@@ -88,6 +99,7 @@ angular.module('moneyApp')
   }
 
   ctrl.resetNewSplitForm = function() {
+    ctrl.newSplit.shownValue = undefined;
     ctrl.newSplit.inValue = undefined;
     ctrl.newSplit.outValue = undefined;
     ctrl.newSplit.description = "";

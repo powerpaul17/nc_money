@@ -3,6 +3,19 @@
 </div>
 <div class="modal-body">
 
+  <div class="import-settings">
+    {{ctrl.t.columnSeparator}}
+    <ui-select name="importSettingsSeparator" ng-model="ctrl.columnSeparator" theme="select2" ng-required="true" ng-change="ctrl.changeSeparator()">
+      <ui-select-match placeholder="Select separator...">{{$select.selected.lines[0]}}</ui-select-match>
+      <ui-select-choices repeat="separator in ctrl.availableSeparators">
+        <small ng-bind-html="separator | highlight: $select.search"></small>
+      </ui-select-choices>
+    </ui-select>
+
+    {{ctrl.t.dateFormat}}
+    <input type="text" ng-model="ctrl.dateFormat" />
+  </div>
+
   <div class="import-transactions-table">
     <div class="transaction-list-item import-transactions-panel" ng-form name="ctrl.importTransactionsForm">
       <div class="import-transactions-panel-column">

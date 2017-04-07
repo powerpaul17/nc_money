@@ -33,6 +33,7 @@ angular.module('moneyApp')
     });
     ctrl.show = false;
     ctrl.account = undefined;
+    $('#app-navigation-toggle').removeClass('showdetails');
   }
 
   ctrl.accountId = $routeParams.aid;
@@ -53,8 +54,7 @@ angular.module('moneyApp')
         $('#app-navigation-toggle').addClass('showdetails');
         return;
       } else {
-        ctrl.show = false;
-        $('#app-navigation-toggle').removeClass('showdetails');
+        ctrl.closeAccount();
         return;
       }
     } else {

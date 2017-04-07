@@ -12,8 +12,15 @@
       </ui-select-choices>
     </ui-select>
   </div>
-  <div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.inValue" ng-model-options="{debounce: 500}" /></div>
-  <div class="split-list-item-cell transaction-list-item-value"><input currency-input type="text" ng-model="ctrl.split.outValue" ng-model-options="{debounce: 500}" /></div>
+  <div class="split-list-item-cell transaction-list-item-value-single" ng-class="{'zero-value': ctrl.split.shownValue === 0.0}">
+    <input currency-input type="text" ng-model="ctrl.split.shownValue" ng-model-options="{debounce: 500}" />
+  </div>
+  <div class="split-list-item-cell transaction-list-item-value" ng-class="{'zero-value': ctrl.split.inValue === 0.0}">
+    <input currency-input type="text" ng-model="ctrl.split.inValue" ng-model-options="{debounce: 500}" />
+  </div>
+  <div class="split-list-item-cell transaction-list-item-value" ng-class="{'zero-value': ctrl.split.outValue === 0.0}">
+    <input currency-input type="text" ng-model="ctrl.split.outValue" ng-model-options="{debounce: 500}" />
+  </div>
   <div class="split-list-item-cell transaction-list-item-info">
     <button class="icon-info foreign-split-info" ng-if="ctrl.split.foreignCurrency" uib-popover="= {{ctrl.split.value}} {{ctrl.split.currency}} * {{ctrl.split.convertRate/ctrl.transaction.convertRate}}">
       <!-- TEST <span>=&nbsp;{{ctrl.split.value}}&nbsp;{{ctrl.split.currency}}&nbsp;*&nbsp;{{ctrl.split.convertRate/ctrl.transaction.convertRate}}</span> -->

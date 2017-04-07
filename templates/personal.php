@@ -7,7 +7,7 @@
 
 ?>
 
-<div class="section">
+<!-- <div class="section">
   <h2><?php p($l->t('Money')); ?></h2>
   <div id="money-settings">
     <label><?php p($l->t('Account summary currency')); ?>:</label>
@@ -19,4 +19,4 @@
       </ui-select-choices>
     </ui-select>
   </div>
-</div>
+</div> -->

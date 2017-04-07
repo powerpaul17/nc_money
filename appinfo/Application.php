@@ -16,6 +16,9 @@ use \OCA\Money\Db\AccountMapper;
 use \OCA\Money\Db\TransactionMapper;
 use \OCA\Money\Db\SplitMapper;
 
+use OCP\IUserSession;
+use OCP\IConfig;
+
 class Application extends App {
 
   public function __construct(array $urlParams=array()) {
@@ -42,8 +45,8 @@ class Application extends App {
       return new SettingsController(
         $c->query('AppName'),
         $c->query('Request'),
-        $c->getServer()->getConfig(),
-        $c->getServer()->getUserSession()
+        $c->query('UserSession')
+        // $c->getServer()->getConfig(),
       );
     });
 

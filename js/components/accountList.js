@@ -48,6 +48,7 @@ angular.module('moneyApp')
         });
       } else if (ev.event === 'update') {
         // Seems to be not necessary??
+        
         // ctrl.newAccount = 0;
         // ctrl.newAccount = ev.response;
         // for (var i = 0; i < ctrl.accounts.length; i++) {

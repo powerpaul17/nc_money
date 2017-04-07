@@ -16,10 +16,13 @@
     </ui-select>
     {{ (ctrl.transaction.multipleSplits && !ctrl.showSplits) ? '( Multiple Accounts )' : '' }}
   </div>
-  <div class="transaction-list-item-cell transaction-list-item-value">
+  <div class="transaction-list-item-cell transaction-list-item-value-single" ng-class="{'zero-value': ctrl.transaction.shownValue === 0.0}">
+    <input currency-input type="text" name="shownValue" ng-model="ctrl.transaction.shownValue" ng-model-options="{debounce: 500}" />
+  </div>
+  <div class="transaction-list-item-cell transaction-list-item-value" ng-class="{'zero-value': ctrl.transaction.inValue === 0.0}">
     <input currency-input type="text" name="inValue" ng-model="ctrl.transaction.inValue" ng-model-options="{debounce: 500}" />
   </div>
-  <div class="transaction-list-item-cell transaction-list-item-value">
+  <div class="transaction-list-item-cell transaction-list-item-value" ng-class="{'zero-value': ctrl.transaction.outValue === 0.0}">
     <input currency-input type="text" name="outValue" ng-model="ctrl.transaction.outValue" ng-model-options="{debounce: 500}" />
   </div>
   <div class="transaction-list-item-cell transaction-list-item-info"></div>
@@ -48,8 +51,9 @@
       </ui-select-choices>
     </ui-select>
   </div>
-  <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitInValue" type="text" ng-model="ctrl.newSplit.inValue" placeholder="Value" ng-required="true" ng-model-options="{debounce: 500}" /></div>
-  <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitOutValue" type="text" ng-model="ctrl.newSplit.outValue" placeholder="Value" ng-required="true" ng-model-options="{debounce: 500}" /></div>
+  <div class="split-list-item-cell transaction-list-item-value-single"><input currency-input name="newSplitShownValue" type="text" ng-model="ctrl.newSplit.shownValue" placeholder="Value" ng-model-options="{debounce: 500}" /></div>
+  <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitInValue" type="text" ng-model="ctrl.newSplit.inValue" placeholder="Value" ng-model-options="{debounce: 500}" /></div>
+  <div class="split-list-item-cell transaction-list-item-value"><input currency-input name="newSplitOutValue" type="text" ng-model="ctrl.newSplit.outValue" placeholder="Value" ng-model-options="{debounce: 500}" /></div>
   <div class="split-list-item-cell transaction-list-item-info"></div>
   <div class="split-list-item-cell transaction-list-item-actions">
     <div ng-class="{'icon-loading-small': ctrl.newSplitLoading}"></div>

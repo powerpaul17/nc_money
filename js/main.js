@@ -1,4 +1,4 @@
-	/**
+/**
  * ownCloud - money
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -11,15 +11,15 @@
 angular.module('moneyApp', [ 'angular-cache', 'ngSanitize', 'ngRoute', 'ui.bootstrap', 'ui.select', 'ngAnimate', 'ui.scroll' ])
 .config(function($routeProvider) {
 
-	$routeProvider.when('/:tid', {
-		template: '<account-details></account-details>'
-	});
+  $routeProvider.when('/:tid', {
+    template: '<account-details></account-details>'
+  });
 
-	$routeProvider.when('/:tid/:aid', {
-		template: '<account-details></account-details>'
-	});
+  $routeProvider.when('/:tid/:aid', {
+    template: '<account-details></account-details>'
+  });
 
-	$routeProvider.otherwise({redirectTo: '/'});
+  $routeProvider.otherwise({redirectTo: '/'});
 
 });
 
@@ -27,18 +27,18 @@ angular.module('moneyApp', [ 'angular-cache', 'ngSanitize', 'ngRoute', 'ui.boots
 
 angular.module('moneyApp')
 .constant('ACCOUNT_TYPES', [
-	'Assets',
-	'Liabilities',
-	'Income',
-	'Expenses'
+  'Assets',
+  'Liabilities',
+  'Income',
+  'Expenses'
 ]);
 
 // Transaction status constants (service)
 
 angular.module('moneyApp')
 .constant('TRANSACTION_STATUS', [
-	'UNDEFINED',
-	'BALANCED',
-	'UNBALANCED',
-	'FUTURE'
+  'UNDEFINED',
+  'BALANCED',
+  'UNBALANCED',
+  'FUTURE'
 ]);
