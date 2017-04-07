@@ -1,0 +1,12 @@
+<fieldset class="settings-fieldset">
+  <ul class="settings-fieldset-interior">
+    <li class="settings-fieldset-interior-item">
+      <ui-select title="Choose a currency" ng-model="ctrl.accountSummaryCurrency" ng-change="ctrl.updateAccountSummaryCurrency()" theme="select2">
+        <ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
+          <span ng-bind-html="currency | highlight: $select.search"></span>
+        </ui-select-choices>
+      </ui-select>
+    </li>
+  </ul>
+</fieldset>

@@ -13,6 +13,7 @@ script('money', 'vendor/jquery-timepicker/jquery.ui.timepicker');
 // script('money', 'vendor/clipboard/dist/clipboard.min');
 // script('money', 'vendor/ngclipboard/dist/ngclipboard.min');
 script('money', 'vendor/ui-scroll.min');
+script('money', 'vendor/jquery.csv');
 
 // compiled version of app javascript
 //script('money', 'public/script');
@@ -28,6 +29,7 @@ script('money', 'services/account');
 script('money', 'services/transaction');
 script('money', 'services/modalDialog');
 script('money', 'services/settings');
+script('money', 'services/quotes');
 //script('money', 'services/search');
 script('money', 'components/accountTypesList');
 script('money', 'components/accountTypesListItem');
@@ -60,15 +62,7 @@ vendor_style('select2/select2');
 					Settings
 				</button>
 			</div>
-			<div id="app-settings-content">
-				<fieldset class="settings-fieldset">
-					<ul class="settings-fieldset-interior">
-						<li class="settings-fieldset-interior-item">
-							{{ctrl.accountSummaryCurrency}}
-						</li>
-					</ul>
-				</fieldset>
-			</div>
+			<settings id="app-settings-content"></settings>
 		</div>
 	</div>
 	<div id="app-content">
