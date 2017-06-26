@@ -29,7 +29,7 @@ script('money', 'services/account');
 script('money', 'services/transaction');
 script('money', 'services/modalDialog');
 script('money', 'services/settings');
-script('money', 'services/quotes');
+//script('money', 'services/quotes');
 //script('money', 'services/search');
 script('money', 'components/accountTypesList');
 script('money', 'components/accountTypesListItem');
