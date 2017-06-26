@@ -4,7 +4,10 @@ angular.module('moneyApp')
   var ctrl = this;
 
   var cacheFilled = false;
-  var accounts = CacheFactory('accounts');
+  var accounts;
+  if (!CacheFactory.get('accounts')) {
+    accounts = CacheFactory('accounts');
+  }
   var loadPromise = undefined;
 
   var observerCallbacks = [];
@@ -23,20 +26,69 @@ angular.module('moneyApp')
     });
   };
 
+  addValueToBalance = function(accountId, differenceValue) {
+    var account = accounts.get(accountId);
+    account.balance += differenceValue;
+  };
+
   TransactionService.registerObserverCallback(function(ev) {
     if(ev.event === 'create') {
+
       for(var i = 0; i < ev.response.splits.length; i++) {
-        accounts.get(ev.response.splits[i].destAccountId).balance += ev.response.splits[i].value;
+        // accounts.get(ev.response.splits[i].destAccountId).balance += ev.response.splits[i].value;
+        addValueToBalance(ev.response.splits[i].destAccountId, ev.response.splits[i].value);
+        var response = {
+          'account': accounts.get(ev.response.splits[i].destAccountId),
+          'value': ev.response.splits[i].value
+        }
+        notifyObservers('accountBalanceChanged', response);
       }
+
     } else if (ev.event === 'createBatch') {
-      accounts.get(ev.response.srcAccountId).balance += ev.response.totalValue;
+
+      // accounts.get(ev.response.srcAccountId).balance += ev.response.totalValue;
+      addValueToBalance(ev.response.srcAccountId, ev.response.totalValue);
+      var response = {
+        'account': accounts.get(ev.response.srcAccountId),
+        'value': ev.response.totalValue,
+      }
+      notifyObservers('accountBalanceChanged', response);
+
     } else if (ev.event === 'addedSplit') {
-      accounts.get(ev.response.destAccountId).balance += ev.response.value;
+
+      // accounts.get(ev.response.destAccountId).balance += ev.response.value;
+      addValueToBalance(ev.response.destAccountId, ev.response.value);
+      var response = {
+        'account': accounts.get(ev.response.destAccountId),
+        'value': ev.response.value
+      }
+      notifyObservers('accountBalanceChanged', response);
+
     } else if (ev.event === 'deletedSplit') {
-      accounts.get(ev.response.destAccountId).balance -= ev.response.value;
+
+      // accounts.get(ev.response.destAccountId).balance -= ev.response.value;
+      addValueToBalance(ev.response.destAccountId, -ev.response.value);
+      var response = {
+        'account': accounts.get(ev.response.destAccountId),
+        'value': -ev.response.value
+      }
+      notifyObservers('accountBalanceChanged', response);
+
     } else if (ev.event === 'updatedSplit') {
-      accounts.get(ev.response.originalAccount).balance -= ev.response.originalValue;
-      accounts.get(ev.response.destAccountId).balance += ev.response.value;
+
+      // accounts.get(ev.response.originalAccount).balance -= ev.response.originalValue;
+      addValueToBalance(ev.response.originalAccount, -ev.response.originalValue);
+      // accounts.get(ev.response.destAccountId).balance += ev.response.value;
+      addValueToBalance(ev.response.destAccountId, ev.response.value);
+      notifyObservers('accountBalanceChanged', {
+        'account': accounts.get(ev.response.originalAccount),
+        'value': -ev.response.originalValue
+      });
+      notifyObservers('accountBalanceChanged', {
+        'account': accounts.get(ev.response.destAccountId),
+        'value': ev.response.value
+      });
+
     }
   });
 
@@ -45,13 +97,7 @@ angular.module('moneyApp')
       loadPromise = $http.get('ajax/get-accounts').then(function(response) {
       	//ctrl.accounts = response.data;
         for (var i in response.data) {
-          response.data[i].id = parseInt(response.data[i].id);
-          response.data[i].type = parseInt(response.data[i].type);
-          if(response.data[i].balance === null) {
-            response.data[i].balance = 0.0;
-          } else {
-            response.data[i].balance = parseFloat(response.data[i].balance);
-          }
+          ctrl.normalizeValues(response.data[i]);
           accounts.put(response.data[i].id, response.data[i]);
         }
         cacheFilled = true;
@@ -104,7 +150,11 @@ angular.module('moneyApp')
   ctrl.normalizeValues = function(account) {
     account.id = parseInt(account.id);
     account.type = parseInt(account.type);
-    account.balance = parseInt(account.balance);
+    if(account.balance === null) {
+      account.balance = 0.0;
+    } else {
+      account.balance = parseFloat(account.balance);
+    }
   };
 
   ctrl.update = function(account) {
@@ -149,9 +199,10 @@ angular.module('moneyApp')
           balance += accounts[i].balance;
         }
       }
-      var result = [];
-      result['accountTypeId'] = accountTypeId;
-      result['balance'] = balance;
+      var result = {
+        'accountTypeId': accountTypeId,
+        'balance': balance
+      };
       return result;
     });
   };

@@ -38,7 +38,13 @@ class MoneyApiController extends ApiController {
   * @NoAdminRequired
   */
   public function getAccounts() {
-    $query = $this->db->prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.user_id = ? GROUP BY a.id;');
+    $sql = 'SELECT a.*, ROUND(SUM(b.value), 2) AS balance ' .
+           'FROM *PREFIX*money_accounts a ' .
+           'LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id ' .
+           'LEFT JOIN *PREFIX*money_transactions c ON b.transaction_id = c.id ' .
+           'WHERE a.user_id = ? ' .
+           'GROUP BY a.id;';
+    $query = $this->db->prepare($sql);
     $query->bindParam(1, $this->userId, \PDO::PARAM_INT);
     $query->execute();
     $rows = $query->fetchAll();
@@ -54,7 +60,13 @@ class MoneyApiController extends ApiController {
   * @param int $accountId
   */
   public function getAccount($accountId) {
-    $query = $this->db->prepare('SELECT a.*, ROUND(SUM(b.value), 2) AS balance FROM *PREFIX*money_accounts a LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id WHERE a.id = ? AND a.user_id = ? GROUP BY a.id;');
+    $sql = 'SELECT a.*, ROUND(SUM(b.value), 2) AS balance ' .
+           'FROM *PREFIX*money_accounts a ' .
+           'LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id ' .
+           'LEFT JOIN *PREFIX*money_transactions c ON b.transaction_id = c.id ' .
+           'WHERE a.id = ? AND a.user_id = ? ' .
+           'GROUP BY a.id;';
+    $query = $this->db->prepare($sql);
 
     $query->bindParam(1, $accountId, \PDO::PARAM_INT);
     $query->bindParam(2, $this->userId, \PDO::PARAM_STR);
@@ -282,7 +294,11 @@ class MoneyApiController extends ApiController {
   * @param int $accountId
   */
   public function getAccountBalance($accountId) {
-    $query = $this->db->prepare('SELECT ROUND(SUM(value), 2) AS balance FROM *PREFIX*money_splits WHERE dest_account_id = ? AND user_id = ?;');
+    $sql = 'SELECT ROUND(SUM(a.value), 2) AS balance ' .
+           'FROM *PREFIX*money_splits a ' .
+           'LEFT JOIN *PREFIX*money_transactions b ON a.transaction_id = b.id ' .
+           'WHERE dest_account_id = ? AND user_id = ?;';
+    $query = $this->db->prepare($sql);
 
     $query->bindValue(1, $accountId, \PDO::PARAM_INT);
     $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
