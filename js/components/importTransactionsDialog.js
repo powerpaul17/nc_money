@@ -7,31 +7,48 @@ angular.module('moneyApp')
     closeButtonText: t('money', 'Cancel'),
     actionButtonText: t('money', 'Import transactions'),
     headerText: t('money', 'Import transactions...'),
-    columnSeparator: t('money', 'Column separator')
+    columnSeparator: t('money', 'Column separator'),
+    commaSeparator: t('money', 'Comma separator')
   };
 
   ctrl.availableColumns = [];
 
-  ctrl.availableSeparators = [
+  ctrl.availableColumnSeparators = [
     ',',
     ';',
     '\t'
   ];
   ctrl.columnSeparator = ','; // ,
 
+  ctrl.availableCommaSeparators = [
+    '.',
+    ','
+  ];
+  ctrl.commaSeparator = '.'; // .
+
   ctrl.dateFormat = 'yy-mm-dd'; // ISO date format
 
   ctrl.fileRows = [];
   ctrl.newTransactions = [];
 
-  ctrl.changeSeparator = function() {
+  ctrl.changeColumnSeparator = function() {
     if (reader.result) {
       ctrl.parseFile(reader.result);
     }
   }
 
+  ctrl.changeCommaSeparator = function() {
+    // Currently nothing to do here
+  }
+
   ctrl.parseFile = function(file) {
-    ctrl.fileRows = $.csv.toArrays(file, { separator: ctrl.columnSeparator});
+    ctrl.fileRows = [];
+    ctrl.availableColumns = [];
+    try {
+      ctrl.fileRows = $.csv.toArrays(file, { separator: ctrl.columnSeparator});
+    } catch(error) {
+      // console.log(error);
+    }
     ctrl.footerText = ctrl.fileRows.length + ' row(s) read.';
     if(ctrl.fileRows.length > 0) {
 
@@ -67,6 +84,10 @@ angular.module('moneyApp')
     }
   };
 
+  ctrl.reformatValue = function(value) {
+    // TODO: change comma separator in value
+  }
+
   var reader = new FileReader();
 
   reader.onloadend = function() {
@@ -94,6 +115,8 @@ angular.module('moneyApp')
     // Build transaction list
     for(var i = 0; i < ctrl.fileRows.length; i++) {
       var parsedDate = ctrl.reformatDate(ctrl.fileRows[i][ctrl.dateColumn]);
+      var parsedInValue = ctrl.reformatValue(ctrl.fileRows[i][ctrl.inValueColumn]);
+      var parsedOutValue = ctrl.reformatValue(ctrl.fileRows[i][ctrl.outValueColumn]);
       if (
         (parsedDate) &&
         (!isNaN(ctrl.fileRows[i][ctrl.inValueColumn]))
@@ -102,7 +125,7 @@ angular.module('moneyApp')
           {
             srcAccountId: $scope.account.id,
             destAccountId: -1,
-            value: -ctrl.fileRows[i][ctrl.inValueColumn], // - ctrl.fileRows[i][ctrl.outValueColumn],
+            value: -parsedInValue, // - parsedOutValue,
             convertRate: 1,
             date: $.datepicker.formatDate('yy-mm-dd', parsedDate),
             description: ctrl.fileRows[i][ctrl.descriptionColumn],
@@ -126,10 +149,10 @@ angular.module('moneyApp')
       // Filter out duplicates
       var transactionsHashmap = [];
       for (var i = 0; i < transactions.length; i++) {
-        transactionsHashmap[transactions[i].date + transactions[i].description + (transactions[i].inValue-transactions[i].outValue)] = 1;
+        transactionsHashmap[transactions[i].date + transactions[i].description.toUpperCase() + (transactions[i].inValue-transactions[i].outValue)] = 1;
       }
       for (var i = ctrl.newTransactions.length-1; i >= 0; i--) {
-        if (transactionsHashmap[ctrl.newTransactions[i].date + ctrl.newTransactions[i].description + (-ctrl.newTransactions[i].value)]) {
+        if (transactionsHashmap[ctrl.newTransactions[i].date + ctrl.newTransactions[i].description.toUpperCase() + (-ctrl.newTransactions[i].value)]) {
           ctrl.newTransactions.splice(i,1);
         }
       }

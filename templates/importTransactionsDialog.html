@@ -5,9 +5,17 @@
 
   <div class="import-settings">
     {{ctrl.t.columnSeparator}}
-    <ui-select name="importSettingsSeparator" ng-model="ctrl.columnSeparator" theme="select2" ng-required="true" ng-change="ctrl.changeSeparator()">
-      <ui-select-match placeholder="Select separator...">{{$select.selected.lines[0]}}</ui-select-match>
-      <ui-select-choices repeat="separator in ctrl.availableSeparators">
+    <ui-select name="importSettingsColumnSeparator" ng-model="ctrl.columnSeparator" theme="select2" ng-required="true" ng-change="ctrl.changeColumnSeparator()">
+      <ui-select-match placeholder="Select column separator...">{{$select.selected}}</ui-select-match>
+      <ui-select-choices repeat="separator in ctrl.availableColumnSeparators">
+        <small ng-bind-html="separator | highlight: $select.search"></small>
+      </ui-select-choices>
+    </ui-select>
+
+    {{ctrl.t.commaSeparator}}
+    <ui-select name="importSettingsCommaSeparator" ng-model="ctrl.commaSeparator" theme="select2" ng-required="true" ng-change="ctrl.changeCommaSeparator()">
+      <ui-select-match placeholder="Select comma separator...">{{$select.selected}}</ui-select-match>
+      <ui-select-choices repeat="separator in ctrl.availableCommaSeparators">
         <small ng-bind-html="separator | highlight: $select.search"></small>
       </ui-select-choices>
     </ui-select>
