@@ -22,9 +22,9 @@
     <input currency-input type="text" ng-model="ctrl.split.outValue" ng-model-options="{debounce: 500}" />
   </div>
   <div class="split-list-item-cell transaction-list-item-info">
-    <button class="icon-info foreign-split-info" ng-if="ctrl.split.foreignCurrency" uib-popover="= {{ctrl.split.value}} {{ctrl.split.currency}} * {{ctrl.split.convertRate/ctrl.transaction.convertRate}}">
+    <!-- <button class="icon-info foreign-split-info" ng-if="ctrl.split.foreignCurrency" uib-popover="= {{ctrl.split.value}} {{ctrl.split.currency}} * {{ctrl.split.convertRate/ctrl.transaction.convertRate}}"> -->
       <!-- TEST <span>=&nbsp;{{ctrl.split.value}}&nbsp;{{ctrl.split.currency}}&nbsp;*&nbsp;{{ctrl.split.convertRate/ctrl.transaction.convertRate}}</span> -->
-    </button>
+    <!-- </button> -->
   </div>
   <div class="split-list-item-cell transaction-list-item-actions">
     <div ng-class="{'icon-loading-small': ctrl.splitItemLoading}"></div>

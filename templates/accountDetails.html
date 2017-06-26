@@ -20,12 +20,12 @@
                inputresize size="{{ctrl.account.description.length > 1 ? ctrl.account.description.length : '1'}}" ng-disabled="!ctrl.account.editingEnabled" />
 					<div class="app-content-list-item-value">
 						<span style="vertical-align: middle;" animate-on-change="ctrl.account.balance">{{ ctrl.account.balance | currency : "" }}</span> &nbsp;
-						<ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging tagging-label="false" ng-disabled="!ctrl.account.editingEnabled">
+						<!-- <ui-select title="Choose a currency" ng-model="ctrl.account.currency" ng-change="ctrl.updateAccount()" theme="select2" tagging tagging-label="false" ng-disabled="!ctrl.account.editingEnabled">
 		 					<ui-select-match placeholder="{{ ctrl.t.placeholderCurrency }}">{{$select.selected}}</ui-select-match>
 		 					<ui-select-choices repeat="currency in ctrl.availableCurrencies | filter: $select.search">
 		 		 				<span ng-bind-html="currency | highlight: $select.search"></span>
 		 		 	  	</ui-select-choices>
-		 		 		</ui-select>
+		 		 		</ui-select> -->
 					</div>
 				<!-- </div> -->
 			</div>
