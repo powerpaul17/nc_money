@@ -3,7 +3,7 @@
        ng-repeat="account in ctrl.accountList = (ctrl.accounts | accountTypeFilter:ctrl.routeParams.tid | orderBy: 'name') as filtered track by account.id"
        account-list-item data="account"
        ng-click="setSelected(account.id)"
-       ng-class="{active: account.id === ctrl.getSelectedId()}"
+       ng-class="{ 'active': account.id == ctrl.getSelectedId() }"
   >
   </div>
   <div ng-show="!ctrl.loading && !ctrl.accountList.length">

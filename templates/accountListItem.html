@@ -1,7 +1,39 @@
-<a class="app-content-list-item-link" ng-click="ctrl.openAccount()">
+<div class="app-content-list-item-link" ng-click="ctrl.openAccount()">
   <div class="app-content-list-item-line-one">
-    <div class="app-content-list-item-name">{{ ctrl.account.name }}</div>
+    <div class="app-content-list-item-name">
+      <input type="text" id="details-fullName" class="accountdetails__name" placeholder="{{ctrl.t.placeholderName}}" autocomplete="off" autocorrect="off" spellcheck="false"
+           name="name" ng-model="ctrl.account.name" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value="" />
+    </div>
     <div class="app-content-list-item-value"><span animate-on-change="ctrl.account.balance">{{ ctrl.account.balance | currency : "" }}</span> <!-- &nbsp; {{ ctrl.account.currency }} --></div>
   </div>
-  <div class="app-content-list-item-line-two">{{ ctrl.account.description }}</div>
-</a>
+  <div class="app-content-list-item-line-two">
+    <div class="app-content-list-item-description">
+      <input type="text" id="details-description" class="accountdetails__description" placeholder="{{ctrl.t.placeholderDescription}}" autocomplete="off" autocorrect="off" spellcheck="false"
+          name="description" ng-model="ctrl.account.description" ng-model-options="{ getterSetter: true, debounce: 500 }" ng-change="ctrl.updateAccount()" value=""
+          inputresize size="{{ctrl.account.description.length > 1 ? ctrl.account.description.length : '1'}}" />
+    </div>
+
+    <div class="app-popover-menu" ng-show="ctrl.account.id == ctrl.getSelectedId()">
+      <button class="icon icon-more"></button>
+      <div class="popovermenu bubble hidden">
+        <ul>
+          <li>
+            <div ng-class="{'icon-loading-small': ctrl.deleteAccountLoading}"></div>
+            <a ng-if="!ctrl.deleteAccountLoading" ng-click="ctrl.deleteAccount()" class="menu-item" title="{{ctrl.t.deleteAccount}}">
+              <span class="icon-delete"></span>
+              Delete account
+            </a>
+          </li>
+          <li>
+            <a import-transactions account="ctrl.account">
+            </a>
+          </li>
+              <!-- <li><button class="icon-rename svg" title="rename"></button></li>
+              <li><button class="icon-delete svg" title="delete"></button></li> -->
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>

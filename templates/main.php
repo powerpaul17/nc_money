@@ -21,6 +21,7 @@ script('money', 'main');
 script('money', 'datepicker');
 script('money', 'currencyInputDirective');
 script('money', 'animateOnChange');
+script('money', 'appPopoverMenuUtils');
 script('money', 'filters/accountColor');
 script('money', 'filters/transactionStatusColor');
 script('money', 'filters/firstCharacter');

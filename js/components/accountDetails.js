@@ -75,15 +75,6 @@ angular.module('moneyApp')
     ctrl.showActionsPanel = !ctrl.showActionsPanel;
   };
 
-  ctrl.updateAccount = function() {
-    AccountService.update(ctrl.account);
-  };
-
-  ctrl.deleteAccount = function() {
-    ctrl.deleteAccountLoading = true;
-    AccountService.delete(ctrl.account);
-  };
-
   ctrl.exportAccount = function() {
 
   };
