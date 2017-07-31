@@ -2,12 +2,12 @@
 
 namespace OCA\Money\Db;
 
-use OCP\IDb;
+use OCP\IDBConnection;
 use OCP\AppFramework\Db\Mapper;
 
 class TransactionMapper extends Mapper {
 
-  public function __construct(IDb $db) {
+  public function __construct(IDBConnection $db) {
     parent::__construct($db, 'money_transactions', '\OCA\Money\Db\Transaction');
   }
 
