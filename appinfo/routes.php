@@ -14,6 +14,8 @@ return [
     'money_api' => ['url' => '/api/v0.1/money']
   ],
   'routes' => [
+    ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+
     ['name' => 'settings#get_config', 'url' => '/config', 'verb' => 'GET'],
     ['name' => 'settings#set_config', 'url' => '/config', 'verb' => 'POST'],
 
