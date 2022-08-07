@@ -60,7 +60,7 @@ class MoneyApiController extends ApiController {
   * @param int $accountId
   */
   public function getAccount($accountId) {
-    $sql = 'SELECT a.*, ROUND(SUM(b.value), 2) AS balance ' .
+    $sql = 'SELECT a.*, COALESCE(ROUND(SUM(b.value), 2), 0) AS balance ' .
            'FROM *PREFIX*money_accounts a ' .
            'LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id ' .
            'LEFT JOIN *PREFIX*money_transactions c ON b.transaction_id = c.id ' .
