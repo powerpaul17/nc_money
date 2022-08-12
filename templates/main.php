@@ -1,1 +1,3 @@
-<div id="money-app"></div>
+<?php
+  style('money', '../js/style');
+?>
