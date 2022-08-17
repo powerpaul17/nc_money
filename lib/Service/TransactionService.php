@@ -79,6 +79,10 @@ class TransactionService {
     }
   }
 
+  public function findUnbalancedTransactions($userId, $resultOffset = 0, $resultLimit = 50) {
+    return $this->transactionMapper->findAllUnbalancedTransactions($userId, $resultOffset, $resultLimit);
+  }
+
 }
 
 ?>

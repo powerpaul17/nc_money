@@ -142,32 +142,18 @@ class TransactionController extends MoneyController {
    * @param int $resultLimit
    */
   public function getUnbalancedTransactions($resultOffset = 0, $resultLimit = 50) {
-    $sql = 'SELECT a.* FROM *PREFIX*money_transactions a ' .
-           'LEFT JOIN *PREFIX*money_splits b ON b.transaction_id = a.id ' .
-           'WHERE a.user_id = ? ' .
-           'GROUP BY a.id ' .
-           'HAVING ROUND(SUM(b.value * b.convert_rate), 2) <> 0 ' .
-           'ORDER BY a.date DESC, a.timestamp_added DESC, a.id DESC ' .
-           'LIMIT ?,?;';
-    $query = $this->db->prepare($sql);
+    $transactions = $this->transactionService->findUnbalancedTransactions($this->userId, $resultOffset, $resultLimit);
 
-    $query->bindValue(1, $this->userId, \PDO::PARAM_STR);
-    $query->bindValue(2, $resultOffset, \PDO::PARAM_INT);
-    $query->bindValue(3, $resultLimit, \PDO::PARAM_INT);
-
-    $query->execute();
-
-    $transactions = $query->fetchAll();
-
-    $query->closeCursor();
-
-    // $transactions = $query->execute([$this->userId])->fetchAll();
+    $results = [];
 
     foreach($transactions as &$transaction) {
-      $transaction['splits'] = $this->getSplitsForTransaction($transaction['id']);
+      $resultItem = $transaction->jsonSerialize();
+      $resultItem['splits'] = $this->getSplitsForTransaction($resultItem['id']);
+
+      array_push($results, $resultItem);
     }
-    unset($transaction);
-    return $transactions;
+
+    return $results;
   }
 
   private function getSplitsForTransaction($transactionId) {
