@@ -3,43 +3,74 @@
 namespace OCA\Money\Db;
 
 use OCP\IDBConnection;
-use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\QBMapper;
 
-class TransactionMapper extends Mapper {
+class TransactionMapper extends QBMapper {
 
   public function __construct(IDBConnection $db) {
     parent::__construct($db, 'money_transactions', '\OCA\Money\Db\Transaction');
   }
 
   public function find($id, $userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_transactions WHERE id = ? AND user_id = ?';
-    return $this->findEntity($sql, [$id, $userId]);
+    $qb = $this->db->getQueryBuilder();
+    $qb->select('*')
+      ->from($this->tableName)
+      ->where('id = :id')
+      ->andWhere('user_id = :user_id')
+      ->setParameter('id', $id)
+      ->setParameter('user_id', $userId);
+
+    return $this->findEntity($qb);
   }
 
   public function findAll($userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_transactions WHERE user_id = ?';
-    return $this->findEntities($sql, [$userId]);
+    $qb = $this->db->getQueryBuilder();
+    $qb->select('*')
+      ->from($this->tableName)
+      ->where('user_id = :use_id')
+      ->setParameter('user_id', $userId);
+
+    return $this->findEntities($qb);
   }
 
   public function findAllTransactionsOfAccount($userId, $accountId, $resultOffset = 0, $resultLimit = 50) {
-    $sql = 'SELECT a.* ' .
-           'FROM *PREFIX*money_transactions a ' .
-           'LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) ' .
-           'WHERE a.user_id = ? AND b.dest_account_id = ? ' .
-           'GROUP BY a.id ' .
-           'ORDER BY a.date DESC, a.timestamp_added DESC, a.id DESC ' .
-           'LIMIT ?,?';
-    return $this->findEntities($sql, [$userId, $accountId, $resultOffset, $resultLimit]);
+    $qb = $this->db->getQueryBuilder();
+    $qb->select('a.*')
+      ->from($this->tableName, 'a')
+      ->leftJoin('a', 'money_splits', 'b', 'a.id = b.transaction_id')
+      ->where('a.user_id = :user_id')
+      ->andWhere('b.dest_account_id = :account_id')
+      ->groupBy('a.id')
+      ->orderBy('a.date', 'DESC')
+      ->addOrderBy('a.timestamp_added', 'DESC')
+      ->addOrderBy('a.id', 'DESC')
+      ->setFirstResult($resultOffset)
+      ->setMaxResults($resultLimit)
+      ->setParameter('user_id', $userId)
+      ->setParameter('account_id', $accountId);
+
+    return $this->findEntities($qb);
   }
 
   public function findAllTransactionsOfAccountByDate($userId, $accountId, $startDate, $endDate) {
-    $sql = 'SELECT a.* ' .
-           'FROM *PREFIX*money_transactions a ' .
-           'LEFT JOIN *PREFIX*money_splits b ON (a.id = b.transaction_id) ' .
-           'WHERE a.user_id = ? AND b.dest_account_id = ? AND a.date >= ? AND a.date <= ? ' .
-           'GROUP BY a.id ' .
-           'ORDER BY a.date DESC, a.timestamp_added DESC, a.id DESC ';
-    return $this->findEntities($sql, [$userId, $accountId, $startDate, $endDate]);
+    $qb = $this->db->getQueryBuilder();
+    $qb->select('a.*')
+      ->from($this->tableName, 'a')
+      ->leftJoin('a', 'money_splits', 'b', 'a.id = b.transaction_id')
+      ->where('a.user_id = :user_id')
+      ->andWhere('b.dest_account_id = :account_id')
+      ->andWhere('a.date >= :start_date')
+      ->andWhere('a.date <= :end_date')
+      ->groupBy('a.id')
+      ->orderBy('a.date', 'DESC')
+      ->addOrderBy('a.timestamp_added', 'DESC')
+      ->addOrderBy('a.id' ,'DESC')
+      ->setParameter('user_id', $userId)
+      ->setParameter('account_id', $accountId)
+      ->setParameter('start_date', $startDate)
+      ->setParameter('end_date', $endDate);
+
+    return $this->findEntities($qb);
   }
 
 }

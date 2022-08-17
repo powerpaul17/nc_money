@@ -3,22 +3,34 @@
 namespace OCA\Money\Db;
 
 use OCP\IDBConnection;
-use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\QBMapper;
 
-class AccountMapper extends Mapper {
+class AccountMapper extends QBMapper {
 
   public function __construct(IDBConnection $db) {
     parent::__construct($db, 'money_accounts', '\OCA\Money\Db\Account');
   }
 
   public function find($id, $userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_accounts WHERE id = ? AND user_id = ?';
-    return $this->findEntity($sql, [$id, $userId]);
+    $qb = $this->db->getQueryBuilder();
+    $qb->select('*')
+      ->from($this->tableName)
+      ->where('id = :id')
+      ->andWhere('user_id = :user_id')
+      ->setParameter('id', $id)
+      ->setParameter('user_id', $userId);
+
+    return $this->findEntity($qb);
   }
 
   public function findAll($userId) {
-    $sql = 'SELECT * FROM *PREFIX*money_accounts WHERE user_id = ?';
-    return $this->findEntities($sql, [$userId]);
+    $qb = $this->db->getQueryBuilder();
+    $qb->select('*')
+      ->from($this->tableName)
+      ->where('user_id = :user_id')
+      ->setParameter('user_id', $userId);
+
+    return $this->findEntities($qb);
   }
 
 }
