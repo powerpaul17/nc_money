@@ -9,6 +9,10 @@
     </a>
 
     <ul>
+      <AccountListItem
+        v-for="account in accounts"
+        :account="account"
+      ></AccountListItem>
     </ul>
   </li>
 </template>
@@ -17,10 +21,12 @@
   import { defineComponent, PropType } from 'vue';
   import { AccountType, useAccountStore } from '../stores/accountStore';
 
+  import AccountListItem from './AccountListItem.vue';
   import { AccountType as AccountTypeEntity } from './AccountTypesList.vue';
 
   export default defineComponent({
     components: {
+      AccountListItem
     },
     props: {
       accountType: {
@@ -40,6 +46,9 @@
       },
       balance: function () {
         return this.accountType.balance;
+      },
+      accounts: function () {
+        return this.accountStore.getByType(this.accountType.id);
       }
     },
     methods: {
