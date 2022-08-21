@@ -1,9 +1,5 @@
 <template>
-  <div id="app-navigation">
-  </div>
-
-  <div id="app-content">
-    <router-view></router-view>
+  <div class="app-content-details">
   </div>
 </template>
 
@@ -11,6 +7,5 @@
   import { defineComponent } from 'vue';
 
   export default defineComponent({
-    name: 'App'
   });
 </script>
