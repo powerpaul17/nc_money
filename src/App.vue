@@ -1,5 +1,6 @@
 <template>
   <div id="app-navigation">
+    <AccountTypesList></AccountTypesList>
   </div>
 
   <div id="app-content">
@@ -10,7 +11,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
+  import AccountTypesList from './components/AccountTypesList.vue';
+
   export default defineComponent({
-    name: 'App'
+    components: {
+      AccountTypesList
+    }
   });
 </script>
