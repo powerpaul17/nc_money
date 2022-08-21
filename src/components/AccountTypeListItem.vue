@@ -4,6 +4,7 @@
       <div class="flex w-full h-full">
         <div class="flex-auto overflow-hidden text-ellipsis">{{ name }}</div>
         <div class="flex-grow text-right">
+          <CurrencyText :value="balance" :animation="true"></CurrencyText>
         </div>
       </div>
     </a>
@@ -23,10 +24,12 @@
 
   import AccountListItem from './AccountListItem.vue';
   import { AccountType as AccountTypeEntity } from './AccountTypesList.vue';
+  import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({
     components: {
-      AccountListItem
+      AccountListItem,
+      CurrencyText
     },
     props: {
       accountType: {

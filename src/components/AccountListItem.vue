@@ -6,6 +6,10 @@
           {{ account.name }}
         </div>
         <div class="flex-grow text-right">
+          <CurrencyText
+            :value="account.balance"
+            :animation="true"
+          ></CurrencyText>
         </div>
       </div>
     </router-link>
@@ -16,6 +20,7 @@
   import { defineComponent, PropType } from 'vue';
 
   import { Account } from '../stores/accountStore';
+  import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({
     props: {
@@ -28,6 +33,7 @@
       isSelected: function () {
         return Number(this.$route.params.accountId) === this.account.id;
       }
-    }
+    },
+    components: { CurrencyText }
   });
 </script>

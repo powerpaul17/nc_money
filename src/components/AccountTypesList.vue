@@ -13,6 +13,10 @@
         <div class="flex w-full h-full">
           <div class="flex-auto overflow-hidden text-ellipsis">Unbalanced</div>
           <div class="flex-grow text-right">
+            <CurrencyText
+              :value="unbalancedValue"
+              :animation="true"
+            ></CurrencyText>
           </div>
         </div>
       </router-link>
@@ -23,6 +27,7 @@
         <div class="flex w-full h-full">
           <div class="flex-auto overflow-hidden text-ellipsis">Equity</div>
           <div class="flex-grow text-right">
+            <CurrencyText :value="equity" :animation="true"></CurrencyText>
           </div>
         </div>
       </a>
@@ -36,6 +41,7 @@
   import { useAccountStore } from '../stores/accountStore';
 
   import AccountTypeListItem from './AccountTypeListItem.vue';
+  import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({
     computed: {
@@ -79,7 +85,8 @@
       return { accountStore };
     },
     components: {
-      AccountTypeListItem
+      AccountTypeListItem,
+      CurrencyText
     }
   });
 
