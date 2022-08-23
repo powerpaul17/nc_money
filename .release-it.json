@@ -9,10 +9,7 @@
       "TAG_NAME=v${version} npm run upload"
     ]
   },
-  "git": {
-    "requireCleanWorkingDir": false,
-    "commit": false
-  },
+  "git": {},
   "npm": false,
   "github": {
     "release": true,
