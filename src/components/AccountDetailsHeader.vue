@@ -19,6 +19,11 @@
         </div>
       </div>
     </div>
+    <div class="flex p-5">
+      <div class="text-right text-xl flex-grow-0 flex-shrink-0 items-center">
+        <CurrencyText :value="account.balance" :animation="true"></CurrencyText>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,6 +33,7 @@
   import { Account, useAccountStore } from '../stores/accountStore';
 
   import SeamlessInput from './SeamlessInput.vue';
+  import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({
     props: {
@@ -54,7 +60,8 @@
       return { accountStore };
     },
     components: {
-      SeamlessInput
+      SeamlessInput,
+      CurrencyText
     }
   });
 </script>
