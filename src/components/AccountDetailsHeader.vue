@@ -42,6 +42,11 @@
         required: true
       }
     },
+    data() {
+      return {
+        accountStore: useAccountStore()
+      };
+    },
     methods: {
       handleAccountNameModified(newName: string) {
         this.account.name = newName;
@@ -54,10 +59,6 @@
       handleAccountModified() {
         this.accountStore.updateAccount(this.account);
       }
-    },
-    setup() {
-      const accountStore = useAccountStore();
-      return { accountStore };
     },
     components: {
       SeamlessInput,

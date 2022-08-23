@@ -44,8 +44,13 @@
   import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({
+    data() {
+      return {
+        accountStore: useAccountStore()
+      };
+    },
     computed: {
-      accountTypes: function () {
+      accountTypes() {
         return [
           {
             id: 0,
@@ -69,20 +74,17 @@
           }
         ];
       },
-      equity: function () {
+      equity() {
         return (
           this.accountStore.assetsBalance + this.accountStore.liabilitiesBalance
         );
       },
-      unbalancedValue: function () {
+      unbalancedValue() {
         return this.accountStore.unbalancedValue;
       }
     },
-    setup() {
-      const accountStore = useAccountStore();
-      accountStore.fillCache(); // TODO
-
-      return { accountStore };
+    created() {
+      this.accountStore.fillCache(); // TODO
     },
     components: {
       AccountTypeListItem,

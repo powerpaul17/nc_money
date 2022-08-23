@@ -39,6 +39,7 @@
     },
     data() {
       return {
+        accountStore: useAccountStore(),
         isOpen: false,
         AccountType
       };
@@ -55,9 +56,6 @@
       }
     },
     methods: {
-    },
-    setup() {
-      return { accountStore: useAccountStore() };
     }
   });
 </script>

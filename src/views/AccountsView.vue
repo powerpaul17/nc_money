@@ -15,6 +15,11 @@
   import AccountDetails from '../components/AccountDetails.vue';
 
   export default defineComponent({
+    data() {
+      return {
+        accountStore: useAccountStore()
+      };
+    },
     computed: {
       selectedAccount() {
         const accountId = this.$route.params.accountId;
@@ -24,10 +29,6 @@
           return null;
         }
       }
-    },
-    setup() {
-      const accountStore = useAccountStore();
-      return { accountStore };
     },
     components: { AccountDetails }
   });
