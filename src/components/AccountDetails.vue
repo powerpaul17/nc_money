@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent, type PropType } from 'vue';
 
-  import { Account } from '../stores/accountStore';
+  import type { Account } from '../stores/accountStore';
 
   import AccountDetailsHeader from './AccountDetailsHeader.vue';
 

@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent, type PropType } from 'vue';
   import { AccountType, useAccountStore } from '../stores/accountStore';
 
   import AccountListItem from './AccountListItem.vue';
-  import { AccountType as AccountTypeEntity } from './AccountTypesList.vue';
+  import type { AccountType as AccountTypeEntity } from './AccountTypesList.vue';
   import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({

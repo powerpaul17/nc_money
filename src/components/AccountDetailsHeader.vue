@@ -28,9 +28,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent, type PropType } from 'vue';
 
-  import { Account, useAccountStore } from '../stores/accountStore';
+  import { type Account, useAccountStore } from '../stores/accountStore';
 
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';
