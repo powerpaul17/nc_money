@@ -3,6 +3,7 @@
     class="border-0 hover:border w-full bg-inherit"
     type="text"
     :placeholder="placeholder"
+    :disabled="disabled"
     v-model="inputValue"
     @change="handleValueChange"
   />
@@ -20,6 +21,10 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['value-changed'],

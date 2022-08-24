@@ -2,6 +2,7 @@
   <SeamlessInput
     :value="currencyValue"
     :placeholder="placeholder"
+    :disabled="!editable"
     class="text-right transition-all duration-300 ease-in-out"
     @value-changed="handleValueChanged"
   ></SeamlessInput>
@@ -17,6 +18,10 @@
       value: {
         type: Number,
         required: true
+      },
+      editable: {
+        type: Boolean,
+        default: true
       },
       placeholder: {
         type: String,
