@@ -2,6 +2,10 @@
   <div class="flex flex-col w-full overflow-scroll" @scroll="handleScroll">
     <div>
       <template v-for="transaction in transactions" :key="transaction.id">
+        <TransactionListItem
+          :transaction="transaction"
+          :account-id="account.id"
+        ></TransactionListItem>
       </template>
     </div>
 
@@ -24,6 +28,8 @@
     type Transaction,
     useTransactionStore
   } from '../stores/transactionStore';
+
+  import TransactionListItem from './TransactionListItem.vue';
 
   export default defineComponent({
     props: {
@@ -94,6 +100,9 @@
     },
     async mounted() {
       await this.changeAccount();
+    },
+    components: {
+      TransactionListItem
     }
   });
 </script>
