@@ -2,6 +2,7 @@
   <AccountDetailsHeader
     :account="account"
   ></AccountDetailsHeader>
+  <TransactionList :account="account"></TransactionList>
 </template>
 
 <script lang="ts">
@@ -10,6 +11,7 @@
   import type { Account } from '../stores/accountStore';
 
   import AccountDetailsHeader from './AccountDetailsHeader.vue';
+  import TransactionList from './TransactionList.vue';
 
   export default defineComponent({
     props: {
@@ -19,7 +21,8 @@
       }
     },
     components: {
-      AccountDetailsHeader
+      AccountDetailsHeader,
+      TransactionList
     }
   });
 </script>
