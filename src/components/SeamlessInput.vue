@@ -3,7 +3,7 @@
     class="border-0 hover:border w-full bg-inherit"
     type="text"
     :placeholder="placeholder"
-    v-model.lazy="inputValue"
+    v-model="inputValue"
     @change="handleValueChange"
   />
 </template>
@@ -35,7 +35,9 @@
     },
     methods: {
       handleValueChange() {
-        this.$emit('value-changed', this.inputValue);
+        const newValue = this.inputValue;
+        this.inputValue = this.value;
+        this.$emit('value-changed', newValue);
       }
     }
   });
