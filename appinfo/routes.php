@@ -19,6 +19,8 @@ return [
     ['name' => 'settings#get_config', 'url' => '/config', 'verb' => 'GET'],
     ['name' => 'settings#set_config', 'url' => '/config', 'verb' => 'POST'],
 
+    ['name' => 'account#get_account_balance', 'url' => '/accounts/get-account-balance', 'verb' => 'GET'],
+
     ['name' => 'account#get_accounts', 'url' => '/accounts', 'verb' => 'GET'],
     ['name' => 'account#get_account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
     ['name' => 'account#update_account', 'url' => '/accounts/{id}', 'verb' => 'PUT'],
@@ -27,6 +29,7 @@ return [
 
     ['name' => 'transaction#get_transactions_for_account', 'url' => '/transactions/get-transactions-for-account', 'verb' => 'GET'],
     ['name' => 'transaction#get_transactions_for_account_by_date', 'url' => '/transactions/get-transactions-for-account-by-date', 'verb' => 'GET'],
+    ['name' => 'transaction#get_unbalanced_transactions', 'url' => '/transactions/get-unbalanced-transactions', 'verb' => 'GET'],
 
     ['name' => 'transaction#get_transaction', 'url' => '/transactions/{id}', 'verb' => 'GET'],
     ['name' => 'transaction#update_transaction', 'url' => '/transactions/{id}', 'verb' => 'PUT'],
@@ -39,9 +42,6 @@ return [
     ['name' => 'split#update_split', 'url' => '/splits/{id}', 'verb' => 'PUT'],
     ['name' => 'split#add_split', 'url' => '/splits', 'verb' => 'POST'],
     ['name' => 'split#delete_split', 'url' => '/splits/{id}', 'verb' => 'DELETE'],
-
-    ['name' => 'account#get_account_balance', 'url' => '/accounts/get-account-balance', 'verb' => 'GET'],
-    ['name' => 'transaction#get_unbalanced_transactions', 'url' => '/transactions/get-unbalanced-transactions', 'verb' => 'GET'],
 
 //    ['name' => 'money_api#preflighted_cors', 'url' => '/api/v0.1/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')],
   ]
