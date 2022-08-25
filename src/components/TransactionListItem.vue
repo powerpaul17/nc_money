@@ -24,6 +24,7 @@
         <AccountSelect
           v-else
           :account-id="destinationAccountId"
+          :editable="valueIsEditable"
           :excludedAccountIds="excludedAccountIds"
           @account-changed="handleDestinationAccountChanged"
         ></AccountSelect>
@@ -31,6 +32,7 @@
       <div class="flex-shrink-0">
         <CurrencyInput
           :value="value"
+          :editable="valueIsEditable"
           placeholder="Value..."
           @value-changed="handleValueChanged"
         ></CurrencyInput>
@@ -112,6 +114,9 @@
       },
       destinationAccountId() {
         return this.splitOfDestinationAccount?.destAccountId;
+      },
+      valueIsEditable() {
+        return !this.showSplits && !this.hasMultipleDestinationSplits;
       },
       unbalancedValue() {
         return this.transaction.splits.reduce(
