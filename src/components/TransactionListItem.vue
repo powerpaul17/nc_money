@@ -21,6 +21,12 @@
       </div>
       <div>
         <span v-if="hasMultipleDestinationSplits">( Multiple Accounts )</span>
+        <AccountSelect
+          v-else
+          :account-id="destinationAccountId"
+          :excludedAccountIds="excludedAccountIds"
+          @account-changed="handleDestinationAccountChanged"
+        ></AccountSelect>
       </div>
       <div class="flex-shrink-0">
         <CurrencyInput
@@ -42,6 +48,7 @@
     type Transaction
   } from '../stores/transactionStore';
 
+  import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
@@ -85,6 +92,9 @@
       hasMultipleDestinationSplits() {
         return this.splitsOfDestinationAccounts.length > 1;
       },
+      destinationAccountId() {
+        return this.splitOfDestinationAccount?.destAccountId;
+      },
       unbalancedValue() {
         return this.transaction.splits.reduce(
           (value, s) => (value += s.value),
@@ -93,6 +103,13 @@
       },
       isUnbalanced() {
         return this.unbalancedValue !== 0.0;
+      },
+      excludedAccountIds() {
+        if (this.accountId) {
+          return [this.accountId];
+        } else {
+          return [];
+        }
       }
     },
     methods: {
@@ -102,7 +119,7 @@
       async handleDateChanged(date: Date) {
         this.transaction.date = date;
         await this.handleTransactionChanged();
-    },
+      },
       async handleDescriptionChanged(description: string) {
         this.transaction.description = description;
         await this.handleTransactionChanged();
@@ -127,6 +144,30 @@
           // TODO
         }
       },
+      async handleDestinationAccountChanged(accountId?: number) {
+        if (this.hasMultipleDestinationSplits)
+          throw new Error(
+            'cannot change destination account of multi-split-transaction'
+          );
+
+        const split = this.splitOfDestinationAccount;
+        if (!split) {
+          if (accountId) {
+            await this.transactionStore.addSplit({
+              transactionId: this.transaction.id,
+              destAccountId: accountId,
+              value: -this.value,
+              convertRate: 1.0,
+              description: ''
+            });
+          }
+        } else if (accountId) {
+          split.destAccountId = accountId;
+          await this.handleSplitChanged(split);
+        } else {
+          await this.handleSplitDeleted(split);
+        }
+      },
       async handleSplitChanged(split: Split) {
         await this.transactionStore.updateSplit(split);
       }
@@ -137,6 +178,7 @@
     },
     components: {
       CurrencyInput,
+      AccountSelect,
       SeamlessInput,
       DateInput
     }
