@@ -1,5 +1,7 @@
 <template>
   <div class="flex flex-col w-full overflow-scroll" @scroll="handleScroll">
+    <NewTransactionInput :account-id="account.id"></NewTransactionInput>
+
     <div>
       <template v-for="transaction in transactions" :key="transaction.id">
         <TransactionListItem
@@ -30,6 +32,7 @@
   } from '../stores/transactionStore';
 
   import TransactionListItem from './TransactionListItem.vue';
+  import NewTransactionInput from './NewTransactionInput.vue';
 
   export default defineComponent({
     props: {
@@ -102,7 +105,8 @@
       await this.changeAccount();
     },
     components: {
-      TransactionListItem
+      TransactionListItem,
+      NewTransactionInput
     }
   });
 </script>
