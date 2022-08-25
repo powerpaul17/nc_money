@@ -49,6 +49,12 @@
         "
         @split-deleted="handleSplitDeleted"
       ></SplitListItem>
+      <NewSplitInput
+        v-if="isUnbalanced"
+        :transaction-id="transaction.id"
+        :excludedAccountIds="excludedSplitAccountIds"
+        :initial-value="-unbalancedValue"
+      ></NewSplitInput>
     </div>
   </div>
 </template>
@@ -65,6 +71,7 @@
   import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
+  import NewSplitInput from './NewSplitInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
 
@@ -212,6 +219,7 @@
       SplitListItem,
       CurrencyInput,
       AccountSelect,
+      NewSplitInput,
       SeamlessInput,
       DateInput
     }
