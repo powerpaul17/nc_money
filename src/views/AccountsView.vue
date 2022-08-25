@@ -1,5 +1,5 @@
 <template>
-  <div class="app-content-details">
+  <div class="app-content-details flex flex-col h-[calc(100vh-50px)]">
     <AccountDetails
       v-if="selectedAccount"
       :account="selectedAccount"
