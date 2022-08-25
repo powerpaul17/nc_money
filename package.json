@@ -11,7 +11,8 @@
     "sign": "set -a; source ./.env; node build/sign.js",
     "package": "tar c -z -f money.tar.gz --transform \"flags=r;s|^|money/|\" appinfo img js lib templates *.md",
     "release": "set -a; source ./.env; release-it",
-    "upload": "set -a; source ./.env; node build/upload.js",
+    "pre-release": "npm run release -- --preRelease",
+    "upload": "set -a; source ./.env; node build/upload.js"
   },
   "devDependencies": {
     "@nextcloud/axios": "^1.10.0",
