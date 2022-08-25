@@ -61,7 +61,7 @@ class TransactionService {
 
     $transaction->setDescription($description);
     $transaction->setDate($date);
-    $transaction->setTimestampAdded(date('Y-m-d H:i:s'));
+    $transaction->setTimestampAdded(time());
 
     return $this->transactionMapper->insert($transaction);
   }
