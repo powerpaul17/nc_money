@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "before:init": [
+    "after:git:release": [
       "npm run build",
       "npm run sign",
       "npm run package"
