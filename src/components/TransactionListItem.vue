@@ -35,6 +35,18 @@
           @value-changed="handleValueChanged"
         ></CurrencyInput>
       </div>
+      <div class="icon-more" @click="toggleSplits"></div>
+    </div>
+    <div v-if="showSplits" class="bg-gray-100 shadow-inner">
+      <SplitListItem
+        v-for="split in transaction.splits"
+        :key="split.id"
+        :split="split"
+        :excludedAccountIds="
+          excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
+        "
+        @split-deleted="handleSplitDeleted"
+      ></SplitListItem>
     </div>
   </div>
 </template>
@@ -48,6 +60,7 @@
     type Transaction
   } from '../stores/transactionStore';
 
+  import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
@@ -62,6 +75,11 @@
       accountId: {
         type: Number
       }
+    },
+    data() {
+      return {
+        showSplits: false
+      };
     },
     computed: {
       value() {
@@ -110,9 +128,15 @@
         } else {
           return [];
         }
+      },
+      excludedSplitAccountIds() {
+        return this.transaction.splits.map((s) => s.destAccountId);
       }
     },
     methods: {
+      toggleSplits() {
+        this.showSplits = !this.showSplits;
+      },
       async handleTransactionChanged() {
         await this.transactionStore.updateTransaction(this.transaction);
       },
@@ -168,6 +192,9 @@
           await this.handleSplitDeleted(split);
         }
       },
+      async handleSplitDeleted(split: Split) {
+        this.transactionStore.deleteSplit(split);
+      },
       async handleSplitChanged(split: Split) {
         await this.transactionStore.updateSplit(split);
       }
@@ -177,6 +204,7 @@
       return { transactionStore };
     },
     components: {
+      SplitListItem,
       CurrencyInput,
       AccountSelect,
       SeamlessInput,
