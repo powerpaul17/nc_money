@@ -30,6 +30,7 @@ return [
 
     ['name' => 'transaction#get_transaction', 'url' => '/transactions/{id}', 'verb' => 'GET'],
     ['name' => 'transaction#update_transaction', 'url' => '/transactions/{id}', 'verb' => 'PUT'],
+    ['name' => 'transaction#add_transaction', 'url' => '/transactions', 'verb' => 'POST'],
     ['name' => 'transaction#add_simple_transaction', 'url' => '/transactions/add-simple-transaction', 'verb' => 'POST'],
     ['name' => 'transaction#add_split_transaction', 'url' => '/transactions/add-split-transaction', 'verb' => 'POST'],
     ['name' => 'transaction#add_transactions', 'url' => '/transactions/add-transactions', 'verb' => 'POST'],

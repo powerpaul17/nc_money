@@ -91,10 +91,22 @@ class TransactionController extends MoneyController {
   /**
    * @NoAdminRequired
    *
+   * @param $date
+   * @param string $description
+   */
+  public function addTransaction($date, $description) {
+    return $this->transactionService->create($description, $date, $this->userId);
+  }
+
+  /**
+   * @NoAdminRequired
+   *
    * @param int $srcAccountId
    * @param int $destAccountId
    * @param float $value
    * @param float $convertRate
+   * @param $date
+   * @param string $description
    */
   public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description, $srcSplitComment = '', $destSplitComment = '') {
     $newTransaction = $this->transactionService->create($description, $date, $this->userId);
