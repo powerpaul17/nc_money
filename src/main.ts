@@ -4,6 +4,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { createI18n } from 'vue-i18n';
 
 import './main.css';
 
@@ -28,5 +29,8 @@ const router = createRouter({
   ]
 });
 app.use(router);
+
+const i18n = createI18n({});
+app.use(i18n);
 
 app.mount('#content');

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 
 import vue from '@vitejs/plugin-vue';
+import vueI18N from '@intlify/vite-plugin-vue-i18n';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -10,14 +11,17 @@ export default defineConfig(({ mode }) => {
         entry: './src/main.ts',
         fileName: 'money-main',
         name: 'money',
-        formats: [ 'iife' ]
+        formats: ['iife']
       },
       outDir: './js',
       minify: mode === 'development' ? false : 'esbuild',
       sourcemap: mode === 'development' ? true : false
     },
     plugins: [
-      vue()
+      vue(),
+      vueI18N({
+        compositionOnly: false
+      })
     ]
   };
 });
