@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.2.0] - 2022-08-26
+
 ### Changed
 
 - Complete UI overhaul using Vue.js
