@@ -12,17 +12,7 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version000000Date202201022200 extends SimpleMigrationStep {
-
-  /**
-   * @param IOutput $output
-   * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-   * @param array $options
-   *
-   * @return void
-   */
-  public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
-  }
+class Version000200Date20220821220000 extends SimpleMigrationStep {
 
   /**
    * @param IOutput $output
@@ -145,13 +135,4 @@ class Version000000Date202201022200 extends SimpleMigrationStep {
     return $schema;
   }
 
-  /**
-   * @param IOutput $output
-   * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
-   * @param array $options
-   *
-   * @return void
-   */
-  public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {
-  }
 }
