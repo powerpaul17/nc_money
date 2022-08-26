@@ -92,12 +92,12 @@ function calculateBalance(accounts: Array<Account>): number {
 
 function createAccountFromResponseData(data): Account {
   return {
-    id: data.id,
+    id: Number(data.id), // TODO in API controller
     name: data.name,
     description: data.description,
     currency: data.currency,
-    type: data.type,
-    balance: data.balance
+    type: Number(data.type), // TODO in API controller
+    balance: Number(data.balance) // TODO in API controller
   };
 }
 
