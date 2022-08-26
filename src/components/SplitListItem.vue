@@ -3,7 +3,7 @@
     <div></div>
     <div class="flex-auto">
       <SeamlessInput
-        placeholder="Description..."
+        :placeholder="$t('description')"
         :value="split.description"
         @value-changed="handleDescriptionChanged"
       ></SeamlessInput>
@@ -18,13 +18,22 @@
     <div class="flex-shrink-0">
       <CurrencyInput
         :value="split.value"
-        placeholder="Value..."
+        :placeholder="$t('value')"
         @value-changed="handleValueChanged"
       ></CurrencyInput>
     </div>
     <div class="icon-delete" @click="handleDeleteSplit"></div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "description": "Description...",
+    "value": "Value..."
+  }
+}
+</i18n>
 
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';

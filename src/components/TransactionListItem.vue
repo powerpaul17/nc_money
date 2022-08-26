@@ -7,14 +7,14 @@
       <div class="flex-shrink-0">
         <DateInput
           :date="transaction.date"
-          placeholder="Date..."
+          :placeholder="$t('date')"
           @date-changed="handleDateChanged"
         ></DateInput>
       </div>
       <div class="flex-auto">
         <SeamlessInput
           class="border-0 overflow-hidden text-ellipsis bg-transparent"
-          placeholder="Description..."
+          :placeholder="$t('description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
         ></SeamlessInput>
@@ -33,7 +33,7 @@
         <CurrencyInput
           :value="value"
           :editable="valueIsEditable"
-          placeholder="Value..."
+          :placeholder="$t('value')"
           @value-changed="handleValueChanged"
         ></CurrencyInput>
       </div>
@@ -58,6 +58,16 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "date": "Date...",
+    "description": "Description...",
+    "value": "Value..."
+  }
+}
+</i18n>
 
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';

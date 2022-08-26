@@ -5,14 +5,14 @@
         <div>
           <SeamlessInput
             class="text-lg"
-            placeholder="Name..."
+            :placeholder="$t('name')"
             :value="account.name"
             @value-changed="handleAccountNameModified"
           ></SeamlessInput>
         </div>
         <div>
           <SeamlessInput
-            placeholder="Description..."
+            :placeholder="$t('description')"
             :value="account.description"
             @value-changed="handleAccountDescriptionModified"
           ></SeamlessInput>
@@ -26,6 +26,15 @@
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "description": "Description...",
+    "name": "Name..."
+  }
+}
+</i18n>
 
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';

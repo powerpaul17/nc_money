@@ -3,14 +3,14 @@
     <div class="flex-shrink-0">
       <DateInput
         :date="date"
-        placeholder="Date..."
+        :placeholder="$t('date')"
         @date-changed="(newDate) => (date = newDate)"
       ></DateInput>
     </div>
     <div class="flex-auto">
       <input
         class="w-full"
-        placeholder="Description..."
+        :placeholder="$t('description')"
         v-model="description"
       />
     </div>
@@ -23,13 +23,23 @@
     <div class="flex-shrink-0">
       <CurrencyInput
         :value="value"
-        placeholder="Value..."
+        :placeholder="$t('value')"
         @value-changed="(newValue) => (value = newValue)"
       ></CurrencyInput>
     </div>
     <div class="icon-checkmark" @click="handleSubmitTransactionClick"></div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "date": "Date...",
+    "description": "Description...",
+    "value": "Value..."
+  }
+}
+</i18n>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
