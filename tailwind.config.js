@@ -7,8 +7,10 @@ module.exports = {
     extend: {
       colors: {
         'main-text': 'var(--color-main-text)',
+        'text-maxcontrast': 'var(--color-text-maxcontrast)',
         'border-dark': 'var(--color-border-dark)',
         'main-background': 'var(--color-main-background)',
+        'background-dark': 'var(--color-background-dark)',
         'primary-element': 'var(--color-primary-element)'
       }
     }
