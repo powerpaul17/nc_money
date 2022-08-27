@@ -8,11 +8,12 @@
       ></DateInput>
     </div>
     <div class="flex-auto">
-      <input
-        class="w-full"
+      <SeamlessInput
+        :value="description"
         :placeholder="$t('description')"
-        v-model="description"
-      />
+        @value-changed="(newDescription) => (description = newDescription)"
+      >
+      </SeamlessInput>
     </div>
     <div>
       <AccountSelect
@@ -55,6 +56,7 @@
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import DateInput from './DateInput.vue';
+  import SeamlessInput from './SeamlessInput.vue';
 
   export default defineComponent({
     props: {
@@ -114,7 +116,8 @@
     components: {
       AccountSelect,
       CurrencyInput,
-      DateInput
+      DateInput,
+      SeamlessInput
     }
   });
 </script>
