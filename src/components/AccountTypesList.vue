@@ -6,7 +6,7 @@
       :account-type="accountType"
     ></AccountTypeListItem>
 
-    <li class="border-t border-solid border-color-border-dark"></li>
+    <li class="border-t border-solid border-border-dark"></li>
 
     <li>
       <router-link to="/accounts/unbalanced">

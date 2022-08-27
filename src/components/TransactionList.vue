@@ -15,7 +15,7 @@
 
     <div
       v-if="transactionStore.allTransactionsFetched"
-      class="text-center text-xl text-color-border-dark border-t border-color-border-dark border-solid pt-5 mt-3 mb-10"
+      class="text-center text-xl text-border-dark border-t border-border-dark border-solid pt-5 mt-3 mb-10"
     >
       End of transactions
     </div>
