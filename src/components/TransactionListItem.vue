@@ -13,7 +13,6 @@
       </div>
       <div class="flex-auto">
         <SeamlessInput
-          class="border-0 overflow-hidden text-ellipsis bg-transparent"
           :placeholder="$t('description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
