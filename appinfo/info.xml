@@ -16,6 +16,13 @@
     <bugs>https://github.com/powerpaul17/nc_money/issues</bugs>
     <repository type="git">https://github.com/powerpaul17/nc_money.git</repository>
     <screenshot>https://github.com/powerpaul17/nc_money/raw/278ba25b4591bf34264d4029c2aa162248c3d882/appinfo/screenshot.png</screenshot>
+    <navigations>
+      <navigation>
+        <name>Money</name>
+        <route>money.page.index</route>
+        <icon>money.svg</icon>
+      </navigation>
+    </navigations>
     <dependencies>
       <nextcloud min-version="24" max-version="24" />
     </dependencies>
