@@ -36,7 +36,10 @@
           @value-changed="handleValueChanged"
         ></CurrencyInput>
       </div>
-      <div class="icon-more" @click="toggleSplits"></div>
+      <div>
+        <div v-if="isLoading" class="icon-loading-small"></div>
+        <div v-else class="icon-more" @click="toggleSplits"></div>
+      </div>
     </div>
     <div v-if="showSplits" class="bg-gray-100 shadow-inner">
       <SplitListItem
@@ -96,7 +99,8 @@
     },
     data() {
       return {
-        showSplits: false
+        showSplits: false,
+        isLoading: false
       };
     },
     computed: {
@@ -159,7 +163,9 @@
         this.showSplits = !this.showSplits;
       },
       async handleTransactionChanged() {
+        this.isLoading = true;
         await this.transactionStore.updateTransaction(this.transaction);
+        this.isLoading = false;
       },
       async handleDateChanged(date: Date) {
         this.transaction.date = date;
@@ -214,10 +220,14 @@
         }
       },
       async handleSplitDeleted(split: Split) {
-        this.transactionStore.deleteSplit(split);
+        this.isLoading = true;
+        await this.transactionStore.deleteSplit(split);
+        this.isLoading = false;
       },
       async handleSplitChanged(split: Split) {
+        this.isLoading = true;
         await this.transactionStore.updateSplit(split);
+        this.isLoading = false;
       }
     },
     setup() {

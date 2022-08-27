@@ -21,7 +21,10 @@
         @value-changed="(newValue) => (value = newValue)"
       ></CurrencyInput>
     </div>
-    <div class="icon-checkmark" @click="handleSubmitSplitClick"></div>
+    <div>
+      <div v-if="isLoading" class="icon-loading-small"></div>
+      <div v-else class="icon-checkmark" @click="handleSubmitSplitClick"></div>
+    </div>
   </div>
 </template>
 
@@ -59,7 +62,8 @@
       return {
         description: '',
         destAccountId: null,
-        value: 0.0
+        value: 0.0,
+        isLoading: false
       };
     },
     watch: {
@@ -76,6 +80,7 @@
         if (!this.destAccountId)
           throw new Error('cannot add split without an account id');
 
+        this.isLoading = true;
         await this.transactionStore.addSplit({
           transactionId: this.transactionId,
           destAccountId: this.destAccountId,
@@ -83,6 +88,8 @@
           convertRate: 1.0,
           description: this.description
         });
+        this.isLoading = false;
+
         this.resetFields();
       },
       resetFields() {

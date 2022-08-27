@@ -22,7 +22,10 @@
         @value-changed="handleValueChanged"
       ></CurrencyInput>
     </div>
-    <div class="icon-delete" @click="handleDeleteSplit"></div>
+    <div>
+      <div v-if="isLoading" class="icon-loading-small"></div>
+      <div v-else class="icon-delete" @click="handleDeleteSplit"></div>
+    </div>
   </div>
 </template>
 
@@ -56,6 +59,11 @@
       }
     },
     emits: ['split-deleted'],
+    data() {
+      return {
+        isLoading: false
+      };
+    },
     methods: {
       async handleValueChanged(value: number) {
         this.split.value = value;
@@ -73,7 +81,9 @@
         await this.handleSplitChanged();
       },
       async handleSplitChanged() {
+        this.isLoading = true;
         await this.transactionStore.updateSplit(this.split);
+        this.isLoading = false;
       }
     },
     setup() {

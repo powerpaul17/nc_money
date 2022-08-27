@@ -27,7 +27,14 @@
         @value-changed="(newValue) => (value = newValue)"
       ></CurrencyInput>
     </div>
-    <div class="icon-checkmark" @click="handleSubmitTransactionClick"></div>
+    <div>
+      <div v-if="isLoading" class="icon-loading-small"></div>
+      <div
+        v-else
+        class="icon-checkmark"
+        @click="handleSubmitTransactionClick"
+      ></div>
+    </div>
   </div>
 </template>
 
@@ -61,7 +68,8 @@
         date: new Date(),
         description: '',
         destAccountId: null,
-        value: 0.0
+        value: 0.0,
+        isLoading: false
       };
     },
     methods: {
@@ -70,6 +78,7 @@
         await this.createNewTransaction();
       },
       async createNewTransaction() {
+        this.isLoading = true;
         const transaction = await this.transactionStore.addTransaction({
           date: this.date,
           description: this.description
@@ -90,6 +99,7 @@
             destAccountId: this.destAccountId
           });
         }
+        this.isLoading = false;
         this.resetFields();
       },
       resetFields() {
