@@ -11,7 +11,9 @@
     <li>
       <router-link to="/accounts/unbalanced">
         <div class="flex w-full h-full">
-          <div class="flex-auto overflow-hidden text-ellipsis">Unbalanced</div>
+          <div class="flex-auto overflow-hidden text-ellipsis">
+            {{ $t('unbalanced') }}
+          </div>
           <div class="flex-grow text-right">
             <CurrencyText
               :value="unbalancedValue"
@@ -25,7 +27,9 @@
     <li>
       <a href="#">
         <div class="flex w-full h-full">
-          <div class="flex-auto overflow-hidden text-ellipsis">Equity</div>
+          <div class="flex-auto overflow-hidden text-ellipsis">
+            {{ $t('equity') }}
+          </div>
           <div class="flex-grow text-right">
             <CurrencyText :value="equity" :animation="true"></CurrencyText>
           </div>
@@ -34,6 +38,19 @@
     </li>
   </ul>
 </template>
+
+<i18n>
+{
+  "en": {
+    "assets": "Assets",
+    "equity": "Equity",
+    "expenses": "Expenses",
+    "income": "Income",
+    "liabilities": "Liabilities",
+    "unbalanced": "Unbalanced"
+  }
+}
+</i18n>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -54,22 +71,22 @@
         return [
           {
             id: 0,
-            name: 'Assets',
+            name: this.$t('assets'),
             balance: this.accountStore.assetsBalance
           },
           {
             id: 1,
-            name: 'Liabilities',
+            name: this.$t('liabilities'),
             balance: this.accountStore.liabilitiesBalance
           },
           {
             id: 2,
-            name: 'Income',
+            name: this.$t('income'),
             balance: this.accountStore.incomeBalance
           },
           {
             id: 3,
-            name: 'Expenses',
+            name: this.$t('expenses'),
             balance: this.accountStore.expensesBalance
           }
         ];

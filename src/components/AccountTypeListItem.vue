@@ -21,7 +21,7 @@
         <li>
           <a @click="handleAddAccountClick">
             <span class="icon-add"></span>
-            <span>Add Account</span>
+            <span>{{ $t('addAccount') }}</span>
           </a>
         </li>
       </ul>
@@ -35,6 +35,14 @@
     </ul>
   </li>
 </template>
+
+<i18n>
+{
+  "en": {
+    "addAccount": "Add account"
+  }
+}
+</i18n>
 
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
