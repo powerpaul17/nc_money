@@ -40,7 +40,7 @@
     },
     computed: {
       accounts() {
-        return this.accountStore.accounts.filter(
+        return this.accountStore.accountArray.filter(
           (a) => !this.excludedAccountIds.includes(a.id)
         );
       }

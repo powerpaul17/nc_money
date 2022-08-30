@@ -4,53 +4,58 @@ import { generateUrl } from '@nextcloud/router';
 
 export const useAccountStore = defineStore('account', {
   state: (): State => ({
-    accounts: []
+    accounts: new Map()
   }),
   getters: {
-    assetsBalance: (state) => {
+    assetsBalance(): number {
       return calculateBalance(
-        state.accounts.filter((account) => account.type === AccountType.ASSET)
+        this.accountArray.filter(
+          (account) => account.type === AccountType.ASSET
+        )
       );
     },
-    liabilitiesBalance: (state) => {
+    liabilitiesBalance(): number {
       return calculateBalance(
-        state.accounts.filter(
+        this.accountArray.filter(
           (account) => account.type === AccountType.LIABILITY
         )
       );
     },
-    incomeBalance: (state) => {
+    incomeBalance(): number {
       return calculateBalance(
-        state.accounts.filter((account) => account.type === AccountType.INCOME)
+        this.accountArray.filter(
+          (account) => account.type === AccountType.INCOME
+        )
       );
     },
-    expensesBalance: (state) => {
+    expensesBalance(): number {
       return calculateBalance(
-        state.accounts.filter((account) => account.type === AccountType.EXPENSE)
+        this.accountArray.filter(
+          (account) => account.type === AccountType.EXPENSE
+        )
       );
     },
-    unbalancedValue: (state) => {
-      return calculateBalance(state.accounts);
+    unbalancedValue(): number {
+      return calculateBalance(this.accountArray);
     },
     getById: (state) => {
-      return (accountId: number) =>
-        state.accounts.find((a) => a.id === accountId);
+      return (accountId: number) => state.accounts.get(accountId);
     },
-    getIndexOfAccountId: (state) => {
-      return (accountId: number) => {
-        return state.accounts.findIndex((a) => a.id === accountId);
-      };
-    },
-    getByType: (state) => {
+    getByType() {
       return (accountType: AccountType) => {
-        return state.accounts.filter((a) => a.type === accountType);
+        return this.accountArray.filter((a) => a.type === accountType);
       };
+    },
+    accountArray: (state) => {
+      return Array.from(state.accounts.values());
     }
   },
   actions: {
     async fillCache() {
       const response = await axios.get(generateUrl('apps/money/accounts'));
-      this.accounts = response.data.map(createAccountFromResponseData);
+      for (const account of response.data.map(createAccountFromResponseData)) {
+        this.accounts.set(account.id, account);
+      }
     },
     async updateAccount(account: Account) {
       await axios.put(
@@ -65,15 +70,13 @@ export const useAccountStore = defineStore('account', {
       );
 
       const newAccount = createAccountFromResponseData(response.data);
-      this.accounts.push(newAccount);
+      this.accounts.set(newAccount.id, newAccount);
 
       return newAccount;
     },
     async deleteAccount(accountId: number) {
       await axios.delete(generateUrl(`apps/money/accounts/${accountId}`));
-
-      const index = this.getIndexOfAccountId(accountId);
-      this.accounts.splice(index, 1);
+      this.accounts.delete(accountId);
     },
     addValue(accountId: number, value: number) {
       const account = this.getById(accountId);
@@ -102,7 +105,7 @@ function createAccountFromResponseData(data): Account {
 }
 
 type State = {
-  accounts: Array<Account>;
+  accounts: Map<number, Account>;
 };
 
 export enum AccountType {
