@@ -7,17 +7,16 @@ import { useAccountStore } from './accountStore';
 
 export const useTransactionStore = defineStore('transaction', {
   state: (): State => ({
-    transactions: [],
+    transactions: new Map(),
     currentAccountId: null,
     allTransactionsFetched: false
   }),
   getters: {
-    getById: (state) => {
-      return (transactionId: number) =>
-        state.transactions.find((t) => t.id === transactionId);
+    getById(state) {
+      return (transactionId: number) => state.transactions.get(transactionId);
     },
-    sortedByDate: (state) => {
-      return state.transactions.sort((a, b) => {
+    sortedByDate(state) {
+      return Array.from(state.transactions.values()).sort((a, b) => {
         if (b.date.getTime() === a.date.getTime()) {
           return b.timestampAdded - a.timestampAdded;
         }
@@ -30,20 +29,26 @@ export const useTransactionStore = defineStore('transaction', {
     async changeAccount(accountId?: number) {
       this.$reset();
       this.currentAccountId = accountId;
-      await this.fetchTransactions();
+      await this.fetchAndInsertTransactions();
     },
-    async fetchTransactions(offset = 0, limit = 100) {
+    async fetchAndInsertTransactions(offset = 0, limit = 100) {
       if (this.allTransactionsFetched) return;
 
+      let transactions = [];
+
       if (this.currentAccountId) {
-        await this.fetchTransactionsOfAccount(
+        transactions = await this.fetchTransactionsOfAccount(
           this.currentAccountId,
           offset,
           limit
         );
       } else {
-        await this.fetchUnbalancedTransactions(offset, limit);
+        transactions = await this.fetchUnbalancedTransactions(offset, limit);
       }
+
+      this.insertTransactions(transactions);
+
+      if (transactions.length < limit) this.allTransactionsFetched = true;
     },
     async fetchTransactionsOfAccount(
       accountId: number,
@@ -61,10 +66,7 @@ export const useTransactionStore = defineStore('transaction', {
         }
       );
 
-      const transactions = response.data.map(createTransactionFromResponseData);
-      this.insertTransactions(offset, transactions);
-
-      if (transactions.length < limit) this.allTransactionsFetched = true;
+      return response.data.map(createTransactionFromResponseData);
     },
     async fetchUnbalancedTransactions(offset = 0, limit = 100) {
       const response = await axios.get(
@@ -76,16 +78,13 @@ export const useTransactionStore = defineStore('transaction', {
           }
         }
       );
-      const transactions = response.data.map(createTransactionFromResponseData);
-      this.insertTransactions(offset, transactions);
 
-      if (transactions.length < limit) this.allTransactionsFetched = true;
+      return response.data.map(createTransactionFromResponseData);
     },
-    insertTransactions(offset: number, transactions: Array<Transaction>) {
-      if (offset > this.transactions.length)
-        throw new Error('cannot insert transactions without preceding ones');
-
-      this.transactions.splice(offset, transactions.length, ...transactions);
+    insertTransactions(transactions: Array<Transaction>) {
+      for (const transaction of transactions) {
+        this.transactions.set(transaction.id, transaction);
+      }
     },
 
     // -- TRANSACTIONS --
@@ -102,7 +101,7 @@ export const useTransactionStore = defineStore('transaction', {
       );
 
       const newTransaction = createTransactionFromResponseData(response.data);
-      this.transactions.push(newTransaction);
+      this.transactions.set(newTransaction.id, newTransaction);
 
       return newTransaction;
     },
@@ -199,7 +198,7 @@ function createSplitFromResponseData(data): Split {
 }
 
 type State = {
-  transactions: Array<Transaction>;
+  transactions: Map<number, Transaction>;
   currentAccountId?: number | null;
   allTransactionsFetched: boolean;
 };

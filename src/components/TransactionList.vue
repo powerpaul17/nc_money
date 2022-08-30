@@ -94,7 +94,7 @@
       },
       async loadMoreTransactions() {
         const offset = this.numberOfTransactions;
-        await this.transactionStore.fetchTransactions(offset);
+        await this.transactionStore.fetchAndInsertTransactions(offset);
       }
     },
     setup() {
