@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+### Added
+
+- Add I18N
+- Add loading icon to transaction/split items
+
+### Changed
+
+- Design improvements
+- Fix transaction list scrolling
+
 ## [0.2.0] - 2022-08-26
 
 ### Changed
