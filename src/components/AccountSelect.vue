@@ -4,7 +4,7 @@
     v-model="selectedAccountId"
     @change="handleSelectChange"
   >
-    <option value="null">-- No Account --</option>
+    <option :value="null">-- No Account --</option>
     <option v-for="account in accounts" :key="account.id" :value="account.id">
       {{ account.name }}
     </option>
