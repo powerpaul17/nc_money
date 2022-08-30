@@ -32,6 +32,10 @@
   "en": {
     "description": "Description...",
     "name": "Name..."
+  },
+  "de": {
+    "description": "Beschreibung...",
+    "name": "Name..."
   }
 }
 </i18n>

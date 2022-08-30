@@ -40,6 +40,9 @@
 {
   "en": {
     "addAccount": "Add account"
+  },
+  "de": {
+    "addAccount": "Account erstellen"
   }
 }
 </i18n>

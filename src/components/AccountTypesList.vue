@@ -48,6 +48,14 @@
     "income": "Income",
     "liabilities": "Liabilities",
     "unbalanced": "Unbalanced"
+  },
+  "de": {
+    "assets": "Vermögen",
+    "equity": "Reinvermögen",
+    "expenses": "Ausgaben",
+    "income": "Einkommen",
+    "liabilities": "Verbindlichkeiten",
+    "unbalanced": "Unausgeglichen"
   }
 }
 </i18n>
