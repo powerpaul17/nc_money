@@ -43,7 +43,7 @@
     },
     data() {
       return {
-        itemHeight: 50, // TODO calculate this somehow
+        itemHeight: 40, // TODO calculate this somehow
         isLoadingTransactions: false
       };
     },
