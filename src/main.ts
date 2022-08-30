@@ -6,6 +6,8 @@ import { createPinia } from 'pinia';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { createI18n } from 'vue-i18n';
 
+import l10n from '@nextcloud/l10n';
+
 import './main.css';
 
 import App from './App.vue';
@@ -30,7 +32,9 @@ const router = createRouter({
 });
 app.use(router);
 
-const i18n = createI18n({});
+const i18n = createI18n({
+  locale: l10n.getLocale()
+});
 app.use(i18n);
 
 app.mount('#content');
