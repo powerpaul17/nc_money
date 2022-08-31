@@ -21,7 +21,7 @@
         <li>
           <a @click="handleAddAccountClick">
             <span class="icon-add"></span>
-            <span>{{ $t('addAccount') }}</span>
+            <span>{{ $t('components.accountTypeListItem.addAccount') }}</span>
           </a>
         </li>
       </ul>

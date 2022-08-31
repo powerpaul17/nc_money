@@ -1,14 +1,19 @@
 {
-  "addAccount": "Add account",
-  "assets": "Assets",
-  "date": "Date",
-  "deleteAccount": "Delete account",
-  "description": "Description",
-  "equity": "Equity",
-  "expenses": "Expenses",
-  "income": "Income",
-  "liabilities": "Liabilities",
-  "name": "Name",
-  "unbalanced": "Unbalanced",
-  "value": "Value"
+  "components": {
+    "accountTypeListItem": {
+      "addAccount": "Add account"
+    }
+  },
+  "general": {
+    "assets": "Assets",
+    "date": "Date",
+    "description": "Description",
+    "equity": "Equity",
+    "expenses": "Expenses",
+    "income": "Income",
+    "liabilities": "Liabilities",
+    "name": "Name",
+    "unbalanced": "Unbalanced",
+    "value": "Value"
+  }
 }

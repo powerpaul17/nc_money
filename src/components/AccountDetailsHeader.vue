@@ -5,14 +5,14 @@
         <div>
           <SeamlessInput
             class="text-lg"
-            :placeholder="$t('name')"
+            :placeholder="$t('general.name')"
             :value="account.name"
             @value-changed="handleAccountNameModified"
           ></SeamlessInput>
         </div>
         <div>
           <SeamlessInput
-            :placeholder="$t('description')"
+            :placeholder="$t('general.description')"
             :value="account.description"
             @value-changed="handleAccountDescriptionModified"
           ></SeamlessInput>

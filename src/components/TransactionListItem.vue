@@ -7,13 +7,13 @@
       <div class="flex-shrink-0">
         <DateInput
           :date="transaction.date"
-          :placeholder="$t('date')"
+          :placeholder="$t('general.date')"
           @date-changed="handleDateChanged"
         ></DateInput>
       </div>
       <div class="flex-auto">
         <SeamlessInput
-          :placeholder="$t('description')"
+          :placeholder="$t('general.description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
         ></SeamlessInput>
@@ -32,7 +32,7 @@
         <CurrencyInput
           :value="value"
           :editable="valueIsEditable"
-          :placeholder="$t('value')"
+          :placeholder="$t('general.value')"
           @value-changed="handleValueChanged"
         ></CurrencyInput>
       </div>

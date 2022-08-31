@@ -4,7 +4,7 @@
     <div class="flex-auto">
       <SeamlessInput
         :value="description"
-        :placeholder="$t('description')"
+        :placeholder="$t('general.description')"
         @value-changed="(newDescription) => (description = newDescription)"
       ></SeamlessInput>
     </div>
@@ -17,7 +17,7 @@
     <div class="flex-shrink-0">
       <CurrencyInput
         :value="value"
-        :placeholder="$t('value')"
+        :placeholder="$t('general.value')"
         @value-changed="(newValue) => (value = newValue)"
       ></CurrencyInput>
     </div>
