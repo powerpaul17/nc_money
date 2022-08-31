@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### Changed
+
+- Fixed using correct translation if available
+- Moved translations into separate files
+
 ## [0.3.0] - 2022-08-30
 
 ### Added
