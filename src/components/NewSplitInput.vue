@@ -95,7 +95,8 @@
       },
       resetFields() {
         this.description = '';
-        this.value = 0.0;
+        this.destAccountId = null;
+        this.value = this.initialValue ?? 0.0;
       }
     },
     setup() {
