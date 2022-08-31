@@ -1,14 +1,14 @@
 {
   "addAccount": "Add account",
   "assets": "Assets",
-  "date": "Date...",
+  "date": "Date",
   "deleteAccount": "Delete account",
-  "description": "Description...",
+  "description": "Description",
   "equity": "Equity",
   "expenses": "Expenses",
   "income": "Income",
   "liabilities": "Liabilities",
-  "name": "Name...",
+  "name": "Name",
   "unbalanced": "Unbalanced",
-  "value": "Value..."
+  "value": "Value"
 }

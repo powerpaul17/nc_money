@@ -2,7 +2,7 @@
   <input
     class="border-transparent hover:border-primary-element w-full bg-inherit overflow-hidden text-ellipsis disabled:bg-background-dark disabled:text-text-maxcontrast disabled:hover:border-transparent"
     type="text"
-    :placeholder="placeholder"
+    :placeholder="placeholder + '...'"
     :disabled="disabled"
     v-model="inputValue"
     @change="handleValueChange"

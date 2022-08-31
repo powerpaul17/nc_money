@@ -1,14 +1,14 @@
 {
   "addAccount": "Account erstellen",
   "assets": "Vermögen",
-  "date": "Datum...",
+  "date": "Datum",
   "deleteAccount": "Account löschen",
-  "description": "Beschreibung...",
+  "description": "Beschreibung",
   "equity": "Reinvermögen",
   "expenses": "Ausgaben",
   "income": "Einkommen",
   "liabilities": "Verbindlichkeiten",
-  "name": "Name...",
+  "name": "Name",
   "unbalanced": "Unausgeglichen",
-  "value": "Wert..."
+  "value": "Wert"
 }
