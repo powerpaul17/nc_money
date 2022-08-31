@@ -23,7 +23,7 @@
       ></CurrencyInput>
     </div>
     <div>
-      <div v-if="isLoading" class="icon-loading-small"></div>
+      <div v-if="_isLoading" class="icon-loading-small"></div>
       <div v-else class="icon-delete" @click="handleDeleteSplit"></div>
     </div>
   </div>
@@ -47,13 +47,22 @@
       excludedAccountIds: {
         type: Object as PropType<Array<number>>,
         default: []
+      },
+      isLoading: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['split-deleted'],
     data() {
       return {
-        isLoading: false
+        _isLoading: false
       };
+    },
+    watch: {
+      isLoading() {
+        this._isLoading = this.isLoading;
+      }
     },
     methods: {
       async handleValueChanged(value: number) {
@@ -61,6 +70,7 @@
         await this.handleSplitChanged();
       },
       async handleDeleteSplit() {
+        this._isLoading = true;
         this.$emit('split-deleted', this.split);
       },
       async handleDescriptionChanged(description: string) {
@@ -72,10 +82,13 @@
         await this.handleSplitChanged();
       },
       async handleSplitChanged() {
-        this.isLoading = true;
+        this._isLoading = true;
         await this.transactionStore.updateSplit(this.split);
-        this.isLoading = false;
+        this._isLoading = false;
       }
+    },
+    mounted() {
+      this._isLoading = this.isLoading;
     },
     setup() {
       const transactionStore = useTransactionStore();

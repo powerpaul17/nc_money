@@ -210,9 +210,7 @@
         }
       },
       async handleSplitDeleted(split: Split) {
-        this.isLoading = true;
         await this.transactionStore.deleteSplit(split);
-        this.isLoading = false;
       },
       async handleSplitChanged(split: Split) {
         this.isLoading = true;
