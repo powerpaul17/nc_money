@@ -23,7 +23,12 @@
     </div>
     <div>
       <div v-if="isLoading" class="icon-loading-small"></div>
-      <div v-else class="icon-checkmark" @click="handleSubmitSplitClick"></div>
+      <div
+        v-else
+        class="icon-checkmark"
+        :class="{ 'opacity-25': !isValid }"
+        @click="(event) => isValid && handleSubmitSplitClick(event)"
+      ></div>
     </div>
   </div>
 </template>
@@ -60,6 +65,11 @@
     watch: {
       initialValue() {
         this.value = this.initialValue ?? 0.0;
+      }
+    },
+    computed: {
+      isValid() {
+        return this.destAccountId != null && this.value !== 0.0;
       }
     },
     methods: {

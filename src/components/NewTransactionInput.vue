@@ -33,7 +33,8 @@
       <div
         v-else
         class="icon-checkmark"
-        @click="handleSubmitTransactionClick"
+        :class="{ 'opacity-25': !isValid }"
+        @click="(event) => isValid && handleSubmitTransactionClick(event)"
       ></div>
     </div>
   </div>
@@ -63,6 +64,11 @@
         value: 0.0,
         isLoading: false
       };
+    },
+    computed: {
+      isValid() {
+        return this.value !== 0.0;
+      }
     },
     methods: {
       async handleSubmitTransactionClick() {
