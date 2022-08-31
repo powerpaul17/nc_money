@@ -20,7 +20,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       vueI18N({
-        compositionOnly: false
+        compositionOnly: false,
+        include: './src/locales/**'
       })
     ]
   };

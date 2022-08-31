@@ -36,17 +36,6 @@
   </li>
 </template>
 
-<i18n>
-{
-  "en": {
-    "addAccount": "Add account"
-  },
-  "de": {
-    "addAccount": "Account erstellen"
-  }
-}
-</i18n>
-
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
   import { AccountType, useAccountStore } from '../stores/accountStore';

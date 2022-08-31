@@ -39,27 +39,6 @@
   </ul>
 </template>
 
-<i18n>
-{
-  "en": {
-    "assets": "Assets",
-    "equity": "Equity",
-    "expenses": "Expenses",
-    "income": "Income",
-    "liabilities": "Liabilities",
-    "unbalanced": "Unbalanced"
-  },
-  "de": {
-    "assets": "Vermögen",
-    "equity": "Reinvermögen",
-    "expenses": "Ausgaben",
-    "income": "Einkommen",
-    "liabilities": "Verbindlichkeiten",
-    "unbalanced": "Unausgeglichen"
-  }
-}
-</i18n>
-
 <script lang="ts">
   import { defineComponent } from 'vue';
 
