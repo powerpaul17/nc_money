@@ -33,7 +33,8 @@ const router = createRouter({
 app.use(router);
 
 const i18n = createI18n({
-  locale: l10n.getLocale()
+  locale: l10n.getLanguage(),
+  fallbackLocale: 'en'
 });
 app.use(i18n);
 
