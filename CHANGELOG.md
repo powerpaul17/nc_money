@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.3.1] - 2022-08-31
+
 ### Changed
 
 - Fixed using correct translation if available
