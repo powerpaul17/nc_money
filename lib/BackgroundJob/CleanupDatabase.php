@@ -5,11 +5,14 @@ namespace OCA\Money\BackgroundJob;
 use Psr\Log\LoggerInterface;
 
 use OCP\BackgroundJob\TimedJob;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IDBConnection;
 
 class CleanupDatabase extends TimedJob {
 
-  public function __construct(IDBConnection $connection, LoggerInterface $logger) {
+  public function __construct(ITimeFactory $time, IDBConnection $connection, LoggerInterface $logger) {
+    parent::__construct($time);
+
     $this->connection = $connection;
     $this->logger = $logger;
 
