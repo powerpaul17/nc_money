@@ -1,5 +1,8 @@
 <template>
-  <div class="app-content-details flex flex-col h-[calc(100vh-50px)]">
+  <div
+    class="app-content-details flex flex-col h-[calc(100vh-50px)]"
+    v-if="renderComponent"
+  >
     <AccountDetails
       v-if="selectedAccount"
       :account="selectedAccount"
@@ -17,6 +20,7 @@
   export default defineComponent({
     data() {
       return {
+        renderComponent: true,
         accountStore: useAccountStore()
       };
     },
@@ -28,6 +32,19 @@
         } else {
           return null;
         }
+      }
+    },
+    watch: {
+      selectedAccount() {
+        this.forceRerender();
+      }
+    },
+    methods: {
+      forceRerender() {
+        this.renderComponent = false;
+        this.$nextTick(() => {
+          this.renderComponent = true;
+        });
       }
     },
     components: { AccountDetails }
