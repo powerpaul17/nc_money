@@ -23,7 +23,8 @@
     },
     data() {
       return {
-        animationClass: null as String | null
+        animationClass: null as String | null,
+        shownValue: this.value
       };
     },
     watch: {
@@ -39,11 +40,37 @@
         setTimeout(() => {
           this.animationClass = null;
         }, 300);
+
+        const difference = newValue - oldValue;
+        const duration = 500;
+        const changePerMillisecond = difference / duration;
+
+        let startTimestamp: number | undefined;
+
+        const callback: FrameRequestCallback = (timestamp) => {
+          if (startTimestamp == undefined) {
+            startTimestamp = timestamp;
+          }
+          const elapsed = timestamp - startTimestamp;
+
+          this.shownValue = oldValue + changePerMillisecond * elapsed;
+
+          if (
+            (difference > 0 && this.shownValue < newValue) ||
+            (difference < 0 && this.shownValue > newValue)
+          ) {
+            window.requestAnimationFrame(callback);
+          } else {
+            this.shownValue = newValue;
+          }
+        };
+
+        window.requestAnimationFrame(callback);
       }
     },
     computed: {
       formattedValue() {
-        return this.value.toFixed(2);
+        return this.shownValue.toFixed(2);
       }
     }
   });
