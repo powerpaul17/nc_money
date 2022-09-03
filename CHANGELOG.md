@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Currency inputs can now accept simple math expressions
+
 ## [0.3.1] - 2022-08-31
 
 ### Changed

@@ -11,6 +11,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
+  import { useMathExpression } from '../utils/mathExpression';
+
   import SeamlessInput from './SeamlessInput.vue';
 
   export default defineComponent({
@@ -48,7 +50,7 @@
       handleValueChanged(newValue: string) {
         this.currencyValue = this.formattedValue;
 
-        const newNumber = Number(newValue);
+        const newNumber = this.mathExpression.evaluate(newValue);
         if (!Number.isNaN(newNumber)) {
           this.$emit('value-changed', newNumber);
         }
@@ -56,6 +58,11 @@
     },
     mounted() {
       this.currencyValue = this.formattedValue;
+    },
+    setup() {
+      return {
+        mathExpression: useMathExpression()
+      };
     },
     components: { SeamlessInput }
   });
