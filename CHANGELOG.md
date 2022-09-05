@@ -4,6 +4,10 @@
 
 - Currency inputs can now accept simple math expressions
 
+### Changed
+
+- Limit account view width for better readability
+
 ## [0.3.1] - 2022-08-31
 
 ### Changed

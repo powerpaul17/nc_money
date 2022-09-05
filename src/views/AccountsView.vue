@@ -1,6 +1,6 @@
 <template>
   <div
-    class="app-content-details flex flex-col h-[calc(100vh-50px)]"
+    class="app-content-details flex flex-col h-[calc(100vh-50px)] lg:container mx-auto"
     v-if="renderComponent"
   >
     <AccountDetails
