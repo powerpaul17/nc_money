@@ -101,55 +101,6 @@ class TransactionController extends MoneyController {
   /**
    * @NoAdminRequired
    *
-   * @param int $srcAccountId
-   * @param int $destAccountId
-   * @param float $value
-   * @param float $convertRate
-   * @param $date
-   * @param string $description
-   */
-  public function addSimpleTransaction($srcAccountId, $destAccountId, $value, $convertRate, $date, $description, $srcSplitComment = '', $destSplitComment = '') {
-    $newTransaction = $this->transactionService->create($description, $date, $this->userId);
-
-    if ($destAccountId > 0) {
-      $this->splitService->create($newTransaction->id, $destAccountId, $value/$convertRate, $convertRate, $destSplitComment, $this->userId);
-    }
-    $this->splitService->create($newTransaction->id, $srcAccountId, -$value, 1, $srcSplitComment, $this->userId);
-
-    return $this->getTransaction($newTransaction->getId());
-  }
-
-  /**
-   * @NoAdminRequired
-   */
-  public function addSplitTransaction() {
-    // TODO
-  }
-
-  /**
-   * @NoAdminRequired
-   */
-  public function addTransactions($transactions) {
-    $count = 0;
-    $value = 0.0;
-    foreach($transactions as $transaction) {
-      $newTransaction = $this->addSimpleTransaction($transaction['srcAccountId'], $transaction['destAccountId'], $transaction['value'], $transaction['convertRate'], $transaction['date'], $transaction['description'], $transaction['srcSplitComment']);
-      foreach($newTransaction['splits'] as $split) {
-        if($split->getDestAccountId() == $transaction['srcAccountId']) {
-          $value += $split->getValue();
-        }
-      }
-      $count++;
-    }
-    return [
-      'transactionsAdded' => $count,
-      'totalValue' => $value
-    ];
-  }
-
-  /**
-   * @NoAdminRequired
-   *
    * @param int $resultOffset
    * @param int $resultLimit
    */
