@@ -23,6 +23,11 @@ export default defineConfig(({ mode }) => {
         compositionOnly: false,
         include: './src/locales/**'
       })
-    ]
+    ],
+    test: {
+      coverage: {
+        provider: 'istanbul'
+      }
+    }
   };
 });

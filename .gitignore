@@ -5,3 +5,4 @@ appinfo/signature.json
 *.tar.gz
 .env
 *.code-workspace
+coverage
