@@ -13,7 +13,7 @@ export function useMathExpression() {
     const parts = split(expression, '-').map((p) => multiplication(p));
 
     const initialValue = parts.shift();
-    if (!initialValue)
+    if (initialValue == undefined)
       throw new Error('cannot subtract without an initial value');
 
     return parts.reduce((sum, num) => sum - num, initialValue);
@@ -34,7 +34,7 @@ export function useMathExpression() {
     });
 
     const initialValue = parts.shift();
-    if (!initialValue)
+    if (initialValue == undefined)
       throw new Error('cannot divide without an initial value');
 
     const result = parts.reduce((sum, num) => sum / num, initialValue);
@@ -54,7 +54,8 @@ export function useMathExpression() {
       } else if (currentChar === ')') {
         braces--;
       }
-      if (braces == 0 && operator == currentChar) {
+      if (braces == 0 && operator === currentChar) {
+        if (currentChunk === '') currentChunk = '0';
         result.push(currentChunk);
         currentChunk = '';
       } else currentChunk += currentChar;
