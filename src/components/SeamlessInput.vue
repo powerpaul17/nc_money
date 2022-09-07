@@ -1,6 +1,6 @@
 <template>
   <input
-    class="border-transparent hover:border-primary-element w-full bg-inherit overflow-hidden text-ellipsis disabled:text-text-maxcontrast disabled:hover:border-transparent"
+    class="border-transparent hover:border-primary-element focus:border-primary-element w-full bg-inherit overflow-hidden text-ellipsis disabled:text-text-maxcontrast disabled:hover:border-transparent"
     type="text"
     :placeholder="placeholder + '...'"
     :disabled="disabled"
