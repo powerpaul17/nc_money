@@ -6,6 +6,7 @@
     :disabled="disabled"
     v-model="inputValue"
     @change="handleValueChange"
+    @focus="($event.target as HTMLInputElement).select()"
   />
 </template>
 
