@@ -30,6 +30,7 @@
     type Transaction,
     useTransactionStore
   } from '../stores/transactionStore';
+  import { useSplitStore } from '../stores/splitStore';
 
   import TransactionListItem from './TransactionListItem.vue';
   import NewTransactionInput from './NewTransactionInput.vue';
@@ -49,11 +50,13 @@
     },
     computed: {
       transactions(): Array<Transaction> {
-        return this.transactionStore.sortedByDate.filter(
-          (t) =>
-            t.splits.length &&
-            t.splits.some((s) => s.destAccountId === this.account.id)
-        );
+        return this.transactionStore.sortedByDate.filter((t) => {
+          const splits = this.splitStore.getByTransactionId(t.id);
+          return (
+            splits.length &&
+            splits.some((s) => s.destAccountId === this.account.id)
+          );
+        });
       },
       numberOfTransactions() {
         return this.transactions.length;
@@ -98,8 +101,10 @@
       }
     },
     setup() {
-      const transactionStore = useTransactionStore();
-      return { transactionStore };
+      return {
+        transactionStore: useTransactionStore(),
+        splitStore: useSplitStore()
+      };
     },
     async mounted() {
       await this.changeAccount();

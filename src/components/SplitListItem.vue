@@ -32,7 +32,7 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { type Split, useTransactionStore } from '../stores/transactionStore';
+  import { useSplitStore, type Split } from '../stores/splitStore';
 
   import CurrencyInput from './CurrencyInput.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -83,7 +83,7 @@
       },
       async handleSplitChanged() {
         this._isLoading = true;
-        await this.transactionStore.updateSplit(this.split);
+        await this.splitStore.updateSplit(this.split);
         this._isLoading = false;
       }
     },
@@ -91,8 +91,8 @@
       this._isLoading = this.isLoading;
     },
     setup() {
-      const transactionStore = useTransactionStore();
-      return { transactionStore };
+      const splitStore = useSplitStore();
+      return { splitStore };
     },
     components: { CurrencyInput, AccountSelect, SeamlessInput }
   });

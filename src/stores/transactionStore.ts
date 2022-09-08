@@ -3,7 +3,7 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import { defineStore } from 'pinia';
 
-import { useAccountStore } from './accountStore';
+import { createSplitFromResponseData, useSplitStore } from './splitStore';
 
 export const useTransactionStore = defineStore('transaction', {
   state: (): State => ({
@@ -115,86 +115,24 @@ export const useTransactionStore = defineStore('transaction', {
         generateUrl(`apps/money/transactions/${transaction.id}`),
         data
       );
-    },
-
-    // -- SPLITS --
-
-    async updateSplit(split: Split) {
-      await axios.put(generateUrl(`apps/money/splits/${split.id}`), split);
-    },
-    async addSplit(split: SplitCreationData) {
-      const transaction = this.getById(split.transactionId);
-      if (!transaction) throw new Error('transaction does not exist');
-
-      const response = await axios.post(
-        generateUrl('apps/money/splits'),
-        split
-      );
-
-      const newSplit = createSplitFromResponseData(response.data);
-      transaction.splits.push(newSplit);
-
-      this.addValueToAccount(split.destAccountId, split.value);
-    },
-    async deleteSplit(split: Split) {
-      const transaction = this.getById(split.transactionId);
-      if (!transaction) throw new Error('transaction does not exist');
-
-      await axios.delete(generateUrl(`apps/money/splits/${split.id}`));
-
-      const index = transaction.splits.findIndex((s) => s.id === split.id);
-      transaction.splits.splice(index, 1);
-
-      this.addValueToAccount(split.destAccountId, -split.value);
-    },
-
-    // -- ACCOUNT VALUES --
-
-    addValueToAccount(accountId: number, value: number) {
-      const accountStore = useAccountStore();
-      accountStore.addValue(accountId, value);
     }
   }
 });
 
 function createTransactionFromResponseData(data): Transaction {
+  const splitStore = useSplitStore();
+
+  if (data.splits) {
+    const splits = data.splits.map(createSplitFromResponseData);
+    splitStore.insertSplits(splits);
+  }
+
   return {
     id: data.id,
     description: data.description,
     date: new Date(data.date),
-    timestampAdded: new Date(data.timestampAdded).valueOf(),
-    splits: data.splits?.map(createSplitFromResponseData) ?? []
+    timestampAdded: new Date(data.timestampAdded).valueOf()
   };
-}
-
-function createSplitFromResponseData(data): Split {
-  return new Proxy(
-    {
-      id: data.id,
-      transactionId: data.transactionId,
-      destAccountId: data.destAccountId,
-      description: data.description,
-      value: data.value,
-      convertRate: data.convertRate
-    },
-    {
-      set(target, p, value, receiver) {
-        const accountStore = useAccountStore();
-
-        if (p === 'value') {
-          const diff = value - target.value;
-          accountStore.addValue(target.destAccountId, diff);
-        } else if (p === 'destAccountId') {
-          accountStore.addValue(target.destAccountId, -target.value);
-          accountStore.addValue(value, target.value);
-        }
-
-        target[p] = value;
-
-        return true;
-      }
-    }
-  );
 }
 
 type State = {
@@ -208,21 +146,6 @@ export type Transaction = {
   description: string;
   date: Date;
   timestampAdded: number;
-  splits: Array<Split>;
 };
 
-type TransactionCreationData = Omit<
-  Transaction,
-  'id' | 'timestampAdded' | 'splits'
->;
-
-export type Split = {
-  id: number;
-  description: string;
-  transactionId: number;
-  destAccountId: number;
-  value: number;
-  convertRate: number;
-};
-
-type SplitCreationData = Omit<Split, 'id'>;
+type TransactionCreationData = Omit<Transaction, 'id' | 'timestampAdded'>;

@@ -43,7 +43,7 @@
     </div>
     <div v-if="showSplits" class="bg-gray-100 shadow-inner">
       <SplitListItem
-        v-for="split in transaction.splits"
+        v-for="split in splits"
         :key="split.id"
         :split="split"
         :excludedAccountIds="
@@ -66,9 +66,9 @@
 
   import {
     useTransactionStore,
-    type Split,
     type Transaction
   } from '../stores/transactionStore';
+  import { useSplitStore, type Split } from '../stores/splitStore';
 
   import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -99,15 +99,16 @@
           return (v += split.value);
         }, 0.0);
       },
+      splits() {
+        return this.splitStore.getByTransactionId(this.transaction.id);
+      },
       splitOfAccount() {
         return this.splitsOfAccount.length > 1
           ? undefined
           : this.splitsOfAccount[0];
       },
       splitsOfAccount() {
-        return this.transaction.splits.filter(
-          (s) => s.destAccountId === this.accountId
-        );
+        return this.splits.filter((s) => s.destAccountId === this.accountId);
       },
       splitOfDestinationAccount() {
         return this.hasMultipleDestinationSplits
@@ -115,7 +116,7 @@
           : this.splitsOfDestinationAccounts[0];
       },
       splitsOfDestinationAccounts() {
-        return this.transaction.splits.filter(
+        return this.splits.filter(
           (s) => this.accountId && s.destAccountId !== this.accountId
         );
       },
@@ -129,10 +130,7 @@
         return !this.showSplits && !this.hasMultipleDestinationSplits;
       },
       unbalancedValue() {
-        return this.transaction.splits.reduce(
-          (value, s) => (value += s.value),
-          0.0
-        );
+        return this.splits.reduce((value, s) => (value += s.value), 0.0);
       },
       isUnbalanced() {
         return this.unbalancedValue !== 0.0;
@@ -145,7 +143,7 @@
         }
       },
       excludedSplitAccountIds() {
-        return this.transaction.splits.map((s) => s.destAccountId);
+        return this.splits.map((s) => s.destAccountId);
       }
     },
     methods: {
@@ -194,7 +192,7 @@
         const split = this.splitOfDestinationAccount;
         if (!split) {
           if (accountId) {
-            await this.transactionStore.addSplit({
+            await this.splitStore.addSplit({
               transactionId: this.transaction.id,
               destAccountId: accountId,
               value: -this.value,
@@ -210,17 +208,19 @@
         }
       },
       async handleSplitDeleted(split: Split) {
-        await this.transactionStore.deleteSplit(split);
+        await this.splitStore.deleteSplit(split);
       },
       async handleSplitChanged(split: Split) {
         this.isLoading = true;
-        await this.transactionStore.updateSplit(split);
+        await this.splitStore.updateSplit(split);
         this.isLoading = false;
       }
     },
     setup() {
-      const transactionStore = useTransactionStore();
-      return { transactionStore };
+      return {
+        transactionStore: useTransactionStore(),
+        splitStore: useSplitStore()
+      };
     },
     components: {
       SplitListItem,

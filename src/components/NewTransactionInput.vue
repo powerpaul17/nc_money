@@ -42,6 +42,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+
+  import { useSplitStore } from '../stores/splitStore';
   import { useTransactionStore } from '../stores/transactionStore';
 
   import AccountSelect from './AccountSelect.vue';
@@ -81,7 +83,7 @@
           date: this.date,
           description: this.description
         });
-        await this.transactionStore.addSplit({
+        await this.splitStore.addSplit({
           transactionId: transaction.id,
           value: this.value,
           convertRate: 1.0,
@@ -89,7 +91,7 @@
           destAccountId: this.accountId
         });
         if (this.destAccountId) {
-          await this.transactionStore.addSplit({
+          await this.splitStore.addSplit({
             transactionId: transaction.id,
             value: -this.value,
             convertRate: 1.0,
@@ -106,8 +108,10 @@
       }
     },
     setup() {
-      const transactionStore = useTransactionStore();
-      return { transactionStore };
+      return {
+        transactionStore: useTransactionStore(),
+        splitStore: useSplitStore()
+      };
     },
     components: {
       AccountSelect,
