@@ -19,7 +19,7 @@ return [
     ['name' => 'settings#get_config', 'url' => '/config', 'verb' => 'GET'],
     ['name' => 'settings#set_config', 'url' => '/config', 'verb' => 'POST'],
 
-    ['name' => 'account#get_account_balance', 'url' => '/accounts/get-account-balance', 'verb' => 'GET'],
+    ['name' => 'account#get_account_balance', 'url' => '/accounts/balance', 'verb' => 'GET'],
 
     ['name' => 'account#get_accounts', 'url' => '/accounts', 'verb' => 'GET'],
     ['name' => 'account#get_account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
@@ -27,9 +27,9 @@ return [
     ['name' => 'account#add_account', 'url' => '/accounts', 'verb' => 'POST'],
     ['name' => 'account#delete_account', 'url' => '/accounts/{id}', 'verb' => 'DELETE'],
 
-    ['name' => 'transaction#get_transactions_for_account', 'url' => '/transactions/get-transactions-for-account', 'verb' => 'GET'],
-    ['name' => 'transaction#get_transactions_for_account_by_date', 'url' => '/transactions/get-transactions-for-account-by-date', 'verb' => 'GET'],
-    ['name' => 'transaction#get_unbalanced_transactions', 'url' => '/transactions/get-unbalanced-transactions', 'verb' => 'GET'],
+    ['name' => 'transaction#get_transactions_for_account', 'url' => '/transactions/for-account', 'verb' => 'GET'],
+    ['name' => 'transaction#get_transactions_for_account_by_date', 'url' => '/transactions/for-account-by-date', 'verb' => 'GET'],
+    ['name' => 'transaction#get_unbalanced_transactions', 'url' => '/transactions/unbalanced', 'verb' => 'GET'],
 
     ['name' => 'transaction#get_transaction', 'url' => '/transactions/{id}', 'verb' => 'GET'],
     ['name' => 'transaction#update_transaction', 'url' => '/transactions/{id}', 'verb' => 'PUT'],

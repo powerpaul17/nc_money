@@ -56,7 +56,7 @@ export const useTransactionStore = defineStore('transaction', {
       limit = 100
     ) {
       const response = await axios.get(
-        generateUrl('apps/money/transactions/get-transactions-for-account'),
+        generateUrl('apps/money/transactions/for-account'),
         {
           params: {
             accountId: accountId,
@@ -70,7 +70,7 @@ export const useTransactionStore = defineStore('transaction', {
     },
     async fetchUnbalancedTransactions(offset = 0, limit = 100) {
       const response = await axios.get(
-        generateUrl('apps/money/transactions/get-unbalanced-transactions'),
+        generateUrl('apps/money/transactions/unbalanced'),
         {
           params: {
             resultOffset: offset,
