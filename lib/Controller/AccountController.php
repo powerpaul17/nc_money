@@ -22,17 +22,22 @@ class AccountController extends MoneyController {
    * @NoAdminRequired
    */
   public function getAccounts() {
-    $sql = 'SELECT a.*, ROUND(SUM(b.value), 2) AS balance ' .
-           'FROM *PREFIX*money_accounts a ' .
-           'LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id ' .
-           'LEFT JOIN *PREFIX*money_transactions c ON b.transaction_id = c.id ' .
-           'WHERE a.user_id = ? ' .
-           'GROUP BY a.id;';
-    $query = $this->db->prepare($sql);
-    $query->bindParam(1, $this->userId, \PDO::PARAM_INT);
-    $query->execute();
-    $rows = $query->fetchAll();
-    $query->closeCursor();
+    $qb = $this->db->getQueryBuilder();
+
+    $qb->select('a.*')
+      ->selectAlias($qb->createFunction('ROUND(SUM(b.value), 2)'), 'balance')
+      ->from('money_accounts', 'a')
+      ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
+      ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
+      ->where('a.user_id = :user_id')
+      ->groupBy('a.id')
+
+      ->setParameter('user_id', $this->userId);
+
+    $result = $qb->executeQuery();
+    $rows = $result->fetchAll();
+    $result->closeCursor();
+
     return $rows;
     //return new DataResponse($this->accountService->findAll($this->userId));
   }
@@ -43,22 +48,23 @@ class AccountController extends MoneyController {
    * @param int $id
    */
   public function getAccount($id) {
-    $sql = 'SELECT a.*, COALESCE(ROUND(SUM(b.value), 2), 0) AS balance ' .
-           'FROM *PREFIX*money_accounts a ' .
-           'LEFT JOIN *PREFIX*money_splits b ON b.dest_account_id = a.id ' .
-           'LEFT JOIN *PREFIX*money_transactions c ON b.transaction_id = c.id ' .
-           'WHERE a.id = ? AND a.user_id = ? ' .
-           'GROUP BY a.id;';
-    $query = $this->db->prepare($sql);
+    $qb = $this->db->getQueryBuilder();
 
-    $query->bindParam(1, $id, \PDO::PARAM_INT);
-    $query->bindParam(2, $this->userId, \PDO::PARAM_STR);
+    $qb->select('a.*')
+      ->selectAlias($qb->createFunction('COALESCE(ROUND(SUM(b.value), 2), 0)'), 'balance')
+      ->from('money_accounts' ,'a')
+      ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
+      ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
+      ->where('a.id = :id')
+      ->andWhere('a.user_id = :user_id')
+      ->groupBy('a.id')
 
-    $query->execute();
+      ->setParameter('user_id', $this->userId)
+      ->setParameter('id', $id);
 
-    $row = $query->fetch();
-
-    $query->closeCursor();
+    $result = $qb->executeQuery();
+    $row = $result->fetch();
+    $result->closeCursor();
 
     return $row;
     //return new DataResponse($this->accountService->find($id, $this->userId));
@@ -102,23 +108,21 @@ class AccountController extends MoneyController {
    * @param int $id
    */
   public function getAccountBalance($id) {
-    $sql = 'SELECT ROUND(SUM(a.value), 2) AS balance ' .
-           'FROM *PREFIX*money_splits a ' .
-           'LEFT JOIN *PREFIX*money_transactions b ON a.transaction_id = b.id ' .
-           'WHERE dest_account_id = ? AND user_id = ?;';
-    $query = $this->db->prepare($sql);
+    $qb = $this->db->getQueryBuilder();
 
-    $query->bindValue(1, $id, \PDO::PARAM_INT);
-    $query->bindValue(2, $this->userId, \PDO::PARAM_STR);
+    $qb->selectAlias($qb->createFunction('ROUND(SUM(a.value), 2)'), 'balance')
+      ->from('money_splits' , 'a')
+      ->leftJoin('a', 'money_transactions', 'b', 'a.transaction_id = b.id')
+      ->where('dest_account_id = :dest_account_id')
+      ->andWhere('user_id = :user_id')
+      ->setParameter('user_id', $this->userId)
+      ->setParameter('dest_acount_id', $id);
 
-    $query->execute();
+    $result = $qb->executeQuery();
+    $returnValue = $result->fetch();
+    $result->closeCursor();
 
-    $result = $query->fetch();
-
-    $query->closeCursor();
-
-    // $result = $query->execute([$id, $this->userId])->fetch();
-    return $result;
+    return $returnValue;
   }
 
 }

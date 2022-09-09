@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Use query builder instead of deprecated direct sql statements in account controller
+
 ## [0.4.0] - 2022-09-06
 
 ### Added
