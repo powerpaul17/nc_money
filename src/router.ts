@@ -7,7 +7,14 @@ export default createRouter({
   routes: [
     {
       path: '/accounts/:accountId',
-      component: AccountsView
+      component: AccountsView,
+      props: {
+        default: (route) => {
+          return {
+            accountId: Number(route.params.accountId)
+          };
+        }
+      }
     }
   ]
 });

@@ -18,6 +18,12 @@
   import AccountDetails from '../components/AccountDetails.vue';
 
   export default defineComponent({
+    props: {
+      accountId: {
+        type: Number,
+        required: true
+      }
+    },
     data() {
       return {
         renderComponent: true,
@@ -26,12 +32,7 @@
     },
     computed: {
       selectedAccount() {
-        const accountId = this.$route.params.accountId;
-        if (accountId) {
-          return this.accountStore.getById(Number(accountId));
-        } else {
-          return null;
-        }
+        return this.accountStore.getById(this.accountId);
       }
     },
     watch: {
