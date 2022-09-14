@@ -1,0 +1,4 @@
+[submodule "src/vendor/nextcloud-vue"]
+	path = src/vendor/nextcloud-vue
+	url = https://github.com/nextcloud/nextcloud-vue
+	branch = vue3
