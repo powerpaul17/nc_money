@@ -6,6 +6,8 @@
   <div id="app-content">
     <router-view></router-view>
   </div>
+
+  <router-view name="sidebar"></router-view>
 </template>
 
 <script lang="ts">
