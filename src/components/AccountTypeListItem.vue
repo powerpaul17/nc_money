@@ -32,6 +32,11 @@
         v-for="account in accounts"
         :account="account"
       ></AccountListItem>
+      <li>
+        <a v-if="!accounts.length" href="#">
+          {{ $t('components.accountTypeListItem.noAccounts') }}
+        </a>
+      </li>
     </ul>
   </li>
 </template>

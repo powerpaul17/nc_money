@@ -1,7 +1,8 @@
 {
   "components": {
     "accountTypeListItem": {
-      "addAccount": "Konto erstellen"
+      "addAccount": "Konto erstellen",
+      "noAccounts": "Keine Konten"
     }
   },
   "general": {

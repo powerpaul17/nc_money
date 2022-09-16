@@ -1,7 +1,8 @@
 {
   "components": {
     "accountTypeListItem": {
-      "addAccount": "Add account"
+      "addAccount": "Add account",
+      "noAccounts": "No accounts"
     }
   },
   "general": {
