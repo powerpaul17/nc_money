@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
-import axios from '@nextcloud/axios';
-import { generateUrl } from '@nextcloud/router';
 import { defineStore } from 'pinia';
 
-import { createSplitFromResponseData, useSplitStore } from './splitStore';
+import {
+  useTransactionApiService,
+  type TransactionCreationData
+} from '../services/transactionApiService';
 
 export const useTransactionStore = defineStore('transaction', {
   state: (): State => ({
@@ -54,32 +54,20 @@ export const useTransactionStore = defineStore('transaction', {
       accountId: number,
       offset = 0,
       limit = 100
-    ) {
-      const response = await axios.get(
-        generateUrl('apps/money/transactions/for-account'),
-        {
-          params: {
-            accountId: accountId,
-            resultOffset: offset,
-            resultLimit: limit
-          }
-        }
+    ): Promise<Array<Transaction>> {
+      const transactionApiService = useTransactionApiService();
+      return await transactionApiService.getTransactionsOfAccount(
+        accountId,
+        offset,
+        limit
       );
-
-      return response.data.map(createTransactionFromResponseData);
     },
     async fetchUnbalancedTransactions(offset = 0, limit = 100) {
-      const response = await axios.get(
-        generateUrl('apps/money/transactions/unbalanced'),
-        {
-          params: {
-            resultOffset: offset,
-            resultLimit: limit
-          }
-        }
+      const transactionApiService = useTransactionApiService();
+      return await transactionApiService.getUnbalancedTransactions(
+        offset,
+        limit
       );
-
-      return response.data.map(createTransactionFromResponseData);
     },
     insertTransactions(transactions: Array<Transaction>) {
       for (const transaction of transactions) {
@@ -90,50 +78,21 @@ export const useTransactionStore = defineStore('transaction', {
     // -- TRANSACTIONS --
 
     async addTransaction(transaction: TransactionCreationData) {
-      const data = {
-        ...transaction,
-        date: dayjs(transaction.date).format('YYYY-MM-DD')
-      };
-
-      const response = await axios.post(
-        generateUrl('apps/money/transactions'),
-        data
+      const transactionApiService = useTransactionApiService();
+      const newTransaction = await transactionApiService.addTransaction(
+        transaction
       );
 
-      const newTransaction = createTransactionFromResponseData(response.data);
       this.transactions.set(newTransaction.id, newTransaction);
 
       return newTransaction;
     },
     async updateTransaction(transaction: Transaction) {
-      const data = {
-        ...transaction,
-        date: dayjs(transaction.date).format('YYYY-MM-DD')
-      };
-
-      await axios.put(
-        generateUrl(`apps/money/transactions/${transaction.id}`),
-        data
-      );
+      const transactionApiService = useTransactionApiService();
+      await transactionApiService.updateTransaction(transaction);
     }
   }
 });
-
-function createTransactionFromResponseData(data): Transaction {
-  const splitStore = useSplitStore();
-
-  if (data.splits) {
-    const splits = data.splits.map(createSplitFromResponseData);
-    splitStore.insertSplits(splits);
-  }
-
-  return {
-    id: data.id,
-    description: data.description,
-    date: new Date(data.date),
-    timestampAdded: new Date(data.timestampAdded).valueOf()
-  };
-}
 
 type State = {
   transactions: Map<number, Transaction>;
@@ -147,5 +106,3 @@ export type Transaction = {
   date: Date;
   timestampAdded: number;
 };
-
-type TransactionCreationData = Omit<Transaction, 'id' | 'timestampAdded'>;
