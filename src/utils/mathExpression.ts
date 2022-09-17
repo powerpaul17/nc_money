@@ -1,6 +1,6 @@
 export function useMathExpression() {
   function evaluate(expression: string): number {
-    expression = expression.replaceAll(' ', '');
+    expression = expression.replace(/ /g, '');
     return addition(expression);
   }
 
