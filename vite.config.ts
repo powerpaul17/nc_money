@@ -62,7 +62,8 @@ export default defineConfig(({ mode }) => {
     test: {
       coverage: {
         provider: 'istanbul'
-      }
+      },
+      exclude: ['node_modules', 'src/vendor']
     }
   };
 });
