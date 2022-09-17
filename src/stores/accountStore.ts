@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia';
-import axios from '@nextcloud/axios';
-import { generateUrl } from '@nextcloud/router';
+
+import {
+  useAccountApiService,
+  type AccountCreationData
+} from '../services/accountApiService';
 
 export const useAccountStore = defineStore('account', {
   state: (): State => ({
@@ -8,32 +11,16 @@ export const useAccountStore = defineStore('account', {
   }),
   getters: {
     assetsBalance(): number {
-      return calculateBalance(
-        this.accountArray.filter(
-          (account) => account.type === AccountType.ASSET
-        )
-      );
+      return calculateBalance(this.getByType(AccountType.ASSET));
     },
     liabilitiesBalance(): number {
-      return calculateBalance(
-        this.accountArray.filter(
-          (account) => account.type === AccountType.LIABILITY
-        )
-      );
+      return calculateBalance(this.getByType(AccountType.LIABILITY));
     },
     incomeBalance(): number {
-      return calculateBalance(
-        this.accountArray.filter(
-          (account) => account.type === AccountType.INCOME
-        )
-      );
+      return calculateBalance(this.getByType(AccountType.INCOME));
     },
     expensesBalance(): number {
-      return calculateBalance(
-        this.accountArray.filter(
-          (account) => account.type === AccountType.EXPENSE
-        )
-      );
+      return calculateBalance(this.getByType(AccountType.EXPENSE));
     },
     unbalancedValue(): number {
       return calculateBalance(this.accountArray);
@@ -52,31 +39,31 @@ export const useAccountStore = defineStore('account', {
   },
   actions: {
     async fillCache() {
-      const response = await axios.get(generateUrl('apps/money/accounts'));
-      for (const account of response.data.map(createAccountFromResponseData)) {
-        this.accounts.set(account.id, account);
+      const accountApiService = useAccountApiService();
+      const accounts = await accountApiService.getAccounts();
+      for (const account of accounts) {
+        this.insertAccount(account);
       }
     },
     async updateAccount(account: Account) {
-      await axios.put(
-        generateUrl(`apps/money/accounts/${account.id}`),
-        account
-      );
+      const accountApiService = useAccountApiService();
+      await accountApiService.updateAccount(account);
     },
     async addAccount(account: AccountCreationData) {
-      const response = await axios.post(
-        generateUrl('apps/money/accounts'),
-        account
-      );
+      const accountApiService = useAccountApiService();
 
-      const newAccount = createAccountFromResponseData(response.data);
-      this.accounts.set(newAccount.id, newAccount);
+      const newAccount = await accountApiService.addAccount(account);
+      this.insertAccount(newAccount);
 
       return newAccount;
     },
     async deleteAccount(accountId: number) {
-      await axios.delete(generateUrl(`apps/money/accounts/${accountId}`));
+      const accountApiService = useAccountApiService();
+      await accountApiService.deleteAccount(accountId);
       this.accounts.delete(accountId);
+    },
+    insertAccount(account: Account) {
+      this.accounts.set(account.id, account);
     },
     addValue(accountId: number, value: number) {
       const account = this.getById(accountId);
@@ -91,17 +78,6 @@ function calculateBalance(accounts: Array<Account>): number {
   return accounts.reduce<number>((balance, account) => {
     return (balance += account.balance);
   }, 0.0);
-}
-
-function createAccountFromResponseData(data): Account {
-  return {
-    id: Number(data.id), // TODO in API controller
-    name: data.name,
-    description: data.description,
-    currency: data.currency,
-    type: Number(data.type), // TODO in API controller
-    balance: Number(data.balance) // TODO in API controller
-  };
 }
 
 type State = {
@@ -123,5 +99,3 @@ export type Account = {
   description: string;
   balance: number;
 };
-
-type AccountCreationData = Omit<Account, 'id' | 'balance'>;
