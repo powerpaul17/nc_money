@@ -1,9 +1,11 @@
-import axios from '@nextcloud/axios';
-import { generateUrl } from '@nextcloud/router';
 import { defineStore } from 'pinia';
 
 import { useAccountStore } from './accountStore';
 import { useTransactionStore } from './transactionStore';
+import {
+  useSplitApiService,
+  type SplitCreationData
+} from '../services/splitApiService';
 
 export const useSplitStore = defineStore('split', {
   state: (): State => ({
@@ -34,15 +36,13 @@ export const useSplitStore = defineStore('split', {
       }
     },
     async updateSplit(split: Split) {
-      await axios.put(generateUrl(`apps/money/splits/${split.id}`), split);
+      const splitApiService = useSplitApiService();
+      await splitApiService.updateSplit(split);
     },
     async addSplit(split: SplitCreationData) {
-      const response = await axios.post(
-        generateUrl('apps/money/splits'),
-        split
-      );
+      const splitApiService = useSplitApiService();
 
-      const newSplit = createSplitFromResponseData(response.data);
+      const newSplit = await splitApiService.addSplit(split);
       this.splits.set(newSplit.id, newSplit);
 
       const transactionStore = useTransactionStore();
@@ -55,7 +55,9 @@ export const useSplitStore = defineStore('split', {
       );
     },
     async deleteSplit(split: Split) {
-      await axios.delete(generateUrl(`apps/money/splits/${split.id}`));
+      const splitApiService = useSplitApiService();
+      await splitApiService.deleteSplit(split.id);
+
       this.splits.delete(split.id);
 
       const transactionStore = useTransactionStore();
@@ -82,45 +84,6 @@ export const useSplitStore = defineStore('split', {
   }
 });
 
-export function createSplitFromResponseData(data): Split {
-  return new Proxy(
-    {
-      id: data.id,
-      transactionId: data.transactionId,
-      destAccountId: data.destAccountId,
-      description: data.description,
-      value: data.value,
-      convertRate: data.convertRate
-    },
-    {
-      set(target, p, value, receiver) {
-        console.warn('SPLIT PROXY -->', target, p, value, receiver);
-
-        const accountStore = useAccountStore();
-        const transactionStore = useTransactionStore();
-
-        const transaction = transactionStore.getById(target.transactionId);
-
-        if (p === 'value') {
-          const diff = value - target.value;
-          accountStore.addValue(target.destAccountId, diff, transaction?.date);
-        } else if (p === 'destAccountId') {
-          accountStore.addValue(
-            target.destAccountId,
-            -target.value,
-            transaction?.date
-          );
-          accountStore.addValue(value, target.value, transaction?.date);
-        }
-
-        target[p] = value;
-
-        return true;
-      }
-    }
-  );
-}
-
 type State = {
   splits: Map<number, Split>;
 };
@@ -133,5 +96,3 @@ export type Split = {
   value: number;
   convertRate: number;
 };
-
-type SplitCreationData = Omit<Split, 'id'>;

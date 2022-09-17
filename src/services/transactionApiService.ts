@@ -6,10 +6,8 @@ import { generateUrl } from '@nextcloud/router';
 import { defineStore } from 'pinia';
 
 import type { Transaction } from '../stores/transactionStore';
-import {
-  createSplitFromResponseData,
-  useSplitStore
-} from '../stores/splitStore';
+import { useSplitStore } from '../stores/splitStore';
+import { useSplitApiService } from './splitApiService';
 
 export const useTransactionApiService = defineStore(
   'transactionApiService',
@@ -74,10 +72,13 @@ export const useTransactionApiService = defineStore(
     }
 
     function createTransactionFromResponseData(data): Transaction {
+      const splitApiService = useSplitApiService();
       const splitStore = useSplitStore();
 
       if (data.splits) {
-        const splits = data.splits.map(createSplitFromResponseData);
+        const splits = data.splits.map(
+          splitApiService.createSplitFromResponseData
+        );
         splitStore.insertSplits(splits);
       }
 
