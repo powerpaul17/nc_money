@@ -19,6 +19,10 @@
       animation: {
         type: Boolean,
         default: false
+      },
+      decimals: {
+        type: Number,
+        default: 2
       }
     },
     data() {
@@ -70,7 +74,7 @@
     },
     computed: {
       formattedValue() {
-        return this.shownValue.toFixed(2);
+        return this.shownValue.toFixed(this.decimals);
       }
     }
   });
