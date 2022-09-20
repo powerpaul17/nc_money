@@ -37,6 +37,10 @@
       groupSeparator: {
         type: String,
         default: ' '
+      },
+      invertedValue: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -108,7 +112,9 @@
           .map((a) => a.reverse().join(''))
           .join(this.groupSeparator);
 
-        return `${negativeValue ? '-' : ''}${groupedBeforeDecimal}${
+        return `${
+          negativeValue != this.invertedValue ? '-' : ''
+        }${groupedBeforeDecimal}${
           decimals ? `${this.decimalSeparator}${decimals}` : ''
         }`;
       }

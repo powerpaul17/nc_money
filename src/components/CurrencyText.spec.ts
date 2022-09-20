@@ -77,4 +77,21 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('1.234,00');
   });
+
+  it('should show inverted values if enabled', async () => {
+    const { container, rerender } = render(CurrencyText, {
+      props: {
+        value: -123.456,
+        invertedValue: true
+      }
+    });
+
+    expect(container.firstChild?.textContent).to.be.equal('123.46');
+
+    await rerender({
+      value: 123.456
+    });
+
+    expect(container.firstChild?.textContent).to.be.equal('-123.46');
+  });
 });
