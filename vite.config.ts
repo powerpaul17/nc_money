@@ -60,6 +60,7 @@ export default defineConfig(({ mode }) => {
       })
     ],
     test: {
+      environment: 'jsdom',
       coverage: {
         provider: 'istanbul'
       },
