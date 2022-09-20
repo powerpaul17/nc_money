@@ -1,28 +1,24 @@
 <template>
-  <div>
-    <div class="flex flex-auto p-5">
-      <div class="flex-auto">
-        <div>
-          <SeamlessInput
-            class="text-lg"
-            :placeholder="$t('general.name')"
-            :value="account.name"
-            @value-changed="handleAccountNameModified"
-          ></SeamlessInput>
-        </div>
-        <div>
-          <SeamlessInput
-            :placeholder="$t('general.description')"
-            :value="account.description"
-            @value-changed="handleAccountDescriptionModified"
-          ></SeamlessInput>
-        </div>
+  <div class="flex p-5 items-center [&>*]:mr-3 -mr-3">
+    <div class="flex flex-auto flex-col">
+      <div>
+        <SeamlessInput
+          class="text-lg"
+          :placeholder="$t('general.name')"
+          :value="account.name"
+          @value-changed="handleAccountNameModified"
+        ></SeamlessInput>
+      </div>
+      <div>
+        <SeamlessInput
+          :placeholder="$t('general.description')"
+          :value="account.description"
+          @value-changed="handleAccountDescriptionModified"
+        ></SeamlessInput>
       </div>
     </div>
-    <div class="flex p-5">
-      <div class="text-right text-xl flex-grow-0 flex-shrink-0 items-center">
-        <CurrencyText :value="account.balance" :animation="true"></CurrencyText>
-      </div>
+    <div class="flex text-right text-xl flex-grow-0 flex-shrink-0 items-center">
+      <CurrencyText :value="account.balance" :animation="true"></CurrencyText>
     </div>
   </div>
 </template>
