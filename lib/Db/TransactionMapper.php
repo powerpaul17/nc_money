@@ -80,7 +80,7 @@ class TransactionMapper extends QBMapper {
       ->leftJoin('a', 'money_splits', 'b', 'b.transaction_id = a.id')
       ->where('a.user_id = :user_id')
       ->groupBy('a.id')
-      ->having('ROUND(SUM(b.value * b.convert_rate), 2) <> 0')
+      ->having('SUM(b.value * b.convert_rate) <> 0')
       ->orderBy('a.date', 'DESC')
       ->addOrderBy('a.timestamp_added', 'DESC')
       ->addOrderBy('a.id', 'DESC')

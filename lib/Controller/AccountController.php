@@ -25,7 +25,7 @@ class AccountController extends MoneyController {
     $qb = $this->db->getQueryBuilder();
 
     $qb->select('a.*')
-      ->selectAlias($qb->createFunction('ROUND(SUM(b.value), 2)'), 'balance')
+      ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
       ->from('money_accounts', 'a')
       ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
       ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
@@ -51,7 +51,7 @@ class AccountController extends MoneyController {
     $qb = $this->db->getQueryBuilder();
 
     $qb->select('a.*')
-      ->selectAlias($qb->createFunction('COALESCE(ROUND(SUM(b.value), 2), 0)'), 'balance')
+      ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
       ->from('money_accounts' ,'a')
       ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
       ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
