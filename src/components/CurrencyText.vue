@@ -95,28 +95,13 @@
     },
     computed: {
       formattedValue() {
-        const negativeValue = this.shownValue < 0;
-        const numberString = Math.abs(this.shownValue).toFixed(this.decimals);
-
-        const decimalSplitParts = numberString.split('.');
-        const beforeDecimal = decimalSplitParts[0];
-        if (!beforeDecimal) throw new Error('invalid number');
-
-        const decimals = decimalSplitParts[1];
-
-        const groupedBeforeDecimal = Utils.chunk(
-          Array.from(beforeDecimal).reverse(),
-          this.groupBy
-        )
-          .reverse()
-          .map((a) => a.reverse().join(''))
-          .join(this.groupSeparator);
-
-        return `${
-          negativeValue != this.invertedValue ? '-' : ''
-        }${groupedBeforeDecimal}${
-          decimals ? `${this.decimalSeparator}${decimals}` : ''
-        }`;
+        return Utils.formatNumber(this.shownValue, {
+          decimals: this.decimals,
+          decimalSeparator: this.decimalSeparator,
+          groupBy: this.groupBy,
+          groupSeparator: this.groupSeparator,
+          invertedValue: this.invertedValue
+        });
       }
     }
   });
