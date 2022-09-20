@@ -3,6 +3,7 @@
 ### Changed
 
 - Do not round balances in API controllers (may potentially fix problem with PostgreSQL)
+- Group currency digits and make it configurable in component
 
 ## [0.4.1] - 2022-09-18
 

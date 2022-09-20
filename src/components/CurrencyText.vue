@@ -10,6 +10,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
+  import { Utils } from '../utils/utils';
+
   export default defineComponent({
     props: {
       value: {
@@ -23,6 +25,18 @@
       decimals: {
         type: Number,
         default: 2
+      },
+      decimalSeparator: {
+        type: String,
+        default: '.'
+      },
+      groupBy: {
+        type: Number,
+        default: 3
+      },
+      groupSeparator: {
+        type: String,
+        default: ' '
       }
     },
     data() {
@@ -77,7 +91,26 @@
     },
     computed: {
       formattedValue() {
-        return this.shownValue.toFixed(this.decimals);
+        const negativeValue = this.shownValue < 0;
+        const numberString = Math.abs(this.shownValue).toFixed(this.decimals);
+
+        const decimalSplitParts = numberString.split('.');
+        const beforeDecimal = decimalSplitParts[0];
+        if (!beforeDecimal) throw new Error('invalid number');
+
+        const decimals = decimalSplitParts[1];
+
+        const groupedBeforeDecimal = Utils.chunk(
+          Array.from(beforeDecimal).reverse(),
+          this.groupBy
+        )
+          .reverse()
+          .map((a) => a.reverse().join(''))
+          .join(this.groupSeparator);
+
+        return `${negativeValue ? '-' : ''}${groupedBeforeDecimal}${
+          decimals ? `${this.decimalSeparator}${decimals}` : ''
+        }`;
       }
     }
   });
