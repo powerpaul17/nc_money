@@ -2,8 +2,8 @@ const glob = require('glob');
 const crypto = require('crypto')
 const fs = require('fs');
 
-const privateKey = process.env.PRIVATE_KEY || process.env.PRIVATE_KEY_FILE && fs.readFileSync(process.env.PRIVATE_KEY_FILE);
-const certificate = process.env.CERTIFICATE || process.env.CERTIFICATE_FILE && fs.readFileSync(process.env.CERTIFICATE_FILE, 'ascii');
+const privateKey = process.env.PRIVATE_KEY && Buffer.from(process.env.PRIVATE_KEY, 'base64').toString() || process.env.PRIVATE_KEY_FILE && fs.readFileSync(process.env.PRIVATE_KEY_FILE);
+const certificate = process.env.CERTIFICATE && Buffer.from(process.env.CERTIFICATE, 'base64').toString() || process.env.CERTIFICATE_FILE && fs.readFileSync(process.env.CERTIFICATE_FILE, 'ascii');
 
 const paths = [
   '*.md',
