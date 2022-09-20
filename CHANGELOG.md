@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.4.2] - 2022-09-20
+
 ### Changed
 
 - Do not round balances in API controllers (may potentially fix problem with PostgreSQL)
