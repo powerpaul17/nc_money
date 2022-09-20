@@ -33,7 +33,10 @@
     },
     watch: {
       value(newValue, oldValue) {
-        if (!this.animation) return;
+        if (!this.animation) {
+          this.shownValue = newValue;
+          return;
+        }
 
         if (newValue < oldValue) {
           this.animationClass = 'change-down';
