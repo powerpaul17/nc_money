@@ -46,6 +46,14 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: [
         {
+          find: '@nextcloud-vue',
+          replacement: resolve('./src/vendor/nextcloud-vue/src')
+        },
+        {
+          find: /^~(.*)/,
+          replacement: '$1'
+        },
+        {
           find: /vue-material-design-icons\/(.*)/,
           replacement: resolve('node_modules/vue-material-design-icons') + '/$1'
         }
