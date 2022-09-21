@@ -10,11 +10,11 @@
     "build": "vite build",
     "dev": "vite build --mode development",
     "dev-watch": "vite build --mode development --watch",
-    "sign": "set -a; source ./.env; node build/sign.js",
+    "sign": "dotenv node build/sign.js",
     "package": "tar c -z -f money.tar.gz --transform \"flags=r;s|^|money/|\" appinfo img js lib templates *.md",
-    "release": "set -a; source ./.env; release-it",
-    "pre-release": "npm run release -- --preRelease",
-    "upload": "set -a; source ./.env; node build/upload.js"
+    "release": "dotenv release-it",
+    "pre-release": "dotenv npm run release -- --preRelease",
+    "upload": "dotenv node build/upload.js"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^6.0.1",
@@ -36,6 +36,7 @@
     "autoprefixer": "^10.4.8",
     "click-outside-vue3": "^4.0.1",
     "dayjs": "^1.11.4",
+    "dotenv-cli": "^6.0.0",
     "escape-html": "^1.0.3",
     "floating-vue": "^2.0.0-beta.20",
     "focus-trap": "^7.0.0",
