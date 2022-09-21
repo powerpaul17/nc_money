@@ -56,9 +56,9 @@
           return;
         }
 
-        if (newValue < oldValue) {
+        if (newValue < oldValue !== this.invertedValue) {
           this.animationClass = 'change-down';
-        } else if (newValue > oldValue) {
+        } else {
           this.animationClass = 'change-up';
         }
 
