@@ -93,5 +93,11 @@ describe('CurrencyText', () => {
     });
 
     expect(container.firstChild?.textContent).to.be.equal('-123.46');
+
+    await rerender({
+      value: 0.0
+    });
+
+    expect(container.firstChild?.textContent).to.be.equal('0.00');
   });
 });

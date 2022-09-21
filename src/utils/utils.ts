@@ -51,7 +51,7 @@ export class Utils {
       .join(groupSeparator);
 
     return `${
-      negativeValue != invertedValue ? '-' : ''
+      negativeValue != invertedValue && value !== 0 ? '-' : ''
     }${groupedBeforeDecimal}${
       decimalDigits ? `${decimalSeparator}${decimalDigits}` : ''
     }`;
