@@ -19,7 +19,9 @@
         ></SeamlessInput>
       </div>
       <div>
-        <span v-if="hasMultipleDestinationSplits">( Multiple Accounts )</span>
+        <span v-if="hasMultipleDestinationSplits" class="whitespace-nowrap">
+          ( {{ $t('components.transactionListItem.multipleAccounts') }} )
+        </span>
         <AccountSelect
           v-else
           :account-id="destinationAccountId"

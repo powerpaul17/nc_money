@@ -3,6 +3,9 @@
     "accountTypeListItem": {
       "addAccount": "Konto erstellen",
       "noAccounts": "Keine Konten"
+    },
+    "transactionListItem": {
+      "multipleAccounts": "Mehrere Konten"
     }
   },
   "general": {

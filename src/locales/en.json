@@ -3,6 +3,9 @@
     "accountTypeListItem": {
       "addAccount": "Add account",
       "noAccounts": "No accounts"
+    },
+    "transactionListItem": {
+      "multipleAccounts": "Mutliple Accounts"
     }
   },
   "general": {
