@@ -11,10 +11,12 @@ module.exports = {
         'border-dark': 'var(--color-border-dark)',
         'main-background': 'var(--color-main-background)',
         'background-dark': 'var(--color-background-dark)',
+        'background-darker': 'var(--color-background-darker)',
         'primary-element': 'var(--color-primary-element)'
       }
     }
   },
   plugins: [],
-  important: true
+  important: true,
+  darkMode: ['class', '.theme--dark']
 }
