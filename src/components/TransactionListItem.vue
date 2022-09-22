@@ -4,6 +4,11 @@
       class="flex items-center [&>*]:mx-2"
       :class="{ 'bg-yellow-100': isUnbalanced }"
     >
+      <div @click="toggleSplits">
+        <NcLoadingIcon v-if="isLoading"></NcLoadingIcon>
+        <ChevronDown v-else-if="showSplits"></ChevronDown>
+        <ChevronRight v-else></ChevronRight>
+      </div>
       <div class="flex-shrink-0">
         <DateInput
           :date="transaction.date"
@@ -38,10 +43,6 @@
           @value-changed="handleValueChanged"
         ></CurrencyInput>
       </div>
-      <div>
-        <div v-if="isLoading" class="icon-loading-small"></div>
-        <div v-else class="icon-more" @click="toggleSplits"></div>
-      </div>
     </div>
     <div v-if="showSplits" class="bg-gray-100 shadow-inner">
       <SplitListItem
@@ -65,6 +66,11 @@
 
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
+
+  import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+  import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
+
+  import NcLoadingIcon from '@nextcloud-vue/components/NcLoadingIcon';
 
   import {
     useTransactionStore,
@@ -230,7 +236,10 @@
       AccountSelect,
       NewSplitInput,
       SeamlessInput,
-      DateInput
+      DateInput,
+      ChevronRight,
+      ChevronDown,
+      NcLoadingIcon
     }
   });
 </script>
