@@ -1,3 +1,5 @@
+import { computed, reactive } from 'vue';
+
 import { defineStore } from 'pinia';
 
 import {
@@ -5,80 +7,114 @@ import {
   type AccountCreationData
 } from '../services/accountApiService';
 
-export const useAccountStore = defineStore('account', {
-  state: (): State => ({
+export const useAccountStore = defineStore('account', () => {
+  const state: State = reactive({
     accounts: new Map()
-  }),
-  getters: {
-    assetsBalance(): number {
-      return calculateBalance(this.getByType(AccountType.ASSET));
-    },
-    liabilitiesBalance(): number {
-      return calculateBalance(this.getByType(AccountType.LIABILITY));
-    },
-    incomeBalance(): number {
-      return calculateBalance(this.getByType(AccountType.INCOME));
-    },
-    expensesBalance(): number {
-      return calculateBalance(this.getByType(AccountType.EXPENSE));
-    },
-    unbalancedValue(): number {
-      return calculateBalance(this.accountArray);
-    },
-    getById: (state) => {
-      return (accountId: number) => state.accounts.get(accountId);
-    },
-    getByType() {
-      return (accountType: AccountType) => {
-        return this.accountArray.filter((a) => a.type === accountType);
-      };
-    },
-    accountArray: (state) => {
-      return Array.from(state.accounts.values());
-    }
-  },
-  actions: {
-    async fillCache() {
-      const accountApiService = useAccountApiService();
-      const accounts = await accountApiService.getAccounts();
-      for (const account of accounts) {
-        this.insertAccount(account);
-      }
-    },
-    async updateAccount(account: Account) {
-      const accountApiService = useAccountApiService();
-      await accountApiService.updateAccount(account);
-    },
-    async addAccount(account: AccountCreationData) {
-      const accountApiService = useAccountApiService();
+  });
 
-      const newAccount = await accountApiService.addAccount(account);
-      this.insertAccount(newAccount);
+  const assetsBalance = computed((): number => {
+    return calculateBalance(_getByType(AccountType.ASSET));
+  });
 
-      return newAccount;
-    },
-    async deleteAccount(accountId: number) {
-      const accountApiService = useAccountApiService();
-      await accountApiService.deleteAccount(accountId);
-      this.accounts.delete(accountId);
-    },
-    insertAccount(account: Account) {
-      this.accounts.set(account.id, account);
-    },
-    addValue(accountId: number, value: number) {
-      const account = this.getById(accountId);
-      if (!account) throw new Error('cannot add value to non-existing account');
+  const liabilitiesBalance = computed((): number => {
+    return calculateBalance(_getByType(AccountType.LIABILITY));
+  });
 
-      account.balance += value;
+  const incomeBalance = computed((): number => {
+    return calculateBalance(_getByType(AccountType.INCOME));
+  });
+
+  const expensesBalance = computed((): number => {
+    return calculateBalance(_getByType(AccountType.EXPENSE));
+  });
+
+  const unbalancedValue = computed((): number => {
+    return calculateBalance(accountArray.value);
+  });
+
+  const getById = computed(() => {
+    return _getById;
+  });
+
+  function _getById(accountId: number) {
+    return state.accounts.get(accountId);
+  }
+
+  const getByType = computed(() => {
+    return _getByType;
+  });
+
+  function _getByType(accountType: AccountType) {
+    return accountArray.value.filter((a) => a.type === accountType);
+  }
+
+  const accountArray = computed(() => {
+    return Array.from(state.accounts.values());
+  });
+
+  async function fillCache() {
+    const accountApiService = useAccountApiService();
+    const accounts = await accountApiService.getAccounts();
+    for (const account of accounts) {
+      insertAccount(account);
     }
   }
-});
 
-function calculateBalance(accounts: Array<Account>): number {
-  return accounts.reduce<number>((balance, account) => {
-    return (balance += account.balance);
-  }, 0.0);
-}
+  async function updateAccount(account: Account) {
+    const accountApiService = useAccountApiService();
+    await accountApiService.updateAccount(account);
+  }
+
+  async function addAccount(account: AccountCreationData) {
+    const accountApiService = useAccountApiService();
+
+    const newAccount = await accountApiService.addAccount(account);
+    insertAccount(newAccount);
+
+    return newAccount;
+  }
+
+  async function deleteAccount(accountId: number) {
+    const accountApiService = useAccountApiService();
+    await accountApiService.deleteAccount(accountId);
+    state.accounts.delete(accountId);
+  }
+
+  function insertAccount(account: Account) {
+    state.accounts.set(account.id, account);
+  }
+
+  function addValue(accountId: number, value: number) {
+    const account = _getById(accountId);
+    if (!account) throw new Error('cannot add value to non-existing account');
+
+    account.balance += value;
+  }
+
+  function calculateBalance(accounts: Array<Account>): number {
+    return accounts.reduce<number>((balance, account) => {
+      return (balance += account.balance);
+    }, 0.0);
+  }
+
+  return {
+    accountArray,
+
+    assetsBalance,
+    liabilitiesBalance,
+    incomeBalance,
+    expensesBalance,
+    unbalancedValue,
+    getById,
+    getByType,
+
+    fillCache,
+    addAccount,
+    updateAccount,
+    deleteAccount,
+    addValue
+  };
+});
 
 type State = {
   accounts: Map<number, Account>;
