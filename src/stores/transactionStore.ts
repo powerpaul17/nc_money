@@ -1,3 +1,5 @@
+import { computed, reactive } from 'vue';
+
 import { defineStore } from 'pinia';
 
 import {
@@ -5,96 +7,113 @@ import {
   type TransactionCreationData
 } from '../services/transactionApiService';
 
-export const useTransactionStore = defineStore('transaction', {
-  state: (): State => ({
+export const useTransactionStore = defineStore('transaction', () => {
+  const state: State = reactive({
     transactions: new Map(),
     currentAccountId: null,
     allTransactionsFetched: false
-  }),
-  getters: {
-    getById(state) {
-      return (transactionId: number) => state.transactions.get(transactionId);
-    },
-    sortedByDate(state) {
-      return Array.from(state.transactions.values()).sort((a, b) => {
-        if (b.date.getTime() === a.date.getTime()) {
-          return b.timestampAdded - a.timestampAdded;
-        }
+  });
 
-        return b.date.getTime() - a.date.getTime();
-      });
+  const getById = computed(() => {
+    return (transactionId: number) => state.transactions.get(transactionId);
+  });
+
+  const sortedByDate = computed(() => {
+    return Array.from(state.transactions.values()).sort((a, b) => {
+      if (b.date.getTime() === a.date.getTime()) {
+        return b.timestampAdded - a.timestampAdded;
+      }
+
+      return b.date.getTime() - a.date.getTime();
+    });
+  });
+
+  async function changeAccount(accountId?: number | null) {
+    reset();
+    state.currentAccountId = accountId;
+    await fetchAndInsertTransactions();
+  }
+
+  function reset() {
+    state.transactions = new Map();
+    state.currentAccountId = null;
+    state.allTransactionsFetched = false;
+  }
+
+  async function fetchAndInsertTransactions(offset = 0, limit = 100) {
+    if (state.allTransactionsFetched) return;
+
+    let transactions = [];
+
+    if (state.currentAccountId) {
+      transactions = await fetchTransactionsOfAccount(
+        state.currentAccountId,
+        offset,
+        limit
+      );
+    } else {
+      transactions = await fetchUnbalancedTransactions(offset, limit);
     }
-  },
-  actions: {
-    async changeAccount(accountId?: number) {
-      this.$reset();
-      this.currentAccountId = accountId;
-      await this.fetchAndInsertTransactions();
-    },
-    async fetchAndInsertTransactions(offset = 0, limit = 100) {
-      if (this.allTransactionsFetched) return;
 
-      let transactions = [];
+    insertTransactions(transactions);
 
-      if (this.currentAccountId) {
-        transactions = await this.fetchTransactionsOfAccount(
-          this.currentAccountId,
-          offset,
-          limit
-        );
-      } else {
-        transactions = await this.fetchUnbalancedTransactions(offset, limit);
-      }
+    if (transactions.length < limit) state.allTransactionsFetched = true;
+  }
 
-      this.insertTransactions(transactions);
+  async function fetchTransactionsOfAccount(
+    accountId: number,
+    offset = 0,
+    limit = 100
+  ): Promise<Array<Transaction>> {
+    const transactionApiService = useTransactionApiService();
+    return await transactionApiService.getTransactionsOfAccount(
+      accountId,
+      offset,
+      limit
+    );
+  }
 
-      if (transactions.length < limit) this.allTransactionsFetched = true;
-    },
-    async fetchTransactionsOfAccount(
-      accountId: number,
-      offset = 0,
-      limit = 100
-    ): Promise<Array<Transaction>> {
-      const transactionApiService = useTransactionApiService();
-      return await transactionApiService.getTransactionsOfAccount(
-        accountId,
-        offset,
-        limit
-      );
-    },
-    async fetchUnbalancedTransactions(offset = 0, limit = 100) {
-      const transactionApiService = useTransactionApiService();
-      return await transactionApiService.getUnbalancedTransactions(
-        offset,
-        limit
-      );
-    },
-    insertTransactions(transactions: Array<Transaction>) {
-      for (const transaction of transactions) {
-        this.transactions.set(transaction.id, transaction);
-      }
-    },
+  async function fetchUnbalancedTransactions(offset = 0, limit = 100) {
+    const transactionApiService = useTransactionApiService();
+    return await transactionApiService.getUnbalancedTransactions(offset, limit);
+  }
 
-    // -- TRANSACTIONS --
-
-    async addTransaction(
-      transaction: TransactionCreationData,
-      addToStore = true
-    ) {
-      const transactionApiService = useTransactionApiService();
-      const newTransaction = await transactionApiService.addTransaction(
-        transaction
-      );
-
-      if (addToStore) this.transactions.set(newTransaction.id, newTransaction);
-
-      return newTransaction;
-    },
-    async updateTransaction(transaction: Transaction) {
-      const transactionApiService = useTransactionApiService();
-      await transactionApiService.updateTransaction(transaction);
+  function insertTransactions(transactions: Array<Transaction>) {
+    for (const transaction of transactions) {
+      state.transactions.set(transaction.id, transaction);
     }
   }
+
+  async function addTransaction(
+    transaction: TransactionCreationData,
+    addToStore = true
+  ) {
+    const transactionApiService = useTransactionApiService();
+    const newTransaction = await transactionApiService.addTransaction(
+      transaction
+    );
+
+    if (addToStore) state.transactions.set(newTransaction.id, newTransaction);
+
+    return newTransaction;
+  }
+
+  async function updateTransaction(transaction: Transaction) {
+    const transactionApiService = useTransactionApiService();
+    await transactionApiService.updateTransaction(transaction);
+  }
+
+  return {
+    allTransactionsFetched: state.allTransactionsFetched,
+
+    getById,
+    sortedByDate,
+
+    changeAccount,
+    fetchAndInsertTransactions,
+    addTransaction,
+    updateTransaction
+  };
 });
 
 type State = {
