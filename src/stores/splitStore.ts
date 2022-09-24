@@ -39,20 +39,25 @@ export const useSplitStore = defineStore('split', {
       const splitApiService = useSplitApiService();
       await splitApiService.updateSplit(split);
     },
-    async addSplit(split: SplitCreationData) {
+    async addSplit(split: SplitCreationData, addToStore = true) {
       const splitApiService = useSplitApiService();
 
       const newSplit = await splitApiService.addSplit(split);
-      this.splits.set(newSplit.id, newSplit);
 
-      const transactionStore = useTransactionStore();
-      const transaction = transactionStore.getById(newSplit.transactionId);
+      if (addToStore) {
+        this.splits.set(newSplit.id, newSplit);
 
-      this.addValueToAccount(
-        split.destAccountId,
-        split.value,
-        transaction?.date
-      );
+        const transactionStore = useTransactionStore();
+        const transaction = transactionStore.getById(newSplit.transactionId);
+
+        this.addValueToAccount(
+          split.destAccountId,
+          split.value,
+          transaction?.date
+        );
+      }
+
+      return newSplit;
     },
     async deleteSplit(split: Split) {
       const splitApiService = useSplitApiService();

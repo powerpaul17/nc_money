@@ -77,13 +77,16 @@ export const useTransactionStore = defineStore('transaction', {
 
     // -- TRANSACTIONS --
 
-    async addTransaction(transaction: TransactionCreationData) {
+    async addTransaction(
+      transaction: TransactionCreationData,
+      addToStore = true
+    ) {
       const transactionApiService = useTransactionApiService();
       const newTransaction = await transactionApiService.addTransaction(
         transaction
       );
 
-      this.transactions.set(newTransaction.id, newTransaction);
+      if (addToStore) this.transactions.set(newTransaction.id, newTransaction);
 
       return newTransaction;
     },
