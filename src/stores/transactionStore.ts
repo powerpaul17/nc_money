@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
@@ -8,18 +8,16 @@ import {
 } from '../services/transactionApiService';
 
 export const useTransactionStore = defineStore('transaction', () => {
-  const state: State = reactive({
-    transactions: new Map(),
-    currentAccountId: null,
-    allTransactionsFetched: false
-  });
+  const _transactions = reactive<Map<number, Transaction>>(new Map());
+  const _currentAccountId = ref<number | null>(null);
+  const _allTransactionsFetched = ref(false);
 
   const getById = computed(() => {
-    return (transactionId: number) => state.transactions.get(transactionId);
+    return (transactionId: number) => _transactions.get(transactionId);
   });
 
   const sortedByDate = computed(() => {
-    return Array.from(state.transactions.values()).sort((a, b) => {
+    return Array.from(_transactions.values()).sort((a, b) => {
       if (b.date.getTime() === a.date.getTime()) {
         return b.timestampAdded - a.timestampAdded;
       }
@@ -30,24 +28,24 @@ export const useTransactionStore = defineStore('transaction', () => {
 
   async function changeAccount(accountId?: number | null) {
     reset();
-    state.currentAccountId = accountId;
+    _currentAccountId.value = accountId ?? null;
     await fetchAndInsertTransactions();
   }
 
   function reset() {
-    state.transactions = new Map();
-    state.currentAccountId = null;
-    state.allTransactionsFetched = false;
+    _transactions.clear();
+    _currentAccountId.value = null;
+    _allTransactionsFetched.value = false;
   }
 
   async function fetchAndInsertTransactions(offset = 0, limit = 100) {
-    if (state.allTransactionsFetched) return;
+    if (_allTransactionsFetched.value) return;
 
     let transactions = [];
 
-    if (state.currentAccountId) {
+    if (_currentAccountId.value) {
       transactions = await fetchTransactionsOfAccount(
-        state.currentAccountId,
+        _currentAccountId.value,
         offset,
         limit
       );
@@ -57,7 +55,7 @@ export const useTransactionStore = defineStore('transaction', () => {
 
     insertTransactions(transactions);
 
-    if (transactions.length < limit) state.allTransactionsFetched = true;
+    if (transactions.length < limit) _allTransactionsFetched.value = true;
   }
 
   async function fetchTransactionsOfAccount(
@@ -80,7 +78,7 @@ export const useTransactionStore = defineStore('transaction', () => {
 
   function insertTransactions(transactions: Array<Transaction>) {
     for (const transaction of transactions) {
-      state.transactions.set(transaction.id, transaction);
+      _transactions.set(transaction.id, transaction);
     }
   }
 
@@ -93,7 +91,7 @@ export const useTransactionStore = defineStore('transaction', () => {
       transaction
     );
 
-    if (addToStore) state.transactions.set(newTransaction.id, newTransaction);
+    if (addToStore) _transactions.set(newTransaction.id, newTransaction);
 
     return newTransaction;
   }
@@ -104,7 +102,7 @@ export const useTransactionStore = defineStore('transaction', () => {
   }
 
   return {
-    allTransactionsFetched: state.allTransactionsFetched,
+    allTransactionsFetched: _allTransactionsFetched,
 
     getById,
     sortedByDate,
@@ -115,12 +113,6 @@ export const useTransactionStore = defineStore('transaction', () => {
     updateTransaction
   };
 });
-
-type State = {
-  transactions: Map<number, Transaction>;
-  currentAccountId?: number | null;
-  allTransactionsFetched: boolean;
-};
 
 export type Transaction = {
   id: number;

@@ -8,9 +8,7 @@ import {
 } from '../services/accountApiService';
 
 export const useAccountStore = defineStore('account', () => {
-  const state: State = reactive({
-    accounts: new Map()
-  });
+  const _accounts = reactive<Map<number, Account>>(new Map());
 
   const assetsBalance = computed((): number => {
     return calculateBalance(_getByType(AccountType.ASSET));
@@ -37,7 +35,7 @@ export const useAccountStore = defineStore('account', () => {
   });
 
   function _getById(accountId: number) {
-    return state.accounts.get(accountId);
+    return _accounts.get(accountId);
   }
 
   const getByType = computed(() => {
@@ -49,7 +47,7 @@ export const useAccountStore = defineStore('account', () => {
   }
 
   const accountArray = computed(() => {
-    return Array.from(state.accounts.values());
+    return Array.from(_accounts.values());
   });
 
   async function fillCache() {
@@ -77,11 +75,11 @@ export const useAccountStore = defineStore('account', () => {
   async function deleteAccount(accountId: number) {
     const accountApiService = useAccountApiService();
     await accountApiService.deleteAccount(accountId);
-    state.accounts.delete(accountId);
+    _accounts.delete(accountId);
   }
 
   function insertAccount(account: Account) {
-    state.accounts.set(account.id, account);
+    _accounts.set(account.id, account);
   }
 
   function addValue(accountId: number, value: number) {
@@ -115,10 +113,6 @@ export const useAccountStore = defineStore('account', () => {
     addValue
   };
 });
-
-type State = {
-  accounts: Map<number, Account>;
-};
 
 export enum AccountType {
   ASSET = 0,
