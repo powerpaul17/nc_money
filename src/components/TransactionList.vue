@@ -45,7 +45,7 @@
     data() {
       return {
         itemHeight: 40, // TODO calculate this somehow
-        isLoadingTransactions: false
+        isLoadingTransactions: true
       };
     },
     computed: {
