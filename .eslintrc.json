@@ -1,0 +1,82 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-strongly-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.vue"
+      ],
+      "rules": {
+        "indent": "off"
+      }
+    }
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": {
+      "ts": "@typescript-eslint/parser"
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "vue",
+    "@typescript-eslint",
+    "tailwindcss"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "max-len": [
+      "warn",
+      80
+    ],
+    "no-trailing-spaces": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "vue/script-indent": [
+      "warn",
+      2,
+      {
+        "baseIndent": 1
+      }
+    ],
+    "vue/block-lang": [
+      "error",
+      {
+        "script": {
+          "lang": "ts",
+          "allowNoLang": false
+        }
+      }
+    ],
+    "tailwindcss/no-custom-classname": "off"
+  }
+}
