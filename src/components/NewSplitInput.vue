@@ -1,34 +1,37 @@
 <template>
   <div class="flex items-center [&>*]:mx-2">
-    <div></div>
+    <div />
     <div class="flex-auto">
       <SeamlessInput
         :value="description"
         :placeholder="$t('general.description')"
         @value-changed="(newDescription) => (description = newDescription)"
-      ></SeamlessInput>
+      />
     </div>
     <div>
       <AccountSelect
-        :excludedAccountIds="excludedAccountIds"
+        :excluded-account-ids="excludedAccountIds"
         @account-changed="(accountId) => (destAccountId = accountId)"
-      ></AccountSelect>
+      />
     </div>
     <div class="flex-shrink-0">
       <CurrencyInput
         :value="value"
         :placeholder="$t('general.value')"
         @value-changed="(newValue) => (value = newValue)"
-      ></CurrencyInput>
+      />
     </div>
     <div>
-      <div v-if="isLoading" class="icon-loading-small"></div>
+      <div
+        v-if="isLoading"
+        class="icon-loading-small"
+      />
       <div
         v-else
         class="icon-checkmark"
         :class="{ 'opacity-25': !isValid }"
         @click="(event) => isValid && handleSubmitSplitClick(event)"
-      ></div>
+      />
     </div>
   </div>
 </template>
@@ -49,11 +52,12 @@
         required: true
       },
       excludedAccountIds: {
-        type: Object as PropType<Array<number>>,
-        default: []
+        type: Array as PropType<Array<number>>,
+        default: () => []
       },
       initialValue: {
-        type: Number
+        type: Number,
+        default: 0.0
       }
     },
     data() {
@@ -66,7 +70,7 @@
     },
     watch: {
       initialValue() {
-        this.value = this.initialValue ?? 0.0;
+        this.value = this.initialValue;
       }
     },
     computed: {
@@ -98,7 +102,7 @@
       resetFields() {
         this.description = '';
         this.destAccountId = null;
-        this.value = this.initialValue ?? 0.0;
+        this.value = this.initialValue;
       }
     },
     setup() {
@@ -106,7 +110,7 @@
       return { splitStore };
     },
     mounted() {
-      this.value = this.initialValue ?? 0.0;
+      this.value = this.initialValue;
     },
     components: {
       SeamlessInput,

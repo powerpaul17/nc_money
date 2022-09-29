@@ -4,21 +4,21 @@
       v-for="accountType in accountTypes"
       :key="accountType.id"
       :account-type="accountType"
-    ></AccountTypeListItem>
+    />
 
-    <li class="border-t border-solid border-border-dark"></li>
+    <li class="border-t border-solid border-border-dark" />
 
     <li>
       <router-link to="/accounts/unbalanced">
-        <div class="flex w-full h-full">
+        <div class="flex h-full w-full">
           <div class="flex-auto overflow-hidden text-ellipsis">
             {{ $t('general.unbalanced') }}
           </div>
-          <div class="flex-grow text-right">
+          <div class="grow text-right">
             <CurrencyText
               :value="unbalancedValue"
               :animation="true"
-            ></CurrencyText>
+            />
           </div>
         </div>
       </router-link>
@@ -26,12 +26,15 @@
 
     <li>
       <a href="#">
-        <div class="flex w-full h-full">
+        <div class="flex h-full w-full">
           <div class="flex-auto overflow-hidden text-ellipsis">
             {{ $t('general.equity') }}
           </div>
-          <div class="flex-grow text-right">
-            <CurrencyText :value="equity" :animation="true"></CurrencyText>
+          <div class="grow text-right">
+            <CurrencyText
+              :value="equity"
+              :animation="true"
+            />
           </div>
         </div>
       </a>

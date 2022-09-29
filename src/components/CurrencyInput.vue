@@ -5,7 +5,7 @@
     :disabled="!editable"
     class="text-right transition-all duration-300 ease-in-out"
     @value-changed="handleValueChanged"
-  ></SeamlessInput>
+  />
 </template>
 
 <script lang="ts">

@@ -45,7 +45,7 @@
     },
     data() {
       return {
-        animationClass: null as String | null,
+        animationClass: null as string | null,
         shownValue: this.value
       };
     },

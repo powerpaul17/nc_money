@@ -1,30 +1,37 @@
 <template>
   <div class="flex items-center [&>*]:mx-2">
-    <div></div>
+    <div />
     <div class="flex-auto">
       <SeamlessInput
         :placeholder="$t('general.description')"
         :value="split.description"
         @value-changed="handleDescriptionChanged"
-      ></SeamlessInput>
+      />
     </div>
     <div>
       <AccountSelect
         :account-id="split.destAccountId"
-        :excludedAccountIds="excludedAccountIds"
+        :excluded-account-ids="excludedAccountIds"
         @account-changed="handleDestinationAccountChanged"
-      ></AccountSelect>
+      />
     </div>
     <div class="flex-shrink-0">
       <CurrencyInput
         :value="split.value"
         :placeholder="$t('general.value')"
         @value-changed="handleValueChanged"
-      ></CurrencyInput>
+      />
     </div>
     <div>
-      <div v-if="_isLoading" class="icon-loading-small"></div>
-      <div v-else class="icon-delete" @click="handleDeleteSplit"></div>
+      <div
+        v-if="showLoadingIcon"
+        class="icon-loading-small"
+      />
+      <div
+        v-else
+        class="icon-delete"
+        @click="handleDeleteSplit"
+      />
     </div>
   </div>
 </template>
@@ -45,8 +52,8 @@
         required: true
       },
       excludedAccountIds: {
-        type: Object as PropType<Array<number>>,
-        default: []
+        type: Array as PropType<Array<number>>,
+        default: () => []
       },
       isLoading: {
         type: Boolean,
@@ -56,12 +63,12 @@
     emits: ['split-deleted'],
     data() {
       return {
-        _isLoading: false
+        showLoadingIcon: false
       };
     },
     watch: {
       isLoading() {
-        this._isLoading = this.isLoading;
+        this.showLoadingIcon = this.isLoading;
       }
     },
     methods: {
@@ -70,7 +77,7 @@
         await this.handleSplitChanged();
       },
       async handleDeleteSplit() {
-        this._isLoading = true;
+        this.showLoadingIcon = true;
         this.$emit('split-deleted', this.split);
       },
       async handleDescriptionChanged(description: string) {
@@ -82,13 +89,13 @@
         await this.handleSplitChanged();
       },
       async handleSplitChanged() {
-        this._isLoading = true;
+        this.showLoadingIcon = true;
         await this.splitStore.updateSplit(this.split);
-        this._isLoading = false;
+        this.showLoadingIcon = false;
       }
     },
     mounted() {
-      this._isLoading = this.isLoading;
+      this.showLoadingIcon = this.isLoading;
     },
     setup() {
       const splitStore = useSplitStore();

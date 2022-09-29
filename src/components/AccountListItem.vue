@@ -1,15 +1,15 @@
 <template>
   <li :class="{ active: isSelected }">
     <router-link :to="`/accounts/${account.id}`">
-      <div class="flex w-full h-full">
+      <div class="flex h-full w-full">
         <div class="flex-auto overflow-hidden text-ellipsis">
           {{ account.name }}
         </div>
-        <div class="flex-grow text-right">
+        <div class="grow text-right">
           <CurrencyText
             :value="account.balance"
             :animation="true"
-          ></CurrencyText>
+          />
         </div>
       </div>
     </router-link>

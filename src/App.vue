@@ -1,13 +1,15 @@
 <template>
   <div id="app-navigation">
-    <AccountTypesList></AccountTypesList>
+    <AccountTypesList />
   </div>
 
-  <div id="app-content">
-    <router-view></router-view>
+  <div
+    id="app-content"
+  >
+    <router-view />
   </div>
 
-  <router-view name="sidebar"></router-view>
+  <router-view name="sidebar" />
 </template>
 
 <script lang="ts">

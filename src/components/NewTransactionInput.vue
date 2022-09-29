@@ -5,37 +5,39 @@
         :date="date"
         :placeholder="$t('general.date')"
         @date-changed="(newDate) => (date = newDate)"
-      ></DateInput>
+      />
     </div>
     <div class="flex-auto">
       <SeamlessInput
         :value="description"
         :placeholder="$t('general.description')"
         @value-changed="(newDescription) => (description = newDescription)"
-      >
-      </SeamlessInput>
+      />
     </div>
     <div>
       <AccountSelect
-        :excludedAccountIds="[accountId]"
+        :excluded-account-ids="[accountId]"
         @account-changed="(accountId) => (destAccountId = accountId)"
-      ></AccountSelect>
+      />
     </div>
     <div class="flex-shrink-0">
       <CurrencyInput
         :value="value"
         :placeholder="$t('general.value')"
         @value-changed="(newValue) => (value = newValue)"
-      ></CurrencyInput>
+      />
     </div>
     <div>
-      <div v-if="isLoading" class="icon-loading-small"></div>
+      <div
+        v-if="isLoading"
+        class="icon-loading-small"
+      />
       <div
         v-else
         class="icon-checkmark"
         :class="{ 'opacity-25': !isValid }"
         @click="(event) => isValid && handleSubmitTransactionClick(event)"
-      ></div>
+      />
     </div>
   </div>
 </template>

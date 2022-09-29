@@ -1,21 +1,35 @@
 <template>
-  <div class="flex flex-col w-full overflow-scroll" @scroll="handleScroll">
-    <NewTransactionInput :account-id="account.id"></NewTransactionInput>
+  <div
+    class="flex w-full flex-col overflow-scroll"
+    @scroll="handleScroll"
+  >
+    <NewTransactionInput :account-id="account.id" />
 
     <div>
-      <template v-for="transaction in transactions" :key="transaction.id">
+      <template
+        v-for="transaction in transactions"
+        :key="transaction.id"
+      >
         <TransactionListItem
           :transaction="transaction"
           :account-id="account.id"
-        ></TransactionListItem>
+        />
       </template>
     </div>
 
-    <div v-if="isLoadingTransactions" class="loading h-[50px]"></div>
+    <div
+      v-if="isLoadingTransactions"
+      class="loading h-[50px]"
+    />
 
     <div
       v-if="transactionStore.allTransactionsFetched"
-      class="text-center text-xl text-border-dark border-t border-border-dark border-solid pt-5 mt-3 mb-10"
+      class="
+        mt-3 mb-10
+        border-t border-solid border-border-dark
+        pt-5
+        text-center text-xl text-border-dark
+      "
     >
       End of transactions
     </div>

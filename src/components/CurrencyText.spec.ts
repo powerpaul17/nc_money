@@ -60,7 +60,7 @@ describe('CurrencyText', () => {
 
     await rerender({
       value: 123456,
-      groupBy: '2'
+      groupBy: 2
     });
 
     expect(container.firstChild?.textContent).to.be.equal('12 34 56.00');

@@ -5,35 +5,40 @@
       :class="{ 'bg-yellow-100': isUnbalanced }"
     >
       <div @click="toggleSplits">
-        <NcLoadingIcon v-if="isLoading"></NcLoadingIcon>
-        <ChevronDown v-else-if="showSplits"></ChevronDown>
-        <ChevronRight v-else></ChevronRight>
+        <NcLoadingIcon
+          v-if="isLoading"
+        />
+        <ChevronDown v-else-if="showSplits" />
+        <ChevronRight v-else />
       </div>
-      <div class="flex-shrink-0">
+      <div class="shrink-0 ">
         <DateInput
           :date="transaction.date"
           :placeholder="$t('general.date')"
           @date-changed="handleDateChanged"
-        ></DateInput>
+        />
       </div>
       <div class="flex-auto">
         <SeamlessInput
           :placeholder="$t('general.description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
-        ></SeamlessInput>
+        />
       </div>
       <div>
-        <span v-if="hasMultipleDestinationSplits" class="whitespace-nowrap">
+        <span
+          v-if="hasMultipleDestinationSplits"
+          class="whitespace-nowrap"
+        >
           ( {{ $t('components.transactionListItem.multipleAccounts') }} )
         </span>
         <AccountSelect
           v-else
           :account-id="destinationAccountId"
           :editable="valueIsEditable"
-          :excludedAccountIds="excludedAccountIds"
+          :excluded-account-ids="excludedAccountIds"
           @account-changed="handleDestinationAccountChanged"
-        ></AccountSelect>
+        />
       </div>
       <div class="flex-shrink-0">
         <CurrencyInput
@@ -41,7 +46,7 @@
           :editable="valueIsEditable"
           :placeholder="$t('general.value')"
           @value-changed="handleValueChanged"
-        ></CurrencyInput>
+        />
       </div>
     </div>
     <div v-if="showSplits" class="bg-gray-100 shadow-inner">
@@ -49,17 +54,17 @@
         v-for="split in splits"
         :key="split.id"
         :split="split"
-        :excludedAccountIds="
+        :excluded-account-ids="
           excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
         "
         @split-deleted="handleSplitDeleted"
-      ></SplitListItem>
+      />
       <NewSplitInput
         v-if="isUnbalanced"
         :transaction-id="transaction.id"
-        :excludedAccountIds="excludedSplitAccountIds"
+        :excluded-account-ids="excludedSplitAccountIds"
         :initial-value="-unbalancedValue"
-      ></NewSplitInput>
+      />
     </div>
   </div>
 </template>

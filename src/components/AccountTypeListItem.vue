@@ -1,10 +1,19 @@
 <template>
-  <li class="collapsible" :class="{ 'open mb-5': isOpen }">
-    <a class="icon-folder" @click.stop="isOpen = !isOpen">
-      <div class="flex w-full h-full">
+  <li
+    class="collapsible"
+    :class="{ 'open mb-5': isOpen }"
+  >
+    <a
+      class="icon-folder"
+      @click.stop="isOpen = !isOpen"
+    >
+      <div class="flex h-full w-full">
         <div class="flex-auto overflow-hidden text-ellipsis">{{ name }}</div>
-        <div class="flex-grow text-right">
-          <CurrencyText :value="balance" :animation="true"></CurrencyText>
+        <div class="grow text-right">
+          <CurrencyText
+            :value="balance"
+            :animation="true"
+          />
         </div>
       </div>
     </a>
@@ -12,11 +21,14 @@
     <div class="app-navigation-entry-utils">
       <ul>
         <li class="app-navigation-entry-utils-menu-button">
-          <button @click="isMenuOpen = !isMenuOpen"></button>
+          <button @click="isMenuOpen = !isMenuOpen" />
         </li>
       </ul>
     </div>
-    <div class="app-navigation-entry-menu" :class="{ open: isMenuOpen }">
+    <div
+      class="app-navigation-entry-menu"
+      :class="{ open: isMenuOpen }"
+    >
       <ul>
         <li>
           <a @click="handleAddAccountClick">
@@ -30,10 +42,11 @@
     <ul>
       <AccountListItem
         v-for="account in accounts"
+        :key="account.id"
         :account="account"
-      ></AccountListItem>
-      <li>
-        <a v-if="!accounts.length" href="#">
+      />
+      <li v-if="!accounts.length">
+        <a href="#">
           {{ $t('components.accountTypeListItem.noAccounts') }}
         </a>
       </li>
@@ -43,10 +56,13 @@
 
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
+
   import { AccountType, useAccountStore } from '../stores/accountStore';
 
   import AccountListItem from './AccountListItem.vue';
-  import type { AccountType as AccountTypeEntity } from './AccountTypesList.vue';
+  import type {
+    AccountType as AccountTypeEntity
+  } from './AccountTypesList.vue';
   import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({

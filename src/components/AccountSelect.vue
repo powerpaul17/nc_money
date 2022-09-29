@@ -4,8 +4,14 @@
     v-model="selectedAccountId"
     @change="handleSelectChange"
   >
-    <option :value="null">-- No Account --</option>
-    <option v-for="account in accounts" :key="account.id" :value="account.id">
+    <option :value="null">
+      -- No Account --
+    </option>
+    <option
+      v-for="account in accounts"
+      :key="account.id"
+      :value="account.id"
+    >
       {{ account.name }}
     </option>
   </select>
@@ -27,8 +33,8 @@
         default: true
       },
       excludedAccountIds: {
-        type: Object as PropType<Array<number>>,
-        default: []
+        type: Array as PropType<Array<number>>,
+        default: () => []
       }
     },
     emits: ['account-changed'],

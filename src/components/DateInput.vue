@@ -3,7 +3,7 @@
     :value="dateValue"
     :placeholder="placeholder"
     @value-changed="handleDateValueChanged"
-  ></SeamlessInput>
+  />
 </template>
 
 <script lang="ts">
