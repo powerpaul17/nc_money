@@ -26,7 +26,7 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { type Account, useAccountStore } from '../stores/accountStore';
+  import { useAccountService } from '../stores/accountService';
 
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';
@@ -40,7 +40,7 @@
     },
     data() {
       return {
-        accountStore: useAccountStore()
+        accountService: useAccountService()
       };
     },
     methods: {
@@ -53,7 +53,7 @@
         this.handleAccountModified();
       },
       handleAccountModified() {
-        this.accountStore.updateAccount(this.account);
+        this.accountService.updateAccount(this.account);
       }
     },
     components: {

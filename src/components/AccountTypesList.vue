@@ -46,6 +46,7 @@
   import { defineComponent } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
+  import { useAccountService } from '../stores/accountService';
 
   import AccountTypeListItem from './AccountTypeListItem.vue';
   import CurrencyText from './CurrencyText.vue';
@@ -53,7 +54,8 @@
   export default defineComponent({
     data() {
       return {
-        accountStore: useAccountStore()
+        accountStore: useAccountStore(),
+        accountService: useAccountService()
       };
     },
     computed: {
@@ -91,7 +93,7 @@
       }
     },
     created() {
-      this.accountStore.fillCache(); // TODO
+      this.accountService.fillCache(); // TODO
     },
     components: {
       AccountTypeListItem,

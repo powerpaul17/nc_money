@@ -2,13 +2,8 @@ import { computed, reactive } from 'vue';
 
 import { defineStore } from 'pinia';
 
-import {
-  useAccountApiService,
-  type AccountCreationData
-} from '../services/accountApiService';
-
-export const useAccountStore = defineStore('account', () => {
-  const _accounts = reactive<Map<number, Account>>(new Map());
+export const useAccountStore = defineStore('accountStore', () => {
+  const _accounts: Map<number, Account> = reactive(new Map());
 
   const assetsBalance = computed((): number => {
     return calculateBalance(_getByType(AccountType.ASSET));
@@ -50,31 +45,7 @@ export const useAccountStore = defineStore('account', () => {
     return Array.from(_accounts.values());
   });
 
-  async function fillCache() {
-    const accountApiService = useAccountApiService();
-    const accounts = await accountApiService.getAccounts();
-    for (const account of accounts) {
-      insertAccount(account);
-    }
-  }
-
-  async function updateAccount(account: Account) {
-    const accountApiService = useAccountApiService();
-    await accountApiService.updateAccount(account);
-  }
-
-  async function addAccount(account: AccountCreationData) {
-    const accountApiService = useAccountApiService();
-
-    const newAccount = await accountApiService.addAccount(account);
-    insertAccount(newAccount);
-
-    return newAccount;
-  }
-
-  async function deleteAccount(accountId: number) {
-    const accountApiService = useAccountApiService();
-    await accountApiService.deleteAccount(accountId);
+  function deleteAccount(accountId: number) {
     _accounts.delete(accountId);
   }
 
@@ -106,10 +77,9 @@ export const useAccountStore = defineStore('account', () => {
     getById,
     getByType,
 
-    fillCache,
-    addAccount,
-    updateAccount,
+    insertAccount,
     deleteAccount,
+
     addValue
   };
 });
