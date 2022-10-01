@@ -82,6 +82,7 @@
     type Transaction
   } from '../stores/transactionStore';
   import { useSplitStore, type Split } from '../stores/splitStore';
+  import { useSplitService } from '../stores/splitService';
 
   import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -205,7 +206,7 @@
         const split = this.splitOfDestinationAccount;
         if (!split) {
           if (accountId) {
-            await this.splitStore.addSplit({
+            await this.splitService.addSplit({
               transactionId: this.transaction.id,
               destAccountId: accountId,
               value: -this.value,
@@ -221,18 +222,19 @@
         }
       },
       async handleSplitDeleted(split: Split) {
-        await this.splitStore.deleteSplit(split);
+        await this.splitService.deleteSplit(split);
       },
       async handleSplitChanged(split: Split) {
         this.isLoading = true;
-        await this.splitStore.updateSplit(split);
+        await this.splitService.updateSplit(split);
         this.isLoading = false;
       }
     },
     setup() {
       return {
         transactionStore: useTransactionStore(),
-        splitStore: useSplitStore()
+        splitStore: useSplitStore(),
+        splitService: useSplitService()
       };
     },
     components: {

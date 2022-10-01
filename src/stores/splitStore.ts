@@ -1,97 +1,54 @@
+import { computed, reactive } from 'vue';
+
 import { defineStore } from 'pinia';
 
-import { useAccountStore } from './accountStore';
-import { useTransactionStore } from './transactionStore';
-import {
-  useSplitApiService,
-  type SplitCreationData
-} from '../services/splitApiService';
+export const useSplitStore = defineStore('splitStore', () => {
+  const _splits: Map<number, Split> = reactive(new Map());
 
-export const useSplitStore = defineStore('split', {
-  state: (): State => ({
-    splits: new Map()
-  }),
-  getters: {
-    getById(state) {
-      return (splitId: number) => state.splits.get(splitId);
-    },
-    getByTransactionId() {
-      return (transactionId: number) => {
-        return this.splitArray.filter((s) => s.transactionId === transactionId);
-      };
-    },
-    getByAccountId() {
-      return (accountId: number) => {
-        return this.splitArray.filter((s) => s.destAccountId === accountId);
-      };
-    },
-    splitArray: (state) => {
-      return Array.from(state.splits.values());
-    }
-  },
-  actions: {
-    insertSplits(splits: Array<Split>) {
-      for (const split of splits) {
-        this.splits.set(split.id, split);
-      }
-    },
-    async updateSplit(split: Split) {
-      const splitApiService = useSplitApiService();
-      await splitApiService.updateSplit(split);
-    },
-    async addSplit(split: SplitCreationData, addToStore = true) {
-      const splitApiService = useSplitApiService();
+  const getById = computed(() => {
+    return (splitId: number) => _splits.get(splitId);
+  });
 
-      const newSplit = await splitApiService.addSplit(split);
+  const getByTransactionId = computed(() => {
+    return (transactionId: number) => {
+      return splitArray.value.filter((s) => s.transactionId === transactionId);
+    };
+  });
 
-      if (addToStore) {
-        this.splits.set(newSplit.id, newSplit);
+  const getByAccountId = computed(() => {
+    return (accountId: number) => {
+      return splitArray.value.filter((s) => s.destAccountId === accountId);
+    };
+  });
 
-        const transactionStore = useTransactionStore();
-        const transaction = transactionStore.getById(newSplit.transactionId);
+  const splitArray = computed(() => {
+    return Array.from(_splits.values());
+  });
 
-        this.addValueToAccount(
-          split.destAccountId,
-          split.value,
-          transaction?.date
-        );
-      }
+  function insertSplit(split: Split) {
+    _splits.set(split.id, split);
+  }
 
-      return newSplit;
-    },
-    async deleteSplit(split: Split) {
-      const splitApiService = useSplitApiService();
-      await splitApiService.deleteSplit(split.id);
-
-      this.splits.delete(split.id);
-
-      const transactionStore = useTransactionStore();
-      const transaction = transactionStore.getById(split.transactionId);
-
-      this.addValueToAccount(
-        split.destAccountId,
-        -split.value,
-        transaction?.date
-      );
-    },
-
-    // -- ACCOUNT VALUES --
-
-    addValueToAccount(accountId: number, value: number, date?: Date) {
-      const accountStore = useAccountStore();
-      accountStore.addValue(accountId, value, date);
-    },
-
-    addValueToAccountSummary(accountId: number, value: number, date: Date) {
-      const accountStore = useAccountStore();
-      accountStore.addSummaryValue(accountId, value, date);
+  function insertSplits(splits: Array<Split>) {
+    for (const split of splits) {
+      insertSplit(split);
     }
   }
-});
 
-type State = {
-  splits: Map<number, Split>;
-};
+  function deleteSplit(splitId: number) {
+    _splits.delete(splitId);
+  }
+
+  return {
+    getById,
+    getByTransactionId,
+    getByAccountId,
+
+    insertSplit,
+    insertSplits,
+    deleteSplit
+  };
+});
 
 export type Split = {
   id: number;

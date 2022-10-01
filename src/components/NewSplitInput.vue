@@ -39,7 +39,7 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { useSplitStore } from '../stores/splitStore';
+  import { useSplitService } from '../stores/splitService';
 
   import SeamlessInput from './SeamlessInput.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -88,7 +88,7 @@
           throw new Error('cannot add split without an account id');
 
         this.isLoading = true;
-        await this.splitStore.addSplit({
+        await this.splitService.addSplit({
           transactionId: this.transactionId,
           destAccountId: this.destAccountId,
           value: this.value,
@@ -106,8 +106,7 @@
       }
     },
     setup() {
-      const splitStore = useSplitStore();
-      return { splitStore };
+      return { splitService: useSplitService() };
     },
     mounted() {
       this.value = this.initialValue;

@@ -39,7 +39,8 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { useSplitStore, type Split } from '../stores/splitStore';
+  import type { Split } from '../stores/splitStore';
+  import { useSplitService } from '../stores/splitService';
 
   import CurrencyInput from './CurrencyInput.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -90,7 +91,7 @@
       },
       async handleSplitChanged() {
         this.showLoadingIcon = true;
-        await this.splitStore.updateSplit(this.split);
+        await this.splitService.updateSplit(this.split);
         this.showLoadingIcon = false;
       }
     },
@@ -98,8 +99,7 @@
       this.showLoadingIcon = this.isLoading;
     },
     setup() {
-      const splitStore = useSplitStore();
-      return { splitStore };
+      return { splitService: useSplitService() };
     },
     components: { CurrencyInput, AccountSelect, SeamlessInput }
   });
