@@ -77,10 +77,8 @@
 
   import NcLoadingIcon from '@nextcloud-vue/components/NcLoadingIcon';
 
-  import {
-    useTransactionStore,
-    type Transaction
-  } from '../stores/transactionStore';
+  import type { Transaction } from '../stores/transactionStore';
+  import { useTransactionService } from '../stores/transactionService';
   import { useSplitStore, type Split } from '../stores/splitStore';
   import { useSplitService } from '../stores/splitService';
 
@@ -166,7 +164,7 @@
       },
       async handleTransactionChanged() {
         this.isLoading = true;
-        await this.transactionStore.updateTransaction(this.transaction);
+        await this.transactionService.updateTransaction(this.transaction);
         this.isLoading = false;
       },
       async handleDateChanged(date: Date) {
@@ -232,7 +230,7 @@
     },
     setup() {
       return {
-        transactionStore: useTransactionStore(),
+        transactionService: useTransactionService(),
         splitStore: useSplitStore(),
         splitService: useSplitService()
       };

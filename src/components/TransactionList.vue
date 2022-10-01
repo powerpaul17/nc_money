@@ -45,6 +45,7 @@
     useTransactionStore
   } from '../stores/transactionStore';
   import { useSplitStore } from '../stores/splitStore';
+  import { useTransactionService } from '../stores/transactionService';
 
   import TransactionListItem from './TransactionListItem.vue';
   import NewTransactionInput from './NewTransactionInput.vue';
@@ -86,7 +87,7 @@
     },
     methods: {
       async changeAccount() {
-        await this.transactionStore.changeAccount(this.account.id);
+        await this.transactionService.changeAccount(this.account.id);
         await this.loadMoreTransactionsIfRequired();
       },
       async handleScroll() {
@@ -111,12 +112,13 @@
       },
       async loadMoreTransactions() {
         const offset = this.numberOfTransactions;
-        await this.transactionStore.fetchAndInsertTransactions(offset);
+        await this.transactionService.fetchAndInsertTransactions(offset);
       }
     },
     setup() {
       return {
         transactionStore: useTransactionStore(),
+        transactionService: useTransactionService(),
         splitStore: useSplitStore()
       };
     },

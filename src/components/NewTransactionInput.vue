@@ -45,7 +45,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { useTransactionStore } from '../stores/transactionStore';
+  import { useTransactionService } from '../stores/transactionService';
   import { useSplitService } from '../stores/splitService';
 
   import AccountSelect from './AccountSelect.vue';
@@ -81,7 +81,7 @@
       },
       async createNewTransaction() {
         this.isLoading = true;
-        const transaction = await this.transactionStore.addTransaction({
+        const transaction = await this.transactionService.addTransaction({
           date: this.date,
           description: this.description
         });
@@ -111,7 +111,7 @@
     },
     setup() {
       return {
-        transactionStore: useTransactionStore(),
+        transactionService: useTransactionService(),
         splitService: useSplitService()
       };
     },
