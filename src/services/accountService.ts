@@ -3,8 +3,8 @@ import { defineStore } from 'pinia';
 import {
   useAccountApiService,
   type AccountCreationData
-} from '../services/accountApiService';
-import { useAccountStore, type Account } from './accountStore';
+} from './accountApiService';
+import { useAccountStore, type Account } from '../stores/accountStore';
 
 export const useAccountService = defineStore('accountService', () => {
   const accountStore = useAccountStore();

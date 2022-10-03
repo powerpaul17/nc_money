@@ -78,9 +78,9 @@
   import NcLoadingIcon from '@nextcloud-vue/components/NcLoadingIcon';
 
   import type { Transaction } from '../stores/transactionStore';
-  import { useTransactionService } from '../stores/transactionService';
+  import { useTransactionService } from '../services/transactionService';
   import { useSplitStore, type Split } from '../stores/splitStore';
-  import { useSplitService } from '../stores/splitService';
+  import { useSplitService } from '../services/splitService';
 
   import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';

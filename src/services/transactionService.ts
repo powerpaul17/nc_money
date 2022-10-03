@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 
+import { Utils } from '../utils/utils';
+
 import {
   useTransactionApiService,
   type TransactionCreationData,
   type TransactionWithSplitsCreationData
-} from '../services/transactionApiService';
+} from './transactionApiService';
 import { useSplitService } from './splitService';
-import { useTransactionStore, type Transaction } from './transactionStore';
+import { useTransactionStore, type Transaction } from '../stores/transactionStore';
 
 export const useTransactionService = defineStore('transactionService', () => {
   const transactionStore = useTransactionStore();
@@ -33,6 +35,18 @@ export const useTransactionService = defineStore('transactionService', () => {
       accountId,
       offset,
       limit
+    );
+  }
+
+  async function fetchTransactionsOfAccountByDate(
+    accountId: number,
+    startDate: Date,
+    endDate: Date
+  ): Promise<Array<Transaction>> {
+    return await transactionApiService.getTransactionsOfAccountByDate(
+      accountId,
+      startDate,
+      endDate
     );
   }
 
@@ -122,14 +136,35 @@ export const useTransactionService = defineStore('transactionService', () => {
     };
   }
 
+  async function addTransactionsWithSplits(
+    transactions: Array<TransactionWithSplitsCreationData>,
+    addToStore = true
+  ) {
+    const results = [];
+
+    const chunkSize = 10;
+    const chunks = Utils.chunk(transactions, chunkSize);
+
+    for (const chunk of chunks) {
+      for (const transaction of chunk) {
+        results.push(await addTransactionWithSplits(transaction, addToStore));
+      }
+    }
+
+    return results;
+  }
+
   return {
     addTransaction,
     updateTransaction,
 
     addTransactionWithSplits,
+    addTransactionsWithSplits,
+
     reloadTransactions,
     changeAccount,
 
+    fetchTransactionsOfAccountByDate,
     fetchAndInsertTransactions
   };
 });

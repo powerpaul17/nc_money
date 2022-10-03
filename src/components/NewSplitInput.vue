@@ -39,7 +39,7 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { useSplitService } from '../stores/splitService';
+  import { useSplitService } from '../services/splitService';
 
   import SeamlessInput from './SeamlessInput.vue';
   import AccountSelect from './AccountSelect.vue';

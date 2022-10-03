@@ -46,7 +46,7 @@
   import { defineComponent } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
-  import { useAccountService } from '../stores/accountService';
+  import { useAccountService } from '../services/accountService';
 
   import AccountTypeListItem from './AccountTypeListItem.vue';
   import CurrencyText from './CurrencyText.vue';

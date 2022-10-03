@@ -26,7 +26,7 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { useAccountService } from '../stores/accountService';
+  import { useAccountService } from '../services/accountService';
 
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';

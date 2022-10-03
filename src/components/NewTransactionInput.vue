@@ -45,7 +45,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { useTransactionService } from '../stores/transactionService';
+  import { useTransactionService } from '../services/transactionService';
 
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';

@@ -45,7 +45,7 @@
     useTransactionStore
   } from '../stores/transactionStore';
   import { useSplitStore } from '../stores/splitStore';
-  import { useTransactionService } from '../stores/transactionService';
+  import { useTransactionService } from '../services/transactionService';
 
   import TransactionListItem from './TransactionListItem.vue';
   import NewTransactionInput from './NewTransactionInput.vue';

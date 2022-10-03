@@ -3,14 +3,16 @@ import { defineStore } from 'pinia';
 import {
   useSplitApiService,
   type SplitCreationData
-} from '../services/splitApiService';
-import { useAccountStore } from './accountStore';
-import { useSplitStore, type Split } from './splitStore';
+} from './splitApiService';
+import { useAccountStore } from '../stores/accountStore';
+import { useSplitStore, type Split } from '../stores/splitStore';
+import { useTransactionStore } from '../stores/transactionStore';
 
 export const useSplitService = defineStore('splitService', () => {
   const splitStore = useSplitStore();
   const splitApiService = useSplitApiService();
 
+  const transactionStore = useTransactionStore();
   const accountStore = useAccountStore();
 
   async function addSplit(split: SplitCreationData, addToStore = true) {
@@ -19,7 +21,13 @@ export const useSplitService = defineStore('splitService', () => {
     if (addToStore) {
       splitStore.insertSplit(newSplit);
 
-      accountStore.addValue(split.destAccountId, split.value);
+      const transaction = transactionStore.getById(newSplit.transactionId);
+
+      accountStore.addValue(
+        split.destAccountId,
+        split.value,
+        transaction?.date
+      );
     }
 
     return newSplit;
@@ -29,7 +37,8 @@ export const useSplitService = defineStore('splitService', () => {
     await splitApiService.deleteSplit(split.id);
     splitStore.deleteSplit(split.id);
 
-    accountStore.addValue(split.destAccountId, -split.value);
+    const transaction = transactionStore.getById(split.transactionId);
+    accountStore.addValue(split.destAccountId, -split.value, transaction?.date);
   }
 
   async function updateSplit(split: Split) {

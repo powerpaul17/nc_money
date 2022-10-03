@@ -40,7 +40,7 @@
   import { defineComponent, type PropType } from 'vue';
 
   import type { Split } from '../stores/splitStore';
-  import { useSplitService } from '../stores/splitService';
+  import { useSplitService } from '../services/splitService';
 
   import CurrencyInput from './CurrencyInput.vue';
   import AccountSelect from './AccountSelect.vue';
