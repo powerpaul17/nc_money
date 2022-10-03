@@ -46,7 +46,6 @@
   import { defineComponent } from 'vue';
 
   import { useTransactionService } from '../stores/transactionService';
-  import { useSplitService } from '../stores/splitService';
 
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
@@ -81,26 +80,14 @@
       },
       async createNewTransaction() {
         this.isLoading = true;
-        const transaction = await this.transactionService.addTransaction({
+        await this.transactionService.addTransactionWithSplits({
           date: this.date,
-          description: this.description
-        });
-        await this.splitService.addSplit({
-          transactionId: transaction.id,
-          value: this.value,
+          description: this.description,
+          value: -this.value,
           convertRate: 1.0,
-          description: '',
-          destAccountId: this.accountId
+          srcAccountId: this.accountId,
+          destAccountId: this.destAccountId
         });
-        if (this.destAccountId) {
-          await this.splitService.addSplit({
-            transactionId: transaction.id,
-            value: -this.value,
-            convertRate: 1.0,
-            description: '',
-            destAccountId: this.destAccountId
-          });
-        }
         this.isLoading = false;
         this.resetFields();
       },
@@ -111,8 +98,7 @@
     },
     setup() {
       return {
-        transactionService: useTransactionService(),
-        splitService: useSplitService()
+        transactionService: useTransactionService()
       };
     },
     components: {

@@ -5,11 +5,14 @@ import {
   type TransactionCreationData,
   type TransactionWithSplitsCreationData
 } from '../services/transactionApiService';
+import { useSplitService } from './splitService';
 import { useTransactionStore, type Transaction } from './transactionStore';
 
 export const useTransactionService = defineStore('transactionService', () => {
   const transactionStore = useTransactionStore();
   const transactionApiService = useTransactionApiService();
+
+  const splitService = useSplitService();
 
   async function reloadTransactions() {
     await changeAccount(transactionStore.currentAccountId);
@@ -75,10 +78,55 @@ export const useTransactionService = defineStore('transactionService', () => {
     await transactionApiService.updateTransaction(transaction);
   }
 
+  async function addTransactionWithSplits(
+    transaction: TransactionWithSplitsCreationData,
+    addToStore = true
+  ) {
+    const newTransaction = await addTransaction(
+      {
+        date: transaction.date,
+        description: transaction.description
+      },
+      addToStore
+    );
+
+    let newDestSplit;
+    if (transaction.destAccountId) {
+      newDestSplit = await splitService.addSplit(
+        {
+          transactionId: newTransaction.id,
+          destAccountId: transaction.destAccountId,
+          convertRate: transaction.convertRate,
+          description: transaction.destSplitComment ?? '',
+          value: transaction.value / transaction.convertRate
+        },
+        addToStore
+      );
+    }
+
+    const newSrcSplit = await splitService.addSplit(
+      {
+        transactionId: newTransaction.id,
+        destAccountId: transaction.srcAccountId,
+        convertRate: 1.0,
+        description: transaction.srcSplitComment ?? '',
+        value: -transaction.value
+      },
+      addToStore
+    );
+
+    return {
+      transaction: newTransaction,
+      srcSplit: newSrcSplit,
+      destSplit: newDestSplit
+    };
+  }
+
   return {
     addTransaction,
     updateTransaction,
 
+    addTransactionWithSplits,
     reloadTransactions,
     changeAccount,
 
