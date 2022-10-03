@@ -58,6 +58,7 @@
   import { defineComponent, type PropType } from 'vue';
 
   import { AccountType, useAccountStore } from '../stores/accountStore';
+  import { useAccountService } from '../services/accountService';
 
   import AccountListItem from './AccountListItem.vue';
   import type {
@@ -79,6 +80,7 @@
     data() {
       return {
         accountStore: useAccountStore(),
+        accountService: useAccountService(),
         isOpen: false,
         isMenuOpen: false,
         AccountType
@@ -97,7 +99,7 @@
     },
     methods: {
       async handleAddAccountClick() {
-        const newAccount = await this.accountStore.addAccount({
+        const newAccount = await this.accountService.addAccount({
           name: 'New Account',
           description: '',
           currency: '',
