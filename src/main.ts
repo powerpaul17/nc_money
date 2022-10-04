@@ -27,8 +27,10 @@ app.use(Router);
 const i18n = createI18n({
   locale: l10n.getLanguage(),
   fallbackLocale: 'en',
-  messages
+  messages,
+  legacy: false
 });
+
 app.use(i18n);
 
 app.mount('#content');
