@@ -81,7 +81,7 @@
       return {
         accountStore: useAccountStore(),
         accountService: useAccountService(),
-        isOpen: false,
+        isOpen: true,
         isMenuOpen: false,
         AccountType
       };

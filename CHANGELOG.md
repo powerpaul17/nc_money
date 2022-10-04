@@ -3,6 +3,7 @@
 ### Changed
 
 - Layout improvements of transaction list items
+- Show account type list items expanded by default
 
 ## [0.4.2] - 2022-09-20
 
