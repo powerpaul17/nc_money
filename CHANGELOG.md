@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Layout improvements of transaction list items
+
 ## [0.4.2] - 2022-09-20
 
 ### Changed

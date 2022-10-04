@@ -13,10 +13,13 @@ module.exports = {
         'background-dark': 'var(--color-background-dark)',
         'background-darker': 'var(--color-background-darker)',
         'primary-element': 'var(--color-primary-element)'
+      },
+      gridTemplateColumns: {
+        'transactionListItem': '44px 1fr minmax(0, 4fr) repeat(2, 1fr) 44px'
       }
     }
   },
   plugins: [],
   important: true,
   darkMode: ['class', '.theme--dark']
-}
+};

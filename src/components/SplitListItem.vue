@@ -1,7 +1,15 @@
 <template>
-  <div class="flex items-center [&>*]:mx-2">
+  <div
+    class="
+      grid
+      grid-cols-transactionListItem
+      items-center
+      [&>*]:mx-2
+    "
+  >
     <div />
-    <div class="flex-auto">
+    <div />
+    <div>
       <SeamlessInput
         :placeholder="$t('general.description')"
         :value="split.description"
@@ -15,7 +23,7 @@
         @account-changed="handleDestinationAccountChanged"
       />
     </div>
-    <div class="flex-shrink-0">
+    <div>
       <CurrencyInput
         :value="split.value"
         :placeholder="$t('general.value')"

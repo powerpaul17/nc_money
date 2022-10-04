@@ -3,7 +3,10 @@
     class="flex w-full flex-col overflow-scroll"
     @scroll="handleScroll"
   >
-    <NewTransactionInput :account-id="account.id" />
+    <NewTransactionInput
+      class="mx-2"
+      :account-id="account.id"
+    />
 
     <div>
       <template

@@ -1,8 +1,17 @@
 <template>
   <div class="my-2">
     <div
-      class="flex items-center [&>*]:mx-2"
-      :class="{ 'bg-yellow-100': isUnbalanced }"
+      class="
+        grid
+        grid-cols-transactionListItem
+        items-center
+        [&>*]:mx-2
+      "
+      :class="
+        {
+          'bg-yellow-100': isUnbalanced
+        }
+      "
     >
       <div @click="toggleSplits">
         <NcLoadingIcon
@@ -11,21 +20,21 @@
         <ChevronDown v-else-if="showSplits" />
         <ChevronRight v-else />
       </div>
-      <div class="shrink-0 ">
+      <div>
         <DateInput
           :date="transaction.date"
           :placeholder="$t('general.date')"
           @date-changed="handleDateChanged"
         />
       </div>
-      <div class="flex-auto">
+      <div>
         <SeamlessInput
           :placeholder="$t('general.description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
         />
       </div>
-      <div>
+      <div class="justify-center">
         <span
           v-if="hasMultipleDestinationSplits"
           class="whitespace-nowrap"
@@ -40,7 +49,7 @@
           @account-changed="handleDestinationAccountChanged"
         />
       </div>
-      <div class="flex-shrink-0">
+      <div>
         <CurrencyInput
           :value="value"
           :editable="valueIsEditable"
@@ -48,6 +57,7 @@
           @value-changed="handleValueChanged"
         />
       </div>
+      <div />
     </div>
     <div v-if="showSplits" class="bg-gray-100 shadow-inner">
       <SplitListItem

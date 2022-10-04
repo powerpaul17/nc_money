@@ -1,13 +1,21 @@
 <template>
-  <div class="flex items-center [&>*]:mx-2">
-    <div class="flex-shrink-0">
+  <div
+    class="
+      grid
+      grid-cols-transactionListItem
+      items-center
+      [&>*]:mx-2
+    "
+  >
+    <div />
+    <div>
       <DateInput
         :date="date"
         :placeholder="$t('general.date')"
         @date-changed="(newDate) => (date = newDate)"
       />
     </div>
-    <div class="flex-auto">
+    <div>
       <SeamlessInput
         :value="description"
         :placeholder="$t('general.description')"
@@ -20,7 +28,7 @@
         @account-changed="(accountId) => (destAccountId = accountId)"
       />
     </div>
-    <div class="flex-shrink-0">
+    <div>
       <CurrencyInput
         :value="value"
         :placeholder="$t('general.value')"
