@@ -15,6 +15,9 @@ const vueDocsPlugin = {
   }
 };
 
+// TODO give this value some meaning, needed for nextcloud vue components
+const SCOPE_VERSION = '123';
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   return {
@@ -30,6 +33,7 @@ export default defineConfig(({ mode }) => {
       sourcemap: mode === 'development' ? true : false
     },
     define: {
+      SCOPE_VERSION,
       TRANSLATIONS: 'Array.from([])'
     },
     css: {
@@ -37,6 +41,7 @@ export default defineConfig(({ mode }) => {
         scss: {
           additionalData: `
             @use 'sass:math';
+            $scope_version:${SCOPE_VERSION};
             @import './src/vendor/nextcloud-vue/src/assets/variables';
             @import './src/vendor/nextcloud-vue/src/assets/material-icons';
           `
