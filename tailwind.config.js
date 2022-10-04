@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -12,7 +14,9 @@ module.exports = {
         'main-background': 'var(--color-main-background)',
         'background-dark': 'var(--color-background-dark)',
         'background-darker': 'var(--color-background-darker)',
-        'primary-element': 'var(--color-primary-element)'
+        'primary-element': 'var(--color-primary-element)',
+
+        'unbalanced': colors.yellow[100]
       },
       gridTemplateColumns: {
         'transactionListItem': '44px 1fr minmax(0, 4fr) repeat(2, 1fr) 44px'

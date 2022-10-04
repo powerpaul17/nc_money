@@ -9,7 +9,7 @@
       "
       :class="
         {
-          'bg-yellow-100': isUnbalanced
+          'bg-unbalanced': isUnbalanced
         }
       "
     >
