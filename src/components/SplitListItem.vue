@@ -77,7 +77,7 @@
         this.split.value = value;
         await this.handleSplitChanged();
       },
-      async handleDeleteSplit() {
+      handleDeleteSplit() {
         this.showLoadingIcon = true;
         this.$emit('split-deleted', this.split);
       },
@@ -85,9 +85,13 @@
         this.split.description = description;
         await this.handleSplitChanged();
       },
-      async handleDestinationAccountChanged(accountId: number) {
-        this.split.destAccountId = accountId;
-        await this.handleSplitChanged();
+      async handleDestinationAccountChanged(accountId: number|null) {
+        if(accountId) {
+          this.split.destAccountId = accountId;
+          await this.handleSplitChanged();
+        } else {
+          this.handleDeleteSplit();
+        }
       },
       async handleSplitChanged() {
         this.showLoadingIcon = true;
