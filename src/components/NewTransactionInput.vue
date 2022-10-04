@@ -42,9 +42,9 @@
       />
       <div
         v-else
-        class="icon-checkmark"
+        class="icon-confirm"
         :class="{ 'opacity-25': !isValid }"
-        @click="(event) => isValid && handleSubmitTransactionClick(event)"
+        @click="() => isValid && handleSubmitTransactionClick()"
       />
     </div>
   </div>
