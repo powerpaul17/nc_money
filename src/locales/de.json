@@ -1,8 +1,22 @@
 {
   "components": {
+    "accountDetailsHeader": {
+      "importTransactions": "Transaktionen importieren"
+    },
     "accountTypeListItem": {
       "addAccount": "Konto erstellen",
       "noAccounts": "Keine Konten"
+    },
+    "transactionImportDialog": {
+      "columnSelection": "Spaltenauswahl",
+      "columnSeparator": "Spaltentrenner",
+      "commaSeparator": "Dezimaltrenner",
+      "dateFormat": "Datumsformat",
+      "clickOrDropCsvFile": "Hier klicken oder CSV-Datei ablegen",
+      "fileSettings": "Dateieinstellungen",
+      "import": "Import",
+      "importTransactions": "Transaktionen importieren",
+      "selectFile": "Datei auswählen"
     },
     "transactionListItem": {
       "multipleAccounts": "Mehrere Konten"
@@ -10,6 +24,7 @@
   },
   "general": {
     "assets": "Vermögen",
+    "comment": "Kommentar",
     "date": "Datum",
     "description": "Beschreibung",
     "equity": "Reinvermögen",

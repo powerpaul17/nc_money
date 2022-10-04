@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Added transaction import dialog
+
 ### Changed
 
 - Layout improvements of transaction list items

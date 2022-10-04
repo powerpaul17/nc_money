@@ -1,5 +1,5 @@
 <template>
-  <div class="flex p-5 items-center [&>*]:mr-3 -mr-3">
+  <div class="-mr-3 flex items-center p-5 [&>*]:mr-3">
     <div class="flex flex-auto flex-col">
       <div>
         <SeamlessInput
@@ -7,20 +7,39 @@
           :placeholder="$t('general.name')"
           :value="account.name"
           @value-changed="handleAccountNameModified"
-        ></SeamlessInput>
+        />
       </div>
       <div>
         <SeamlessInput
           :placeholder="$t('general.description')"
           :value="account.description"
           @value-changed="handleAccountDescriptionModified"
-        ></SeamlessInput>
+        />
       </div>
     </div>
-    <div class="flex text-right text-xl flex-grow-0 flex-shrink-0 items-center">
-      <CurrencyText :value="account.balance" :animation="true"></CurrencyText>
+    <div class="flex shrink-0 grow-0 items-center text-right text-xl">
+      <CurrencyText
+        :value="account.balance"
+        :animation="true"
+      />
+    </div>
+    <div class="grow-0">
+      <NcActions>
+        <NcActionButton @click="() => (showImportTransactionsDialog = true)">
+          <template #icon>
+            <Upload :size="20" />
+          </template>
+          {{ $t('components.accountDetailsHeader.importTransactions') }}
+        </NcActionButton>
+      </NcActions>
     </div>
   </div>
+
+  <TransactionImportDialog
+    v-if="showImportTransactionsDialog"
+    @close="() => (showImportTransactionsDialog = false)"
+    :account-id="account.id"
+  />
 </template>
 
 <script lang="ts">
@@ -30,6 +49,12 @@
 
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';
+  import TransactionImportDialog from './TransactionImportDialog.vue';
+
+  import NcActions from '@nextcloud-vue/components/NcActions';
+  import NcActionButton from '@nextcloud-vue/components/NcActionButton';
+
+  import Upload from 'vue-material-design-icons/Upload.vue';
 
   export default defineComponent({
     props: {
@@ -40,7 +65,8 @@
     },
     data() {
       return {
-        accountService: useAccountService()
+        accountService: useAccountService(),
+        showImportTransactionsDialog: false
       };
     },
     methods: {
@@ -58,7 +84,11 @@
     },
     components: {
       SeamlessInput,
-      CurrencyText
+      CurrencyText,
+      TransactionImportDialog,
+      NcActions,
+      NcActionButton,
+      Upload
     }
   });
 </script>

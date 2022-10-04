@@ -1,8 +1,22 @@
 {
   "components": {
+    "accountDetailsHeader": {
+      "importTransactions": "Import Transactions"
+    },
     "accountTypeListItem": {
       "addAccount": "Add account",
       "noAccounts": "No accounts"
+    },
+    "transactionImportDialog": {
+      "columnSelection": "Column Selection",
+      "columnSeparator": "Column Separator",
+      "commaSeparator": "Comma Separator",
+      "dateFormat": "Date Format",
+      "clickOrDropCsvFile": "Click or drop CSV-File here",
+      "fileSettings": "File Settings",
+      "import": "Import",
+      "importTransactions": "Import Transactions",
+      "selectFile": "Select File"
     },
     "transactionListItem": {
       "multipleAccounts": "Mutliple Accounts"
@@ -10,6 +24,7 @@
   },
   "general": {
     "assets": "Assets",
+    "comment": "Comment",
     "date": "Date",
     "description": "Description",
     "equity": "Equity",
