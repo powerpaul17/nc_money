@@ -31,6 +31,25 @@ export const useTransactionApiService = defineStore(
       return response.data.map(createTransactionFromResponseData);
     }
 
+    async function getTransactionsOfAccountByDate(
+      accountId: number,
+      startDate: Date,
+      endDate: Date
+    ) {
+      const response = await axios.get(
+        generateUrl('apps/money/transactions/for-account-by-date'),
+        {
+          params: {
+            accountId: accountId,
+            startDate: dayjs(startDate).format('YYYY-MM-DD'),
+            endDate: dayjs(endDate).format('YYYY-MM-DD')
+          }
+        }
+      );
+
+      return response.data.map(createTransactionFromResponseData);
+    }
+
     async function getUnbalancedTransactions(offset = 0, limit = 100) {
       const response = await axios.get(
         generateUrl('apps/money/transactions/unbalanced'),
@@ -92,6 +111,7 @@ export const useTransactionApiService = defineStore(
 
     return {
       getTransactionsOfAccount,
+      getTransactionsOfAccountByDate,
       getUnbalancedTransactions,
       addTransaction,
       updateTransaction
