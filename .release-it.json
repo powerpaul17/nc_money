@@ -1,0 +1,33 @@
+{
+  "hooks": {
+    "before:init": "npm run test -- --run",
+    "after:@release-it/bumper:bump": "npm i",
+    "after:git:release": [
+      "npm run build",
+      "npm run sign",
+      "npm run package"
+    ],
+    "after:release": [
+      "TAG_NAME=v${version} npm run upload"
+    ]
+  },
+  "git": {},
+  "npm": false,
+  "github": {
+    "release": true,
+    "assets": [
+      "money.tar.gz"
+    ]
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "out": [
+        "package.json",
+        "appinfo/info.xml"
+      ]
+    },
+    "@release-it/keep-a-changelog": {
+      "addUnreleased": true
+    }
+  }
+}

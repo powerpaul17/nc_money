@@ -1,32 +1,28 @@
 <?php
-/**
- * ownCloud - money
- *
- * This file is licensed under the Affero General Public License version 3 or
- * later. See the COPYING file.
- *
- * @author Paul Tirk <paultirk@paultirk.com>
- * @copyright Paul Tirk 2016
- */
 
 namespace OCA\Money\Controller;
 
 use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\DataResponse;
+use OCP\Util;
+
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\TemplateResponse;
 
 class PageController extends Controller {
 
-	public function __construct($appName, IRequest $request) {
-		parent::__construct($appName, $request);
-	}
+  public function __construct(string $AppName, IRequest $request) {
+    parent::__construct($AppName, $request);
+  }
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 */
-	public function index() {
-		return new TemplateResponse('money', 'main');
-	}
+  /**
+   * @NoAdminRequired
+   * @NoCSRFRequired
+   */
+  public function index() {
+    Util::addScript($this->appName, 'money-main.iife');
+    Util::addStyle($this->appName, '../js/style');
+
+    return new TemplateResponse($this->appName, 'main');
+  }
+
 }

@@ -1,0 +1,9 @@
+node_modules
+js
+.devcontainer
+appinfo/signature.json
+*.tar.gz
+.env
+*.code-workspace
+coverage
+translationfiles

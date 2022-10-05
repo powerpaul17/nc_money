@@ -61,7 +61,7 @@ class TransactionService {
 
     $transaction->setDescription($description);
     $transaction->setDate($date);
-    $transaction->setTimestampAdded(date('Y-m-d H:i:s'));
+    $transaction->setTimestampAdded(time());
 
     return $this->transactionMapper->insert($transaction);
   }
@@ -77,6 +77,10 @@ class TransactionService {
     } catch(Exception $e) {
       $this->handleException($e);
     }
+  }
+
+  public function findUnbalancedTransactions($userId, $resultOffset = 0, $resultLimit = 50) {
+    return $this->transactionMapper->findAllUnbalancedTransactions($userId, $resultOffset, $resultLimit);
   }
 
 }
