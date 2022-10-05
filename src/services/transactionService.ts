@@ -8,6 +8,7 @@ import {
   type TransactionWithSplitsCreationData
 } from './transactionApiService';
 import { useSplitService } from './splitService';
+import { useAccountService } from './accountService';
 import { useTransactionStore, type Transaction } from '../stores/transactionStore';
 
 export const useTransactionService = defineStore('transactionService', () => {
@@ -16,8 +17,13 @@ export const useTransactionService = defineStore('transactionService', () => {
 
   const splitService = useSplitService();
 
+  const accountService = useAccountService();
+
   async function reloadTransactions() {
-    await changeAccount(transactionStore.currentAccountId);
+    const accountId = transactionStore.currentAccountId;
+
+    if(accountId) await accountService.refreshAccount(accountId);
+    await changeAccount(accountId);
   }
 
   async function changeAccount(accountId?: number | null) {

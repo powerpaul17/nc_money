@@ -7,6 +7,7 @@ import {
 import { useAccountStore, type Account } from '../stores/accountStore';
 
 export const useAccountService = defineStore('accountService', () => {
+
   const accountStore = useAccountStore();
   const accountApiService = useAccountApiService();
 
@@ -15,6 +16,11 @@ export const useAccountService = defineStore('accountService', () => {
     for (const account of accounts) {
       accountStore.insertAccount(account);
     }
+  }
+
+  async function refreshAccount(accountId: number) {
+    const account = await accountApiService.getAccount(accountId);
+    accountStore.insertAccount(account);
   }
 
   async function addAccount(account: AccountCreationData) {
@@ -35,9 +41,11 @@ export const useAccountService = defineStore('accountService', () => {
 
   return {
     fillCache,
+    refreshAccount,
 
     addAccount,
     updateAccount,
     deleteAccount
   };
+
 });

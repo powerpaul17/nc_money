@@ -6,6 +6,14 @@ import { defineStore } from 'pinia';
 import type { Account } from '../stores/accountStore';
 
 export const useAccountApiService = defineStore('accountApiService', () => {
+
+  async function getAccount(accountId: number): Promise<Account> {
+    const response = await axios.get(
+      generateUrl(`apps/money/accounts/${accountId}`)
+    );
+    return createAccountFromResponseData(response.data);
+  }
+
   async function getAccounts(): Promise<Array<Account>> {
     const response = await axios.get(generateUrl('apps/money/accounts'));
     return response.data.map(createAccountFromResponseData);
@@ -42,11 +50,13 @@ export const useAccountApiService = defineStore('accountApiService', () => {
   }
 
   return {
+    getAccount,
     getAccounts,
     addAccount,
     deleteAccount,
     updateAccount
   };
+
 });
 
 export type AccountCreationData = Omit<Account, 'id' | 'balance'>;
