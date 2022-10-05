@@ -1,15 +1,37 @@
 <template>
-  <div class="my-2">
+  <div
+    class="
+      mx-2 my-3
+      overflow-hidden
+      rounded-md
+      transition-all
+
+      focus-within:bg-background-hover
+      focus-within:shadow-md
+
+      hover:bg-background-hover
+      hover:shadow-md
+
+      dark:bg-background-dark
+    "
+  >
     <div
       class="
         grid
+        h-[45px]
         grid-cols-transactionListItem
         items-center
-        [&>*]:mx-2
+
+        [&>*]:flex
+        [&>*]:h-full
+        [&>*]:items-center
+        [&>*:first-child]:justify-center
+        [&>*:last-child]:justify-center
+        [&>*:not(:first-child):not(:last-child)]:mx-2
       "
       :class="
         {
-          'bg-unbalanced': isUnbalanced
+          'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
         }
       "
     >

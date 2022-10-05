@@ -14,9 +14,11 @@ module.exports = {
         'main-background': 'var(--color-main-background)',
         'background-dark': 'var(--color-background-dark)',
         'background-darker': 'var(--color-background-darker)',
+        'background-hover': 'var(--color-background-hover)',
         'primary-element': 'var(--color-primary-element)',
 
-        'unbalanced': colors.yellow[100]
+        'unbalanced': colors.yellow[100],
+        'unbalanced-dark': colors.yellow[700]
       },
       gridTemplateColumns: {
         'transactionListItem': '44px 1fr minmax(0, 4fr) repeat(2, 1fr) 44px'
