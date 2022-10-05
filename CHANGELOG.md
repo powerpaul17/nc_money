@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.5.0] - 2022-10-05
+
 ### Added
 
 - Added transaction import dialog
