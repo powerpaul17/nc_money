@@ -11,14 +11,14 @@
     <div>
       <DateInput
         :date="date"
-        :placeholder="$t('general.date')"
+        :placeholder="t('money', 'Date')"
         @date-changed="(newDate) => (date = newDate)"
       />
     </div>
     <div>
       <SeamlessInput
         :value="description"
-        :placeholder="$t('general.description')"
+        :placeholder="t('money', 'Description')"
         @value-changed="(newDescription) => (description = newDescription)"
       />
     </div>
@@ -31,7 +31,7 @@
     <div>
       <CurrencyInput
         :value="value"
-        :placeholder="$t('general.value')"
+        :placeholder="t('money', 'Value')"
         @value-changed="(newValue) => (value = newValue)"
       />
     </div>

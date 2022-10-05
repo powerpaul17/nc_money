@@ -12,7 +12,7 @@
       <router-link to="/accounts/unbalanced">
         <div class="flex h-full w-full">
           <div class="flex-auto overflow-hidden text-ellipsis">
-            {{ $t('general.unbalanced') }}
+            {{ t('money', 'Unbalanced') }}
           </div>
           <div class="grow text-right">
             <CurrencyText
@@ -28,7 +28,7 @@
       <a href="#">
         <div class="flex h-full w-full">
           <div class="flex-auto overflow-hidden text-ellipsis">
-            {{ $t('general.equity') }}
+            {{ t('money', 'Equity') }}
           </div>
           <div class="grow text-right">
             <CurrencyText
@@ -63,22 +63,22 @@
         return [
           {
             id: 0,
-            name: this.$t('general.assets'),
+            name: this.t('money', 'Assets'),
             balance: this.accountStore.assetsBalance
           },
           {
             id: 1,
-            name: this.$t('general.liabilities'),
+            name: this.t('money', 'Liabilities'),
             balance: this.accountStore.liabilitiesBalance
           },
           {
             id: 2,
-            name: this.$t('general.income'),
+            name: this.t('money', 'Income'),
             balance: this.accountStore.incomeBalance
           },
           {
             id: 3,
-            name: this.$t('general.expenses'),
+            name: this.t('money', 'Expenses'),
             balance: this.accountStore.expensesBalance
           }
         ];

@@ -33,7 +33,7 @@
         <li>
           <a @click="handleAddAccountClick">
             <span class="icon-add"></span>
-            <span>{{ $t('components.accountTypeListItem.addAccount') }}</span>
+            <span>{{ t('money', 'Add account') }}</span>
           </a>
         </li>
       </ul>
@@ -47,7 +47,7 @@
       />
       <li v-if="!accounts.length">
         <a href="#">
-          {{ $t('components.accountTypeListItem.noAccounts') }}
+          {{ t('money', 'No accounts') }}
         </a>
       </li>
     </ul>

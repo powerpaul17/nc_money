@@ -3,7 +3,6 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 import vue from '@vitejs/plugin-vue';
-import vueI18N from '@intlify/vite-plugin-vue-i18n';
 
 const vueDocsPlugin = {
   name: 'vue-docs',
@@ -66,11 +65,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       vueDocsPlugin,
-      vue(),
-      vueI18N({
-        compositionOnly: false,
-        include: './src/locales/**'
-      })
+      vue()
     ],
     test: {
       environment: 'jsdom',

@@ -6,3 +6,4 @@ appinfo/signature.json
 .env
 *.code-workspace
 coverage
+translationfiles

@@ -11,7 +11,7 @@
     <div />
     <div>
       <SeamlessInput
-        :placeholder="$t('general.description')"
+        :placeholder="t('money', 'Description')"
         :value="split.description"
         @value-changed="handleDescriptionChanged"
       />
@@ -26,7 +26,7 @@
     <div>
       <CurrencyInput
         :value="split.value"
-        :placeholder="$t('general.value')"
+        :placeholder="t('money', 'Value')"
         @value-changed="handleValueChanged"
       />
     </div>

@@ -4,14 +4,14 @@
       <div>
         <SeamlessInput
           class="text-lg"
-          :placeholder="$t('general.name')"
+          :placeholder="t('money', 'Name')"
           :value="account.name"
           @value-changed="handleAccountNameModified"
         />
       </div>
       <div>
         <SeamlessInput
-          :placeholder="$t('general.description')"
+          :placeholder="t('money', 'Description')"
           :value="account.description"
           @value-changed="handleAccountDescriptionModified"
         />
@@ -29,7 +29,7 @@
           <template #icon>
             <Upload :size="20" />
           </template>
-          {{ $t('components.accountDetailsHeader.importTransactions') }}
+          {{ t('money', 'Import transactions') }}
         </NcActionButton>
       </NcActions>
     </div>

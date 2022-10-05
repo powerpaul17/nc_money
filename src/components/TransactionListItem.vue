@@ -45,13 +45,13 @@
       <div>
         <DateInput
           :date="transaction.date"
-          :placeholder="$t('general.date')"
+          :placeholder="t('money', 'Date')"
           @date-changed="handleDateChanged"
         />
       </div>
       <div>
         <SeamlessInput
-          :placeholder="$t('general.description')"
+          :placeholder="t('money', 'Description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
         />
@@ -61,7 +61,7 @@
           v-if="hasMultipleDestinationSplits"
           class="whitespace-nowrap"
         >
-          ( {{ $t('components.transactionListItem.multipleAccounts') }} )
+          ( {{ t('money', 'Multiple Accounts') }} )
         </span>
         <AccountSelect
           v-else
@@ -75,7 +75,7 @@
         <CurrencyInput
           :value="value"
           :editable="valueIsEditable"
-          :placeholder="$t('general.value')"
+          :placeholder="t('money', 'Value')"
           @value-changed="handleValueChanged"
         />
       </div>

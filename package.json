@@ -11,13 +11,12 @@
     "dev": "vite build --mode development",
     "dev-watch": "vite build --mode development --watch",
     "sign": "dotenv node build/sign.js",
-    "package": "tar c -z -f money.tar.gz --transform \"flags=r;s|^|money/|\" appinfo img js lib templates *.md",
+    "package": "tar c -z -f money.tar.gz --transform \"flags=r;s|^|money/|\" appinfo img js l10n lib templates *.md",
     "release": "dotenv release-it",
     "pre-release": "dotenv npm run release -- --preRelease",
     "upload": "dotenv node build/upload.js"
   },
   "devDependencies": {
-    "@intlify/vite-plugin-vue-i18n": "^6.0.1",
     "@nextcloud/axios": "^1.10.0",
     "@nextcloud/browser-storage": "^0.1.1",
     "@nextcloud/browserslist-config": "^2.3.0",
@@ -63,7 +62,6 @@
     "vue": "^3.2.37",
     "vue-datepicker-next": "^1.0.2",
     "vue-eslint-parser": "^9.1.0",
-    "vue-i18n": "^9.2.2",
     "vue-material-design-icons": "^5.1.2",
     "vue-multiselect": "^3.0.0-alpha.2",
     "vue-router": "^4.1.3",

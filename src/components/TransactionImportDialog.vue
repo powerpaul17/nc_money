@@ -8,30 +8,30 @@
       <h1
         class="text-center text-2xl"
       >
-        {{ t('components.transactionImportDialog.importTransactions') }}
+        {{ t('money', 'Import Transactions') }}
       </h1>
       <div>
         <h2 class="mb-3 text-lg">
-          {{ t('components.transactionImportDialog.selectFile') }}
+          {{ t('money', 'Select File') }}
         </h2>
         <div>
           <FileInput
             accept="text/csv"
             @file-changed="handleFileChanged"
           >
-            {{ t('components.transactionImportDialog.clickOrDropCsvFile') }}
+            {{ t('money', 'Click or drop CSV file') }}
           </FileInput>
         </div>
       </div>
 
       <div>
         <h2 class="mb-3 text-lg">
-          {{ t('components.transactionImportDialog.fileSettings') }}
+          {{ t('money', 'File Settings') }}
         </h2>
         <div class="mb-3 -mr-3 flex">
           <div class="basis-1/3 pr-3">
             <label>
-              {{ t('components.transactionImportDialog.columnSeparator') }}:
+              {{ t('money', 'Column Separator') }}:
             </label>
             <select
               class="w-full"
@@ -49,7 +49,7 @@
           </div>
           <div class="basis-1/3 pr-3">
             <label>
-              {{ t('components.transactionImportDialog.commaSeparator') }}:
+              {{ t('money', 'Comma Separator') }}:
             </label>
             <select
               class="w-full"
@@ -67,7 +67,7 @@
           </div>
           <div class="basis-1/3 pr-3">
             <label>
-              {{ t('components.transactionImportDialog.dateFormat') }}:
+              {{ t('money', 'Date Format') }}:
             </label>
             <input
               class="w-full"
@@ -80,7 +80,7 @@
 
       <div>
         <h2 class="mb-3 text-lg">
-          {{ t('components.transactionImportDialog.columnSelection') }}
+          {{ t('money', 'Column Selection') }}
         </h2>
         <div class="mb-3 flex flex-wrap md:-mr-3">
           <div
@@ -131,7 +131,7 @@
             <NcLoadingIcon v-if="isImporting" />
             <Upload v-else />
           </template>
-          {{ t('components.transactionImportDialog.import') }}
+          {{ t('money', 'Import') }}
         </NcButton>
 
         <progress
@@ -152,9 +152,9 @@
   import { parse } from 'csv-parse/browser/esm/sync';
   import dayjs from 'dayjs';
 
-  import { computed, reactive, ref, type Ref } from 'vue';
+  import {translate as t} from '@nextcloud/l10n';
 
-  import { useI18n } from 'vue-i18n';
+  import { computed, reactive, ref, type Ref } from 'vue';
 
   import { useSplitStore } from '../stores/splitStore';
   import { useTransactionService } from '../services/transactionService';
@@ -165,8 +165,6 @@
   import FileInput from './FileInput.vue';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
-
-  const { t } = useI18n();
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
@@ -186,7 +184,7 @@
   const dateFormat = ref('DD.MM.YYYY');
   const columns: Record<'date'|'description'|'comment'|'value', Column> = reactive({
     date: {
-      name: t('general.date'),
+      name: t('money', 'Date'),
       selectedColumn: null,
       lines: [],
       isValid: false,
@@ -197,21 +195,21 @@
       }
     },
     description: {
-      name: t('general.description'),
+      name: t('money', 'Description'),
       selectedColumn: null,
       lines: [],
       isValid: false,
       validator: () => true
     },
     comment: {
-      name: t('general.comment'),
+      name: t('money', 'Comment'),
       selectedColumn: null,
       lines: [],
       isValid: false,
       validator: () => true
     },
     value: {
-      name: t('general.value'),
+      name: t('money', 'Value'),
       selectedColumn: null,
       lines: [],
       isValid: false,
