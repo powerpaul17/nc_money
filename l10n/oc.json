@@ -1,0 +1,11 @@
+{ "translations": {
+    "Money" : "Moneda",
+    "Name" : "Nom",
+    "Description" : "Descripcion",
+    "Add account" : "Apondre compte",
+    "Value" : "Valor",
+    "Date" : "Data",
+    "Import" : "Importar",
+    "Comment" : "Comentaris"
+},"pluralForm" :"nplurals=2; plural=(n > 1);"
+}

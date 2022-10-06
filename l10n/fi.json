@@ -1,0 +1,12 @@
+{ "translations": {
+    "Money" : "Raha",
+    "Name" : "Nimi",
+    "Description" : "Kuvaus",
+    "Add account" : "Lisää tili",
+    "Value" : "Arvo",
+    "Date" : "Päivä",
+    "Select File" : "Valitse tiedosto",
+    "Import" : "Tuo",
+    "Comment" : "Kommentti"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

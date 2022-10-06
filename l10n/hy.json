@@ -1,0 +1,8 @@
+{ "translations": {
+    "Name" : "Անուն",
+    "Description" : "Նկարագրություն",
+    "Date" : "Date",
+    "Import" : "Ներմուծում",
+    "Comment" : "Մեկնաբանել"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

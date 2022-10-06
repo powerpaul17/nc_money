@@ -1,0 +1,9 @@
+{ "translations": {
+    "Name" : "Numm",
+    "Description" : "Beschreiwung",
+    "Add account" : "Kont dobäisetzen",
+    "Date" : "Date",
+    "Import" : "Importéieren",
+    "Comment" : "Kommentar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

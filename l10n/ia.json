@@ -1,0 +1,8 @@
+{ "translations": {
+    "Name" : "Nomine",
+    "Description" : "Description",
+    "Date" : "Date",
+    "Import" : "Importar",
+    "Comment" : "Commentario"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

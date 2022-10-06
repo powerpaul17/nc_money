@@ -1,0 +1,9 @@
+{ "translations": {
+    "Name" : "Nimi",
+    "Description" : "Kirjeldus",
+    "Add account" : "Lisa konto",
+    "Date" : "Kuupäev",
+    "Import" : "Impordi",
+    "Comment" : "Kommentaar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

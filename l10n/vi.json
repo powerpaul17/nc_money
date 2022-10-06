@@ -1,0 +1,10 @@
+{ "translations": {
+    "Money" : "Tiền bạc",
+    "Name" : "Tên",
+    "Description" : "Mô tả",
+    "Add account" : "Thêm tài khoản",
+    "Date" : "Date",
+    "Import" : "Nhập vào",
+    "Comment" : "Bình luận"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

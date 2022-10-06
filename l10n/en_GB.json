@@ -1,0 +1,10 @@
+{ "translations": {
+    "Name" : "Surname",
+    "Description" : "Description",
+    "Add account" : "Add account",
+    "Value" : "Value",
+    "Date" : "Date",
+    "Import" : "Import",
+    "Comment" : "Comment"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

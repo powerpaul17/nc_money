@@ -1,0 +1,9 @@
+{ "translations": {
+    "Name" : "Nomo",
+    "Description" : "Priskribo",
+    "Add account" : "Aldoni konton",
+    "Date" : "Date",
+    "Import" : "Importi",
+    "Comment" : "Komento"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

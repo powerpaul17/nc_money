@@ -1,0 +1,12 @@
+{ "translations": {
+    "Money" : "Geld",
+    "Name" : "Name",
+    "Description" : "Beschreibung",
+    "Add account" : "Konto hinzufügen",
+    "Value" : "Wert",
+    "Date" : "Datum",
+    "Select File" : "Datei auswählen",
+    "Import" : "Importieren",
+    "Comment" : "Kommentar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

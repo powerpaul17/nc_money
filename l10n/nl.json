@@ -1,0 +1,12 @@
+{ "translations": {
+    "Money" : "Geld",
+    "Name" : "Naam",
+    "Description" : "Beschrijving",
+    "Add account" : "Toevoegen account ",
+    "Value" : "Waarden",
+    "Date" : "Datum",
+    "Select File" : "Selecteer bestand",
+    "Import" : "Import",
+    "Comment" : "Notitie"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

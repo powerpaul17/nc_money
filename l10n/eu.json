@@ -1,0 +1,12 @@
+{ "translations": {
+    "Money" : "Dirua",
+    "Name" : "Izena",
+    "Description" : "Deskribapena",
+    "Add account" : "Gehitu kontua",
+    "Value" : "Balioa",
+    "Date" : "Data",
+    "Select File" : "Hautatu fitxategia",
+    "Import" : "Inportatu",
+    "Comment" : "Iruzkindu"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

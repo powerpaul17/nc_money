@@ -1,0 +1,12 @@
+{ "translations": {
+    "Money" : "Pengar",
+    "Name" : "Namn",
+    "Description" : "Beskrivning",
+    "Add account" : "Lägg till konto",
+    "Value" : "Värde",
+    "Date" : "Datum",
+    "Select File" : "Välj fil",
+    "Import" : "Importera",
+    "Comment" : "Kommentar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

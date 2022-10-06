@@ -1,0 +1,10 @@
+{ "translations": {
+    "Name" : "Navn",
+    "Description" : "Beskrivelse",
+    "Add account" : "Legg til en konto",
+    "Value" : "Verdi",
+    "Date" : "Dato",
+    "Import" : "Importer",
+    "Comment" : "Kommentar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

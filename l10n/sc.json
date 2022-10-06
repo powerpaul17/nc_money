@@ -1,0 +1,11 @@
+{ "translations": {
+    "Name" : "Nùmene",
+    "Description" : "Descritzione",
+    "Add account" : "Agiunghe contu",
+    "Value" : "Balore",
+    "Date" : "Data",
+    "Select File" : "Sèbera archìviu",
+    "Import" : "Importa",
+    "Comment" : "Cummentu"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

@@ -1,0 +1,9 @@
+{ "translations": {
+    "Name" : "නම",
+    "Description" : "විස්තරය",
+    "Add account" : "ගිණුමක් එකතු කරන්න",
+    "Value" : "අගය",
+    "Date" : "දිනය",
+    "Comment" : "අදහස"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

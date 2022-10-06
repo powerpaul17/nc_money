@@ -1,0 +1,8 @@
+OC.L10N.register(
+    "money",
+    {
+    "Name" : "﻿ಹೆಸರು",
+    "Date" : "Date",
+    "Import" : "ಆಮದು"
+},
+"nplurals=2; plural=(n > 1);");

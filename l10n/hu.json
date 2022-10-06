@@ -1,0 +1,12 @@
+{ "translations": {
+    "Money" : "Pénz",
+    "Name" : "Név",
+    "Description" : "Leírás",
+    "Add account" : "Fiók hozzáadása",
+    "Value" : "Érték",
+    "Date" : "Dátum",
+    "Select File" : "Válasszon fájlt",
+    "Import" : "Importálás",
+    "Comment" : "Megjegyzés"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
