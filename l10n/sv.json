@@ -1,12 +1,30 @@
 { "translations": {
     "Money" : "Pengar",
+    "Manage your finances." : "Hantera din ekonomi.",
+    "Finance manager for Nextcloud." : "Ekonomihanterare för Nextcloud.",
     "Name" : "Namn",
     "Description" : "Beskrivning",
+    "Import transactions" : "Importera transaktioner",
     "Add account" : "Lägg till konto",
+    "No accounts" : "Inga konton",
+    "Unbalanced" : "Obalanserad",
+    "Equity" : "Värdeökning",
+    "Assets" : "Tillgångar",
+    "Liabilities" : "Skulder",
+    "Income" : "Inkomster",
+    "Expenses" : "Utgifter",
     "Value" : "Värde",
     "Date" : "Datum",
+    "Import Transactions" : "Importera Transaktioner",
     "Select File" : "Välj fil",
+    "Click or drop CSV file" : "Klicka eller släpp CSV-fil",
+    "File Settings" : "Filinställningar",
+    "Column Separator" : "Kolumnseparator",
+    "Comma Separator" : "Kommaseparator",
+    "Date Format" : "Datumformat",
+    "Column Selection" : "Kolumnurval",
     "Import" : "Importera",
-    "Comment" : "Kommentar"
+    "Comment" : "Kommentar",
+    "Multiple Accounts" : "Flera konton"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

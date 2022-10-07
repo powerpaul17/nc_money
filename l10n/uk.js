@@ -2,8 +2,10 @@ OC.L10N.register(
     "money",
     {
     "Money" : "Гроші",
+    "Manage your finances." : "Управління фінансами",
     "Name" : "Назва",
     "Description" : "Опис",
+    "Import transactions" : "Імпорт транзакцій",
     "Add account" : "Додати обліковий запис",
     "Value" : "Значення",
     "Date" : "Дата",

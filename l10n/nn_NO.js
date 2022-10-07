@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "Pengar",
     "Name" : "Namn",
     "Description" : "Skildring",
     "Add account" : "Legg til konto",

@@ -1,12 +1,30 @@
 { "translations": {
     "Money" : "Dirua",
+    "Manage your finances." : "Kudeatu zure finantzak.",
+    "Finance manager for Nextcloud." : "Nextclouderako finantza kudeatzailea.",
     "Name" : "Izena",
     "Description" : "Deskribapena",
+    "Import transactions" : "Inportazio transakzioak",
     "Add account" : "Gehitu kontua",
+    "No accounts" : "Konturik ez",
+    "Unbalanced" : "Desorekatua",
+    "Equity" : "Ekitatea",
+    "Assets" : "Aktiboak",
+    "Liabilities" : "Pasiboak",
+    "Income" : "Sarrerak",
+    "Expenses" : "Gastuak",
     "Value" : "Balioa",
     "Date" : "Data",
+    "Import Transactions" : "Inportatu transakzioak",
     "Select File" : "Hautatu fitxategia",
+    "Click or drop CSV file" : "Egin klik edo jaregin CSV fitxategia",
+    "File Settings" : "Fitxategi ezarpenak",
+    "Column Separator" : "Zutabe banatzailea",
+    "Comma Separator" : "Koma banatzailea",
+    "Date Format" : "Data formatua",
+    "Column Selection" : "Zutabe hautapena",
     "Import" : "Inportatu",
-    "Comment" : "Iruzkindu"
+    "Comment" : "Iruzkindu",
+    "Multiple Accounts" : "Hainbat kontu"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
