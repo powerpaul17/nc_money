@@ -2,6 +2,8 @@ import { computed, reactive } from 'vue';
 
 import { defineStore } from 'pinia';
 
+import { useAccountStore } from './accountStore';
+
 export const useSplitStore = defineStore('splitStore', () => {
   const _splits: Map<number, Split> = reactive(new Map());
 
@@ -26,7 +28,35 @@ export const useSplitStore = defineStore('splitStore', () => {
   });
 
   function insertSplit(split: Split) {
-    _splits.set(split.id, split);
+    const splitProxy = new Proxy(
+      split,
+      {
+        set(target, p, value, receiver) {
+          console.warn('SPLIT PROXY -->', target, p, value, receiver);
+
+          const accountStore = useAccountStore();
+
+          if (p === 'value') {
+            const diff = value - target.value;
+            accountStore.addValue(
+              target.destAccountId,
+              diff
+            );
+          } else if (p === 'destAccountId') {
+            accountStore.addValue(
+              target.destAccountId,
+              -target.value
+            );
+            accountStore.addValue(value, target.value);
+          }
+
+          target[p] = value;
+
+          return true;
+        }
+      });
+
+    _splits.set(splitProxy.id, splitProxy);
   }
 
   function insertSplits(splits: Array<Split>) {
