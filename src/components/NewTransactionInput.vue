@@ -1,41 +1,37 @@
 <template>
-  <div
-    class="
-      grid
-      grid-cols-transactionListItem
-      items-center
-      [&>*]:mx-2
-    "
-  >
-    <div />
-    <div>
+  <TransactionListItemTemplate>
+    <template #date>
       <DateInput
         :date="date"
         :placeholder="t('money', 'Date')"
         @date-changed="(newDate) => (date = newDate)"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #description>
       <SeamlessInput
         :value="description"
         :placeholder="t('money', 'Description')"
         @value-changed="(newDescription) => (description = newDescription)"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #account>
       <AccountSelect
         :excluded-account-ids="[accountId]"
         @account-changed="(accountId) => (destAccountId = accountId)"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #amount>
       <CurrencyInput
         :value="value"
         :placeholder="t('money', 'Value')"
         @value-changed="(newValue) => (value = newValue)"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #actionLast>
       <div
         v-if="isLoading"
         class="icon-loading-small"
@@ -46,8 +42,8 @@
         :class="{ 'opacity-25': !isValid }"
         @click="() => isValid && handleSubmitTransactionClick()"
       />
-    </div>
-  </div>
+    </template>
+  </TransactionListItemTemplate>
 </template>
 
 <script lang="ts">
@@ -55,6 +51,7 @@
 
   import { useTransactionService } from '../services/transactionService';
 
+  import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import DateInput from './DateInput.vue';
@@ -113,7 +110,8 @@
       AccountSelect,
       CurrencyInput,
       DateInput,
-      SeamlessInput
+      SeamlessInput,
+      TransactionListItemTemplate
     }
   });
 </script>

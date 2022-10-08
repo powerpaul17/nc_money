@@ -15,48 +15,38 @@
       dark:bg-background-dark
     "
   >
-    <div
-      class="
-        grid
-        h-[45px]
-        grid-cols-transactionListItem
-        items-center
-
-        [&>*]:flex
-        [&>*]:h-full
-        [&>*]:items-center
-        [&>*:first-child]:justify-center
-        [&>*:last-child]:justify-center
-        [&>*:not(:first-child):not(:last-child)]:mx-2
-      "
-      :class="
-        {
-          'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
-        }
-      "
+    <TransactionListItemTemplate
+      :item-class="{
+        'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
+      }"
     >
-      <div @click="toggleSplits">
-        <NcLoadingIcon
-          v-if="isLoading"
-        />
-        <ChevronDown v-else-if="showSplits" />
-        <ChevronRight v-else />
-      </div>
-      <div>
+      <template #actionFirst>
+        <div @click="toggleSplits">
+          <NcLoadingIcon
+            v-if="isLoading"
+          />
+          <ChevronDown v-else-if="showSplits" />
+          <ChevronRight v-else />
+        </div>
+      </template>
+
+      <template #date>
         <DateInput
           :date="transaction.date"
           :placeholder="t('money', 'Date')"
           @date-changed="handleDateChanged"
         />
-      </div>
-      <div>
+      </template>
+
+      <template #description>
         <SeamlessInput
           :placeholder="t('money', 'Description')"
           :value="transaction.description"
           @value-changed="handleDescriptionChanged"
         />
-      </div>
-      <div class="justify-center">
+      </template>
+
+      <template #account>
         <span
           v-if="hasMultipleDestinationSplits"
           class="whitespace-nowrap"
@@ -70,18 +60,21 @@
           :excluded-account-ids="excludedAccountIds"
           @account-changed="handleDestinationAccountChanged"
         />
-      </div>
-      <div>
+      </template>
+
+      <template #amount>
         <CurrencyInput
           :value="value"
           :editable="valueIsEditable"
           :placeholder="t('money', 'Value')"
           @value-changed="handleValueChanged"
         />
-      </div>
-      <div />
-    </div>
-    <div v-if="showSplits" class="bg-gray-100 shadow-inner">
+      </template>
+    </TransactionListItemTemplate>
+    <div
+      v-if="showSplits"
+      class="bg-gray-100 shadow-inner"
+    >
       <SplitListItem
         v-for="split in splits"
         :key="split.id"
@@ -114,6 +107,7 @@
   import { useSplitStore, type Split } from '../stores/splitStore';
   import { useSplitService } from '../services/splitService';
 
+  import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
@@ -276,7 +270,8 @@
       DateInput,
       ChevronRight,
       ChevronDown,
-      NcLoadingIcon
+      NcLoadingIcon,
+      TransactionListItemTemplate
     }
   });
 </script>

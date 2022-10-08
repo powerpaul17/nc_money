@@ -1,36 +1,30 @@
 <template>
-  <div
-    class="
-      grid
-      grid-cols-transactionListItem
-      items-center
-      [&>*]:mx-2
-    "
-  >
-    <div />
-    <div />
-    <div>
+  <TransactionListItemTemplate>
+    <template #description>
       <SeamlessInput
         :placeholder="t('money', 'Description')"
         :value="split.description"
         @value-changed="handleDescriptionChanged"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #account>
       <AccountSelect
         :account-id="split.destAccountId"
         :excluded-account-ids="excludedAccountIds"
         @account-changed="handleDestinationAccountChanged"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #amount>
       <CurrencyInput
         :value="split.value"
         :placeholder="t('money', 'Value')"
         @value-changed="handleValueChanged"
       />
-    </div>
-    <div>
+    </template>
+
+    <template #actionLast>
       <div
         v-if="showLoadingIcon"
         class="icon-loading-small"
@@ -40,8 +34,8 @@
         class="icon-delete"
         @click="handleDeleteSplit"
       />
-    </div>
-  </div>
+    </template>
+  </TransactionListItemTemplate>
 </template>
 
 <script lang="ts">
@@ -50,6 +44,7 @@
   import type { Split } from '../stores/splitStore';
   import { useSplitService } from '../services/splitService';
 
+  import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import AccountSelect from './AccountSelect.vue';
   import SeamlessInput from './SeamlessInput.vue';
@@ -113,6 +108,6 @@
     setup() {
       return { splitService: useSplitService() };
     },
-    components: { CurrencyInput, AccountSelect, SeamlessInput }
+    components: { CurrencyInput, AccountSelect, SeamlessInput, TransactionListItemTemplate }
   });
 </script>
