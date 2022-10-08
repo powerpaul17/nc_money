@@ -34,7 +34,7 @@
         text-center text-xl text-border-dark
       "
     >
-      End of transactions
+      {{ t('money', 'End of transactions') }}
     </div>
   </div>
 </template>
