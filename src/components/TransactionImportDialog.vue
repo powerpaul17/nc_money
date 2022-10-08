@@ -49,12 +49,12 @@
           </div>
           <div class="basis-1/3 pr-3">
             <label>
-              {{ t('money', 'Comma Separator') }}:
+              {{ t('money', 'Decimal Separator') }}:
             </label>
             <select
               class="w-full"
-              v-model="commaSeparator"
-              @change="handleCommaSeparatorChanged"
+              v-model="decimalSeparator"
+              @change="handleDecimalSeparatorChanged"
             >
               <option
                 v-for="separator in ['.', ',']"
@@ -180,7 +180,7 @@
 
   const isImporting = ref(false);
   const columnSeparator = ref(',');
-  const commaSeparator = ref('.');
+  const decimalSeparator = ref('.');
   const dateFormat = ref('DD.MM.YYYY');
   const columns: Record<'date'|'description'|'comment'|'value', Column> = reactive({
     date: {
@@ -245,7 +245,7 @@
     parseFile();
   }
 
-  function handleCommaSeparatorChanged() {
+  function handleDecimalSeparatorChanged() {
     parseFile();
   }
 
