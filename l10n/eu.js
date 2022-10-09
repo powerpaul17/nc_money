@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Egin klik edo jaregin CSV fitxategia",
     "File Settings" : "Fitxategi ezarpenak",
     "Column Separator" : "Zutabe banatzailea",
-    "Comma Separator" : "Koma banatzailea",
     "Date Format" : "Data formatua",
     "Column Selection" : "Zutabe hautapena",
     "Import" : "Inportatu",

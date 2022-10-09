@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Нажмите или перетащите файл CSV",
     "File Settings" : "Параметры файла",
     "Column Separator" : "Разделитель столбцов",
-    "Comma Separator" : "Десятичный разделитель",
     "Date Format" : "Формат даты",
     "Column Selection" : "Выбор столбцов",
     "Import" : "Импортировать",

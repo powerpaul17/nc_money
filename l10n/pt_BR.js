@@ -17,7 +17,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Clique ou arraste um arquivo CSV",
     "File Settings" : "Configurações de Arquivo",
     "Column Separator" : "Separador de Coluna",
-    "Comma Separator" : "Separador por Vírgula",
     "Date Format" : "Formato de Data",
     "Column Selection" : "Seleção de Colunas",
     "Import" : "Importar",

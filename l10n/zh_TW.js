@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "點擊或拖放 CSV 檔案",
     "File Settings" : "檔案設定",
     "Column Separator" : "欄位分隔符",
-    "Comma Separator" : "逗號分隔符",
     "Date Format" : "日期格式",
     "Column Selection" : "欄位選取",
     "Import" : "匯入",

@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Klicken oder CSV-Datei ablegen",
     "File Settings" : "Dateieinstellungen",
     "Column Separator" : "Spaltentrenner",
-    "Comma Separator" : "Dezimaltrenner",
     "Date Format" : "Datumsformat",
     "Column Selection" : "Spaltenauswahl",
     "Import" : "Importieren",

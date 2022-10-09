@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Kattintson vagy ejtsen ide egy CSV-fájlt",
     "File Settings" : "Fájlbeállítások",
     "Column Separator" : "Oszlopelválasztó",
-    "Comma Separator" : "Tizedesjel",
     "Date Format" : "Dátumformátum",
     "Column Selection" : "Oszlop kiválasztása",
     "Import" : "Importálás",

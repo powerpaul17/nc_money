@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Κάντε κλικ ή σύρετε ένα CSV αρχείο",
     "File Settings" : "Ρυθμίσεις Αρχείου",
     "Column Separator" : "Διαχωριστής Στήλης",
-    "Comma Separator" : "Διαχωριστής Κόμματος",
     "Date Format" : "Μορφοποίηση Ημερομηνίας",
     "Column Selection" : "Επιλογή Στήλης",
     "Import" : "Εισαγωγή",

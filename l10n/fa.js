@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "کلیک کنید یا پرونده CSV خود را بیندازید",
     "File Settings" : "تنظیمات پرونده",
     "Column Separator" : "جداکنندهٔ ستون",
-    "Comma Separator" : "جداکننده کاما",
     "Date Format" : "ساختار تاریخ",
     "Column Selection" : "انتخاب ستون",
     "Import" : "وارد کردن",

@@ -22,7 +22,6 @@ OC.L10N.register(
     "Click or drop CSV file" : "Натисніть або опустіть файл CSV",
     "File Settings" : "Параметри файлу",
     "Column Separator" : "Розділювач стовпців",
-    "Comma Separator" : "Роздільник кома",
     "Date Format" : "Формат дати",
     "Column Selection" : "Вибір стовпця",
     "Import" : "Імпорт",
