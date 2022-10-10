@@ -22,6 +22,7 @@ OC.L10N.register(
     "Click or drop CSV file" : "CSV dosyasını sürükleyip bırakın ya da seçin",
     "File Settings" : "Dosya ayarları",
     "Column Separator" : "Sütun ayıracı",
+    "Decimal Separator" : "Ondalık ayıracı",
     "Date Format" : "Tarih biçimi",
     "Column Selection" : "Sütun seçimi",
     "Import" : "İçe aktar",

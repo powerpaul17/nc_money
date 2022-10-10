@@ -20,6 +20,7 @@
     "Click or drop CSV file" : "單擊或拖放 CSV 檔案",
     "File Settings" : "檔案設定",
     "Column Separator" : "縱列分隔符",
+    "Decimal Separator" : "小數點分隔符",
     "Date Format" : "日期格式",
     "Column Selection" : "縱列選擇",
     "Import" : "導入",

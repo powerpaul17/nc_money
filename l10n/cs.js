@@ -22,6 +22,7 @@ OC.L10N.register(
     "Click or drop CSV file" : "Klikněte nebo sem přetáhněte CSV soubor",
     "File Settings" : "Nastavení pro soubor",
     "Column Separator" : "Oddělovač sloupců",
+    "Decimal Separator" : "Oddělovač desetinných míst",
     "Date Format" : "Formát data",
     "Column Selection" : "Výběr sloupce",
     "Import" : "Naimportovat",
