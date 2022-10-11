@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Improved transaction list scrolling
+
 ## [0.5.0] - 2022-10-05
 
 ### Added

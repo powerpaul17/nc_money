@@ -1,41 +1,52 @@
 <template>
   <div
-    class="flex w-full flex-col overflow-scroll"
-    @scroll="handleScroll"
+    class="
+      flex
+      w-full
+      flex-col
+      overflow-scroll
+    "
   >
-    <NewTransactionInput
-      class="mx-2"
-      :account-id="account.id"
-    />
-
-    <div>
-      <template
-        v-for="transaction in transactions"
-        :key="transaction.id"
-      >
-        <TransactionListItem
-          :transaction="transaction"
+    <DynamicScroller
+      :items="transactions"
+      :min-item-size="45"
+      :emit-update="true"
+      @update="onDynamicScrollerUpdate"
+    >
+      <template #before>
+        <NewTransactionInput
+          class="mx-2"
           :account-id="account.id"
         />
       </template>
-    </div>
 
-    <div
-      v-if="isLoadingTransactions"
-      class="loading h-[50px]"
-    />
+      <template #default="{ item, active }">
+        <DynamicScrollerItem
+          :item="item"
+          :active="active"
+          class="p-2"
+        >
+          <TransactionListItem
+            :transaction="item"
+            :account-id="account.id"
+          />
+        </DynamicScrollerItem>
+      </template>
 
-    <div
-      v-if="transactionStore.allTransactionsFetched"
-      class="
-        mt-3 mb-10
-        border-t border-solid border-border-dark
-        pt-5
-        text-center text-xl text-border-dark
-      "
-    >
-      {{ t('money', 'End of transactions') }}
-    </div>
+      <template #after>
+        <div
+          v-if="transactionStore.allTransactionsFetched"
+          class="
+            mt-3 mb-10
+            border-t border-solid border-border-dark
+            pt-5
+            text-center text-xl text-border-dark
+          "
+        >
+          {{ t('money', 'End of transactions') }}
+        </div>
+      </template>
+    </DynamicScroller>
   </div>
 </template>
 
@@ -53,6 +64,9 @@
   import TransactionListItem from './TransactionListItem.vue';
   import NewTransactionInput from './NewTransactionInput.vue';
 
+  import {DynamicScroller, DynamicScrollerItem} from 'vue-virtual-scroller';
+  import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+
   export default defineComponent({
     props: {
       account: {
@@ -60,10 +74,11 @@
         required: true
       }
     },
-    data() {
+    data(): {
+      isLoadingTransactions: boolean;
+    } {
       return {
-        itemHeight: 40, // TODO calculate this somehow
-        isLoadingTransactions: true
+        isLoadingTransactions: false
       };
     },
     computed: {
@@ -75,12 +90,6 @@
             splits.some((s) => s.destAccountId === this.account.id)
           );
         });
-      },
-      numberOfTransactions() {
-        return this.transactions.length;
-      },
-      scrollerHeight() {
-        return this.numberOfTransactions * this.itemHeight;
       }
     },
     watch: {
@@ -91,31 +100,24 @@
     methods: {
       async changeAccount() {
         await this.transactionService.changeAccount(this.account.id);
-        await this.loadMoreTransactionsIfRequired();
-      },
-      async handleScroll() {
-        await this.loadMoreTransactionsIfRequired();
-      },
-      async loadMoreTransactionsIfRequired() {
-        if (
-          this.$el.scrollTop + this.$el.clientHeight >=
-            this.scrollerHeight - this.itemHeight &&
-          !this.transactionStore.allTransactionsFetched
-        ) {
-          this.isLoadingTransactions = true;
-
-          await this.loadMoreTransactions();
-
-          setTimeout(() => {
-            this.loadMoreTransactionsIfRequired();
-          }, 0);
-        } else {
-          this.isLoadingTransactions = false;
-        }
       },
       async loadMoreTransactions() {
-        const offset = this.numberOfTransactions;
+        if(
+          this.isLoadingTransactions ||
+          this.transactionStore.allTransactionsFetched
+        ) return;
+
+        this.isLoadingTransactions = true;
+
+        const offset = this.transactions.length;
         await this.transactionService.fetchAndInsertTransactions(offset);
+
+        this.isLoadingTransactions = false;
+      },
+      async onDynamicScrollerUpdate(_startIndex: number, endIndex: number) {
+        if(endIndex + 10 >= this.transactions.length) {
+          await this.loadMoreTransactions();
+        }
       }
     },
     setup() {
@@ -130,7 +132,9 @@
     },
     components: {
       TransactionListItem,
-      NewTransactionInput
+      NewTransactionInput,
+      DynamicScroller,
+      DynamicScrollerItem
     }
   });
 </script>

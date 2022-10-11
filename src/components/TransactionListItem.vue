@@ -1,7 +1,6 @@
 <template>
   <div
     class="
-      mx-2 my-3
       overflow-hidden
       rounded-md
       transition-all
@@ -130,6 +129,11 @@
         showSplits: false,
         isLoading: false
       };
+    },
+    watch: {
+      transaction() {
+        this.showSplits = false;
+      }
     },
     computed: {
       value() {
