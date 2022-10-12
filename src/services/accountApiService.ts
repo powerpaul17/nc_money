@@ -15,7 +15,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
   }
 
   async function getAccounts(): Promise<Array<Account>> {
-    const response = await axios.get(generateUrl('apps/money/accounts'));
+    const response = await axios.get<Array<AccountApiResponseData>>(generateUrl('apps/money/accounts'));
     return response.data.map(createAccountFromResponseData);
   }
 
@@ -45,7 +45,8 @@ export const useAccountApiService = defineStore('accountApiService', () => {
       description: data.description,
       currency: data.currency,
       type: Number(data.type), // TODO in API controller
-      balance: Number(data.balance) // TODO in API controller
+      balance: Number(data.balance), // TODO in API controller
+      stats: data.stats
     };
   }
 
@@ -59,7 +60,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
 
 });
 
-export type AccountCreationData = Omit<Account, 'id' | 'balance'>;
+export type AccountCreationData = Omit<Account, 'id' | 'balance' | 'stats'>;
 
 type AccountApiResponseData = {
   id: string;
@@ -68,4 +69,5 @@ type AccountApiResponseData = {
   currency: string;
   type: string;
   balance: string;
+  stats: Record<number, Record<number, number>>;
 };

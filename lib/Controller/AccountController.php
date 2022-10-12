@@ -2,6 +2,8 @@
 
 namespace OCA\Money\Controller;
 
+use ArrayObject;
+
 use OCP\IRequest;
 use OCP\IDBConnection;
 
@@ -24,13 +26,18 @@ class AccountController extends MoneyController {
   public function getAccounts() {
     $qb = $this->db->getQueryBuilder();
 
+    $yearFunction = $qb->createFunction('YEAR(c.date)');
+    $monthFunction = $qb->createFunction('MONTH(c.date)');
+
     $qb->select('a.*')
+      ->selectAlias($yearFunction, 'year')
+      ->selectAlias($monthFunction, 'month')
       ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
       ->from('money_accounts', 'a')
       ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
       ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
       ->where('a.user_id = :user_id')
-      ->groupBy('a.id')
+      ->groupBy($yearFunction, $monthFunction, 'a.id')
 
       ->setParameter('user_id', $this->userId);
 
@@ -38,8 +45,7 @@ class AccountController extends MoneyController {
     $rows = $result->fetchAll();
     $result->closeCursor();
 
-    return $rows;
-    //return new DataResponse($this->accountService->findAll($this->userId));
+    return array_values($this->transformAccountRowsWithBalances($rows));
   }
 
   /**
@@ -50,24 +56,28 @@ class AccountController extends MoneyController {
   public function getAccount($id) {
     $qb = $this->db->getQueryBuilder();
 
+    $yearFunction = $qb->createFunction('YEAR(c.date)');
+    $monthFunction = $qb->createFunction('MONTH(c.date)');
+
     $qb->select('a.*')
+      ->selectAlias($yearFunction, 'year')
+      ->selectAlias($monthFunction, 'month')
       ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
-      ->from('money_accounts' ,'a')
+      ->from('money_accounts', 'a')
       ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
       ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
       ->where('a.id = :id')
       ->andWhere('a.user_id = :user_id')
-      ->groupBy('a.id')
+      ->groupBy($yearFunction, $monthFunction, 'a.id')
 
       ->setParameter('user_id', $this->userId)
       ->setParameter('id', $id);
 
     $result = $qb->executeQuery();
-    $row = $result->fetch();
+    $rows = $result->fetchAll();
     $result->closeCursor();
 
-    return $row;
-    //return new DataResponse($this->accountService->find($id, $this->userId));
+    return array_values($this->transformAccountRowsWithBalances($rows))[0];
   }
 
   /**
@@ -101,4 +111,36 @@ class AccountController extends MoneyController {
       return $this->accountService->delete($id, $this->userId);
     });
   }
+
+  private function transformAccountRowsWithBalances($rows) {
+    $accounts = [];
+
+    foreach ($rows as $row) {
+      $id = $row['id'];
+      $balance = $row['balance'];
+
+      if (array_key_exists($row['id'], $accounts)) {
+        $account = $accounts[$id];
+      } else {
+        $account = $accounts[$id] = [
+          'id' => $id,
+          'type' => $row['type'],
+          'name' => $row['name'],
+          'description' => $row['description'],
+          'currency' => $row['currency'],
+          'balance' => 0.0,
+          'stats' => new ArrayObject()
+        ];
+      }
+
+      if (!is_null($balance)) {
+        $account['balance'] += $balance;
+        $account['stats'][$row['year']][$row['month']] = $balance;
+      }
+      $accounts[$id] = $account;
+    }
+
+    return $accounts;
+  }
+
 }

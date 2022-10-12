@@ -98,4 +98,5 @@ export type Account = {
   currency: string;
   description: string;
   balance: number;
+  stats: Record<number, Record<number, number>>;
 };
