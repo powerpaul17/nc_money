@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.6.0] - 2022-10-12
+
 ### Added
 
 - Group transactions by month
