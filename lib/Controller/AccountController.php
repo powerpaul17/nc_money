@@ -101,28 +101,4 @@ class AccountController extends MoneyController {
       return $this->accountService->delete($id, $this->userId);
     });
   }
-
-  /**
-   * @NoAdminRequired
-   *
-   * @param int $id
-   */
-  public function getAccountBalance($id) {
-    $qb = $this->db->getQueryBuilder();
-
-    $qb->selectAlias($qb->createFunction('ROUND(SUM(a.value), 2)'), 'balance')
-      ->from('money_splits' , 'a')
-      ->leftJoin('a', 'money_transactions', 'b', 'a.transaction_id = b.id')
-      ->where('dest_account_id = :dest_account_id')
-      ->andWhere('user_id = :user_id')
-      ->setParameter('user_id', $this->userId)
-      ->setParameter('dest_acount_id', $id);
-
-    $result = $qb->executeQuery();
-    $returnValue = $result->fetch();
-    $result->closeCursor();
-
-    return $returnValue;
-  }
-
 }

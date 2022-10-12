@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nextcloud - money
  *
@@ -18,8 +19,6 @@ return [
 
     ['name' => 'settings#get_config', 'url' => '/config', 'verb' => 'GET'],
     ['name' => 'settings#set_config', 'url' => '/config', 'verb' => 'POST'],
-
-    ['name' => 'account#get_account_balance', 'url' => '/accounts/balance', 'verb' => 'GET'],
 
     ['name' => 'account#get_accounts', 'url' => '/accounts', 'verb' => 'GET'],
     ['name' => 'account#get_account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
