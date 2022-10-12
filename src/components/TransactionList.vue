@@ -83,13 +83,7 @@
     },
     computed: {
       transactions(): Array<Transaction> {
-        return this.transactionStore.sortedByDate.filter((t) => {
-          const splits = this.splitStore.getByTransactionId(t.id);
-          return (
-            splits.length &&
-            splits.some((s) => s.destAccountId === this.account.id)
-          );
-        });
+        return this.transactionStore.getByAccountId(this.account.id);
       }
     },
     watch: {

@@ -2,7 +2,11 @@ import { computed, reactive, ref, type Ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
+import { useSplitStore } from './splitStore';
+
 export const useTransactionStore = defineStore('transactionStore', () => {
+  const splitStore = useSplitStore();
+
   const _transactions: Map<number, Transaction> = reactive(new Map());
   const _currentAccountId: Ref<number|null> = ref(null);
   const _allTransactionsFetched = ref(false);
@@ -15,6 +19,16 @@ export const useTransactionStore = defineStore('transactionStore', () => {
 
   const getById = computed(() => {
     return (transactionId: number) => _transactions.get(transactionId);
+  });
+
+  const getByAccountId = computed(() => {
+    return (accountId: number) => sortedByDate.value.filter((t) => {
+      const splits = splitStore.getByTransactionId(t.id);
+      return (
+        splits.length &&
+        splits.some((s) => s.destAccountId === accountId)
+      );
+    });
   });
 
   const sortedByDate = computed(() => {
@@ -48,6 +62,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     allTransactionsFetched: _allTransactionsFetched,
 
     getById,
+    getByAccountId,
     sortedByDate,
 
     insertTransaction,
