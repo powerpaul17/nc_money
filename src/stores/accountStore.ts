@@ -53,11 +53,32 @@ export const useAccountStore = defineStore('accountStore', () => {
     _accounts.set(account.id, account);
   }
 
-  function addValue(accountId: number, value: number) {
+  function addValue(accountId: number, value: number, date?: Date) {
     const account = _getById(accountId);
     if (!account) throw new Error('cannot add value to non-existing account');
 
     account.balance += value;
+
+    if (date) {
+      addSummaryValue(accountId, value, date);
+    }
+  }
+
+  function addSummaryValue(accountId: number, value: number, date: Date) {
+    const account = _getById(accountId);
+    if (!account)
+      throw new Error('cannot add summary value to non-existing account');
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    let yearMap = account.stats[year];
+    if (!yearMap) {
+      yearMap = {};
+      account.stats[year] = yearMap;
+    }
+
+    yearMap[month] = (yearMap[month] ?? 0) + value;
   }
 
   function calculateBalance(accounts: Array<Account>): number {
@@ -80,7 +101,8 @@ export const useAccountStore = defineStore('accountStore', () => {
     insertAccount,
     deleteAccount,
 
-    addValue
+    addValue,
+    addSummaryValue
   };
 });
 
