@@ -105,7 +105,8 @@ export const useTransactionApiService = defineStore(
         id: data.id,
         description: data.description,
         date: new Date(data.date),
-        timestampAdded: new Date(data.timestampAdded).valueOf()
+        timestampAdded: new Date(data.timestampAdded).valueOf(),
+        showSplits: false
       };
     }
 
@@ -121,5 +122,5 @@ export const useTransactionApiService = defineStore(
 
 export type TransactionCreationData = Omit<
   Transaction,
-  'id' | 'timestampAdded'
+  'id' | 'timestampAdded' | 'showSplits'
 >;

@@ -24,7 +24,7 @@
           <NcLoadingIcon
             v-if="isLoading"
           />
-          <ChevronDown v-else-if="showSplits" />
+          <ChevronDown v-else-if="transaction.showSplits" />
           <ChevronRight v-else />
         </div>
       </template>
@@ -71,8 +71,11 @@
       </template>
     </TransactionListItemTemplate>
     <div
-      v-if="showSplits"
-      class="bg-gray-100 shadow-inner"
+      v-if="transaction.showSplits"
+      class="
+        bg-gray-100
+        shadow-inner
+      "
     >
       <SplitListItem
         v-for="split in splits"
@@ -126,13 +129,11 @@
     },
     data() {
       return {
-        showSplits: false,
         isLoading: false
       };
     },
     watch: {
       transaction() {
-        this.showSplits = false;
       }
     },
     computed: {
@@ -169,7 +170,7 @@
         return this.splitOfDestinationAccount?.destAccountId;
       },
       valueIsEditable() {
-        return !this.showSplits && !this.hasMultipleDestinationSplits;
+        return !this.transaction.showSplits && !this.hasMultipleDestinationSplits;
       },
       unbalancedValue() {
         return this.splits.reduce((value, s) => (value += s.value), 0.0);
@@ -190,7 +191,7 @@
     },
     methods: {
       toggleSplits() {
-        this.showSplits = !this.showSplits;
+        this.transaction.showSplits = !this.transaction.showSplits;
       },
       async handleTransactionChanged() {
         this.isLoading = true;
