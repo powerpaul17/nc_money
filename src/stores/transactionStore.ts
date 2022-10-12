@@ -3,6 +3,7 @@ import { computed, reactive, ref, type Ref } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useSplitStore } from './splitStore';
+import { useAccountStore } from './accountStore';
 
 export const useTransactionStore = defineStore('transactionStore', () => {
   const splitStore = useSplitStore();
@@ -43,12 +44,43 @@ export const useTransactionStore = defineStore('transactionStore', () => {
 
   function insertTransactions(transactions: Array<Transaction>) {
     for (const transaction of transactions) {
-      _transactions.set(transaction.id, transaction);
+      insertTransaction(transaction);
     }
   }
 
   function insertTransaction(transaction: Transaction) {
-    _transactions.set(transaction.id, transaction);
+    const transactionProxy = new Proxy(
+      transaction,
+      {
+        set(target, p, value, receiver) {
+          console.warn('TRANSACTION PROXY -->', target, p, value, receiver);
+
+          const accountStore = useAccountStore();
+
+          const splits = splitStore.getByTransactionId(target.id);
+
+          if (p === 'date') {
+            for (const split of splits) {
+              accountStore.addSummaryValue(
+                split.destAccountId,
+                -split.value,
+                target.date
+              );
+              accountStore.addSummaryValue(
+                split.destAccountId,
+                split.value,
+                value
+              );
+            }
+          }
+
+          target[p] = value;
+
+          return true;
+        }
+      }
+    );
+    _transactions.set(transactionProxy.id, transactionProxy);
   }
 
   function deleteTransaction(transactionId: number) {
