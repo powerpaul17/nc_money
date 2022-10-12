@@ -8,6 +8,9 @@ import l10n from '@nextcloud/l10n';
 
 import './main.css';
 
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 import Router from './router';
 
 import App from './App.vue';
