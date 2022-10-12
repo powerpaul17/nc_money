@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Group transactions by month
+
 ### Changed
 
 - Improved transaction list scrolling
