@@ -165,6 +165,7 @@
   import FileInput from './FileInput.vue';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
+  import { Utils } from '../utils/utils';
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
@@ -214,7 +215,7 @@
       lines: [],
       isValid: false,
       validator: (line) => {
-        return !Number.isNaN(Number(line));
+        return !Number.isNaN(Utils.parseNumber(line, decimalSeparator.value));
       }
     }
   });

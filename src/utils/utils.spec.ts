@@ -37,4 +37,23 @@ describe('Utils', () => {
       ]);
     });
   });
+
+  describe('parseNumber', () => {
+    it('should return a number of a string', () => {
+      expect(Utils.parseNumber('123.456')).to.be.equal(123.456);
+    });
+
+    it('should return NaN if it is not a parseable number', () => {
+      expect(Utils.parseNumber('abc')).to.be.NaN;
+    });
+
+    it('should respect decimal separator', () => {
+      expect(Utils.parseNumber('123,456', ',')).to.be.equal(123.456);
+    });
+
+    it('should ignore thousand separators', () => {
+      expect(Utils.parseNumber('12,345.678')).to.be.equal(12345.678);
+      expect(Utils.parseNumber('12.456,789', ',')).to.be.equal(12456.789);
+    });
+  });
 });

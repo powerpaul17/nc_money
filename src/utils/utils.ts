@@ -56,4 +56,13 @@ export class Utils {
       decimalDigits ? `${decimalSeparator}${decimalDigits}` : ''
     }`;
   }
+
+  public static parseNumber(numberString: string, decimalSeparator = '.'): number {
+    return Number(
+      numberString
+        .replace(decimalSeparator, '#')
+        .replace(/[\s,.]+/, '')
+        .replace('#', '.'));
+  }
+
 }
