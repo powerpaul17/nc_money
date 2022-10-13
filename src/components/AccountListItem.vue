@@ -1,6 +1,6 @@
 <template>
   <li :class="{ active: isSelected }">
-    <router-link :to="`/accounts/${account.id}`">
+    <router-link :to="`/account/${account.id}`">
       <div class="flex h-full w-full">
         <div class="flex-auto overflow-hidden text-ellipsis">
           {{ account.name }}

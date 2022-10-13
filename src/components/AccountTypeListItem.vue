@@ -106,7 +106,7 @@
           type: this.accountType.id
         });
 
-        this.$router.push(`/accounts/${newAccount.id}`);
+        this.$router.push(`/account/${newAccount.id}`);
 
         this.isOpen = true;
         this.isMenuOpen = false;

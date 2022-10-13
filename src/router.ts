@@ -7,7 +7,7 @@ export default createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: '/accounts/:accountId',
+      path: '/account/:accountId',
       components: {
         default: AccountView,
         sidebar: Sidebar
