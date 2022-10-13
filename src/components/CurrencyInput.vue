@@ -12,7 +12,7 @@
   import { defineComponent } from 'vue';
 
   import { useMathExpression } from '../utils/mathExpression';
-  import { Utils } from '../utils/utils';
+  import { NumberUtils } from '../utils/numberUtils';
 
   import SeamlessInput from './SeamlessInput.vue';
 
@@ -64,7 +64,7 @@
     },
     computed: {
       formattedValue() {
-        return Utils.formatNumber(this.value, {
+        return NumberUtils.formatNumber(this.value, {
           decimals: this.decimals,
           decimalSeparator: this.decimalSeparator,
           groupBy: this.groupBy,

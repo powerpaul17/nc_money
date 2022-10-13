@@ -10,7 +10,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { Utils } from '../utils/utils';
+  import { NumberUtils } from '../utils/numberUtils';
 
   export default defineComponent({
     props: {
@@ -95,7 +95,7 @@
     },
     computed: {
       formattedValue() {
-        return Utils.formatNumber(this.shownValue, {
+        return NumberUtils.formatNumber(this.shownValue, {
           decimals: this.decimals,
           decimalSeparator: this.decimalSeparator,
           groupBy: this.groupBy,

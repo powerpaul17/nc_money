@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { Utils } from '../utils/utils';
+import { ArrayUtils } from '../utils/arrayUtils';
 
 import {
   useTransactionApiService,
@@ -149,7 +149,7 @@ export const useTransactionService = defineStore('transactionService', () => {
     const results = [];
 
     const chunkSize = 10;
-    const chunks = Utils.chunk(transactions, chunkSize);
+    const chunks = ArrayUtils.chunk(transactions, chunkSize);
 
     for (const chunk of chunks) {
       for (const transaction of chunk) {

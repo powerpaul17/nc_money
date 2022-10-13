@@ -1,11 +1,6 @@
-export class Utils {
-  public static chunk<T>(array: Array<T>, chunkSize: number): Array<Array<T>> {
-    return array.reduce<Array<Array<T>>>((chunks, item, index) => {
-      return index % chunkSize === 0
-        ? [...chunks, [item]]
-        : [...chunks.slice(0, -1), [...chunks.slice(-1)[0], item]];
-    }, []);
-  }
+import { ArrayUtils } from './arrayUtils';
+
+export class NumberUtils {
 
   public static formatNumber(
     value: number,
@@ -42,7 +37,7 @@ export class Utils {
 
     const decimalDigits = decimalSplitParts[1];
 
-    const groupedBeforeDecimal = Utils.chunk(
+    const groupedBeforeDecimal = ArrayUtils.chunk(
       Array.from(beforeDecimal).reverse(),
       groupBy
     )
