@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import AccountsView from './views/AccountsView.vue';
+import AccountView from './views/AccountView.vue';
 import Sidebar from './components/Sidebar.vue';
 
 export default createRouter({
@@ -9,7 +9,7 @@ export default createRouter({
     {
       path: '/accounts/:accountId',
       components: {
-        default: AccountsView,
+        default: AccountView,
         sidebar: Sidebar
       },
       props: {
