@@ -3,8 +3,12 @@ import { computed, reactive } from 'vue';
 import { defineStore } from 'pinia';
 
 import { useAccountStore } from './accountStore';
+import { useTransactionStore } from './transactionStore';
 
 export const useSplitStore = defineStore('splitStore', () => {
+  const accountStore = useAccountStore();
+  const transactionStore = useTransactionStore();
+
   const _splits: Map<number, Split> = reactive(new Map());
 
   const getById = computed(() => {
@@ -34,18 +38,20 @@ export const useSplitStore = defineStore('splitStore', () => {
         set(target, p, value, receiver) {
           console.warn('SPLIT PROXY -->', target, p, value, receiver);
 
-          const accountStore = useAccountStore();
+          const transaction = transactionStore.getById(target.transactionId);
 
           if (p === 'value') {
             const diff = value - target.value;
             accountStore.addValue(
               target.destAccountId,
-              diff
+              diff,
+              transaction?.date
             );
           } else if (p === 'destAccountId') {
             accountStore.addValue(
               target.destAccountId,
-              -target.value
+              -target.value,
+              transaction?.date
             );
             accountStore.addValue(value, target.value);
           }
