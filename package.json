@@ -5,6 +5,7 @@
   "author": "Paul Tirk",
   "license": "ISC",
   "scripts": {
+    "lint": "eslint .",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "build": "vite build",
