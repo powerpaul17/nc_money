@@ -2,23 +2,25 @@ import { computed, reactive } from 'vue';
 
 import { defineStore } from 'pinia';
 
+import { AccountTypeType } from './accountTypeStore';
+
 export const useAccountStore = defineStore('accountStore', () => {
   const _accounts: Map<number, Account> = reactive(new Map());
 
   const assetsBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountType.ASSET));
+    return calculateBalance(_getByType(AccountTypeType.ASSET));
   });
 
   const liabilitiesBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountType.LIABILITY));
+    return calculateBalance(_getByType(AccountTypeType.LIABILITY));
   });
 
   const incomeBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountType.INCOME));
+    return calculateBalance(_getByType(AccountTypeType.INCOME));
   });
 
   const expensesBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountType.EXPENSE));
+    return calculateBalance(_getByType(AccountTypeType.EXPENSE));
   });
 
   const unbalancedValue = computed((): number => {
@@ -37,7 +39,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     return _getByType;
   });
 
-  function _getByType(accountType: AccountType) {
+  function _getByType(accountType: AccountTypeType) {
     return accountArray.value.filter((a) => a.type === accountType);
   }
 
@@ -106,17 +108,10 @@ export const useAccountStore = defineStore('accountStore', () => {
   };
 });
 
-export enum AccountType {
-  ASSET = 0,
-  LIABILITY = 1,
-  INCOME = 2,
-  EXPENSE = 3
-}
-
 export type Account = {
   id: number;
   name: string;
-  type: AccountType;
+  type: AccountTypeType;
   currency: string;
   description: string;
   balance: number;

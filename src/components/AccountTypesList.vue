@@ -2,7 +2,7 @@
   <ul>
     <AccountTypeListItem
       v-for="accountType in accountTypes"
-      :key="accountType.id"
+      :key="accountType.type"
       :account-type="accountType"
     />
 
@@ -47,6 +47,7 @@
 
   import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
+  import { useAccountTypeStore } from '../stores/accountTypeStore';
 
   import AccountTypeListItem from './AccountTypeListItem.vue';
   import CurrencyText from './CurrencyText.vue';
@@ -55,33 +56,13 @@
     data() {
       return {
         accountStore: useAccountStore(),
-        accountService: useAccountService()
+        accountService: useAccountService(),
+        accountTypeStore: useAccountTypeStore()
       };
     },
     computed: {
       accountTypes() {
-        return [
-          {
-            id: 0,
-            name: this.t('money', 'Assets'),
-            balance: this.accountStore.assetsBalance
-          },
-          {
-            id: 1,
-            name: this.t('money', 'Liabilities'),
-            balance: this.accountStore.liabilitiesBalance
-          },
-          {
-            id: 2,
-            name: this.t('money', 'Income'),
-            balance: this.accountStore.incomeBalance
-          },
-          {
-            id: 3,
-            name: this.t('money', 'Expenses'),
-            balance: this.accountStore.expensesBalance
-          }
-        ];
+        return this.accountTypeStore.accountTypes;
       },
       equity() {
         return (
@@ -100,10 +81,4 @@
       CurrencyText
     }
   });
-
-  export type AccountType = {
-    id: number;
-    name: string;
-    balance: number;
-  };
 </script>

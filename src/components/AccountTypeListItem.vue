@@ -32,7 +32,7 @@
       <ul>
         <li>
           <a @click="handleAddAccountClick">
-            <span class="icon-add"></span>
+            <span class="icon-add" />
             <span>{{ t('money', 'Add account') }}</span>
           </a>
         </li>
@@ -57,13 +57,13 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
-  import { AccountType, useAccountStore } from '../stores/accountStore';
+  import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
+  import type {
+    AccountType
+  } from '../stores/accountTypeStore';
 
   import AccountListItem from './AccountListItem.vue';
-  import type {
-    AccountType as AccountTypeEntity
-  } from './AccountTypesList.vue';
   import CurrencyText from './CurrencyText.vue';
 
   export default defineComponent({
@@ -73,7 +73,7 @@
     },
     props: {
       accountType: {
-        type: Object as PropType<AccountTypeEntity>,
+        type: Object as PropType<AccountType>,
         required: true
       }
     },
@@ -82,8 +82,7 @@
         accountStore: useAccountStore(),
         accountService: useAccountService(),
         isOpen: true,
-        isMenuOpen: false,
-        AccountType
+        isMenuOpen: false
       };
     },
     computed: {
@@ -94,7 +93,7 @@
         return this.accountType.balance;
       },
       accounts: function () {
-        return this.accountStore.getByType(this.accountType.id);
+        return this.accountStore.getByType(this.accountType.type);
       }
     },
     methods: {
@@ -103,7 +102,7 @@
           name: 'New Account',
           description: '',
           currency: '',
-          type: this.accountType.id
+          type: this.accountType.type
         });
 
         this.$router.push(`/account/${newAccount.id}`);
