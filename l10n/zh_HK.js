@@ -27,6 +27,7 @@ OC.L10N.register(
     "Column Selection" : "縱列選擇",
     "Import" : "導入",
     "Comment" : "留言",
+    "End of transactions" : "交易結束",
     "Multiple Accounts" : "多個賬戶"
 },
 "nplurals=1; plural=0;");

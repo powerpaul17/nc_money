@@ -27,6 +27,7 @@ OC.L10N.register(
     "Column Selection" : "Výber Stĺpca",
     "Import" : "Import",
     "Comment" : "Komentár",
+    "End of transactions" : "Koniec transakcií",
     "Multiple Accounts" : "Viacero účtov"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

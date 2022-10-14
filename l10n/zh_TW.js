@@ -27,6 +27,7 @@ OC.L10N.register(
     "Column Selection" : "欄位選取",
     "Import" : "匯入",
     "Comment" : "留言",
+    "End of transactions" : "交易結束",
     "Multiple Accounts" : "多重帳號"
 },
 "nplurals=1; plural=0;");

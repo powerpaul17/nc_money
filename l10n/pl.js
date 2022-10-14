@@ -8,6 +8,7 @@ OC.L10N.register(
     "Value" : "Wartość",
     "Date" : "Data",
     "Select File" : "Wybierz plik",
+    "Decimal Separator" : "Separator dziesiętny",
     "Import" : "Importuj",
     "Comment" : "Komentarz"
 },
