@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Use user's locale for date formatting
+
 ## [0.6.0] - 2022-10-12
 
 ### Added

@@ -8,6 +8,7 @@
 
 <script lang="ts">
   import dayjs from 'dayjs';
+
   import { defineComponent } from 'vue';
 
   import SeamlessInput from './SeamlessInput.vue';
@@ -36,14 +37,14 @@
     },
     computed: {
       formattedDate() {
-        return dayjs(this.date).format('DD.MM.YYYY');
+        return dayjs(this.date).format('L');
       }
     },
     methods: {
       handleDateValueChanged(newDateValue: string) {
         this.dateValue = this.formattedDate;
 
-        const newDate = dayjs(newDateValue, 'DD.MM.YYYY').toDate();
+        const newDate = dayjs(newDateValue, 'L').toDate();
         if (!Number.isNaN(newDate.valueOf())) {
           this.$emit('date-changed', newDate);
         }
