@@ -99,6 +99,10 @@
                 @change="handleColumnSelectionChanged(column)"
                 :disabled="!availableColumns.length"
               >
+                <option :value="null">
+                  ( {{ t('money', 'Not selected' ) }} )
+                </option>
+
                 <option
                   v-for="availableColumn of availableColumns"
                   :key="availableColumn"
