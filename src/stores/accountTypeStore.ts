@@ -1,15 +1,16 @@
 import { translate as t } from '@nextcloud/l10n';
 
-import { defineStore } from 'pinia';
-import { computed } from 'vue';
+import { defineStore, storeToRefs } from 'pinia';
+
+import { computed, reactive, type Ref } from 'vue';
 
 import { useAccountStore } from './accountStore';
 
-export const useAccountTypeStore = defineStore('accountType', () => {
+export const useAccountTypeStore = defineStore('accountTypeStore', () => {
 
-  const accountStore = useAccountStore();
+  const accountStore = storeToRefs(useAccountStore());
 
-  const _accountTypes: Map<AccountTypeType, AccountType> = new Map([
+  const _accountTypes: Map<AccountTypeType, AccountType> = reactive(new Map([
     [
       AccountTypeType.ASSET,
       {
@@ -37,7 +38,7 @@ export const useAccountTypeStore = defineStore('accountType', () => {
         name: t('money', 'Expenses'),
         balance: accountStore.expensesBalance
       }]
-  ]);
+  ]));
 
   const accountTypes = computed(() => {
     return Array.from(_accountTypes.values());
@@ -65,5 +66,5 @@ export enum AccountTypeType {
 export type AccountType = {
   type: AccountTypeType;
   name: string;
-  balance: number;
+  balance: Ref<number>;
 };
