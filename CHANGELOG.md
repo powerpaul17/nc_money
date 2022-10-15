@@ -3,6 +3,7 @@
 ### Changed
 
 - Use user's locale for date formatting
+- Improve layout/design of transaction import dialog
 
 ## [0.6.0] - 2022-10-12
 

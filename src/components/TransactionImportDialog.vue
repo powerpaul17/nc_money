@@ -4,7 +4,7 @@
     @close="$emit('close')"
     :can-close="!isImporting"
   >
-    <div class="p-8 [&>*]:my-5">
+    <div class="p-8 [&>*]:my-6">
       <h1
         class="text-center text-2xl"
       >
@@ -28,8 +28,8 @@
         <h2 class="mb-3 text-lg">
           {{ t('money', 'File Settings') }}
         </h2>
-        <div class="mb-3 -mr-3 flex">
-          <div class="basis-1/3 pr-3">
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <div>
             <label>
               {{ t('money', 'Column Separator') }}:
             </label>
@@ -47,7 +47,7 @@
               </option>
             </select>
           </div>
-          <div class="basis-1/3 pr-3">
+          <div>
             <label>
               {{ t('money', 'Decimal Separator') }}:
             </label>
@@ -65,7 +65,7 @@
               </option>
             </select>
           </div>
-          <div class="basis-1/3 pr-3">
+          <div>
             <label>
               {{ t('money', 'Date Format') }}:
             </label>
@@ -82,11 +82,10 @@
         <h2 class="mb-3 text-lg">
           {{ t('money', 'Column Selection') }}
         </h2>
-        <div class="mb-3 flex flex-wrap md:-mr-3">
+        <div class="grid grid-cols-1 gap-3 lg:grid-cols-3">
           <div
             v-for="(column, key) in columns"
             :key="key"
-            class="basis-full md:basis-1/2 md:pr-3 lg:basis-1/4"
             :class="{ 'text-red-500': column.selectedColumn && !column.isValid }"
           >
             <div>{{ column.name }}</div>
@@ -123,6 +122,7 @@
 
       <div class="flex items-center">
         <NcButton
+          class="shrink-0"
           type="primary"
           :disabled="isImporting || !isValid"
           @click="handleImportClick"
