@@ -11,7 +11,7 @@
         {{ t('money', 'Import Transactions') }}
       </h1>
       <div>
-        <h2 class="mb-3 text-lg">
+        <h2>
           {{ t('money', 'Select File') }}
         </h2>
         <div>
@@ -25,7 +25,7 @@
       </div>
 
       <div>
-        <h2 class="mb-3 text-lg">
+        <h2>
           {{ t('money', 'File Settings') }}
         </h2>
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
@@ -79,7 +79,7 @@
       </div>
 
       <div>
-        <h2 class="mb-3 text-lg">
+        <h2>
           {{ t('money', 'Column Selection') }}
         </h2>
         <div class="grid grid-cols-1 gap-3 lg:grid-cols-3">
