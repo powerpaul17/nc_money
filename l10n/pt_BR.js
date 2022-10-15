@@ -27,6 +27,7 @@ OC.L10N.register(
     "Column Selection" : "Seleção de Colunas",
     "Import" : "Importar",
     "Comment" : "Comente",
+    "End of transactions" : "Fim de transações",
     "Multiple Accounts" : "Contas Múltiplas"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

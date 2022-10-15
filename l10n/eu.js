@@ -27,6 +27,7 @@ OC.L10N.register(
     "Column Selection" : "Zutabe hautapena",
     "Import" : "Inportatu",
     "Comment" : "Iruzkindu",
+    "End of transactions" : "Transakzioen bukaera",
     "Multiple Accounts" : "Hainbat kontu"
 },
 "nplurals=2; plural=(n != 1);");
