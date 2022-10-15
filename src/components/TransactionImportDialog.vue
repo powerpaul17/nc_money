@@ -152,7 +152,7 @@
   import { parse } from 'csv-parse/browser/esm/sync';
   import dayjs from 'dayjs';
 
-  import {translate as t} from '@nextcloud/l10n';
+  import { translate as t } from '@nextcloud/l10n';
 
   import { computed, reactive, ref, type Ref } from 'vue';
 
@@ -183,7 +183,10 @@
   const columnSeparator = ref(',');
   const decimalSeparator = ref('.');
   const dateFormat = ref('DD.MM.YYYY');
-  const columns: Record<'date'|'description'|'comment'|'value', Column> = reactive({
+  const columns: Record<
+    'date' | 'description' | 'comment' | 'credit' | 'debit',
+    Column
+  > = reactive({
     date: {
       name: t('money', 'Date'),
       selectedColumn: null,
@@ -209,8 +212,17 @@
       isValid: false,
       validator: () => true
     },
-    value: {
-      name: t('money', 'Value'),
+    credit: {
+      name: t('money', 'Credit'),
+      selectedColumn: null,
+      lines: [],
+      isValid: false,
+      validator: (line) => {
+        return !Number.isNaN(NumberUtils.parseNumber(line, decimalSeparator.value));
+      }
+    },
+    debit: {
+      name: t('money', 'Debit'),
       selectedColumn: null,
       lines: [],
       isValid: false,
@@ -231,7 +243,7 @@
       columns.comment.isValid &&
       columns.date.isValid &&
       columns.description.isValid &&
-      columns.value.isValid
+      (columns.credit.isValid || columns.debit.isValid)
     );
   });
 
@@ -271,23 +283,32 @@
     if (
       !columns.date.selectedColumn ||
       !columns.description.selectedColumn ||
-      !columns.value.selectedColumn ||
+      (!columns.credit.selectedColumn && !columns.debit.selectedColumn) ||
       !columns.comment.selectedColumn
     )
       throw new Error('cannot import without selected columns');
 
     const transactionsToImport = [];
     for (const dataItem of parsedData.value) {
+      // TODO convert before
+      const credit = columns.credit.selectedColumn ?
+        NumberUtils.parseNumber(dataItem[columns.credit.selectedColumn], decimalSeparator.value) :
+        0.0;
+      const debit = columns.debit.selectedColumn ?
+        NumberUtils.parseNumber(dataItem[columns.debit.selectedColumn], decimalSeparator.value) :
+        0.0;
+
+      const value =
+        - (!Number.isNaN(credit) ? credit : 0.0) +
+        (!Number.isNaN(debit) ? debit : 0.0);
+
       const transactionToCreate = {
         date: dayjs(
           dataItem[columns.date.selectedColumn],
           dateFormat.value
         ).toDate(),
         description: dataItem[columns.description.selectedColumn],
-
-        // TODO convert before
-        value: -Number(dataItem[columns.value.selectedColumn]),
-
+        value,
         convertRate: 1.0,
         srcAccountId: props.accountId,
         srcSplitComment: dataItem[columns.comment.selectedColumn]
