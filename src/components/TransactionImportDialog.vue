@@ -86,14 +86,14 @@
           <div
             v-for="(column, key) in columns"
             :key="key"
-            :class="{ 'text-red-500': column.selectedColumn && !column.isValid }"
+            :class="{ 'text-red-500': !columnIsValid(column) }"
           >
             <div>{{ column.name }}</div>
             <div>
               <select
                 class="w-full"
                 :class="{
-                  'border-red-500': column.selectedColumn && !column.isValid
+                  'border-red-500': !columnIsValid(column)
                 }"
                 v-model="column.selectedColumn"
                 @change="handleColumnSelectionChanged(column)"
@@ -113,7 +113,7 @@
             </div>
             <div>
               <div
-                v-for="(line, index) in column.lines.slice(0, 5)"
+                v-for="(line, index) in column.parsedData.slice(0, 5)"
                 :key="index"
                 class="overflow-hidden text-ellipsis whitespace-nowrap"
               >
@@ -187,52 +187,48 @@
   const columnSeparator = ref(',');
   const decimalSeparator = ref('.');
   const dateFormat = ref('DD.MM.YYYY');
-  const columns: Record<
-    'date' | 'description' | 'comment' | 'credit' | 'debit',
-    Column
-  > = reactive({
+  const columns: Columns = reactive({
     date: {
       name: t('money', 'Date'),
       selectedColumn: null,
-      lines: [],
+      required: true,
+      parsedData: [],
       isValid: false,
-      validator: (line) => {
-        return (
-          dayjs(line, dateFormat.value).format(dateFormat.value) === line
-        );
-      }
+      validator: (parsedData) => dayjs(parsedData).isValid(),
+      parser: (line) => dayjs(line, dateFormat.value).toDate()
     },
     description: {
       name: t('money', 'Description'),
       selectedColumn: null,
-      lines: [],
-      isValid: false,
-      validator: () => true
+      required: true,
+      parsedData: [],
+      isValid: true,
+      parser: (line) => line
     },
     comment: {
       name: t('money', 'Comment'),
       selectedColumn: null,
-      lines: [],
-      isValid: false,
-      validator: () => true
+      parsedData: [],
+      isValid: true,
+      parser: (line) => line
     },
     credit: {
       name: t('money', 'Credit'),
       selectedColumn: null,
-      lines: [],
+      required: (columns) => !columns.debit.selectedColumn,
+      parsedData: [],
       isValid: false,
-      validator: (line) => {
-        return !Number.isNaN(NumberUtils.parseNumber(line, decimalSeparator.value));
-      }
+      validator: (parsedData) => !Number.isNaN(parsedData),
+      parser: (line) => NumberUtils.parseNumber(line, decimalSeparator.value)
     },
     debit: {
       name: t('money', 'Debit'),
       selectedColumn: null,
-      lines: [],
+      required: (columns) => !columns.credit.selectedColumn,
+      parsedData: [],
       isValid: false,
-      validator: (line) => {
-        return !Number.isNaN(NumberUtils.parseNumber(line, decimalSeparator.value));
-      }
+      validator: (parsedData) => !Number.isNaN(parsedData),
+      parser: (line) => NumberUtils.parseNumber(line, decimalSeparator.value)
     }
   });
   const fileContent = ref('');
@@ -243,13 +239,17 @@
   const numberOfTransactionsToImport = ref(0);
 
   const isValid = computed(() => {
-    return (
-      columns.comment.isValid &&
-      columns.date.isValid &&
-      columns.description.isValid &&
-      (columns.credit.isValid || columns.debit.isValid)
-    );
+    return Object.values(columns).every((column) => columnIsValid(column));
   });
+
+  function columnIsValid(column: Column<any>): boolean {
+    const required = typeof (column.required) === 'function' ? column.required(columns) : column.required;
+    if (!required) {
+      return !column.selectedColumn || column.isValid;
+    } else {
+      return !!column.selectedColumn && column.isValid;
+    }
+  }
 
   function handleFileChanged(file: File | null) {
     if (!file)
@@ -271,12 +271,14 @@
   }
 
   function handleColumnSelectionChanged(column: Column) {
-    updatePreviewLines();
+    updateParsedData();
     validate(column);
   }
 
-  function validate(column: Column) {
-    if (column.lines.every(column.validator)) {
+  function validate<T>(column: Column<T>): void {
+    if (!column.validator) return;
+
+    if (column.parsedData.every(column.validator)) {
       column.isValid = true;
     } else {
       column.isValid = false;
@@ -287,8 +289,7 @@
     if (
       !columns.date.selectedColumn ||
       !columns.description.selectedColumn ||
-      (!columns.credit.selectedColumn && !columns.debit.selectedColumn) ||
-      !columns.comment.selectedColumn
+      (!columns.credit.selectedColumn && !columns.debit.selectedColumn)
     )
       throw new Error('cannot import without selected columns');
 
@@ -315,7 +316,7 @@
         value,
         convertRate: 1.0,
         srcAccountId: props.accountId,
-        srcSplitComment: dataItem[columns.comment.selectedColumn]
+        srcSplitComment: columns.comment.selectedColumn ? dataItem[columns.comment.selectedColumn] : undefined
       };
 
       transactionsToImport.push(transactionToCreate);
@@ -418,19 +419,17 @@
     availableColumns.value = Object.keys(records[0]);
     parsedData.value = records;
 
-    updatePreviewLines();
+    updateParsedData();
   }
 
-  function updatePreviewLines() {
+  function updateParsedData(): void {
     for (const column of Object.values(columns)) {
       const selectedColumn = column.selectedColumn;
 
       if (!selectedColumn) {
-        column.lines = [];
+        column.parsedData = [];
       } else {
-        column.lines = parsedData.value.map((line) => {
-          return line[selectedColumn];
-        });
+        column.parsedData = parsedData.value.map((line) => column.parser(line[selectedColumn]));
       }
     }
   }
@@ -439,11 +438,21 @@
     return `${dayjs(date).format('YYYY-MM-DD')}-${description}-${value}`;
   }
 
-  type Column = {
+  type Columns = {
+    date: Column<Date>;
+    description: Column<string>;
+    comment: Column<string>;
+    credit: Column<number>
+    debit: Column<number>
+  };
+
+  type Column<T> = {
     name: string;
     selectedColumn: string | null;
-    lines: Array<string>;
+    required?: boolean|((columns: Columns) => boolean);
+    parsedData: Array<T>;
     isValid: boolean;
-    validator: (line: string) => boolean;
+    validator?: (parsedData: T) => boolean;
+    parser: (line: string) => T;
   };
 </script>
