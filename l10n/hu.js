@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Nincsenek fiókok",
     "Unbalanced" : "Kiegyenlítetlen",
     "Equity" : "Saját tőke",
-    "Assets" : "Pénzeszközök",
-    "Liabilities" : "Kötelezettségek",
-    "Income" : "Bevétel",
-    "Expenses" : "Kiadás",
     "Value" : "Érték",
     "Date" : "Dátum",
     "Import Transactions" : "Tranzakciók importálása",
@@ -27,6 +23,10 @@ OC.L10N.register(
     "Column Selection" : "Oszlop kiválasztása",
     "Import" : "Importálás",
     "Comment" : "Megjegyzés",
-    "Multiple Accounts" : "Több fiók"
+    "Multiple Accounts" : "Több fiók",
+    "Assets" : "Pénzeszközök",
+    "Liabilities" : "Kötelezettségek",
+    "Income" : "Bevétel",
+    "Expenses" : "Kiadás"
 },
 "nplurals=2; plural=(n != 1);");

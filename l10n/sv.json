@@ -9,10 +9,6 @@
     "No accounts" : "Inga konton",
     "Unbalanced" : "Obalanserad",
     "Equity" : "Värdeökning",
-    "Assets" : "Tillgångar",
-    "Liabilities" : "Skulder",
-    "Income" : "Inkomster",
-    "Expenses" : "Utgifter",
     "Value" : "Värde",
     "Date" : "Datum",
     "Import Transactions" : "Importera Transaktioner",
@@ -24,6 +20,10 @@
     "Column Selection" : "Kolumnurval",
     "Import" : "Importera",
     "Comment" : "Kommentar",
-    "Multiple Accounts" : "Flera konton"
+    "Multiple Accounts" : "Flera konton",
+    "Assets" : "Tillgångar",
+    "Liabilities" : "Skulder",
+    "Income" : "Inkomster",
+    "Expenses" : "Utgifter"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

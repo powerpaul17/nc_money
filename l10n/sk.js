@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Žiadne účty",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",
-    "Assets" : "Majetok",
-    "Liabilities" : "Záväzky",
-    "Income" : "Príjmy",
-    "Expenses" : "Výdaje",
     "Value" : "Hodnota",
     "Date" : "Dátum",
     "Import Transactions" : "Importovať Transakcie",
@@ -28,6 +24,10 @@ OC.L10N.register(
     "Import" : "Import",
     "Comment" : "Komentár",
     "End of transactions" : "Koniec transakcií",
-    "Multiple Accounts" : "Viacero účtov"
+    "Multiple Accounts" : "Viacero účtov",
+    "Assets" : "Majetok",
+    "Liabilities" : "Záväzky",
+    "Income" : "Príjmy",
+    "Expenses" : "Výdaje"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

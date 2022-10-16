@@ -9,10 +9,6 @@ OC.L10N.register(
     "Add account" : "Lisää tili",
     "No accounts" : "Ei tilejä",
     "Equity" : "Pääoma",
-    "Assets" : "Varallisuus",
-    "Liabilities" : "Velat",
-    "Income" : "Tulot",
-    "Expenses" : "Menot",
     "Value" : "Arvo",
     "Date" : "Päivä",
     "Import Transactions" : "Tuo tapahtumia",
@@ -25,6 +21,10 @@ OC.L10N.register(
     "Column Selection" : "Sarakevalinta",
     "Import" : "Tuo",
     "Comment" : "Kommentti",
-    "Multiple Accounts" : "Useita tilejä"
+    "Multiple Accounts" : "Useita tilejä",
+    "Assets" : "Varallisuus",
+    "Liabilities" : "Velat",
+    "Income" : "Tulot",
+    "Expenses" : "Menot"
 },
 "nplurals=2; plural=(n != 1);");

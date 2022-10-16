@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Δεν υπάρχουν λογαριασμοί",
     "Unbalanced" : "Μη ισορροπημένα",
     "Equity" : "Μετοχικά κεφάλαια",
-    "Assets" : "Περουσιακά στοιχεία",
-    "Liabilities" : "Υποχρεώσεις",
-    "Income" : "Εισοδήματα",
-    "Expenses" : "Έξοδα",
     "Value" : "Τιμή",
     "Date" : "Ημερομηνία",
     "Import Transactions" : "Εισαγωγή Συναλλαγών",
@@ -26,6 +22,10 @@ OC.L10N.register(
     "Column Selection" : "Επιλογή Στήλης",
     "Import" : "Εισαγωγή",
     "Comment" : "Σχόλιο",
-    "Multiple Accounts" : "Πολλαπλοί Λογαριασμοί"
+    "Multiple Accounts" : "Πολλαπλοί Λογαριασμοί",
+    "Assets" : "Περουσιακά στοιχεία",
+    "Liabilities" : "Υποχρεώσεις",
+    "Income" : "Εισοδήματα",
+    "Expenses" : "Έξοδα"
 },
 "nplurals=2; plural=(n != 1);");

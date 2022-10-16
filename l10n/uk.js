@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Немає облікових записів",
     "Unbalanced" : "Неврівноважений",
     "Equity" : "Власний капітал",
-    "Assets" : "Активи",
-    "Liabilities" : "Зобов'язання",
-    "Income" : "Дохід",
-    "Expenses" : "Витрати",
     "Value" : "Значення",
     "Date" : "Дата",
     "Import Transactions" : "Імпортувати трансакції",
@@ -28,6 +24,10 @@ OC.L10N.register(
     "Import" : "Імпорт",
     "Comment" : "Коментар",
     "End of transactions" : "Кінець транзакції",
-    "Multiple Accounts" : "Кілька облікових записів"
+    "Multiple Accounts" : "Кілька облікових записів",
+    "Assets" : "Активи",
+    "Liabilities" : "Зобов'язання",
+    "Income" : "Дохід",
+    "Expenses" : "Витрати"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Ingen konto",
     "Unbalanced" : "Ikke afstemt",
     "Equity" : "Egenkapital",
-    "Assets" : "Aktiver",
-    "Liabilities" : "Forpligtelser",
-    "Income" : "Indtægt",
-    "Expenses" : "Udgifter",
     "Value" : "Værdi",
     "Date" : "Dato",
     "Import Transactions" : "Import af transaktioner",
@@ -26,6 +22,10 @@ OC.L10N.register(
     "Column Selection" : "Kolonnevalg",
     "Import" : "Importér",
     "Comment" : "Kommentér",
-    "Multiple Accounts" : "Flere kontoer"
+    "Multiple Accounts" : "Flere kontoer",
+    "Assets" : "Aktiver",
+    "Liabilities" : "Forpligtelser",
+    "Income" : "Indtægt",
+    "Expenses" : "Udgifter"
 },
 "nplurals=2; plural=(n != 1);");

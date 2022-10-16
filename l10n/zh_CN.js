@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "没有账目",
     "Unbalanced" : "不平衡",
     "Equity" : "权益",
-    "Assets" : "资产类",
-    "Liabilities" : "负债类",
-    "Income" : "收入",
-    "Expenses" : "支出",
     "Value" : "值",
     "Date" : "日期",
     "Import Transactions" : "导入交易",
@@ -27,6 +23,10 @@ OC.L10N.register(
     "Column Selection" : "列选择",
     "Import" : "导入",
     "Comment" : "备注",
-    "Multiple Accounts" : "多账目"
+    "Multiple Accounts" : "多账目",
+    "Assets" : "资产类",
+    "Liabilities" : "负债类",
+    "Income" : "收入",
+    "Expenses" : "支出"
 },
 "nplurals=1; plural=0;");

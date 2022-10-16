@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Без сметки",
     "Unbalanced" : "Небалансиран",
     "Equity" : "Собствен капитал",
-    "Assets" : "Активи",
-    "Liabilities" : "Пасиви",
-    "Income" : "Приходи",
-    "Expenses" : "Разходи",
     "Value" : "Стойност",
     "Date" : "Дата",
     "Import Transactions" : "Операции по вноса",
@@ -26,6 +22,10 @@ OC.L10N.register(
     "Column Selection" : "Избор на колона",
     "Import" : "Импортиране",
     "Comment" : "Коментар",
-    "Multiple Accounts" : "Множество сметки"
+    "Multiple Accounts" : "Множество сметки",
+    "Assets" : "Активи",
+    "Liabilities" : "Пасиви",
+    "Income" : "Приходи",
+    "Expenses" : "Разходи"
 },
 "nplurals=2; plural=(n != 1);");

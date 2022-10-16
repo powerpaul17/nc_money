@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "حسابی وجود ندارد",
     "Unbalanced" : "ناتراز",
     "Equity" : "قاعده انصاف",
-    "Assets" : "دارایی‌ها",
-    "Liabilities" : "بدهی‌ها",
-    "Income" : "درآمد",
-    "Expenses" : "هزینه‌ها",
     "Value" : "مقدار",
     "Date" : "تاریخ",
     "Import Transactions" : "وارد کردن تراکنش‌ها",
@@ -26,6 +22,10 @@ OC.L10N.register(
     "Column Selection" : "انتخاب ستون",
     "Import" : "وارد کردن",
     "Comment" : "دیدگاه",
-    "Multiple Accounts" : "حساب‌های چندگانه"
+    "Multiple Accounts" : "حساب‌های چندگانه",
+    "Assets" : "دارایی‌ها",
+    "Liabilities" : "بدهی‌ها",
+    "Income" : "درآمد",
+    "Expenses" : "هزینه‌ها"
 },
 "nplurals=2; plural=(n > 1);");

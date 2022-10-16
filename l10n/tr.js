@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Henüz bir hesap yok",
     "Unbalanced" : "Dengesiz",
     "Equity" : "Eşitlik",
-    "Assets" : "Varlıklar",
-    "Liabilities" : "Sorumluluklar",
-    "Income" : "Gelirler",
-    "Expenses" : "Giderler",
     "Value" : "Değer",
     "Date" : "Tarih",
     "Import Transactions" : "Hesap hareketlerini içe aktar",
@@ -27,6 +23,11 @@ OC.L10N.register(
     "Column Selection" : "Sütun seçimi",
     "Import" : "İçe aktar",
     "Comment" : "Yorum",
-    "Multiple Accounts" : "Birkaç hesap"
+    "End of transactions" : "Hesap hareketlerinin sonu",
+    "Multiple Accounts" : "Birkaç hesap",
+    "Assets" : "Varlıklar",
+    "Liabilities" : "Sorumluluklar",
+    "Income" : "Gelirler",
+    "Expenses" : "Giderler"
 },
 "nplurals=2; plural=(n > 1);");

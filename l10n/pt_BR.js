@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Sem contas",
     "Unbalanced" : "Desequilibrado",
     "Equity" : "Equity",
-    "Assets" : "Ativos",
-    "Liabilities" : "Passivos",
-    "Income" : "Entradas",
-    "Expenses" : "Despesas",
     "Value" : "Valor",
     "Date" : "Data",
     "Import Transactions" : "Importar transações",
@@ -28,6 +24,10 @@ OC.L10N.register(
     "Import" : "Importar",
     "Comment" : "Comente",
     "End of transactions" : "Fim de transações",
-    "Multiple Accounts" : "Contas Múltiplas"
+    "Multiple Accounts" : "Contas Múltiplas",
+    "Assets" : "Ativos",
+    "Liabilities" : "Passivos",
+    "Income" : "Entradas",
+    "Expenses" : "Despesas"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

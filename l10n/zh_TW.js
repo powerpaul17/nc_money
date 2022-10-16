@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "無帳號",
     "Unbalanced" : "不平衡",
     "Equity" : "權益",
-    "Assets" : "資產",
-    "Liabilities" : "負債",
-    "Income" : "收入",
-    "Expenses" : "支出",
     "Value" : "價值",
     "Date" : "日期",
     "Import Transactions" : "匯入交易",
@@ -28,6 +24,10 @@ OC.L10N.register(
     "Import" : "匯入",
     "Comment" : "留言",
     "End of transactions" : "交易結束",
-    "Multiple Accounts" : "多重帳號"
+    "Multiple Accounts" : "多重帳號",
+    "Assets" : "資產",
+    "Liabilities" : "負債",
+    "Income" : "收入",
+    "Expenses" : "支出"
 },
 "nplurals=1; plural=0;");

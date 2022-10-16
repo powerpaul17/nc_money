@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Konturik ez",
     "Unbalanced" : "Desorekatua",
     "Equity" : "Ekitatea",
-    "Assets" : "Aktiboak",
-    "Liabilities" : "Pasiboak",
-    "Income" : "Sarrerak",
-    "Expenses" : "Gastuak",
     "Value" : "Balioa",
     "Date" : "Data",
     "Import Transactions" : "Inportatu transakzioak",
@@ -28,6 +24,10 @@ OC.L10N.register(
     "Import" : "Inportatu",
     "Comment" : "Iruzkindu",
     "End of transactions" : "Transakzioen bukaera",
-    "Multiple Accounts" : "Hainbat kontu"
+    "Multiple Accounts" : "Hainbat kontu",
+    "Assets" : "Aktiboak",
+    "Liabilities" : "Pasiboak",
+    "Income" : "Sarrerak",
+    "Expenses" : "Gastuak"
 },
 "nplurals=2; plural=(n != 1);");

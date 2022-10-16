@@ -11,10 +11,6 @@ OC.L10N.register(
     "No accounts" : "Inga konton",
     "Unbalanced" : "Obalanserad",
     "Equity" : "Värdeökning",
-    "Assets" : "Tillgångar",
-    "Liabilities" : "Skulder",
-    "Income" : "Inkomster",
-    "Expenses" : "Utgifter",
     "Value" : "Värde",
     "Date" : "Datum",
     "Import Transactions" : "Importera Transaktioner",
@@ -26,6 +22,10 @@ OC.L10N.register(
     "Column Selection" : "Kolumnurval",
     "Import" : "Importera",
     "Comment" : "Kommentar",
-    "Multiple Accounts" : "Flera konton"
+    "Multiple Accounts" : "Flera konton",
+    "Assets" : "Tillgångar",
+    "Liabilities" : "Skulder",
+    "Income" : "Inkomster",
+    "Expenses" : "Utgifter"
 },
 "nplurals=2; plural=(n != 1);");
