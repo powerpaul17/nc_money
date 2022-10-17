@@ -244,7 +244,10 @@
   });
 
   function columnIsValid(column: Column<any>): boolean {
-    const required = typeof (column.required) === 'function' ? column.required(columns) : column.required;
+    const required = typeof (column.required) === 'function' ?
+      column.required(columns) :
+      column.required;
+
     if (!required) {
       return !column.selectedColumn || column.isValid;
     } else {
@@ -268,16 +271,16 @@
   }
 
   function handleDateFormatChanged() {
-    updateParsedData();
+    updateColumnParsedData();
     validate(columns.date);
   }
 
-  function handleColumnSelectionChanged(column: Column) {
-    updateParsedData();
+  function handleColumnSelectionChanged(column: Column<any>) {
+    updateColumnParsedData();
     validate(column);
   }
 
-  function validate<T>(column: Column<T>): void {
+  function validate(column: Column<any>): void {
     if (!column.validator) return;
 
     if (column.parsedData.every(column.validator)) {
@@ -296,29 +299,27 @@
       throw new Error('cannot import without selected columns');
 
     const transactionsToImport = [];
-    for (const dataItem of parsedData.value) {
-      // TODO convert before
-      const credit = columns.credit.selectedColumn ?
-        NumberUtils.parseNumber(dataItem[columns.credit.selectedColumn], decimalSeparator.value) :
-        0.0;
-      const debit = columns.debit.selectedColumn ?
-        NumberUtils.parseNumber(dataItem[columns.debit.selectedColumn], decimalSeparator.value) :
-        0.0;
+    for (const index of parsedData.value.keys()) {
+      const credit = columns.credit.parsedData[index] ?? 0.0;
+      const debit = columns.debit.parsedData[index] ?? 0.0;
 
       const value =
         - (!Number.isNaN(credit) ? credit : 0.0) +
         (!Number.isNaN(debit) ? debit : 0.0);
 
+      const date = columns.date.parsedData[index];
+      if (!date) throw new Error('cannot import transaction without a date');
+
+      const description = columns.description.parsedData[index];
+      if (!description) throw new Error('cannot import transaction without a description');
+
       const transactionToCreate = {
-        date: dayjs(
-          dataItem[columns.date.selectedColumn],
-          dateFormat.value
-        ).toDate(),
-        description: dataItem[columns.description.selectedColumn],
+        date,
+        description,
         value,
         convertRate: 1.0,
         srcAccountId: props.accountId,
-        srcSplitComment: columns.comment.selectedColumn ? dataItem[columns.comment.selectedColumn] : undefined
+        srcSplitComment: columns.comment.parsedData[index]
       };
 
       transactionsToImport.push(transactionToCreate);
@@ -416,15 +417,14 @@
       delimiter: columnSeparator.value,
       skipEmptyLines: true
     });
-    console.warn(records);
 
     availableColumns.value = Object.keys(records[0]);
     parsedData.value = records;
 
-    updateParsedData();
+    updateColumnParsedData();
   }
 
-  function updateParsedData(): void {
+  function updateColumnParsedData(): void {
     for (const column of Object.values(columns)) {
       const selectedColumn = column.selectedColumn;
 
