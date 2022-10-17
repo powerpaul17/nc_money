@@ -1,5 +1,6 @@
 { "translations": {
     "Money" : "Geld",
+    "Manage your finances." : "Beheer uw financiën.",
     "Name" : "Naam",
     "Description" : "Beschrijving",
     "Add account" : "Toevoegen account ",
@@ -7,6 +8,10 @@
     "Date" : "Datum",
     "Select File" : "Selecteer bestand",
     "Import" : "Import",
-    "Comment" : "Notitie"
+    "Comment" : "Notitie",
+    "Assets" : "Activa",
+    "Liabilities" : "Schulden",
+    "Income" : "Inkomen",
+    "Expenses" : "Uitgaven"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
