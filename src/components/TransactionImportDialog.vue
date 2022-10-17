@@ -113,11 +113,11 @@
             </div>
             <div>
               <div
-                v-for="(line, index) in column.parsedData.slice(0, 5)"
+                v-for="(dataItem, index) in column.parsedData.slice(0, 5)"
                 :key="index"
                 class="overflow-hidden text-ellipsis whitespace-nowrap"
               >
-                {{ line }} &nbsp;
+                {{ column.printValue?.(dataItem) ?? dataItem }} &nbsp;
               </div>
             </div>
           </div>
@@ -195,7 +195,8 @@
       parsedData: [],
       isValid: false,
       validator: (parsedData) => dayjs(parsedData).isValid(),
-      parser: (line) => dayjs(line, dateFormat.value).toDate()
+      parser: (line) => dayjs(line, dateFormat.value).toDate(),
+      printValue: (value) => dayjs(value).format('L')
     },
     description: {
       name: t('money', 'Description'),
@@ -267,6 +268,7 @@
   }
 
   function handleDateFormatChanged() {
+    updateParsedData();
     validate(columns.date);
   }
 
@@ -454,5 +456,6 @@
     isValid: boolean;
     validator?: (parsedData: T) => boolean;
     parser: (line: string) => T;
+    printValue?: (value: T) => string;
   };
 </script>
