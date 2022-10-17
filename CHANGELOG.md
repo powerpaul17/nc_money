@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.7.0] - 2022-10-17
+
 ### Changed
 
 - Use user's locale for date formatting
