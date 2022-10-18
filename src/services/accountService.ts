@@ -11,7 +11,7 @@ export const useAccountService = defineStore('accountService', () => {
   const accountStore = useAccountStore();
   const accountApiService = useAccountApiService();
 
-  async function fillCache() {
+  async function fetchAccounts() {
     const accounts = await accountApiService.getAccounts();
     for (const account of accounts) {
       accountStore.insertAccount(account);
@@ -40,7 +40,7 @@ export const useAccountService = defineStore('accountService', () => {
   }
 
   return {
-    fillCache,
+    fetchAccounts,
     refreshAccount,
 
     addAccount,

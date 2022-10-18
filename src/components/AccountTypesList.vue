@@ -74,7 +74,8 @@
       }
     },
     created() {
-      this.accountService.fillCache(); // TODO
+      // TODO: initialize accounts at some other point
+      this.accountService.fetchAccounts();
     },
     components: {
       AccountTypeListItem,
