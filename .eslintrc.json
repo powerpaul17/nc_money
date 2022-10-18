@@ -55,12 +55,33 @@
       80
     ],
     "no-trailing-spaces": "error",
+    "comma-dangle": "error",
     "no-multiple-empty-lines": [
       "error",
       {
         "max": 1
       }
     ],
+    "comma-spacing": "error",
+    "space-in-parens": [
+      "error",
+      "never"
+    ],
+    "space-infix-ops": "error",
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "arrow-spacing": "error",
+    "one-var": [
+      "error",
+      "never"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "@typescript-eslint/explicit-function-return-type": "error",
     "vue/script-indent": [
       "warn",
       2,
@@ -76,6 +97,21 @@
           "allowNoLang": false
         }
       }
+    ],
+    "vue/comma-dangle": "error",
+    "vue/comma-spacing": "error",
+    "vue/space-in-parens": [
+      "error",
+      "never"
+    ],
+    "vue/space-infix-ops": "error",
+    "vue/array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "vue/object-curly-spacing": [
+      "error",
+      "always"
     ],
     "tailwindcss/no-custom-classname": "off"
   }
