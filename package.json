@@ -5,6 +5,7 @@
   "author": "Paul Tirk",
   "license": "ISC",
   "scripts": {
+    "check": "vue-tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest",
     "coverage": "vitest run --coverage",
