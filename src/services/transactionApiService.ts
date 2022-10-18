@@ -35,7 +35,7 @@ export const useTransactionApiService = defineStore(
       accountId: number,
       startDate: Date,
       endDate: Date
-    ) {
+    ): Promise<Array<Transaction>> {
       const response = await axios.get(
         generateUrl('apps/money/transactions/for-account-by-date'),
         {
@@ -50,7 +50,10 @@ export const useTransactionApiService = defineStore(
       return response.data.map(createTransactionFromResponseData);
     }
 
-    async function getUnbalancedTransactions(offset = 0, limit = 100) {
+    async function getUnbalancedTransactions(
+      offset = 0,
+      limit = 100
+    ): Promise<Array<Transaction>> {
       const response = await axios.get(
         generateUrl('apps/money/transactions/unbalanced'),
         {
@@ -64,7 +67,9 @@ export const useTransactionApiService = defineStore(
       return response.data.map(createTransactionFromResponseData);
     }
 
-    async function addTransaction(transaction: TransactionCreationData) {
+    async function addTransaction(
+      transaction: TransactionCreationData
+    ): Promise<Transaction> {
       const data = {
         ...transaction,
         date: dayjs(transaction.date).format('YYYY-MM-DD')
@@ -78,7 +83,9 @@ export const useTransactionApiService = defineStore(
       return createTransactionFromResponseData(response.data);
     }
 
-    async function updateTransaction(transaction: Transaction) {
+    async function updateTransaction(
+      transaction: Transaction
+    ): Promise<void> {
       const data = {
         ...transaction,
         date: dayjs(transaction.date).format('YYYY-MM-DD')

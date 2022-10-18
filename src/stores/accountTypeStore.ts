@@ -45,7 +45,7 @@ export const useAccountTypeStore = defineStore('accountTypeStore', () => {
   });
 
   const getByType = computed(() => {
-    return (accountType: AccountTypeType) => {
+    return (accountType: AccountTypeType): AccountType|undefined => {
       return _accountTypes.get(accountType);
     };
   });

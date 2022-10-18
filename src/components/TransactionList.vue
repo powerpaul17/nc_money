@@ -20,7 +20,7 @@
         />
       </template>
 
-      <template #default="{ item, active, index }">
+      <template #default="{ item, active }">
         <DynamicScrollerItem
           :item="item"
           :active="active"
@@ -79,7 +79,7 @@
   import TransactionListItem from './TransactionListItem.vue';
   import NewTransactionInput from './NewTransactionInput.vue';
 
-  import {DynamicScroller, DynamicScrollerItem} from 'vue-virtual-scroller';
+  import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
   import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 
   export default defineComponent({

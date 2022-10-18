@@ -30,7 +30,7 @@
       }
     },
     computed: {
-      isSelected: function () {
+      isSelected() {
         return Number(this.$route.params.accountId) === this.account.id;
       }
     },

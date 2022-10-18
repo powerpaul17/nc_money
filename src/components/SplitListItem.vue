@@ -64,7 +64,7 @@
         default: false
       }
     },
-    emits: ['split-deleted'],
+    emits: [ 'split-deleted' ],
     data() {
       return {
         showLoadingIcon: false

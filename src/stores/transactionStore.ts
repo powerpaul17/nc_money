@@ -7,29 +7,32 @@ import { useAccountStore } from './accountStore';
 
 export const useTransactionStore = defineStore('transactionStore', () => {
   const splitStore = useSplitStore();
+  const accountStore = useAccountStore();
 
   const _transactions: Map<number, Transaction> = reactive(new Map());
   const _currentAccountId: Ref<number|null> = ref(null);
   const _allTransactionsFetched = ref(false);
 
-  function $reset() {
+  function $reset(): void {
     _transactions.clear();
     _currentAccountId.value = null;
     _allTransactionsFetched.value = false;
   }
 
   const getById = computed(() => {
-    return (transactionId: number) => _transactions.get(transactionId);
+    return (transactionId: number): Transaction | undefined =>
+      _transactions.get(transactionId);
   });
 
   const getByAccountId = computed(() => {
-    return (accountId: number) => sortedByDate.value.filter((t) => {
-      const splits = splitStore.getByTransactionId(t.id);
-      return (
-        splits.length &&
-        splits.some((s) => s.destAccountId === accountId)
-      );
-    });
+    return (accountId: number): Array<Transaction> =>
+      sortedByDate.value.filter((t) => {
+        const splits = splitStore.getByTransactionId(t.id);
+        return (
+          splits.length &&
+          splits.some((s) => s.destAccountId === accountId)
+        );
+      });
   });
 
   const sortedByDate = computed(() => {
@@ -42,20 +45,18 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     });
   });
 
-  function insertTransactions(transactions: Array<Transaction>) {
+  function insertTransactions(transactions: Array<Transaction>): void {
     for (const transaction of transactions) {
       insertTransaction(transaction);
     }
   }
 
-  function insertTransaction(transaction: Transaction) {
+  function insertTransaction(transaction: Transaction): void {
     const transactionProxy = new Proxy(
       transaction,
       {
-        set(target, p, value, receiver) {
+        set(target, p, value, receiver): boolean {
           console.warn('TRANSACTION PROXY -->', target, p, value, receiver);
-
-          const accountStore = useAccountStore();
 
           const splits = splitStore.getByTransactionId(target.id);
 
@@ -83,7 +84,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     _transactions.set(transactionProxy.id, transactionProxy);
   }
 
-  function deleteTransaction(transactionId: number) {
+  function deleteTransaction(transactionId: number): void {
     _transactions.delete(transactionId);
   }
 

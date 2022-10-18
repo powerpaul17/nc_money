@@ -39,7 +39,7 @@
               @change="handleColumnSeparatorChanged"
             >
               <option
-                v-for="separator in [',', ';', '\t']"
+                v-for="separator in [ ',', ';', '\t' ]"
                 :key="separator"
                 :value="separator"
               >
@@ -57,7 +57,7 @@
               @change="handleDecimalSeparatorChanged"
             >
               <option
-                v-for="separator in ['.', ',']"
+                v-for="separator in [ '.', ',' ]"
                 :key="separator"
                 :value="separator"
               >
@@ -100,7 +100,7 @@
                 :disabled="!availableColumns.length"
               >
                 <option :value="null">
-                  ( {{ t('money', 'Not selected' ) }} )
+                  ( {{ t('money', 'Not selected') }} )
                 </option>
 
                 <option
@@ -181,7 +181,7 @@
     }
   });
 
-  const emit = defineEmits(['close', 'transactions-imported']);
+  const emit = defineEmits([ 'close', 'transactions-imported' ]);
 
   const isImporting = ref(false);
   const columnSeparator = ref(',');
@@ -255,27 +255,27 @@
     }
   }
 
-  function handleFileChanged(file: File | null) {
+  function handleFileChanged(file: File|null): void {
     if (!file)
       throw new Error('cannot import transactions without a csv file');
 
     readFile(file);
   }
 
-  function handleColumnSeparatorChanged() {
+  function handleColumnSeparatorChanged(): void {
     parseFile();
   }
 
-  function handleDecimalSeparatorChanged() {
+  function handleDecimalSeparatorChanged(): void {
     parseFile();
   }
 
-  function handleDateFormatChanged() {
+  function handleDateFormatChanged(): void {
     updateColumnParsedData();
     validate(columns.date);
   }
 
-  function handleColumnSelectionChanged(column: Column<any>) {
+  function handleColumnSelectionChanged(column: Column<any>): void {
     updateColumnParsedData();
     validate(column);
   }
@@ -290,7 +290,7 @@
     }
   }
 
-  async function handleImportClick() {
+  async function handleImportClick(): Promise<void> {
     if (
       !columns.date.selectedColumn ||
       !columns.description.selectedColumn ||
@@ -389,11 +389,11 @@
     emit('close');
   }
 
-  async function readFile(file: File) {
+  async function readFile(file: File): Promise<void> {
     fileContent.value = await new Promise((res, rej) => {
       const fileReader = new FileReader();
 
-      fileReader.onload = () => {
+      fileReader.onload = (): void => {
         if (fileReader.result && typeof fileReader.result === 'string') {
           res(fileReader.result);
         } else {
@@ -401,7 +401,7 @@
         }
       };
 
-      fileReader.onerror = (error) => {
+      fileReader.onerror = (error): void => {
         rej(error);
       };
 
@@ -410,7 +410,7 @@
     parseFile();
   }
 
-  function parseFile() {
+  function parseFile(): void {
     const records = parse(fileContent.value, {
       bom: true,
       columns: true,
@@ -436,7 +436,11 @@
     }
   }
 
-  function getHashOfTransaction(date: Date, description: string, value: number) {
+  function getHashOfTransaction(
+    date: Date,
+    description: string,
+    value: number
+  ): string {
     return `${dayjs(date).format('YYYY-MM-DD')}-${description}-${value}`;
   }
 

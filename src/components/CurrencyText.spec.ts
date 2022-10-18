@@ -4,6 +4,7 @@ import { render } from '@testing-library/vue';
 import CurrencyText from './CurrencyText.vue';
 
 describe('CurrencyText', () => {
+
   it('should render correct amount of decimals', async () => {
     const { container, rerender } = render(CurrencyText, {
       props: {
@@ -100,4 +101,5 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('0.00');
   });
+
 });

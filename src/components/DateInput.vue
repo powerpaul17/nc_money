@@ -24,7 +24,7 @@
         default: ''
       }
     },
-    emits: ['date-changed'],
+    emits: [ 'date-changed' ],
     data() {
       return {
         dateValue: ''

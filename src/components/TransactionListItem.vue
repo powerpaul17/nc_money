@@ -178,9 +178,9 @@
       isUnbalanced() {
         return this.unbalancedValue !== 0.0;
       },
-      excludedAccountIds() {
+      excludedAccountIds(): Array<number> {
         if (this.accountId) {
-          return [this.accountId];
+          return [ this.accountId ];
         } else {
           return [];
         }

@@ -86,13 +86,13 @@
       };
     },
     computed: {
-      name: function () {
+      name() {
         return this.accountType.name;
       },
       balance: function () {
         return this.accountType.balance;
       },
-      accounts: function () {
+      accounts() {
         return this.accountStore.getByType(this.accountType.type);
       }
     },

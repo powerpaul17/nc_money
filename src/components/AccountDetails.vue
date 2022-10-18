@@ -1,8 +1,6 @@
 <template>
-  <AccountDetailsHeader
-    :account="account"
-  ></AccountDetailsHeader>
-  <TransactionList :account="account"></TransactionList>
+  <AccountDetailsHeader :account="account" />
+  <TransactionList :account="account" />
 </template>
 
 <script lang="ts">

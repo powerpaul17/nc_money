@@ -37,7 +37,7 @@
         default: () => []
       }
     },
-    emits: ['account-changed'],
+    emits: [ 'account-changed' ],
     data() {
       return {
         accountStore: useAccountStore(),

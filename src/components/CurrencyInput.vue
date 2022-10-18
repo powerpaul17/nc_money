@@ -51,7 +51,7 @@
         default: false
       }
     },
-    emits: ['value-changed'],
+    emits: [ 'value-changed' ],
     data() {
       return {
         currencyValue: ''

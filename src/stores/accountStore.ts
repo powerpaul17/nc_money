@@ -31,7 +31,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     return _getById;
   });
 
-  function _getById(accountId: number) {
+  function _getById(accountId: number): Account|undefined {
     return _accounts.get(accountId);
   }
 
@@ -39,7 +39,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     return _getByType;
   });
 
-  function _getByType(accountType: AccountTypeType) {
+  function _getByType(accountType: AccountTypeType): Array<Account> {
     return accountArray.value.filter((a) => a.type === accountType);
   }
 
@@ -47,15 +47,15 @@ export const useAccountStore = defineStore('accountStore', () => {
     return Array.from(_accounts.values());
   });
 
-  function deleteAccount(accountId: number) {
+  function deleteAccount(accountId: number): void {
     _accounts.delete(accountId);
   }
 
-  function insertAccount(account: Account) {
+  function insertAccount(account: Account): void {
     _accounts.set(account.id, account);
   }
 
-  function addValue(accountId: number, value: number, date?: Date) {
+  function addValue(accountId: number, value: number, date?: Date): void {
     const account = _getById(accountId);
     if (!account) throw new Error('cannot add value to non-existing account');
 
@@ -66,7 +66,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     }
   }
 
-  function addSummaryValue(accountId: number, value: number, date: Date) {
+  function addSummaryValue(accountId: number, value: number, date: Date): void {
     const account = _getById(accountId);
     if (!account)
       throw new Error('cannot add summary value to non-existing account');
