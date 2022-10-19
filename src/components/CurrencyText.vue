@@ -1,10 +1,21 @@
 <template>
-  <span
-    class="bg-inherit text-inherit text-right transition-all duration-300 ease-in-out"
-    :class="animationClass"
-  >
-    {{ formattedValue }}
-  </span>
+  <div class="flex items-baseline">
+    <span
+      class="
+        grow
+        bg-inherit
+        text-right
+        text-inherit
+        transition-all duration-300 ease-in-out
+      "
+      :class="animationClass"
+    >
+      {{ formattedValue }}
+    </span>
+    <span class="ml-2 shrink-0 text-xs">
+      <slot name="suffix" />
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
