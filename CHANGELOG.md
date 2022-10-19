@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Show monthly values for income/expense accounts
+
 ## [0.7.0] - 2022-10-17
 
 ### Changed
