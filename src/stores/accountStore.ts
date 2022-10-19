@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { computed, reactive } from 'vue';
 
 import { defineStore } from 'pinia';
@@ -42,6 +44,12 @@ export const useAccountStore = defineStore('accountStore', () => {
   function _getByType(accountType: AccountTypeType): Array<Account> {
     return accountArray.value.filter((a) => a.type === accountType);
   }
+
+  const getSummaryByType = computed(() => {
+    return (accountType: AccountTypeType, year?: number, month?: number): number => {
+      return calculateSummary(_getByType(accountType), year, month);
+    };
+  });
 
   const accountArray = computed(() => {
     return Array.from(_accounts.values());
@@ -89,6 +97,20 @@ export const useAccountStore = defineStore('accountStore', () => {
     }, 0.0);
   }
 
+  function calculateSummary(
+    accounts: Array<Account>,
+    year?: number,
+    month?: number
+  ): number {
+    const date = dayjs();
+    const y = year ?? date.year();
+    const m = month ?? date.month() + 1;
+
+    return accounts.reduce<number>((summary, account) => {
+      return (summary += account.stats[y]?.[m] ?? 0);
+    }, 0.0);
+  }
+
   return {
     accountArray,
 
@@ -99,6 +121,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     unbalancedValue,
     getById,
     getByType,
+    getSummaryByType,
 
     insertAccount,
     deleteAccount,

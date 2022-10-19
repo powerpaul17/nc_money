@@ -13,7 +13,14 @@
           <CurrencyText
             :value="balance"
             :animation="true"
-          />
+          >
+            <template
+              #suffix
+              v-if="AccountTypeUtils.isMonthlyAccount(accountType.type)"
+            >
+              / {{ t('money', 'mo') }}
+            </template>
+          </CurrencyText>
         </div>
       </div>
     </a>
@@ -55,7 +62,11 @@
 </template>
 
 <script lang="ts">
+  import dayjs from 'dayjs';
+
   import { defineComponent, type PropType } from 'vue';
+
+  import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
   import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
@@ -81,6 +92,7 @@
       return {
         accountStore: useAccountStore(),
         accountService: useAccountService(),
+        AccountTypeUtils,
         isOpen: true,
         isMenuOpen: false
       };
@@ -89,8 +101,17 @@
       name() {
         return this.accountType.name;
       },
-      balance: function () {
-        return this.accountType.balance;
+      balance() {
+        if(AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
+          const date = dayjs();
+          return this.accountStore.getSummaryByType(
+            this.accountType.type,
+            date.year(),
+            date.month() + 1
+          );
+        } else {
+          return this.accountType.balance;
+        }
       },
       accounts() {
         return this.accountStore.getByType(this.accountType.type);

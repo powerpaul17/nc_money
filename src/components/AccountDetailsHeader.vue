@@ -19,9 +19,16 @@
     </div>
     <div class="flex shrink-0 grow-0 items-center text-right text-xl">
       <CurrencyText
-        :value="account.balance"
+        :value="balance"
         :animation="true"
-      />
+      >
+        <template
+          #suffix
+          v-if="isMonthlyAccount"
+        >
+          / {{ t('money', 'mo') }}
+        </template>
+      </CurrencyText>
     </div>
     <div class="grow-0">
       <NcActions>
@@ -43,8 +50,13 @@
 </template>
 
 <script lang="ts">
+  import dayjs from 'dayjs';
+
   import { defineComponent, type PropType } from 'vue';
 
+  import { AccountTypeUtils } from '../utils/accountTypeUtils';
+
+  import type { Account } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
   import SeamlessInput from './SeamlessInput.vue';
@@ -68,6 +80,19 @@
         accountService: useAccountService(),
         showImportTransactionsDialog: false
       };
+    },
+    computed: {
+      balance() {
+        if (this.isMonthlyAccount) {
+          const date = dayjs();
+          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+        } else {
+          return this.account.balance;
+        }
+      },
+      isMonthlyAccount() {
+        return AccountTypeUtils.isMonthlyAccount(this.account.type);
+      }
     },
     methods: {
       handleAccountNameModified(newName: string) {
