@@ -3,24 +3,19 @@
   <TransactionList :account="account" />
 </template>
 
-<script lang="ts">
-  import { defineComponent, type PropType } from 'vue';
+<script setup lang="ts">
+  import type { PropType } from 'vue';
 
   import type { Account } from '../stores/accountStore';
 
   import AccountDetailsHeader from './AccountDetailsHeader.vue';
   import TransactionList from './TransactionList.vue';
 
-  export default defineComponent({
-    props: {
-      account: {
-        type: Object as PropType<Account>,
-        required: true
-      }
-    },
-    components: {
-      AccountDetailsHeader,
-      TransactionList
+  defineProps({
+    account: {
+      type: Object as PropType<Account>,
+      required: true
     }
   });
+
 </script>
