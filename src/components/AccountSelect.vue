@@ -17,49 +17,40 @@
   </select>
 </template>
 
-<script lang="ts">
-  import { defineComponent, type PropType } from 'vue';
+<script setup lang="ts">
+  import { computed, ref, watch, type PropType } from 'vue';
 
-  import { useAccountStore } from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
 
-  export default defineComponent({
-    props: {
-      accountId: {
-        type: Number,
-        default: null
-      },
-      editable: {
-        type: Boolean,
-        default: true
-      },
-      excludedAccountIds: {
-        type: Array as PropType<Array<number>>,
-        default: () => []
-      }
+  const  accountStore = useAccountStore();
+
+  const props = defineProps({
+    accountId: {
+      type: Number,
+      default: null
     },
-    emits: [ 'account-changed' ],
-    data() {
-      return {
-        accountStore: useAccountStore(),
-        selectedAccountId: this.accountId
-      };
+    editable: {
+      type: Boolean,
+      default: true
     },
-    computed: {
-      accounts() {
-        return this.accountStore.accountArray.filter(
-          (a) => !this.excludedAccountIds.includes(a.id)
-        );
-      }
-    },
-    watch: {
-      accountId() {
-        this.selectedAccountId = this.accountId;
-      }
-    },
-    methods: {
-      handleSelectChange(event) {
-        this.$emit('account-changed', this.selectedAccountId);
-      }
+    excludedAccountIds: {
+      type: Array as PropType<Array<number>>,
+      default: () => []
     }
   });
+
+  const emit = defineEmits([ 'account-changed' ]);
+
+  const selectedAccountId = ref(props.accountId);
+
+  const accounts = computed((): Array<Account> => {
+    return accountStore.accountArray.filter(
+      (a) => !props.excludedAccountIds.includes(a.id)
+    );
+  });
+
+  function handleSelectChange(): void {
+    emit('account-changed', selectedAccountId.value);
+  }
+
 </script>
