@@ -26,8 +26,8 @@ class AccountController extends MoneyController {
   public function getAccounts() {
     $qb = $this->db->getQueryBuilder();
 
-    $yearFunction = $qb->createFunction('YEAR(c.date)');
-    $monthFunction = $qb->createFunction('MONTH(c.date)');
+    $yearFunction = $qb->createFunction('EXTRACT(YEAR FROM c.date)');
+    $monthFunction = $qb->createFunction('EXTRACT(MONTH FROM c.date)');
 
     $qb->select('a.*')
       ->selectAlias($yearFunction, 'year')
@@ -56,8 +56,8 @@ class AccountController extends MoneyController {
   public function getAccount($id) {
     $qb = $this->db->getQueryBuilder();
 
-    $yearFunction = $qb->createFunction('YEAR(c.date)');
-    $monthFunction = $qb->createFunction('MONTH(c.date)');
+    $yearFunction = $qb->createFunction('EXTRACT(YEAR FROM c.date)');
+    $monthFunction = $qb->createFunction('EXTRACT(MONTH FROM c.date)');
 
     $qb->select('a.*')
       ->selectAlias($yearFunction, 'year')
