@@ -6,6 +6,7 @@ OC.L10N.register(
     "Finance manager for Nextcloud." : "Správa financí pro Nextcloud.",
     "Name" : "Název",
     "Description" : "Popis",
+    "mo" : "měs",
     "Import transactions" : "Naimportovat transakce",
     "Add account" : "Přidat účet",
     "No accounts" : "Žádné účty",
