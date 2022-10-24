@@ -6,6 +6,7 @@ OC.L10N.register(
     "Finance manager for Nextcloud." : "Nextcloud 的財務管理程式。",
     "Name" : "名稱",
     "Description" : "描述",
+    "mo" : "月",
     "Import transactions" : "匯入交易",
     "Add account" : "新增帳號",
     "No accounts" : "無帳號",
