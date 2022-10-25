@@ -61,10 +61,12 @@
   </li>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import dayjs from 'dayjs';
 
-  import { defineComponent, type PropType } from 'vue';
+  import { computed, type PropType } from 'vue';
+
+  import { useRouter } from 'vue-router';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -77,60 +79,52 @@
   import AccountListItem from './AccountListItem.vue';
   import CurrencyText from './CurrencyText.vue';
 
-  export default defineComponent({
-    components: {
-      AccountListItem,
-      CurrencyText
-    },
-    props: {
-      accountType: {
-        type: Object as PropType<AccountType>,
-        required: true
-      }
-    },
-    data() {
-      return {
-        accountStore: useAccountStore(),
-        accountService: useAccountService(),
-        AccountTypeUtils,
-        isOpen: true,
-        isMenuOpen: false
-      };
-    },
-    computed: {
-      name() {
-        return this.accountType.name;
-      },
-      balance() {
-        if(AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
-          const date = dayjs();
-          return this.accountStore.getSummaryByType(
-            this.accountType.type,
-            date.year(),
-            date.month() + 1
-          );
-        } else {
-          return this.accountType.balance;
-        }
-      },
-      accounts() {
-        return this.accountStore.getByType(this.accountType.type);
-      }
-    },
-    methods: {
-      async handleAddAccountClick() {
-        const newAccount = await this.accountService.addAccount({
-          name: 'New Account',
-          description: '',
-          currency: '',
-          type: this.accountType.type
-        });
-
-        this.$router.push(`/account/${newAccount.id}`);
-
-        this.isOpen = true;
-        this.isMenuOpen = false;
-      }
+  const props = defineProps({
+    accountType: {
+      type: Object as PropType<AccountType>,
+      required: true
     }
   });
+
+  const router = useRouter();
+
+  const accountStore = useAccountStore();
+  const accountService = useAccountService();
+
+  let isOpen = true;
+  let isMenuOpen = false;
+  const name = computed(() => {
+    return props.accountType.name;
+  });
+
+  const balance = computed(() => {
+    if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
+      const date = dayjs();
+      return accountStore.getSummaryByType(
+        props.accountType.type,
+        date.year(),
+        date.month() + 1
+      );
+    } else {
+      return props.accountType.balance;
+    }
+  });
+
+  const accounts = computed(() => {
+    return accountStore.getByType(props.accountType.type);
+  });
+
+  async function handleAddAccountClick(): Promise<void> {
+    const newAccount = await accountService.addAccount({
+      name: 'New Account',
+      description: '',
+      currency: '',
+      type: props.accountType.type
+    });
+
+    router.push(`/account/${newAccount.id}`);
+
+    isOpen = true;
+    isMenuOpen = false;
+  }
 </script>
