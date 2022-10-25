@@ -6,6 +6,7 @@ OC.L10N.register(
     "Finance manager for Nextcloud." : "Nextclodu için mali durum yönetimi uygulaması",
     "Name" : "Ad",
     "Description" : "Açıklama",
+    "mo" : "mo",
     "Import transactions" : "Hesap hareketlerini içe aktar",
     "Add account" : "Hesap ekle",
     "No accounts" : "Henüz bir hesap yok",
