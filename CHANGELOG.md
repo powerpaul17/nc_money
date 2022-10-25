@@ -3,6 +3,7 @@
 ### Changed
 
 - Show monthly values for income/expense accounts
+- Use EXTRACT function instead of YEAR/MONTH in queries for compatibility with PostgreSQL
 
 ## [0.7.0] - 2022-10-17
 
