@@ -53,7 +53,7 @@ export const useSplitStore = defineStore('splitStore', () => {
               -target.value,
               transaction?.date
             );
-            accountStore.addValue(value, target.value);
+            accountStore.addValue(value, target.value, transaction?.date);
           }
 
           target[p] = value;
