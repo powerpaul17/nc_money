@@ -49,6 +49,10 @@
     );
   });
 
+  watch(() => props.accountId, (accountId) => {
+    selectedAccountId.value = accountId;
+  });
+
   function handleSelectChange(): void {
     emit('account-changed', selectedAccountId.value);
   }
