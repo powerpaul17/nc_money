@@ -6,6 +6,7 @@ OC.L10N.register(
     "Finance manager for Nextcloud." : "Финансов мениджър за Nextcloud.",
     "Name" : "Име",
     "Description" : "Описание",
+    "mo" : "мо",
     "Import transactions" : "Операции по вноса",
     "Add account" : "Добавяне на регистрация",
     "No accounts" : "Без сметки",
