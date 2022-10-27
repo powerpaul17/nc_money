@@ -17,27 +17,32 @@ export const useAccountTypeStore = defineStore('accountTypeStore', () => {
         type: AccountTypeType.ASSET,
         name: t('money', 'Assets'),
         balance: accountStore.assetsBalance
-      }],
+      }
+    ],
     [
       AccountTypeType.LIABILITY,
       {
         type: AccountTypeType.LIABILITY,
         name: t('money', 'Liabilities'),
         balance: accountStore.liabilitiesBalance
-      }],
+      }
+    ],
     [
       AccountTypeType.INCOME,
       {
         type: AccountTypeType.INCOME,
         name: t('money', 'Income'),
         balance: accountStore.incomeBalance
-      }],
+      }
+    ],
     [
-      AccountTypeType.EXPENSE,{
+      AccountTypeType.EXPENSE,
+      {
         type: AccountTypeType.EXPENSE,
         name: t('money', 'Expenses'),
         balance: accountStore.expensesBalance
-      }]
+      }
+    ]
   ]));
 
   const accountTypes = computed(() => {

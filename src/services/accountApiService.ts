@@ -15,7 +15,10 @@ export const useAccountApiService = defineStore('accountApiService', () => {
   }
 
   async function getAccounts(): Promise<Array<Account>> {
-    const response = await axios.get<Array<AccountApiResponseData>>(generateUrl('apps/money/accounts'));
+    const response = await axios.get<Array<AccountApiResponseData>>(
+      generateUrl('apps/money/accounts')
+    );
+
     return response.data.map(createAccountFromResponseData);
   }
 
@@ -28,11 +31,11 @@ export const useAccountApiService = defineStore('accountApiService', () => {
     return createAccountFromResponseData(response.data);
   }
 
-  async function deleteAccount(accountId: number) {
+  async function deleteAccount(accountId: number): Promise<void> {
     await axios.delete(generateUrl(`apps/money/accounts/${accountId}`));
   }
 
-  async function updateAccount(account: Account) {
+  async function updateAccount(account: Account): Promise<void> {
     await axios.put(generateUrl(`apps/money/accounts/${account.id}`), account);
   }
 
