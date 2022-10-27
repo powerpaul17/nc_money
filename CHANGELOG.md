@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.8.1] - 2022-10-27
+
 ### Changed
 
 - Ensure account balances returned from the backend are numbers
