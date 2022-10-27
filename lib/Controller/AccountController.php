@@ -116,15 +116,15 @@ class AccountController extends MoneyController {
     $accounts = [];
 
     foreach ($rows as $row) {
-      $id = $row['id'];
-      $balance = $row['balance'];
+      $id = (int) $row['id'];
+      $balance = (float) $row['balance'];
 
       if (array_key_exists($row['id'], $accounts)) {
         $account = $accounts[$id];
       } else {
         $account = $accounts[$id] = [
           'id' => $id,
-          'type' => $row['type'],
+          'type' => (int) $row['type'],
           'name' => $row['name'],
           'description' => $row['description'],
           'currency' => $row['currency'],

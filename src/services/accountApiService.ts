@@ -11,7 +11,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
     const response = await axios.get(
       generateUrl(`apps/money/accounts/${accountId}`)
     );
-    return createAccountFromResponseData(response.data);
+    return response.data;
   }
 
   async function getAccounts(): Promise<Array<Account>> {
@@ -19,7 +19,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
       generateUrl('apps/money/accounts')
     );
 
-    return response.data.map(createAccountFromResponseData);
+    return response.data;
   }
 
   async function addAccount(account: AccountCreationData): Promise<Account> {
@@ -28,7 +28,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
       account
     );
 
-    return createAccountFromResponseData(response.data);
+    return response.data;
   }
 
   async function deleteAccount(accountId: number): Promise<void> {
@@ -37,33 +37,6 @@ export const useAccountApiService = defineStore('accountApiService', () => {
 
   async function updateAccount(account: Account): Promise<void> {
     await axios.put(generateUrl(`apps/money/accounts/${account.id}`), account);
-  }
-
-  function createAccountFromResponseData(
-    data: AccountApiResponseData
-  ): Account {
-    // TODO fix in API controller
-    ensureNumbersInAccountStatsData(data.stats);
-
-    return {
-      id: Number(data.id), // TODO fix in API controller
-      name: data.name,
-      description: data.description,
-      currency: data.currency,
-      type: Number(data.type), // TODO fix in API controller
-      balance: Number(data.balance), // fix TODO in API controller
-      stats: data.stats
-    };
-  }
-
-  function ensureNumbersInAccountStatsData(
-    stats: AccountApiResponseData['stats']
-  ): void {
-    for (const [ year, months ] of Object.entries(stats)) {
-      for (const [ month, value ] of Object.entries(months)) {
-        stats[year][month] = Number(value);
-      }
-    }
   }
 
   return {
@@ -79,11 +52,11 @@ export const useAccountApiService = defineStore('accountApiService', () => {
 export type AccountCreationData = Omit<Account, 'id' | 'balance' | 'stats'>;
 
 type AccountApiResponseData = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   currency: string;
-  type: string;
-  balance: string;
-  stats: Record<number, Record<number, number>>;
+  type: number;
+  balance: number;
+  stats: Record<string, Record<string, number>>;
 };
