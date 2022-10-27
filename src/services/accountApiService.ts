@@ -42,15 +42,28 @@ export const useAccountApiService = defineStore('accountApiService', () => {
   function createAccountFromResponseData(
     data: AccountApiResponseData
   ): Account {
+    // TODO fix in API controller
+    ensureNumbersInAccountStatsData(data.stats);
+
     return {
-      id: Number(data.id), // TODO in API controller
+      id: Number(data.id), // TODO fix in API controller
       name: data.name,
       description: data.description,
       currency: data.currency,
-      type: Number(data.type), // TODO in API controller
-      balance: Number(data.balance), // TODO in API controller
+      type: Number(data.type), // TODO fix in API controller
+      balance: Number(data.balance), // fix TODO in API controller
       stats: data.stats
     };
+  }
+
+  function ensureNumbersInAccountStatsData(
+    stats: AccountApiResponseData['stats']
+  ): void {
+    for (const [ year, months ] of Object.entries(stats)) {
+      for (const [ month, value ] of Object.entries(months)) {
+        stats[year][month] = Number(value);
+      }
+    }
   }
 
   return {
