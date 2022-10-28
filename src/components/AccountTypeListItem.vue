@@ -64,7 +64,7 @@
 <script setup lang="ts">
   import dayjs from 'dayjs';
 
-  import { computed, type PropType } from 'vue';
+  import { computed, ref, type PropType } from 'vue';
 
   import { useRouter } from 'vue-router';
 
@@ -91,8 +91,9 @@
   const accountStore = useAccountStore();
   const accountService = useAccountService();
 
-  let isOpen = true;
-  let isMenuOpen = false;
+  const isOpen = ref(true);
+  const isMenuOpen = ref(false);
+
   const name = computed(() => {
     return props.accountType.name;
   });
@@ -124,7 +125,7 @@
 
     router.push(`/account/${newAccount.id}`);
 
-    isOpen = true;
-    isMenuOpen = false;
+    isOpen.value = true;
+    isMenuOpen.value = false;
   }
 </script>
