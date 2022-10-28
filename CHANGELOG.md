@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### Changed
+
+- Cast account properties in controller instead of client
+- Fix opening of account type list item menus
+
 ## [0.8.1] - 2022-10-27
 
 ### Changed
