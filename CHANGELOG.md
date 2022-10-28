@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.8.2] - 2022-10-28
+
 ### Changed
 
 - Cast account properties in controller instead of client
