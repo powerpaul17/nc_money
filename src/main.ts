@@ -9,6 +9,8 @@ import l10n from '@nextcloud/l10n';
 
 import './main.css';
 
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
