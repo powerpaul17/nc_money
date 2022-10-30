@@ -66,6 +66,7 @@
           :value="value"
           :editable="valueIsEditable"
           :placeholder="t('money', 'Value')"
+          :inverted-value="invertedValue"
           @value-changed="handleValueChanged"
         />
       </template>
@@ -84,6 +85,7 @@
         :excluded-account-ids="
           excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
         "
+        :inverted-value="invertedValue"
         @split-deleted="handleSplitDeleted"
       />
       <NewSplitInput
@@ -91,6 +93,7 @@
         :transaction-id="transaction.id"
         :excluded-account-ids="excludedSplitAccountIds"
         :initial-value="-unbalancedValue"
+        :inverted-value="invertedValue"
       />
     </div>
   </div>
@@ -125,6 +128,10 @@
       },
       accountId: {
         type: Number
+      },
+      invertedValue: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

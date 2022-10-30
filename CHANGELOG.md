@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Invert values of income/liabilities accounts to prevent confusion
+
 ## [0.8.2] - 2022-10-28
 
 ### Changed

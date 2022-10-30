@@ -21,6 +21,7 @@
       <CurrencyText
         :value="balance"
         :animation="true"
+        :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
       >
         <template
           #suffix
@@ -78,7 +79,8 @@
     data() {
       return {
         accountService: useAccountService(),
-        showImportTransactionsDialog: false
+        showImportTransactionsDialog: false,
+        AccountTypeUtils
       };
     },
     computed: {

@@ -20,6 +20,7 @@
       <CurrencyInput
         :value="split.value"
         :placeholder="t('money', 'Value')"
+        :inverted-value="invertedValue"
         @value-changed="handleValueChanged"
       />
     </template>
@@ -60,6 +61,10 @@
         default: () => []
       },
       isLoading: {
+        type: Boolean,
+        default: false
+      },
+      invertedValue: {
         type: Boolean,
         default: false
       }

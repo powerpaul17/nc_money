@@ -17,6 +17,7 @@
         <NewTransactionInput
           class="mx-2"
           :account-id="account.id"
+          :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
         />
       </template>
 
@@ -42,6 +43,7 @@
           <TransactionListItem
             :transaction="item.transaction"
             :account-id="account.id"
+            :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
           />
         </DynamicScrollerItem>
       </template>
@@ -67,6 +69,8 @@
   import dayjs from 'dayjs';
 
   import { defineComponent, type PropType } from 'vue';
+
+  import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
   import type { Account } from '../stores/accountStore';
   import {
@@ -158,7 +162,8 @@
         transactionStore: useTransactionStore(),
         transactionService: useTransactionService(),
         splitStore: useSplitStore(),
-        dayjs
+        dayjs,
+        AccountTypeUtils
       };
     },
     async mounted() {

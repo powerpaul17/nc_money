@@ -9,6 +9,7 @@
           <CurrencyText
             :value="balance"
             :animation="true"
+            :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
           >
             <template
               #suffix

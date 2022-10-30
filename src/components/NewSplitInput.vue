@@ -19,6 +19,7 @@
       <CurrencyInput
         :value="value"
         :placeholder="t('money', 'Value')"
+        :inverted-value="invertedValue"
         @value-changed="(newValue) => (value = newValue)"
       />
     </template>
@@ -61,6 +62,10 @@
       initialValue: {
         type: Number,
         default: 0.0
+      },
+      invertedValue: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

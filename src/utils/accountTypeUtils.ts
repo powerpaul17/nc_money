@@ -9,4 +9,11 @@ export class AccountTypeUtils {
     ].includes(accountType);
   }
 
+  public static isInvertedAccount(accountType: AccountTypeType): boolean {
+    return [
+      AccountTypeType.INCOME,
+      AccountTypeType.LIABILITY
+    ].includes(accountType);
+  }
+
 }

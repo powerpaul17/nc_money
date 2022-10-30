@@ -79,7 +79,10 @@
 
         const newNumber = this.mathExpression.evaluate(newValue);
         if (!Number.isNaN(newNumber)) {
-          this.$emit('value-changed', newNumber);
+          this.$emit(
+            'value-changed',
+            this.invertedValue ? newNumber * -1.0 : newNumber
+          );
         }
       }
     },
