@@ -24,6 +24,14 @@ dayjs.extend(localizedFormat);
 import.meta.glob('../node_modules/dayjs/locale/*.js', { eager: true });
 dayjs.locale(l10n.getLocale().toLowerCase().replace('_', '-'));
 
+if (
+  window.matchMedia('(prefers-color-scheme: dark)').matches &&
+  !document.body.classList.contains('theme--light')
+) {
+  const contentElement = document.getElementById('content');
+  contentElement?.classList.add('theme--dark');
+}
+
 const app = createApp(App);
 
 const pinia = createPinia();

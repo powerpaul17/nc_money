@@ -3,6 +3,7 @@
 ### Changed
 
 - Invert values of income/liabilities accounts to prevent confusion
+- Fix dark mode in NC 25
 
 ## [0.8.2] - 2022-10-28
 
