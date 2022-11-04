@@ -4,6 +4,7 @@
     "Finance manager for Nextcloud." : "Nextcloud 的財務經理。",
     "Name" : "名字",
     "Description" : "描述",
+    "mo" : "月",
     "Import transactions" : "導入交易",
     "Add account" : "新增賬戶",
     "No accounts" : "沒有賬戶",
