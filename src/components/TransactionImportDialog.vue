@@ -163,9 +163,10 @@
   import { useSplitStore } from '../stores/splitStore';
   import { useTransactionService } from '../services/transactionService';
 
-  import NcModal from '@nextcloud-vue/components/NcModal';
-  import NcButton from '@nextcloud-vue/components/NcButton';
-  import NcLoadingIcon from '@nextcloud-vue/components/NcLoadingIcon';
+  import NcModal from '../vendor/nextcloud-vue/src/components/NcModal';
+  import NcButton from '../vendor/nextcloud-vue/src/components/NcButton';
+  import NcLoadingIcon from '../vendor/nextcloud-vue/src/components/NcLoadingIcon';
+
   import FileInput from './FileInput.vue';
 
   import Upload from 'vue-material-design-icons/Upload.vue';

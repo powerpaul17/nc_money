@@ -105,7 +105,7 @@
   import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
   import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 
-  import NcLoadingIcon from '@nextcloud-vue/components/NcLoadingIcon';
+  import NcLoadingIcon from '../vendor/nextcloud-vue/src/components/NcLoadingIcon';
 
   import type { Transaction } from '../stores/transactionStore';
   import { useTransactionService } from '../services/transactionService';

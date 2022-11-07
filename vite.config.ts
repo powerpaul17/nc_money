@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
         entry: './src/main.ts',
         fileName: 'money-main',
         name: 'money',
-        formats: ['iife']
+        formats: [ 'iife' ]
       },
       outDir: './js',
       minify: mode === 'development' ? false : 'esbuild',
@@ -50,10 +50,6 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: [
         {
-          find: '@nextcloud-vue',
-          replacement: resolve('./src/vendor/nextcloud-vue/src')
-        },
-        {
           find: /^~(.*)/,
           replacement: '$1'
         },
@@ -72,7 +68,7 @@ export default defineConfig(({ mode }) => {
       coverage: {
         provider: 'istanbul'
       },
-      exclude: ['node_modules', 'src/vendor']
+      exclude: [ 'node_modules', 'src/vendor' ]
     }
   };
 });

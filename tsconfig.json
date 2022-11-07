@@ -8,10 +8,7 @@
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
     "composite": true,
-    "allowJs": true,
-    "paths": {
-      "@nextcloud-vue/*": ["./src/vendor/nextcloud-vue/src/*"]
-    }
+    "allowJs": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/**/*.js"],
   "exclude": ["node_modules"]
