@@ -62,13 +62,6 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vueDocsPlugin,
       vue()
-    ],
-    test: {
-      environment: 'jsdom',
-      coverage: {
-        provider: 'istanbul'
-      },
-      exclude: [ 'node_modules', 'src/vendor' ]
-    }
+    ]
   };
 });
