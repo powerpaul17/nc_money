@@ -28,6 +28,11 @@ export const useSettingService = defineStore('settingService', () => {
 
     settingStore.useInvertedAccounts = newSettings.useInvertedAccounts;
 
+    settingStore.numberFormat.decimals = newSettings.numberFormat.decimals;
+    settingStore.numberFormat.decimalSeparator = newSettings.numberFormat.decimalSeparator;
+    settingStore.numberFormat.groupBy = newSettings.numberFormat.groupBy;
+    settingStore.numberFormat.groupSeparator = newSettings.numberFormat.groupSeparator;
+
     setupWatcher();
   }
 

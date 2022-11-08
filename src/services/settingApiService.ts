@@ -17,4 +17,10 @@ export const useSettingApiService = defineStore('settingApiService', () => {
 
 export type SettingsApiData = {
   useInvertedAccounts: boolean;
+  numberFormat: {
+    decimals: number;
+    decimalSeparator: string;
+    groupBy: number;
+    groupSeparator: string;
+  };
 }

@@ -21,6 +21,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
+  import { useSettingStore } from '../stores/settingStore';
+
   import { NumberUtils } from '../utils/numberUtils';
 
   export default defineComponent({
@@ -32,22 +34,6 @@
       animation: {
         type: Boolean,
         default: false
-      },
-      decimals: {
-        type: Number,
-        default: 2
-      },
-      decimalSeparator: {
-        type: String,
-        default: '.'
-      },
-      groupBy: {
-        type: Number,
-        default: 3
-      },
-      groupSeparator: {
-        type: String,
-        default: ' '
       },
       invertedValue: {
         type: Boolean,
@@ -107,13 +93,18 @@
     computed: {
       formattedValue() {
         return NumberUtils.formatNumber(this.shownValue, {
-          decimals: this.decimals,
-          decimalSeparator: this.decimalSeparator,
-          groupBy: this.groupBy,
-          groupSeparator: this.groupSeparator,
+          decimals: this.settingStore.numberFormat.decimals,
+          decimalSeparator: this.settingStore.numberFormat.decimalSeparator,
+          groupBy: this.settingStore.numberFormat.groupBy,
+          groupSeparator: this.settingStore.numberFormat.groupSeparator,
           invertedValue: this.invertedValue
         });
       }
+    },
+    setup() {
+      return {
+        settingStore: useSettingStore()
+      };
     }
   });
 </script>
