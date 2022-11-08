@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/vue';
+import { createTestingPinia } from '@pinia/testing';
+
+import { useSettingStore } from '../stores/settingStore';
 
 import CurrencyText from './CurrencyText.vue';
 
@@ -7,6 +10,9 @@ describe('CurrencyText', () => {
 
   it('should render correct amount of decimals', async () => {
     const { container, rerender } = render(CurrencyText, {
+      global: {
+        plugins: [ createTestingPinia() ]
+      },
       props: {
         value: 0.123
       }
@@ -28,10 +34,17 @@ describe('CurrencyText', () => {
   });
 
   it('should use correct decimal separator', () => {
+    const pinia = createTestingPinia();
+
+    const settingStore = useSettingStore();
+    settingStore.numberFormat.decimalSeparator = ',';
+
     const { container } = render(CurrencyText, {
+      global: {
+        plugins: [ pinia ]
+      },
       props: {
-        value: 0.123,
-        decimalSeparator: ','
+        value: 0.123
       }
     });
 
@@ -39,7 +52,14 @@ describe('CurrencyText', () => {
   });
 
   it('should group digits correctly', async () => {
+    const pinia = createTestingPinia();
+
+    const settingStore = useSettingStore();
+
     const { container, rerender } = render(CurrencyText, {
+      global: {
+        plugins: [ pinia ]
+      },
       props: {
         value: 1234
       }
@@ -59,20 +79,28 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('-123 456.00');
 
+    settingStore.numberFormat.groupBy = 2;
+
     await rerender({
-      value: 123456,
-      groupBy: 2
+      value: 123456
     });
 
     expect(container.firstChild?.textContent).to.be.equal('12 34 56.00');
   });
 
   it('should use correct group separator', async () => {
+    const pinia = createTestingPinia();
+
+    const settingStore = useSettingStore();
+    settingStore.numberFormat.decimalSeparator = ',';
+    settingStore.numberFormat.groupSeparator = '.';
+
     const { container } = render(CurrencyText, {
+      global: {
+        plugins: [ pinia ]
+      },
       props: {
-        value: 1234,
-        decimalSeparator: ',',
-        groupSeparator: '.'
+        value: 1234
       }
     });
 
@@ -81,6 +109,9 @@ describe('CurrencyText', () => {
 
   it('should show inverted values if enabled', async () => {
     const { container, rerender } = render(CurrencyText, {
+      global: {
+        plugins: [ createTestingPinia() ]
+      },
       props: {
         value: -123.456,
         invertedValue: true
