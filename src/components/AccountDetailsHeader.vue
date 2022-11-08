@@ -21,7 +21,7 @@
       <CurrencyText
         :value="balance"
         :animation="true"
-        :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
+        :inverted-value="isInvertedAccount"
       >
         <template
           #suffix
@@ -60,6 +60,8 @@
   import type { Account } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
+  import { useSettingStore } from '../stores/settingStore';
+
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';
   import TransactionImportDialog from './TransactionImportDialog.vue';
@@ -79,6 +81,7 @@
     data() {
       return {
         accountService: useAccountService(),
+        settingStore: useSettingStore(),
         showImportTransactionsDialog: false,
         AccountTypeUtils
       };
@@ -94,6 +97,9 @@
       },
       isMonthlyAccount() {
         return AccountTypeUtils.isMonthlyAccount(this.account.type);
+      },
+      isInvertedAccount() {
+        return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
       }
     },
     methods: {

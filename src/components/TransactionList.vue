@@ -17,7 +17,7 @@
         <NewTransactionInput
           class="mx-2"
           :account-id="account.id"
-          :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
+          :inverted-value="isInvertedAccount"
         />
       </template>
 
@@ -43,7 +43,7 @@
           <TransactionListItem
             :transaction="item.transaction"
             :account-id="account.id"
-            :inverted-value="AccountTypeUtils.isInvertedAccount(account.type)"
+            :inverted-value="isInvertedAccount"
           />
         </DynamicScrollerItem>
       </template>
@@ -80,6 +80,8 @@
   import { useSplitStore } from '../stores/splitStore';
   import { useTransactionService } from '../services/transactionService';
 
+  import { useSettingStore } from '../stores/settingStore';
+
   import TransactionListItem from './TransactionListItem.vue';
   import NewTransactionInput from './NewTransactionInput.vue';
 
@@ -112,6 +114,9 @@
       },
       groupByDateFormat() {
         return 'MM.YYYY';
+      },
+      isInvertedAccount() {
+        return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
       }
     },
     watch: {
@@ -162,6 +167,7 @@
         transactionStore: useTransactionStore(),
         transactionService: useTransactionService(),
         splitStore: useSplitStore(),
+        settingStore: useSettingStore(),
         dayjs,
         AccountTypeUtils
       };

@@ -13,7 +13,7 @@
           <CurrencyText
             :value="balance"
             :animation="true"
-            :inverted-value="AccountTypeUtils.isInvertedAccount(accountType.type)"
+            :inverted-value="settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(accountType.type)"
           >
             <template
               #suffix
@@ -77,6 +77,8 @@
     AccountType
   } from '../stores/accountTypeStore';
 
+  import { useSettingStore } from '../stores/settingStore';
+
   import AccountListItem from './AccountListItem.vue';
   import CurrencyText from './CurrencyText.vue';
 
@@ -91,6 +93,8 @@
 
   const accountStore = useAccountStore();
   const accountService = useAccountService();
+
+  const settingStore = useSettingStore();
 
   const isOpen = ref(true);
   const isMenuOpen = ref(false);
