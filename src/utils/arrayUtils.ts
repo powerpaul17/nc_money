@@ -1,6 +1,8 @@
 export class ArrayUtils {
 
   public static chunk<T>(array: Array<T>, chunkSize: number): Array<Array<T>> {
+    if (chunkSize === 0) return [ array ];
+
     return array.reduce<Array<Array<T>>>((chunks, item, index) => {
       return index % chunkSize === 0
         ? [ ...chunks, [ item ] ]
