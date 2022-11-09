@@ -26,12 +26,12 @@ export const useSettingService = defineStore('settingService', () => {
 
     const newSettings = await settingApiService.loadSettings();
 
-    settingStore.useInvertedAccounts = newSettings.useInvertedAccounts;
+    settingStore.useInvertedAccounts = newSettings.useInvertedAccounts ?? true;
 
-    settingStore.numberFormat.decimals = newSettings.numberFormat.decimals;
-    settingStore.numberFormat.decimalSeparator = newSettings.numberFormat.decimalSeparator;
-    settingStore.numberFormat.groupBy = newSettings.numberFormat.groupBy;
-    settingStore.numberFormat.groupSeparator = newSettings.numberFormat.groupSeparator;
+    settingStore.numberFormat_decimals = newSettings.numberFormat_decimals ?? 2;
+    settingStore.numberFormat_decimalSeparator = newSettings.numberFormat_decimalSeparator ?? '.';
+    settingStore.numberFormat_groupBy = newSettings.numberFormat_groupBy ?? 3;
+    settingStore.numberFormat_groupSeparator = newSettings.numberFormat_groupSeparator ?? ' ';
 
     setupWatcher();
   }

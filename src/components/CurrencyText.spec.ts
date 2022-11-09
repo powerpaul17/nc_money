@@ -37,7 +37,7 @@ describe('CurrencyText', () => {
     const pinia = createTestingPinia();
 
     const settingStore = useSettingStore();
-    settingStore.numberFormat.decimalSeparator = ',';
+    settingStore.numberFormat_decimalSeparator = ',';
 
     const { container } = render(CurrencyText, {
       global: {
@@ -79,7 +79,7 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('-123 456.00');
 
-    settingStore.numberFormat.groupBy = 2;
+    settingStore.numberFormat_groupBy = 2;
 
     await rerender({
       value: 123456
@@ -92,8 +92,8 @@ describe('CurrencyText', () => {
     const pinia = createTestingPinia();
 
     const settingStore = useSettingStore();
-    settingStore.numberFormat.decimalSeparator = ',';
-    settingStore.numberFormat.groupSeparator = '.';
+    settingStore.numberFormat_decimalSeparator = ',';
+    settingStore.numberFormat_groupSeparator = '.';
 
     const { container } = render(CurrencyText, {
       global: {

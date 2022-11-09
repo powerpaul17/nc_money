@@ -25,11 +25,10 @@ export const useSettingApiService = defineStore('settingApiService', () => {
 });
 
 export type SettingsApiData = {
-  useInvertedAccounts: boolean;
-  numberFormat: {
-    decimals: number;
-    decimalSeparator: string;
-    groupBy: number;
-    groupSeparator: string;
-  };
-}
+  useInvertedAccounts?: boolean;
+
+  numberFormat_decimals?: number;
+  numberFormat_decimalSeparator?: string;
+  numberFormat_groupBy?: number;
+  numberFormat_groupSeparator?: string;
+};

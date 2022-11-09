@@ -93,10 +93,10 @@
     computed: {
       formattedValue() {
         return NumberUtils.formatNumber(this.shownValue, {
-          decimals: this.settingStore.numberFormat.decimals,
-          decimalSeparator: this.settingStore.numberFormat.decimalSeparator,
-          groupBy: this.settingStore.numberFormat.groupBy,
-          groupSeparator: this.settingStore.numberFormat.groupSeparator,
+          decimals: this.settingStore.numberFormat_decimals,
+          decimalSeparator: this.settingStore.numberFormat_decimalSeparator,
+          groupBy: this.settingStore.numberFormat_groupBy,
+          groupSeparator: this.settingStore.numberFormat_groupSeparator,
           invertedValue: this.invertedValue
         });
       }
