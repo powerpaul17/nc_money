@@ -17,8 +17,8 @@ return [
   'routes' => [
     ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 
-    ['name' => 'settings#get_config', 'url' => '/config', 'verb' => 'GET'],
-    ['name' => 'settings#set_config', 'url' => '/config', 'verb' => 'POST'],
+    ['name' => 'settings#get_settings', 'url' => '/settings', 'verb' => 'GET'],
+    ['name' => 'settings#update_settings', 'url' => '/settings', 'verb' => 'POST'],
 
     ['name' => 'account#get_accounts', 'url' => '/accounts', 'verb' => 'GET'],
     ['name' => 'account#get_account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
