@@ -12,14 +12,8 @@
   <router-view name="sidebar" />
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
 
   import AccountTypesList from './components/AccountTypesList.vue';
 
-  export default defineComponent({
-    components: {
-      AccountTypesList
-    }
-  });
 </script>
