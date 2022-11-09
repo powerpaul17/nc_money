@@ -20,7 +20,7 @@ class PageController extends Controller {
    */
   public function index() {
     Util::addScript($this->appName, 'money-main.iife');
-    Util::addStyle($this->appName, '../js/style');
+    Util::addStyle($this->appName, '../js/money-main');
 
     return new TemplateResponse($this->appName, 'main');
   }

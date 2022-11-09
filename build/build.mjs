@@ -40,7 +40,12 @@ bundles.forEach(async (bundle) => {
       outDir: './js',
       minify: mode === 'development' ? false : 'esbuild',
       sourcemap: mode === 'development' ? true : false,
-      emptyOutDir: false
+      emptyOutDir: false,
+      rollupOptions: {
+        output: {
+          assetFileNames: `${bundle.fileName}.css`
+        }
+      }
     },
     define: {
       SCOPE_VERSION,
