@@ -1,11 +1,20 @@
+import axios from '@nextcloud/axios';
+import { generateUrl } from '@nextcloud/router';
+
 import { defineStore } from 'pinia';
 
 export const useSettingApiService = defineStore('settingApiService', () => {
 
   async function loadSettings(): Promise<SettingsApiData> {
+    const response = await axios.get(generateUrl('apps/money/settings'));
+    return response.data;
   }
 
   async function saveSettings(settings: SettingsApiData): Promise<void> {
+    await axios.post(
+      generateUrl('apps/money/settings'),
+      settings
+    );
   }
 
   return {
