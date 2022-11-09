@@ -1,8 +1,9 @@
-import { resolve } from 'path';
+import { dirname, resolve } from 'path';
 
-import { defineConfig } from 'vite';
+import { build } from 'vite';
 
 import vue from '@vitejs/plugin-vue';
+import { fileURLToPath } from 'url';
 
 const vueDocsPlugin = {
   name: 'vue-docs',
@@ -14,22 +15,32 @@ const vueDocsPlugin = {
   }
 };
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const bundles = [
+  {
+    entry: resolve(__dirname, '../src/main.ts'),
+    name: 'moneyMain',
+    fileName: 'money-main'
+  }
+];
+
+const mode = process.env.VITE_MODE ?? 'production';
+
 // TODO give this value some meaning, needed for nextcloud vue components
 const SCOPE_VERSION = '123';
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  return {
+bundles.forEach(async (bundle) => {
+  await build({
     build: {
       lib: {
-        entry: './src/main.ts',
-        fileName: 'money-main',
-        name: 'money',
+        ...bundle,
         formats: [ 'iife' ]
       },
       outDir: './js',
       minify: mode === 'development' ? false : 'esbuild',
-      sourcemap: mode === 'development' ? true : false
+      sourcemap: mode === 'development' ? true : false,
+      emptyOutDir: false
     },
     define: {
       SCOPE_VERSION,
@@ -63,5 +74,5 @@ export default defineConfig(({ mode }) => {
       vueDocsPlugin,
       vue()
     ]
-  };
+  });
 });
