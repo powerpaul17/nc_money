@@ -29,4 +29,7 @@
     <background-jobs>
       <job>OCA\Money\BackgroundJob\CleanupDatabase</job>
     </background-jobs>
+    <settings>
+      <personal>OCA\Money\Settings\PersonalSettings</personal>
+    </settings>
 </info>

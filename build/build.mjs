@@ -22,6 +22,11 @@ const bundles = [
     entry: resolve(__dirname, '../src/main.ts'),
     name: 'moneyMain',
     fileName: 'money-main'
+  },
+  {
+    entry: resolve(__dirname, '../src/main-personal-settings.ts'),
+    name: 'moneyPersonalSettings',
+    fileName: 'money-personal-settings'
   }
 ];
 

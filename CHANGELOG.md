@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Added personal settings section for number format
+
 ### Changed
 
 - Invert values of income/liabilities accounts to prevent confusion
