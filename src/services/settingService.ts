@@ -1,6 +1,8 @@
 import type { WatchStopHandle } from 'vue';
 import { defineStore } from 'pinia';
 
+import { showSuccess } from '@nextcloud/dialogs';
+
 import { useSettingStore } from '../stores/settingStore';
 import { useSettingApiService } from './settingApiService';
 
@@ -14,6 +16,7 @@ export const useSettingService = defineStore('settingService', () => {
   function setupWatcher(): void {
     watcher = settingStore.$subscribe(async () => {
       await saveSettings();
+      showSuccess(t('money', 'Settings saved'));
     });
   }
 
