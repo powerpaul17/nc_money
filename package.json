@@ -23,6 +23,7 @@
     "@nextcloud/browserslist-config": "^2.3.0",
     "@nextcloud/calendar-js": "^3.1.0",
     "@nextcloud/capabilities": "^1.0.4",
+    "@nextcloud/dialogs": "^3.2.0",
     "@nextcloud/l10n": "^1.6.0",
     "@nextcloud/logger": "^2.3.0",
     "@nextcloud/router": "^2.0.0",

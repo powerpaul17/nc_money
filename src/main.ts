@@ -10,6 +10,7 @@ import l10n from '@nextcloud/l10n';
 import './main.css';
 
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+import '@nextcloud/dialogs/styles/toast.scss';
 
 import { useSettingService } from './services/settingService';
 
