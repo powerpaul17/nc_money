@@ -26,6 +26,7 @@
     "@nextcloud/l10n": "^1.6.0",
     "@nextcloud/logger": "^2.3.0",
     "@nextcloud/router": "^2.0.0",
+    "@pinia/testing": "^0.0.14",
     "@release-it/bumper": "^4.0.0",
     "@release-it/keep-a-changelog": "^3.1.0",
     "@testing-library/vue": "^6.6.1",
