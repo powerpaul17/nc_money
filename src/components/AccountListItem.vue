@@ -61,6 +61,11 @@
         }
       }
     },
-    components: { CurrencyText }
+    components: { CurrencyText },
+    setup() {
+      return {
+        settingStore: useSettingStore()
+      };
+    }
   });
 </script>
