@@ -11,6 +11,8 @@ import './main.css';
 
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 
+import { useSettingService } from './services/settingService';
+
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
@@ -36,6 +38,9 @@ const app = createApp(App);
 
 const pinia = createPinia();
 app.use(pinia);
+
+const settingService = useSettingService();
+settingService.loadSettings();
 
 app.use(Router);
 
