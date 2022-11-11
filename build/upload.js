@@ -7,9 +7,11 @@ const TAG_NAME = process.env.TAG_NAME;
 
 const privateKey = process.env.PRIVATE_KEY && Buffer.from(process.env.PRIVATE_KEY, 'base64').toString() || process.env.PRIVATE_KEY_FILE && fs.readFileSync(process.env.PRIVATE_KEY_FILE);
 
+const filePath = process.env.FILE_PATH || 'money.tar.gz';
+
 const downloadLink = `https://github.com/powerpaul17/nc_money/releases/download/${TAG_NAME}/money.tar.gz`;
 
-const fileContents = fs.readFileSync('money.tar.gz');
+const fileContents = fs.readFileSync(filePath);
 const signature = crypto.createSign('RSA-SHA512')
   .update(fileContents)
   .sign(privateKey, 'base64');
