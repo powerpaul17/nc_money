@@ -3,6 +3,7 @@
 ### Added
 
 - Added personal settings section for number format
+- Add option for showing inverted income/liabilities account balances
 
 ### Changed
 
