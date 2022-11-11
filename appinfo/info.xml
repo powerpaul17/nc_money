@@ -7,7 +7,7 @@
     <description>Finance manager for Nextcloud.</description>
     <licence>agpl</licence>
     <author mail="paultirk@paultirk.com">Paul Tirk</author>
-    <version>0.8.2</version>
+    <version>0.9.0</version>
     <namespace>Money</namespace>
     <category>office</category>
     <category>organization</category>

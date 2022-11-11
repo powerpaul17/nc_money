@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.9.0] - 2022-11-11
+
 ### Added
 
 - Added personal settings section for number format
