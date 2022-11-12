@@ -6,6 +6,7 @@ OC.L10N.register(
     "Add account" : "Tambah akun",
     "Date" : "Date",
     "Import" : "Impor",
-    "Comment" : "Komentar"
+    "Comment" : "Komentar",
+    "Settings saved" : "Setelan tersimpan"
 },
 "nplurals=1; plural=0;");

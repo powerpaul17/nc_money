@@ -7,6 +7,7 @@ OC.L10N.register(
     "Value" : "Vlerë",
     "Date" : "Data",
     "Import" : "Import",
-    "Comment" : "Koment"
+    "Comment" : "Koment",
+    "Settings saved" : "Opsjonet u Ruajtën."
 },
 "nplurals=2; plural=(n != 1);");

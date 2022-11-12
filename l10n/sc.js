@@ -8,6 +8,7 @@ OC.L10N.register(
     "Date" : "Data",
     "Select File" : "Sèbera archìviu",
     "Import" : "Importa",
-    "Comment" : "Cummentu"
+    "Comment" : "Cummentu",
+    "Settings saved" : "Impostatziones sarvadas"
 },
 "nplurals=2; plural=(n != 1);");

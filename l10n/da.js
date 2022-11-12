@@ -23,6 +23,7 @@ OC.L10N.register(
     "Import" : "Importér",
     "Comment" : "Kommentér",
     "Multiple Accounts" : "Flere kontoer",
+    "Settings saved" : "Indstillinger gemt",
     "Assets" : "Aktiver",
     "Liabilities" : "Forpligtelser",
     "Income" : "Indtægt",

@@ -6,6 +6,7 @@ OC.L10N.register(
     "Add account" : "Aldoni konton",
     "Date" : "Date",
     "Import" : "Importi",
-    "Comment" : "Komento"
+    "Comment" : "Komento",
+    "Settings saved" : "Agordoj konservitaj"
 },
 "nplurals=2; plural=(n != 1);");

@@ -6,6 +6,7 @@ OC.L10N.register(
     "Add account" : "Amestar cuenta",
     "Date" : "Date",
     "Import" : "Importar",
-    "Comment" : "Comentariu"
+    "Comment" : "Comentariu",
+    "Settings saved" : "Axustes guardaos"
 },
 "nplurals=2; plural=(n != 1);");

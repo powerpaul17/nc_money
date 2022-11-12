@@ -7,6 +7,7 @@ OC.L10N.register(
     "Value" : "Vērtība",
     "Date" : "Datums",
     "Import" : "Importēt",
-    "Comment" : "Komentārs"
+    "Comment" : "Komentārs",
+    "Settings saved" : "Iestatījumi saglabāti"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

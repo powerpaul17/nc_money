@@ -6,6 +6,7 @@ OC.L10N.register(
     "Add account" : "เพิ่มบัญชี",
     "Date" : "วันที่",
     "Import" : "นำเข้า",
-    "Comment" : "แสดงความคิดเห็น"
+    "Comment" : "แสดงความคิดเห็น",
+    "Settings saved" : "บันทึกการตั้งค่าแล้ว"
 },
 "nplurals=1; plural=0;");

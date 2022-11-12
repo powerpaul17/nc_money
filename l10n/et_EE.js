@@ -6,6 +6,7 @@ OC.L10N.register(
     "Add account" : "Lisa konto",
     "Date" : "Kuupäev",
     "Import" : "Impordi",
-    "Comment" : "Kommentaar"
+    "Comment" : "Kommentaar",
+    "Settings saved" : "Seaded salvestatud"
 },
 "nplurals=2; plural=(n != 1);");

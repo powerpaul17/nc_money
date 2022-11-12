@@ -23,6 +23,7 @@ OC.L10N.register(
     "Import" : "وارد کردن",
     "Comment" : "دیدگاه",
     "Multiple Accounts" : "حساب‌های چندگانه",
+    "Settings saved" : "تنظیمات ذخیره شد",
     "Assets" : "دارایی‌ها",
     "Liabilities" : "بدهی‌ها",
     "Income" : "درآمد",

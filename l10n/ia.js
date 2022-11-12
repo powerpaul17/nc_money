@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Description",
     "Date" : "Date",
     "Import" : "Importar",
-    "Comment" : "Commentario"
+    "Comment" : "Commentario",
+    "Settings saved" : "Configurationes salveguardate"
 },
 "nplurals=2; plural=(n != 1);");

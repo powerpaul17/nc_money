@@ -6,6 +6,7 @@ OC.L10N.register(
     "Value" : "Үнийн дүн",
     "Date" : "Он сар өдөр",
     "Import" : "Импорт",
-    "Comment" : "undefined"
+    "Comment" : "undefined",
+    "Settings saved" : "Тохиргоо хадгалагдлаа"
 },
 "nplurals=2; plural=(n != 1);");

@@ -23,6 +23,7 @@ OC.L10N.register(
     "Import" : "Импортировать",
     "Comment" : "Комментарий",
     "Multiple Accounts" : "Несколько счетов",
+    "Settings saved" : "Настройки сохранены",
     "Assets" : "Активы",
     "Liabilities" : "Пассивы",
     "Income" : "Доходы",

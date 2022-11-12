@@ -9,6 +9,7 @@ OC.L10N.register(
     "Date" : "Датум",
     "Select File" : "Избери датотека",
     "Import" : "Увези",
-    "Comment" : "Коментар"
+    "Comment" : "Коментар",
+    "Settings saved" : "Параматрите се зачувани"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

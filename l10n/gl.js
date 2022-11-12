@@ -8,6 +8,7 @@ OC.L10N.register(
     "Date" : "Data",
     "Select File" : "Seleccione un ficheiro",
     "Import" : "Importar",
-    "Comment" : "Comentario"
+    "Comment" : "Comentario",
+    "Settings saved" : "Axustes gardados"
 },
 "nplurals=2; plural=(n != 1);");

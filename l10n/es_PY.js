@@ -7,6 +7,7 @@ OC.L10N.register(
     "Value" : "Valor",
     "Date" : "Fecha",
     "Import" : "Importar",
-    "Comment" : "Comentario"
+    "Comment" : "Comentario",
+    "Settings saved" : "Se han guardado las configuraciones "
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

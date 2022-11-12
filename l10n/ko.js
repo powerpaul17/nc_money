@@ -8,6 +8,7 @@ OC.L10N.register(
     "Date" : "날짜",
     "Select File" : "파일 선택",
     "Import" : "가져오기",
-    "Comment" : "설명"
+    "Comment" : "설명",
+    "Settings saved" : "설정 저장됨"
 },
 "nplurals=1; plural=0;");

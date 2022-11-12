@@ -7,6 +7,7 @@ OC.L10N.register(
     "Add account" : "Thêm tài khoản",
     "Date" : "Date",
     "Import" : "Nhập vào",
-    "Comment" : "Bình luận"
+    "Comment" : "Bình luận",
+    "Settings saved" : "Cấu hình đã được lưu"
 },
 "nplurals=1; plural=0;");

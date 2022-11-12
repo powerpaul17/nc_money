@@ -7,6 +7,7 @@ OC.L10N.register(
     "Value" : "მნიშვნელობა",
     "Date" : "თარიღი",
     "Import" : "იმპორტი",
-    "Comment" : "კომენტარი"
+    "Comment" : "კომენტარი",
+    "Settings saved" : "პარამეტრები შენახულია"
 },
 "nplurals=2; plural=(n!=1);");

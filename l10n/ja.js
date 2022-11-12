@@ -9,6 +9,7 @@ OC.L10N.register(
     "Date" : "日付",
     "Select File" : "ファイル選択",
     "Import" : "インポート",
-    "Comment" : "コメント"
+    "Comment" : "コメント",
+    "Settings saved" : "設定が保存されました"
 },
 "nplurals=1; plural=0;");
