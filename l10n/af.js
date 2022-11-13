@@ -7,6 +7,7 @@ OC.L10N.register(
     "Value" : "Waarde",
     "Date" : "Datum",
     "Import" : "Voer In",
-    "Comment" : "Kommentaar"
+    "Comment" : "Kommentaar",
+    "Settings saved" : "Instellings gestoor"
 },
 "nplurals=2; plural=(n != 1);");
