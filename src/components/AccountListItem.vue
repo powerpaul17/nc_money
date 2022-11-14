@@ -24,10 +24,11 @@
   </li>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import dayjs from 'dayjs';
 
-  import { defineComponent, type PropType } from 'vue';
+  import { computed, type PropType } from 'vue';
+  import { useRoute } from 'vue-router';
 
   import type { Account } from '../stores/accountStore';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
@@ -36,36 +37,28 @@
 
   import CurrencyText from './CurrencyText.vue';
 
-  export default defineComponent({
-    props: {
-      account: {
-        type: Object as PropType<Account>,
-        required: true
-      }
-    },
-    data() {
-      return {
-        AccountTypeUtils
-      };
-    },
-    computed: {
-      isSelected() {
-        return Number(this.$route.params.accountId) === this.account.id;
-      },
-      balance() {
-        if(AccountTypeUtils.isMonthlyAccount(this.account.type)) {
-          const date = dayjs();
-          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
-        } else {
-          return this.account.balance;
-        }
-      }
-    },
-    components: { CurrencyText },
-    setup() {
-      return {
-        settingStore: useSettingStore()
-      };
+  const route = useRoute();
+
+  const settingStore = useSettingStore();
+
+  const props = defineProps({
+    account: {
+      type: Object as PropType<Account>,
+      required: true
     }
   });
+
+  const isSelected = computed(() => {
+    return Number(route.params.accountId) === props.account.id;
+  });
+
+  const balance = computed(() => {
+    if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
+      const date = dayjs();
+      return props.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+    } else {
+      return props.account.balance;
+    }
+  });
+
 </script>
