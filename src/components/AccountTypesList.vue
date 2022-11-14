@@ -42,8 +42,9 @@
   </ul>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
+
+  import { computed } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
@@ -52,34 +53,25 @@
   import AccountTypeListItem from './AccountTypeListItem.vue';
   import CurrencyText from './CurrencyText.vue';
 
-  export default defineComponent({
-    data() {
-      return {
-        accountStore: useAccountStore(),
-        accountService: useAccountService(),
-        accountTypeStore: useAccountTypeStore()
-      };
-    },
-    computed: {
-      accountTypes() {
-        return this.accountTypeStore.accountTypes;
-      },
-      equity() {
-        return (
-          this.accountStore.assetsBalance + this.accountStore.liabilitiesBalance
-        );
-      },
-      unbalancedValue() {
-        return this.accountStore.unbalancedValue;
-      }
-    },
-    created() {
-      // TODO: initialize accounts at some other point
-      this.accountService.fetchAccounts();
-    },
-    components: {
-      AccountTypeListItem,
-      CurrencyText
-    }
+  const accountStore = useAccountStore();
+  const accountService = useAccountService();
+  const accountTypeStore = useAccountTypeStore();
+
+  const accountTypes = computed(() => {
+    return accountTypeStore.accountTypes;
   });
+
+  const equity = computed(() => {
+    return (
+      accountStore.assetsBalance + accountStore.liabilitiesBalance
+    );
+  });
+
+  const unbalancedValue = computed(() => {
+    return accountStore.unbalancedValue;
+  });
+
+  // TODO: initialize accounts at some other point
+  accountService.fetchAccounts();
+
 </script>
