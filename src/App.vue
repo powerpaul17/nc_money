@@ -1,13 +1,7 @@
 <template>
-  <div id="app-navigation">
-    <AccountTypesList />
+  <AppNavigation />
 
-    <AppSettings />
-  </div>
-
-  <div
-    id="app-content"
-  >
+  <div id="app-content">
     <router-view />
   </div>
 
@@ -16,7 +10,6 @@
 
 <script setup lang="ts">
 
-  import AccountTypesList from './components/AccountTypesList.vue';
-  import AppSettings from './components/AppSettings.vue';
+  import AppNavigation from './components/AppNavigation.vue';
 
 </script>
