@@ -1,10 +1,9 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import VueRouter from 'vue-router';
 
 import AccountView from './views/AccountView.vue';
 import Sidebar from './components/Sidebar.vue';
 
-export default createRouter({
-  history: createWebHashHistory(),
+export default new VueRouter({
   routes: [
     {
       path: '/account/:accountId',

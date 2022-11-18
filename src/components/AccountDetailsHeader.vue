@@ -66,8 +66,8 @@
   import CurrencyText from './CurrencyText.vue';
   import TransactionImportDialog from './TransactionImportDialog.vue';
 
-  import NcActions from '../vendor/nextcloud-vue/src/components/NcActions';
-  import NcActionButton from '../vendor/nextcloud-vue/src/components/NcActionButton';
+  import NcActions from '@nextcloud/vue/dist/Components/NcActions';
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
 

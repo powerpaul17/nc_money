@@ -14,7 +14,7 @@
     :disabled="disabled"
     v-model="inputValue"
     @change="handleValueChange"
-    @focus="($event.target as HTMLInputElement).select()"
+    @focus="$event.target.select()"
   >
 </template>
 
@@ -36,7 +36,7 @@
         default: false
       }
     },
-    emits: ['value-changed'],
+    emits: [ 'value-changed' ],
     data() {
       return {
         inputValue: this.value

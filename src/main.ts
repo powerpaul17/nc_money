@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
+import Vue from 'vue';
+import { createPinia, PiniaVuePlugin } from 'pinia';
 
 import l10n from '@nextcloud/l10n';
 
@@ -17,7 +17,7 @@ import { useSettingService } from './services/settingService';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-import Router from './router';
+import router from './router';
 
 import App from './App.vue';
 
@@ -35,22 +35,21 @@ if (
   contentElement?.classList.add('theme--dark');
 }
 
-const app = createApp(App);
-
+Vue.use(PiniaVuePlugin);
 const pinia = createPinia();
-app.use(pinia);
 
 const settingService = useSettingService();
 settingService.loadSettings();
 
-app.use(Router);
+Vue.prototype.t = l10n.translate;
+Vue.prototype.n = l10n.translatePlural;
 
-app.use((app, options) => {
-  app.config.globalProperties.t = l10n.translate;
-  app.config.globalProperties.n = l10n.translatePlural;
+new Vue({
+  el: '#content',
+  render: (h) => h(App),
+  router,
+  pinia
 });
-
-app.mount('#content');
 
 declare module 'vue' {
   interface ComponentCustomProperties {

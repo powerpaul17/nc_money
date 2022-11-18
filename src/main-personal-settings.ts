@@ -1,5 +1,5 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
+import Vue from 'vue';
+import { createPinia, PiniaVuePlugin } from 'pinia';
 
 import l10n from '@nextcloud/l10n';
 
@@ -11,17 +11,17 @@ import { useSettingService } from './services/settingService';
 
 import PersonalSettings from './components/PersonalSettings.vue';
 
-const app = createApp(PersonalSettings);
-
+Vue.use(PiniaVuePlugin);
 const pinia = createPinia();
-app.use(pinia);
 
 const settingService = useSettingService();
 settingService.loadSettings();
 
-app.use((app, options) => {
-  app.config.globalProperties.t = l10n.translate;
-  app.config.globalProperties.n = l10n.translatePlural;
-});
+Vue.prototype.t = l10n.translate;
+Vue.prototype.n = l10n.translatePlural;
 
-app.mount('#app-content');
+new Vue({
+  el: '#app-content',
+  render: (h) => h(PersonalSettings),
+  pinia
+});
