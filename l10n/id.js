@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nama",
     "Description" : "Deskrisi",
     "Add account" : "Tambah akun",
+    "Value" : "Nilari",
     "Date" : "Date",
     "Import" : "Impor",
     "Comment" : "Komentar",
