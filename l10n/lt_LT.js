@@ -2,11 +2,13 @@ OC.L10N.register(
     "money",
     {
     "Money" : "Pinigai",
+    "Manage your finances." : "Tvarkyti savo finansus.",
     "Name" : "Pavadinimas",
     "Description" : "Aprašas",
     "Add account" : "Pridėti paskyrą",
     "Value" : "Reikšmė",
     "Date" : "Data",
+    "Date Format" : "Datos formatas",
     "Import" : "Importuoti",
     "Comment" : "Komentaras",
     "Settings saved" : "Nustatymai įrašyti"
