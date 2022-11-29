@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Enable renaming of accounts in navigation item
+
 ### Changed
 
 - Convert to Vue version 2.7

@@ -1,7 +1,12 @@
 <template>
   <NcAppNavigationItem
     :title="account.name"
+    :editable="true"
+    :edit-label="t('money', 'Rename account')"
+    :edit-placeholder="t('money', 'Account name')"
     :to="`/account/${account.id}`"
+    :loading="isLoading"
+    @update:title="handleUpdateAccountName"
   >
     <template #counter>
       <CurrencyText
@@ -26,8 +31,10 @@
 
   import { defineComponent, type PropType } from 'vue';
 
-  import type { Account } from '../stores/accountStore';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
+
+  import type { Account } from '../stores/accountStore';
+  import { useAccountService } from '../services/accountService';
 
   import { useSettingStore } from '../stores/settingStore';
 
@@ -42,7 +49,13 @@
     setup() {
       return {
         settingStore: useSettingStore(),
+        accountService: useAccountService(),
         AccountTypeUtils
+      };
+    },
+    data() {
+      return {
+        isLoading: false
       };
     },
     props: {
@@ -59,6 +72,15 @@
         } else {
           return this.account.balance;
         }
+      }
+    },
+    methods: {
+      async handleUpdateAccountName(accountName: string): Promise<void> {
+        this.account.name = accountName;
+
+        this.isLoading = true;
+        await this.accountService.updateAccount(this.account);
+        this.isLoading = false;
       }
     }
   });
