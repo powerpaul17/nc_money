@@ -44,7 +44,7 @@
   const selectedAccountId = ref(props.accountId);
 
   const accounts = computed((): Array<Account> => {
-    return accountStore.accountArray.filter(
+    return accountStore.accounts.filter(
       (a) => !props.excludedAccountIds.includes(a.id)
     );
   });

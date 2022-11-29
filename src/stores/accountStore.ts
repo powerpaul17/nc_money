@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 
-import { computed, reactive } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
 import { AccountTypeType } from './accountTypeStore';
 
 export const useAccountStore = defineStore('accountStore', () => {
-  const _accounts: Map<number, Account> = reactive(new Map());
+  const accounts: Ref<Array<Account>> = ref([]);
 
   const assetsBalance = computed((): number => {
     return calculateBalance(_getByType(AccountTypeType.ASSET));
@@ -26,15 +26,19 @@ export const useAccountStore = defineStore('accountStore', () => {
   });
 
   const unbalancedValue = computed((): number => {
-    return calculateBalance(accountArray.value);
+    return calculateBalance(accounts.value);
   });
+
+  function getIndex(accountId: number): number {
+    return accounts.value.findIndex(a => a.id === accountId);
+  }
 
   const getById = computed(() => {
     return _getById;
   });
 
   function _getById(accountId: number): Account|undefined {
-    return _accounts.get(accountId);
+    return accounts.value.find(a => a.id === accountId);
   }
 
   const getByType = computed(() => {
@@ -42,7 +46,7 @@ export const useAccountStore = defineStore('accountStore', () => {
   });
 
   function _getByType(accountType: AccountTypeType): Array<Account> {
-    return accountArray.value.filter((a) => a.type === accountType);
+    return accounts.value.filter((a) => a.type === accountType);
   }
 
   const getSummaryByType = computed(() => {
@@ -51,16 +55,20 @@ export const useAccountStore = defineStore('accountStore', () => {
     };
   });
 
-  const accountArray = computed(() => {
-    return Array.from(_accounts.values());
-  });
-
   function deleteAccount(accountId: number): void {
-    _accounts.delete(accountId);
+    const index = getIndex(accountId);
+    if (index >= 0) {
+      accounts.value.splice(index, 1);
+    }
   }
 
   function insertAccount(account: Account): void {
-    _accounts.set(account.id, account);
+    const index = getIndex(account.id);
+    if (index >= 0) {
+      accounts.value.splice(index, 1, account);
+    } else {
+      accounts.value.push(account);
+    }
   }
 
   function addValue(accountId: number, value: number, date?: Date): void {
@@ -112,7 +120,7 @@ export const useAccountStore = defineStore('accountStore', () => {
   }
 
   return {
-    accountArray,
+    accounts,
 
     assetsBalance,
     liabilitiesBalance,
