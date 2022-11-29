@@ -1,19 +1,30 @@
 import { ref, type Ref } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useSettingStore = defineStore('settingStore', () => {
+export const useSettingStore = defineStore<
+  'settingStore',
+  Settings
+>(
+  'settingStore',
+  () => {
 
-  const settings: Settings = {
-    useInvertedAccounts: ref(true),
-    numberFormat_decimals: ref(2),
-    numberFormat_decimalSeparator: ref('.'),
-    numberFormat_groupBy: ref(3),
-    numberFormat_groupSeparator: ref(' ')
-  };
+    const useInvertedAccounts = ref(true);
+    const numberFormat_decimals = ref(2);
+    const numberFormat_decimalSeparator = ref('.');
+    const numberFormat_groupBy = ref(3);
+    const numberFormat_groupSeparator = ref(' ');
 
-  return settings;
+    return {
+      useInvertedAccounts,
 
-});
+      numberFormat_decimals,
+      numberFormat_decimalSeparator,
+      numberFormat_groupBy,
+      numberFormat_groupSeparator
+    };
+
+  }
+);
 
 export type Settings = {
   useInvertedAccounts: Ref<boolean>;
