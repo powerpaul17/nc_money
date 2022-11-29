@@ -2,7 +2,7 @@ import { translate as t } from '@nextcloud/l10n';
 
 import { defineStore, storeToRefs } from 'pinia';
 
-import { computed, reactive, type Ref } from 'vue';
+import { computed, type Ref } from 'vue';
 
 import { useAccountStore } from './accountStore';
 
@@ -10,48 +10,32 @@ export const useAccountTypeStore = defineStore('accountTypeStore', () => {
 
   const accountStore = storeToRefs(useAccountStore());
 
-  const _accountTypes: Map<AccountTypeType, AccountType> = reactive(new Map([
-    [
-      AccountTypeType.ASSET,
-      {
-        type: AccountTypeType.ASSET,
-        name: t('money', 'Assets'),
-        balance: accountStore.assetsBalance
-      }
-    ],
-    [
-      AccountTypeType.LIABILITY,
-      {
-        type: AccountTypeType.LIABILITY,
-        name: t('money', 'Liabilities'),
-        balance: accountStore.liabilitiesBalance
-      }
-    ],
-    [
-      AccountTypeType.INCOME,
-      {
-        type: AccountTypeType.INCOME,
-        name: t('money', 'Income'),
-        balance: accountStore.incomeBalance
-      }
-    ],
-    [
-      AccountTypeType.EXPENSE,
-      {
-        type: AccountTypeType.EXPENSE,
-        name: t('money', 'Expenses'),
-        balance: accountStore.expensesBalance
-      }
-    ]
-  ]));
-
-  const accountTypes = computed(() => {
-    return Array.from(_accountTypes.values());
-  });
+  const accountTypes: Array<AccountType> = [
+    {
+      type: AccountTypeType.ASSET,
+      name: t('money', 'Assets'),
+      balance: accountStore.assetsBalance
+    },
+    {
+      type: AccountTypeType.LIABILITY,
+      name: t('money', 'Liabilities'),
+      balance: accountStore.liabilitiesBalance
+    },
+    {
+      type: AccountTypeType.INCOME,
+      name: t('money', 'Income'),
+      balance: accountStore.incomeBalance
+    },
+    {
+      type: AccountTypeType.EXPENSE,
+      name: t('money', 'Expenses'),
+      balance: accountStore.expensesBalance
+    }
+  ];
 
   const getByType = computed(() => {
     return (accountType: AccountTypeType): AccountType|undefined => {
-      return _accountTypes.get(accountType);
+      return accountTypes.find(aT => aT.type === accountType);
     };
   });
 
