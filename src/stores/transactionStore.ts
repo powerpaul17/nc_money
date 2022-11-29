@@ -1,4 +1,4 @@
-import { computed, reactive, ref, type Ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
@@ -9,19 +9,25 @@ export const useTransactionStore = defineStore('transactionStore', () => {
   const splitStore = useSplitStore();
   const accountStore = useAccountStore();
 
-  const _transactions: Map<number, Transaction> = reactive(new Map());
-  const _currentAccountId: Ref<number|null> = ref(null);
-  const _allTransactionsFetched = ref(false);
+  const transactions: Ref<Array<Transaction>> = ref([]);
+  const currentAccountId: Ref<number|null> = ref(null);
+  const allTransactionsFetched = ref(false);
+
+  const transactionIndex: Map<number, number> = new Map();
 
   function $reset(): void {
-    _transactions.clear();
-    _currentAccountId.value = null;
-    _allTransactionsFetched.value = false;
+    transactions.value = [];
+    currentAccountId.value = null;
+    allTransactionsFetched.value = false;
+
+    transactionIndex.clear();
   }
 
   const getById = computed(() => {
-    return (transactionId: number): Transaction | undefined =>
-      _transactions.get(transactionId);
+    return (transactionId: number): Transaction|undefined => {
+      const index = getIndex(transactionId);
+      return index ? transactions.value[index] : undefined;
+    };
   });
 
   const getByAccountId = computed(() => {
@@ -36,7 +42,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
   });
 
   const sortedByDate = computed(() => {
-    return Array.from(_transactions.values()).sort((a, b) => {
+    return transactions.value.slice().sort((a, b) => {
       if (b.date.getTime() === a.date.getTime()) {
         return b.timestampAdded - a.timestampAdded;
       }
@@ -44,6 +50,10 @@ export const useTransactionStore = defineStore('transactionStore', () => {
       return b.date.getTime() - a.date.getTime();
     });
   });
+
+  function getIndex(transactionId: number): number|undefined {
+    return transactionIndex.get(transactionId);
+  }
 
   function insertTransactions(transactions: Array<Transaction>): void {
     for (const transaction of transactions) {
@@ -81,18 +91,29 @@ export const useTransactionStore = defineStore('transactionStore', () => {
         }
       }
     );
-    _transactions.set(transactionProxy.id, transactionProxy);
+
+    const index = getIndex(transactionProxy.id);
+    if (index) {
+      transactions.value.splice(index, 1, transactionProxy);
+    } else {
+      const length = transactions.value.push(transactionProxy);
+      transactionIndex.set(transactionProxy.id, length - 1);
+    }
   }
 
   function deleteTransaction(transactionId: number): void {
-    _transactions.delete(transactionId);
+    const index = getIndex(transactionId);
+    if (index) {
+      transactions.value.splice(index, 1);
+      transactionIndex.delete(transactionId);
+    }
   }
 
   return {
     $reset,
 
-    currentAccountId: _currentAccountId,
-    allTransactionsFetched: _allTransactionsFetched,
+    currentAccountId: currentAccountId,
+    allTransactionsFetched: allTransactionsFetched,
 
     getById,
     getByAccountId,
