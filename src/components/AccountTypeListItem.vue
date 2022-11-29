@@ -1,65 +1,52 @@
 <template>
-  <li
-    class="collapsible"
-    :class="{ 'open mb-5': isOpen }"
+  <NcAppNavigationItem
+    :title="accountType.name"
+    :allow-collapse="collapsible"
+    :open.sync="isOpen"
+    icon="icon-folder"
+    :class="{ 'mb-5': collapsible && isOpen }"
   >
-    <a
-      class="icon-folder"
-      @click.stop="isOpen = !isOpen"
-    >
-      <div class="flex h-full w-full">
-        <div class="flex-auto overflow-hidden text-ellipsis">{{ name }}</div>
-        <div class="grow text-right">
-          <CurrencyText
-            :value="balance"
-            :animation="true"
-            :inverted-value="settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(accountType.type)"
-          >
-            <template
-              #suffix
-              v-if="AccountTypeUtils.isMonthlyAccount(accountType.type)"
-            >
-              / {{ t('money', 'mo') }}
-            </template>
-          </CurrencyText>
-        </div>
-      </div>
-    </a>
+    <template #counter>
+      <CurrencyText
+        class="mr-2"
+        :value="balance"
+        :animation="true"
+        :inverted-value="settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(accountType.type)"
+      >
+        <template
+          #suffix
+          v-if="AccountTypeUtils.isMonthlyAccount(accountType.type)"
+        >
+          / {{ t('money', 'mo') }}
+        </template>
+      </CurrencyText>
+    </template>
 
-    <div class="app-navigation-entry-utils">
-      <ul>
-        <li class="app-navigation-entry-utils-menu-button">
-          <button @click="isMenuOpen = !isMenuOpen" />
-        </li>
-      </ul>
-    </div>
-    <div
-      class="app-navigation-entry-menu"
-      :class="{ open: isMenuOpen }"
-    >
-      <ul>
-        <li>
-          <a @click="handleAddAccountClick">
-            <span class="icon-add" />
-            <span>{{ t('money', 'Add account') }}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <template #actions>
+      <NcActionButton
+        @click="handleAddAccountClick"
+        :close-after-click="true"
+      >
+        <template #icon>
+          <Plus />
+        </template>
 
-    <ul>
+        <template #default>
+          <span>
+            {{ t('money', 'Add account') }}
+          </span>
+        </template>
+      </NcActionButton>
+    </template>
+
+    <template #default>
       <AccountListItem
         v-for="account in accounts"
         :key="account.id"
         :account="account"
       />
-      <li v-if="!accounts.length">
-        <a href="#">
-          {{ t('money', 'No accounts') }}
-        </a>
-      </li>
-    </ul>
-  </li>
+    </template>
+  </NcAppNavigationItem>
 </template>
 
 <script setup lang="ts">
@@ -79,6 +66,11 @@
 
   import { useSettingStore } from '../stores/settingStore';
 
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
+  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+
+  import Plus from 'vue-material-design-icons/Plus.vue';
+
   import AccountListItem from './AccountListItem.vue';
   import CurrencyText from './CurrencyText.vue';
 
@@ -97,11 +89,6 @@
   const settingStore = useSettingStore();
 
   const isOpen = ref(true);
-  const isMenuOpen = ref(false);
-
-  const name = computed(() => {
-    return props.accountType.name;
-  });
 
   const balance = computed(() => {
     if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
@@ -120,6 +107,10 @@
     return accountStore.getByType(props.accountType.type);
   });
 
+  const collapsible = computed(() => {
+    return !!accounts.value.length;
+  });
+
   async function handleAddAccountClick(): Promise<void> {
     const newAccount = await accountService.addAccount({
       name: 'New Account',
@@ -131,6 +122,5 @@
     router.push(`/account/${newAccount.id}`);
 
     isOpen.value = true;
-    isMenuOpen.value = false;
   }
 </script>

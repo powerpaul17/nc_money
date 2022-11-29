@@ -4,6 +4,7 @@ import AccountView from './views/AccountView.vue';
 import Sidebar from './components/Sidebar.vue';
 
 export default new VueRouter({
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/account/:accountId',
