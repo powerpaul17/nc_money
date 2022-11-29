@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
@@ -9,33 +9,38 @@ export const useSplitStore = defineStore('splitStore', () => {
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
 
-  const _splits: Map<number, Split> = reactive(new Map());
+  const splits: Ref<Array<Split>> = ref([]);
+
+  const splitIndex: Map<number, number> = new Map();
 
   const getById = computed(() => {
-    return (splitId: number) => _splits.get(splitId);
+    return (splitId: number): Split|undefined => {
+      const index = getIndex(splitId);
+      return index ? splits.value[index] : undefined;
+    };
   });
 
   const getByTransactionId = computed(() => {
-    return (transactionId: number) => {
-      return splitArray.value.filter((s) => s.transactionId === transactionId);
+    return (transactionId: number): Array<Split> => {
+      return splits.value.filter((s) => s.transactionId === transactionId);
     };
   });
 
   const getByAccountId = computed(() => {
-    return (accountId: number) => {
-      return splitArray.value.filter((s) => s.destAccountId === accountId);
+    return (accountId: number): Array<Split> => {
+      return splits.value.filter((s) => s.destAccountId === accountId);
     };
   });
 
-  const splitArray = computed(() => {
-    return Array.from(_splits.values());
-  });
+  function getIndex(splitId: number): number|undefined {
+    return splitIndex.get(splitId);
+  }
 
-  function insertSplit(split: Split) {
+  function insertSplit(split: Split): void {
     const splitProxy = new Proxy(
       split,
       {
-        set(target, p, value, receiver) {
+        set(target, p, value, receiver): boolean {
           console.warn('SPLIT PROXY -->', target, p, value, receiver);
 
           const transaction = transactionStore.getById(target.transactionId);
@@ -62,17 +67,27 @@ export const useSplitStore = defineStore('splitStore', () => {
         }
       });
 
-    _splits.set(splitProxy.id, splitProxy);
+    const index = getIndex(splitProxy.id);
+    if (index) {
+      splits.value.splice(index, 1, splitProxy);
+    } else {
+      const length = splits.value.push(splitProxy);
+      splitIndex.set(splitProxy.id, length - 1);
+    }
   }
 
-  function insertSplits(splits: Array<Split>) {
+  function insertSplits(splits: Array<Split>): void {
     for (const split of splits) {
       insertSplit(split);
     }
   }
 
-  function deleteSplit(splitId: number) {
-    _splits.delete(splitId);
+  function deleteSplit(splitId: number): void {
+    const index = getIndex(splitId);
+    if (index) {
+      splits.value.splice(index, 1);
+      splitIndex.delete(splitId);
+    }
   }
 
   return {
