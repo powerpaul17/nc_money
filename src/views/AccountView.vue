@@ -1,15 +1,5 @@
 <template>
-  <div
-    class="
-      app-content-details
-      mx-auto
-      flex
-      h-[calc(100vh-50px)]
-      flex-col
-      lg:container
-    "
-    v-if="renderComponent"
-  >
+  <div v-if="renderComponent">
     <AccountDetails
       v-if="selectedAccount"
       :account="selectedAccount"

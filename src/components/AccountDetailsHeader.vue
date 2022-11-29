@@ -1,53 +1,55 @@
 <template>
-  <div class="-mr-3 flex items-center p-5 [&>*]:mr-3">
-    <div class="flex flex-auto flex-col">
-      <div>
-        <SeamlessInput
-          class="text-lg"
-          :placeholder="t('money', 'Name')"
-          :value="account.name"
-          @value-changed="handleAccountNameModified"
-        />
+  <div>
+    <div class="-mr-3 flex items-center p-5 [&>*]:mr-3">
+      <div class="flex flex-auto flex-col">
+        <div>
+          <SeamlessInput
+            class="text-lg"
+            :placeholder="t('money', 'Name')"
+            :value="account.name"
+            @value-changed="handleAccountNameModified"
+          />
+        </div>
+        <div>
+          <SeamlessInput
+            :placeholder="t('money', 'Description')"
+            :value="account.description"
+            @value-changed="handleAccountDescriptionModified"
+          />
+        </div>
       </div>
-      <div>
-        <SeamlessInput
-          :placeholder="t('money', 'Description')"
-          :value="account.description"
-          @value-changed="handleAccountDescriptionModified"
-        />
-      </div>
-    </div>
-    <div class="flex shrink-0 grow-0 items-center text-right text-xl">
-      <CurrencyText
-        :value="balance"
-        :animation="true"
-        :inverted-value="isInvertedAccount"
-      >
-        <template
-          #suffix
-          v-if="isMonthlyAccount"
+      <div class="flex shrink-0 grow-0 items-center text-right text-xl">
+        <CurrencyText
+          :value="balance"
+          :animation="true"
+          :inverted-value="isInvertedAccount"
         >
-          / {{ t('money', 'mo') }}
-        </template>
-      </CurrencyText>
-    </div>
-    <div class="grow-0">
-      <NcActions>
-        <NcActionButton @click="() => (showImportTransactionsDialog = true)">
-          <template #icon>
-            <Upload :size="20" />
+          <template
+            #suffix
+            v-if="isMonthlyAccount"
+          >
+            / {{ t('money', 'mo') }}
           </template>
-          {{ t('money', 'Import transactions') }}
-        </NcActionButton>
-      </NcActions>
+        </CurrencyText>
+      </div>
+      <div class="grow-0">
+        <NcActions>
+          <NcActionButton @click="() => (showImportTransactionsDialog = true)">
+            <template #icon>
+              <Upload :size="20" />
+            </template>
+            {{ t('money', 'Import transactions') }}
+          </NcActionButton>
+        </NcActions>
+      </div>
     </div>
-  </div>
 
-  <TransactionImportDialog
-    v-if="showImportTransactionsDialog"
-    @close="() => (showImportTransactionsDialog = false)"
-    :account-id="account.id"
-  />
+    <TransactionImportDialog
+      v-if="showImportTransactionsDialog"
+      @close="() => (showImportTransactionsDialog = false)"
+      :account-id="account.id"
+    />
+  </div>
 </template>
 
 <script lang="ts">
