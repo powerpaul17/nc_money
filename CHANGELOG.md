@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Convert to Vue version 2.7
+
 ## [0.9.0] - 2022-11-11
 
 ### Added
