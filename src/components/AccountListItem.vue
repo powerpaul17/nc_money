@@ -1,7 +1,7 @@
 <template>
   <NcAppNavigationItem
     :title="account.name"
-    :to="`/account/${props.account.id}`"
+    :to="`/account/${account.id}`"
   >
     <template #counter>
       <CurrencyText
@@ -21,10 +21,10 @@
   </NcAppNavigationItem>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
   import dayjs from 'dayjs';
 
-  import { computed, type PropType } from 'vue';
+  import { defineComponent, type PropType } from 'vue';
 
   import type { Account } from '../stores/accountStore';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
@@ -34,22 +34,32 @@
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
 
   import CurrencyText from './CurrencyText.vue';
-
-  const settingStore = useSettingStore();
-
-  const props = defineProps({
-    account: {
-      type: Object as PropType<Account>,
-      required: true
-    }
-  });
-
-  const balance = computed(() => {
-    if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
-      const date = dayjs();
-      return props.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
-    } else {
-      return props.account.balance;
+  export default defineComponent({
+    components: {
+      NcAppNavigationItem,
+      CurrencyText
+    },
+    setup() {
+      return {
+        settingStore: useSettingStore(),
+        AccountTypeUtils
+      };
+    },
+    props: {
+      account: {
+        type: Object as PropType<Account>,
+        required: true
+      }
+    },
+    computed: {
+      balance() {
+        if (AccountTypeUtils.isMonthlyAccount(this.account.type)) {
+          const date = dayjs();
+          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+        } else {
+          return this.account.balance;
+        }
+      }
     }
   });
 
