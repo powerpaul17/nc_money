@@ -9,10 +9,8 @@ import CurrencyText from './CurrencyText.vue';
 describe('CurrencyText', () => {
 
   it('should render correct amount of decimals', async () => {
-    const { container, rerender } = render(CurrencyText, {
-      global: {
-        plugins: [ createTestingPinia() ]
-      },
+    const { container, updateProps } = render(CurrencyText, {
+      pinia: createTestingPinia(),
       props: {
         value: 0.123
       }
@@ -20,13 +18,13 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('0.12');
 
-    await rerender({
+    await updateProps({
       value: 0.1
     });
 
     expect(container.firstChild?.textContent).to.be.equal('0.10');
 
-    await rerender({
+    await updateProps({
       value: 0.195
     });
 
@@ -40,9 +38,7 @@ describe('CurrencyText', () => {
     settingStore.numberFormat_decimalSeparator = ',';
 
     const { container } = render(CurrencyText, {
-      global: {
-        plugins: [ pinia ]
-      },
+      pinia,
       props: {
         value: 0.123
       }
@@ -56,10 +52,8 @@ describe('CurrencyText', () => {
 
     const settingStore = useSettingStore();
 
-    const { container, rerender } = render(CurrencyText, {
-      global: {
-        plugins: [ pinia ]
-      },
+    const { container, updateProps } = render(CurrencyText, {
+      pinia,
       props: {
         value: 1234
       }
@@ -67,13 +61,13 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('1 234.00');
 
-    await rerender({
+    await updateProps({
       value: 123456
     });
 
     expect(container.firstChild?.textContent).to.be.equal('123 456.00');
 
-    await rerender({
+    await updateProps({
       value: -123456
     });
 
@@ -81,7 +75,7 @@ describe('CurrencyText', () => {
 
     settingStore.numberFormat_groupBy = 2;
 
-    await rerender({
+    await updateProps({
       value: 123456
     });
 
@@ -96,9 +90,7 @@ describe('CurrencyText', () => {
     settingStore.numberFormat_groupSeparator = '.';
 
     const { container } = render(CurrencyText, {
-      global: {
-        plugins: [ pinia ]
-      },
+      pinia,
       props: {
         value: 1234
       }
@@ -108,10 +100,8 @@ describe('CurrencyText', () => {
   });
 
   it('should show inverted values if enabled', async () => {
-    const { container, rerender } = render(CurrencyText, {
-      global: {
-        plugins: [ createTestingPinia() ]
-      },
+    const { container, updateProps } = render(CurrencyText, {
+      pinia: createTestingPinia(),
       props: {
         value: -123.456,
         invertedValue: true
@@ -120,13 +110,13 @@ describe('CurrencyText', () => {
 
     expect(container.firstChild?.textContent).to.be.equal('123.46');
 
-    await rerender({
+    await updateProps({
       value: 123.456
     });
 
     expect(container.firstChild?.textContent).to.be.equal('-123.46');
 
-    await rerender({
+    await updateProps({
       value: 0.0
     });
 
