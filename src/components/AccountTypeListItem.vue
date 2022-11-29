@@ -49,78 +49,86 @@
   </NcAppNavigationItem>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
   import dayjs from 'dayjs';
 
-  import { computed, ref, type PropType } from 'vue';
-
-  import { useRouter } from 'vue-router';
+  import { defineComponent, type PropType } from 'vue';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
   import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
-  import type {
-    AccountType
-  } from '../stores/accountTypeStore';
+  import type { AccountType } from '../stores/accountTypeStore';
 
   import { useSettingStore } from '../stores/settingStore';
 
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 
   import AccountListItem from './AccountListItem.vue';
   import CurrencyText from './CurrencyText.vue';
 
-  const props = defineProps({
-    accountType: {
-      type: Object as PropType<AccountType>,
-      required: true
+  export default defineComponent({
+    components: {
+      NcAppNavigationItem,
+      CurrencyText,
+      NcActionButton,
+      Plus,
+      AccountListItem
+    },
+    props: {
+      accountType: {
+        type: Object as PropType<AccountType>,
+        required: true
+      }
+    },
+    data() {
+      return {
+        accountStore: useAccountStore(),
+        accountService: useAccountService(),
+
+        settingStore: useSettingStore(),
+
+        isOpen: true,
+
+        AccountTypeUtils
+      };
+    },
+    computed: {
+      balance() {
+        if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
+          const date = dayjs();
+          return this.accountStore.getSummaryByType(
+            this.accountType.type,
+            date.year(),
+            date.month() + 1
+          );
+        } else {
+          return this.accountType.balance;
+        }
+      },
+      accounts() {
+        return this.accountStore.getByType(this.accountType.type);
+      },
+      collapsible() {
+        return !!this.accounts.length;
+      }
+    },
+    methods: {
+      async handleAddAccountClick(): Promise<void> {
+        const newAccount = await this.accountService.addAccount({
+          name: this.t('money', 'New Account'),
+          description: '',
+          currency: '',
+          type: this.accountType.type
+        });
+
+        this.$router.push(`/account/${newAccount.id}`);
+
+        this.isOpen = true;
+      }
     }
   });
-
-  const router = useRouter();
-
-  const accountStore = useAccountStore();
-  const accountService = useAccountService();
-
-  const settingStore = useSettingStore();
-
-  const isOpen = ref(true);
-
-  const balance = computed(() => {
-    if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
-      const date = dayjs();
-      return accountStore.getSummaryByType(
-        props.accountType.type,
-        date.year(),
-        date.month() + 1
-      );
-    } else {
-      return props.accountType.balance;
-    }
-  });
-
-  const accounts = computed(() => {
-    return accountStore.getByType(props.accountType.type);
-  });
-
-  const collapsible = computed(() => {
-    return !!accounts.value.length;
-  });
-
-  async function handleAddAccountClick(): Promise<void> {
-    const newAccount = await accountService.addAccount({
-      name: 'New Account',
-      description: '',
-      currency: '',
-      type: props.accountType.type
-    });
-
-    router.push(`/account/${newAccount.id}`);
-
-    isOpen.value = true;
-  }
 </script>
