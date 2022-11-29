@@ -6,7 +6,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/vue3-strongly-recommended",
+    "plugin:vue/strongly-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:tailwindcss/recommended"
   ],
