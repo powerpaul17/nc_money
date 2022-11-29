@@ -41,9 +41,6 @@ Vue.use(VueRouter);
 Vue.use(PiniaVuePlugin);
 const pinia = createPinia();
 
-const settingService = useSettingService();
-settingService.loadSettings();
-
 Vue.prototype.t = l10n.translate;
 Vue.prototype.n = l10n.translatePlural;
 
@@ -53,6 +50,9 @@ new Vue({
   router,
   pinia
 });
+
+const settingService = useSettingService();
+settingService.loadSettings();
 
 declare module 'vue' {
   interface ComponentCustomProperties {

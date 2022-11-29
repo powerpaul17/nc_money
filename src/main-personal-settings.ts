@@ -14,9 +14,6 @@ import PersonalSettings from './components/PersonalSettings.vue';
 Vue.use(PiniaVuePlugin);
 const pinia = createPinia();
 
-const settingService = useSettingService();
-settingService.loadSettings();
-
 Vue.prototype.t = l10n.translate;
 Vue.prototype.n = l10n.translatePlural;
 
@@ -25,3 +22,6 @@ new Vue({
   render: (h) => h(PersonalSettings),
   pinia
 });
+
+const settingService = useSettingService();
+settingService.loadSettings();
