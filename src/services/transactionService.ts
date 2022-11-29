@@ -10,6 +10,7 @@ import {
 import { useSplitService } from './splitService';
 import { useAccountService } from './accountService';
 import { useTransactionStore, type Transaction } from '../stores/transactionStore';
+import type { Split } from '../stores/splitStore';
 
 export const useTransactionService = defineStore('transactionService', () => {
   const transactionStore = useTransactionStore();
@@ -19,14 +20,14 @@ export const useTransactionService = defineStore('transactionService', () => {
 
   const accountService = useAccountService();
 
-  async function reloadTransactions() {
+  async function reloadTransactions(): Promise<void> {
     const accountId = transactionStore.currentAccountId;
 
     if(accountId) await accountService.refreshAccount(accountId);
     await changeAccount(accountId);
   }
 
-  async function changeAccount(accountId?: number | null) {
+  async function changeAccount(accountId?: number|null): Promise<void> {
     transactionStore.$reset();
     transactionStore.currentAccountId = accountId ?? null;
     await fetchAndInsertTransactions();
@@ -56,11 +57,11 @@ export const useTransactionService = defineStore('transactionService', () => {
     );
   }
 
-  async function fetchUnbalancedTransactions(offset = 0, limit = 100) {
+  async function fetchUnbalancedTransactions(offset = 0, limit = 100): Promise<Array<Transaction>> {
     return await transactionApiService.getUnbalancedTransactions(offset, limit);
   }
 
-  async function fetchAndInsertTransactions(offset = 0, limit = 100) {
+  async function fetchAndInsertTransactions(offset = 0, limit = 100): Promise<void> {
     if (transactionStore.allTransactionsFetched) return;
 
     let transactions = [];
@@ -84,7 +85,7 @@ export const useTransactionService = defineStore('transactionService', () => {
   async function addTransaction(
     transaction: TransactionCreationData,
     addToStore = true
-  ) {
+  ): Promise<Transaction> {
     const newTransaction = await transactionApiService.addTransaction(
       transaction
     );
@@ -94,14 +95,18 @@ export const useTransactionService = defineStore('transactionService', () => {
     return newTransaction;
   }
 
-  async function updateTransaction(transaction: Transaction) {
+  async function updateTransaction(transaction: Transaction): Promise<void> {
     await transactionApiService.updateTransaction(transaction);
   }
 
   async function addTransactionWithSplits(
     transaction: TransactionWithSplitsCreationData,
     addToStore = true
-  ) {
+  ): Promise<{
+    transaction: Transaction;
+    srcSplit: Split;
+    destSplit?: Split;
+  }> {
     const newTransaction = await addTransaction(
       {
         date: transaction.date,
@@ -145,7 +150,11 @@ export const useTransactionService = defineStore('transactionService', () => {
   async function addTransactionsWithSplits(
     transactions: Array<TransactionWithSplitsCreationData>,
     addToStore = true
-  ) {
+  ): Promise<Array<{
+    transaction: Transaction;
+    srcSplit: Split;
+    destSplit?: Split;
+  }>> {
     const results = [];
 
     const chunkSize = 10;
