@@ -32,7 +32,7 @@ if (
   window.matchMedia('(prefers-color-scheme: dark)').matches &&
   !document.body.classList.contains('theme--light')
 ) {
-  const contentElement = document.getElementById('content');
+  const contentElement = document.getElementById('content-vue');
   contentElement?.classList.add('theme--dark');
 }
 
