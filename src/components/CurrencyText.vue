@@ -9,9 +9,7 @@
         transition-all duration-300 ease-in-out
       "
       :class="animationClass"
-    >
-      {{ formattedValue }}
-    </span>
+    >{{ formattedValue }}</span>
     <span class="ml-2 shrink-0 text-xs">
       <slot name="suffix" />
     </span>
