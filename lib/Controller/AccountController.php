@@ -127,6 +127,7 @@ class AccountController extends MoneyController {
           'type' => (int) $row['type'],
           'name' => $row['name'],
           'description' => $row['description'],
+          'icon' => $row['icon'],
           'currency' => $row['currency'],
           'balance' => 0.0,
           'stats' => new ArrayObject()
