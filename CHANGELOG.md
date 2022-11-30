@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.11.0] - 2022-11-30
+
 ### Added
 
 - Implement deleting accounts
