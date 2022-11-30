@@ -7,7 +7,6 @@ OC.L10N.register(
     "Description" : "Kuvaus",
     "Import transactions" : "Tuo tapahtumia",
     "Add account" : "Lisää tili",
-    "No accounts" : "Ei tilejä",
     "Equity" : "Pääoma",
     "Value" : "Arvo",
     "Date" : "Päivä",

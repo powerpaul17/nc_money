@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "Popis",
     "Import transactions" : "Importovať transakcie",
     "Add account" : "Pridať účet",
-    "No accounts" : "Žiadne účty",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",
     "Value" : "Hodnota",

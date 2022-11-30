@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "mois",
     "Import transactions" : "Importer des transactions",
     "Add account" : "Ajouter un compte",
-    "No accounts" : "Aucun compte",
     "Unbalanced" : "Résultat",
     "Equity" : "Capitaux propres",
     "Value" : "Valeur",

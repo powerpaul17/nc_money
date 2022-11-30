@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "hó",
     "Import transactions" : "Tranzakciók importálása",
     "Add account" : "Fiók hozzáadása",
-    "No accounts" : "Nincsenek fiókok",
     "Unbalanced" : "Kiegyenlítetlen",
     "Equity" : "Saját tőke",
     "Show inverted income/liabilities account balances" : "Bevétel/kötelezettség mérleg fordított megjelenítése",

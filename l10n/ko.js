@@ -4,7 +4,6 @@ OC.L10N.register(
     "Name" : "이름",
     "Description" : "설명",
     "Add account" : "계정 추가",
-    "No accounts" : "계정 없음",
     "Value" : "값",
     "Date" : "날짜",
     "Select File" : "파일 선택",

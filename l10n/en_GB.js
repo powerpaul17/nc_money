@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "mo",
     "Import transactions" : "Import transactions",
     "Add account" : "Add account",
-    "No accounts" : "No accounts",
     "Unbalanced" : "Unbalanced",
     "Equity" : "Equity",
     "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",

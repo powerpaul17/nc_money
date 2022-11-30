@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "Deskribapena",
     "Import transactions" : "Inportazio transakzioak",
     "Add account" : "Gehitu kontua",
-    "No accounts" : "Konturik ez",
     "Unbalanced" : "Desorekatua",
     "Equity" : "Ekitatea",
     "Value" : "Balioa",

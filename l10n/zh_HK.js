@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "月",
     "Import transactions" : "導入交易",
     "Add account" : "新增賬戶",
-    "No accounts" : "沒有賬戶",
     "Unbalanced" : "不平衡",
     "Equity" : "股票",
     "Show inverted income/liabilities account balances" : "顯示倒置的收入/負債賬戶餘額",

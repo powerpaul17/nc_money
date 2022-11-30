@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "mo",
     "Import transactions" : "Hesap hareketlerini içe aktar",
     "Add account" : "Hesap ekle",
-    "No accounts" : "Henüz bir hesap yok",
     "Unbalanced" : "Dengesiz",
     "Equity" : "Eşitlik",
     "Show inverted income/liabilities account balances" : "Tersine çevrilmiş gelir/borç hesap bakiyeleri görüntülensin",

@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "měs",
     "Import transactions" : "Naimportovat transakce",
     "Add account" : "Přidat účet",
-    "No accounts" : "Žádné účty",
     "Unbalanced" : "Nezaúčtováno",
     "Equity" : "Akcie",
     "Show inverted income/liabilities account balances" : "Zobrazit stavy účtu příjem/závazky invertovaně",

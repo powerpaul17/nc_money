@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "Опис",
     "Import transactions" : "Імпорт транзакцій",
     "Add account" : "Додати обліковий запис",
-    "No accounts" : "Немає облікових записів",
     "Unbalanced" : "Неврівноважений",
     "Equity" : "Власний капітал",
     "Value" : "Значення",

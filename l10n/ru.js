@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "Описание",
     "Import transactions" : "Импорт транзакций",
     "Add account" : "Добавить счёт",
-    "No accounts" : "Нет ни одного счёта",
     "Unbalanced" : "Расхождение",
     "Equity" : "Собственный капитал",
     "Value" : "Значение",

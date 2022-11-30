@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "Beskrivelse",
     "Import transactions" : "Import af transaktioner",
     "Add account" : "Tilføj konto",
-    "No accounts" : "Ingen konto",
     "Unbalanced" : "Ikke afstemt",
     "Equity" : "Egenkapital",
     "Value" : "Værdi",

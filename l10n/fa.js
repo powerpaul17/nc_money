@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "توضیحات",
     "Import transactions" : "وارد کردن تراکنش‌ها",
     "Add account" : "افزودن حساب",
-    "No accounts" : "حسابی وجود ندارد",
     "Unbalanced" : "ناتراز",
     "Equity" : "قاعده انصاف",
     "Value" : "مقدار",

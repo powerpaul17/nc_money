@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "mo",
     "Import transactions" : "Importar transacciones",
     "Add account" : "Añadir cuenta",
-    "No accounts" : "Sin cuentas",
     "Unbalanced" : "No se encuentra conciliada",
     "Equity" : "Acciones",
     "Show inverted income/liabilities account balances" : "Mostrar los balances de cuentas de ingresos/deudas invertidos",

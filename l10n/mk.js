@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "мес.",
     "Import transactions" : "Увези трансакција",
     "Add account" : "Додади сметка",
-    "No accounts" : "Нема сметки",
     "Unbalanced" : "Небалансирано",
     "Equity" : "Капитал",
     "Value" : "Вредност",

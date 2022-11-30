@@ -9,7 +9,6 @@ OC.L10N.register(
     "mo" : "mo",
     "Import transactions" : "Importar transações",
     "Add account" : "Adicionar Conta",
-    "No accounts" : "Sem contas",
     "Unbalanced" : "Desequilibrado",
     "Equity" : "Equity",
     "Value" : "Valor",

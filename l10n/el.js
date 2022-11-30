@@ -8,7 +8,6 @@ OC.L10N.register(
     "Description" : "Περιγραφή",
     "Import transactions" : "Εισαγωγή συναλλαγών",
     "Add account" : "Προσθήκη λογαριασμού",
-    "No accounts" : "Δεν υπάρχουν λογαριασμοί",
     "Unbalanced" : "Μη ισορροπημένα",
     "Equity" : "Μετοχικά κεφάλαια",
     "Value" : "Τιμή",
