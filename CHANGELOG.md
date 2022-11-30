@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.10.0] - 2022-11-30
+
 ### Added
 
 - Enable renaming of accounts in navigation item
