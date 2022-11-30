@@ -1,14 +1,26 @@
 <template>
   <NcAppNavigationItem
-    :title="account.name"
-    :editable="true"
+    :class="{
+      'bg-[var(--color-warning)] animate-pulse rounded-full [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout
+    }"
+    :title="
+      deleteAccountTimeout ?
+        t('money', '\'{accountName}\' deleted', { accountName: account.name }) :
+        account.name
+    "
+    :editable="!deleteAccountTimeout"
     :edit-label="t('money', 'Rename account')"
     :edit-placeholder="t('money', 'Account name')"
     :to="`/account/${account.id}`"
     :loading="isLoading"
+    :undo="deleteAccountTimeout"
     @update:title="handleUpdateAccountName"
+    @undo="handleUndo"
   >
-    <template #counter>
+    <template
+      #counter
+      v-if="!deleteAccountTimeout"
+    >
       <CurrencyText
         class="mr-2"
         :value="balance"
@@ -22,6 +34,53 @@
           / {{ t('money', 'mo') }}
         </template>
       </CurrencyText>
+    </template>
+
+    <template
+      #actions
+      v-if="!deleteAccountTimeout"
+    >
+      <NcActionButton @click="(showDeleteConfirmationDialog = true)">
+        <template #icon>
+          <Delete :size="20" />
+        </template>
+
+        {{ t('money', 'Delete account') }}
+      </NcActionButton>
+    </template>
+
+    <template #extra>
+      <NcModal
+        v-if="showDeleteConfirmationDialog"
+        @close="() => (showDeleteConfirmationDialog = false)"
+        :title="t('money', 'Delete account')"
+      >
+        <div class="p-8">
+          <div class="mb-8">
+            <h2>{{ t('money', 'Are you sure?') }}</h2>
+            <p>{{ t('money', 'All transactions of this account will be deleted!') }}</p>
+          </div>
+          <div class="flex justify-evenly">
+            <NcButton
+              type="primary"
+              @click="() => (showDeleteConfirmationDialog = false)"
+            >
+              <template #icon>
+                <ArrowLeft />
+              </template>
+
+              {{ t('money', 'No, go back') }}
+            </NcButton>
+            <NcButton @click="handleDeleteAccount">
+              <template #icon>
+                <Delete />
+              </template>
+
+              {{ t('money', 'Yes, delete account') }}
+            </NcButton>
+          </div>
+        </div>
+      </NcModal>
     </template>
   </NcAppNavigationItem>
 </template>
@@ -39,12 +98,23 @@
   import { useSettingStore } from '../stores/settingStore';
 
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
+  import NcModal from '@nextcloud/vue/dist/Components/NcModal';
+  import NcButton from '@nextcloud/vue/dist/Components/NcButton';
+
+  import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
+  import Delete from 'vue-material-design-icons/Delete.vue';
 
   import CurrencyText from './CurrencyText.vue';
   export default defineComponent({
     components: {
       NcAppNavigationItem,
-      CurrencyText
+      CurrencyText,
+      NcActionButton,
+      ArrowLeft,
+      Delete,
+      NcModal,
+      NcButton
     },
     setup() {
       return {
@@ -53,9 +123,15 @@
         AccountTypeUtils
       };
     },
-    data() {
+    data(): {
+      isLoading: boolean;
+      showDeleteConfirmationDialog: boolean;
+      deleteAccountTimeout: number|null;
+    } {
       return {
-        isLoading: false
+        isLoading: false,
+        showDeleteConfirmationDialog: false,
+        deleteAccountTimeout: null
       };
     },
     props: {
@@ -81,6 +157,24 @@
         this.isLoading = true;
         await this.accountService.updateAccount(this.account);
         this.isLoading = false;
+      },
+      handleDeleteAccount(): void {
+        this.showDeleteConfirmationDialog = false;
+
+        if (this.deleteAccountTimeout) return;
+
+        this.deleteAccountTimeout = window.setTimeout(() => {
+          if (Number(this.$route.params.accountId) === this.account.id)
+            this.$router.push('/');
+
+          this.accountService.deleteAccount(this.account.id);
+        }, 10000);
+      },
+      handleUndo(): void {
+        if (this.deleteAccountTimeout) {
+          window.clearTimeout(this.deleteAccountTimeout);
+          this.deleteAccountTimeout = null;
+        }
       }
     }
   });
