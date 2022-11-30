@@ -28,14 +28,6 @@ dayjs.extend(localizedFormat);
 import.meta.glob('../node_modules/dayjs/locale/*.js', { eager: true });
 dayjs.locale(l10n.getLocale().toLowerCase().replace('_', '-'));
 
-if (
-  window.matchMedia('(prefers-color-scheme: dark)').matches &&
-  !document.body.classList.contains('theme--light')
-) {
-  const contentElement = document.getElementById('content-vue');
-  contentElement?.classList.add('theme--dark');
-}
-
 Vue.use(VueRouter);
 
 Vue.use(PiniaVuePlugin);
@@ -50,6 +42,14 @@ new Vue({
   router,
   pinia
 });
+
+if (
+  window.matchMedia('(prefers-color-scheme: dark)').matches &&
+  !document.body.classList.contains('theme--light')
+) {
+  const contentElement = document.getElementById('content-vue');
+  contentElement?.classList.add('theme--dark');
+}
 
 const settingService = useSettingService();
 settingService.loadSettings();
