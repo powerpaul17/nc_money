@@ -1,9 +1,5 @@
 <template>
-  <NcAppNavigation
-    :class="{
-      '[&.app-navigation--close]:transform-none [&:not(.app-navigation--close)]:ml-[unset]': addNC25ShimClass
-    }"
-  >
+  <NcAppNavigation>
     <template #list>
       <AccountTypeListItem
         v-for="accountType in accountTypes"
@@ -46,7 +42,7 @@
 
 <script setup lang="ts">
 
-  import { computed, onMounted, ref } from 'vue';
+  import { computed } from 'vue';
 
   import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
@@ -79,12 +75,5 @@
 
   // TODO: initialize accounts at some other point
   accountService.fetchAccounts();
-
-  const addNC25ShimClass = ref(false);
-  onMounted(() => {
-    if (window.getComputedStyle(document.body).position === 'fixed') {
-      addNC25ShimClass.value = true;
-    }
-  });
 
 </script>
