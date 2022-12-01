@@ -29,6 +29,5 @@ module.exports = {
     preflight: false
   },
   plugins: [],
-  important: true,
-  darkMode: [ 'class', '.theme--dark' ]
+  important: true
 };
