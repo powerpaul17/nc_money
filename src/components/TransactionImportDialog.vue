@@ -312,7 +312,7 @@
       if (!date) throw new Error('cannot import transaction without a date');
 
       const description = columns.description.parsedData[index];
-      if (!description) throw new Error('cannot import transaction without a description');
+      if (description === undefined) throw new Error('cannot import transaction without a description');
 
       const transactionToCreate = {
         date,
