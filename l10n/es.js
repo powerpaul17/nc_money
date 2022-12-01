@@ -8,6 +8,8 @@ OC.L10N.register(
     "Description" : "Descripción",
     "mo" : "mo",
     "Import transactions" : "Importar transacciones",
+    "Delete account" : "Eliminar cuenta",
+    "Are you sure?" : "¿Estás seguro?",
     "Add account" : "Añadir cuenta",
     "Unbalanced" : "No se encuentra conciliada",
     "Equity" : "Acciones",

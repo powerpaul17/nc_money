@@ -1,6 +1,7 @@
 { "translations": {
     "Name" : "ئاتى",
     "Description" : "چۈشەندۈرۈش",
+    "Delete account" : "Delete account",
     "Date" : "Date",
     "Import" : "ئەكىر"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

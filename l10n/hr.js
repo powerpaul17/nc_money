@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Naziv",
     "Description" : "Opis",
+    "Delete account" : "Izbriši račun",
     "Add account" : "Dodaj račun",
     "Value" : "Vrijednost",
     "Date" : "Datum",

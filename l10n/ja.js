@@ -4,6 +4,8 @@ OC.L10N.register(
     "Money" : "お金",
     "Name" : "名前",
     "Description" : "説明",
+    "Delete account" : "アカウントの削除",
+    "Are you sure?" : "本当に？",
     "Add account" : "アカウントを追加",
     "Value" : "値",
     "Date" : "日付",

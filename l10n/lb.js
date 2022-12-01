@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Numm",
     "Description" : "Beschreiwung",
+    "Delete account" : "Delete account",
     "Add account" : "Kont dobäisetzen",
     "Date" : "Date",
     "Import" : "Importéieren",

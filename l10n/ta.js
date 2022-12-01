@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "பெயர்",
     "Description" : "விவரிப்பு",
+    "Delete account" : "Delete account",
     "Add account" : "Add account",
     "Value" : "Value",
     "Date" : "Date",

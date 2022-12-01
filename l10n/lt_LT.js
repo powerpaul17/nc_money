@@ -5,6 +5,8 @@ OC.L10N.register(
     "Manage your finances." : "Tvarkyti savo finansus.",
     "Name" : "Pavadinimas",
     "Description" : "Aprašas",
+    "Delete account" : "Ištrinti paskyrą",
+    "Are you sure?" : "Ar esate tikri?",
     "Add account" : "Pridėti paskyrą",
     "Value" : "Reikšmė",
     "Date" : "Data",

@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "სახელი",
     "Description" : "აღწერილობა",
+    "Delete account" : "ანგარიშის გაუქმება",
     "Add account" : "ანგარიშის დამატება",
     "Value" : "მნიშვნელობა",
     "Date" : "თარიღი",

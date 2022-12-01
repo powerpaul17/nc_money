@@ -7,6 +7,7 @@ OC.L10N.register(
     "Name" : "نام",
     "Description" : "توضیحات",
     "Import transactions" : "وارد کردن تراکنش‌ها",
+    "Delete account" : "حذف حساب کاربری",
     "Add account" : "افزودن حساب",
     "Unbalanced" : "ناتراز",
     "Equity" : "قاعده انصاف",

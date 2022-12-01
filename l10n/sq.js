@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Emri",
     "Description" : "Përshkrim",
+    "Delete account" : "Fshij llogarinë",
     "Add account" : "Shtoni llogari",
     "Value" : "Vlerë",
     "Date" : "Data",

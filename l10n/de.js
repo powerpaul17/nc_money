@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "Beschreibung",
     "mo" : "Mo",
     "Import transactions" : "Transaktionen importieren",
+    "Are you sure?" : "Bist du sicher?",
     "Add account" : "Konto anlegen",
     "Unbalanced" : "Unausgeglichen",
     "Equity" : "Reinvermögen",

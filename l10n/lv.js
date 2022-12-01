@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Vārds",
     "Description" : "Apraksts",
+    "Delete account" : "Dzēst kontu",
     "Add account" : "Pievienot kontu",
     "Value" : "Vērtība",
     "Date" : "Datums",

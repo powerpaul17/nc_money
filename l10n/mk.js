@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "Опис",
     "mo" : "мес.",
     "Import transactions" : "Увези трансакција",
+    "Delete account" : "Избриши сметка",
     "Add account" : "Додади сметка",
     "Unbalanced" : "Небалансирано",
     "Equity" : "Капитал",

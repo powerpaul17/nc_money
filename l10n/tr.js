@@ -8,6 +8,8 @@ OC.L10N.register(
     "Description" : "Açıklama",
     "mo" : "mo",
     "Import transactions" : "Hesap hareketlerini içe aktar",
+    "Delete account" : "Hesabı sil",
+    "Are you sure?" : "Emin misiniz?",
     "Add account" : "Hesap ekle",
     "Unbalanced" : "Dengesiz",
     "Equity" : "Eşitlik",

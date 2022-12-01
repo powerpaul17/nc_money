@@ -4,6 +4,7 @@ OC.L10N.register(
     "Money" : "Peningar",
     "Name" : "Heiti",
     "Description" : "Lýsing",
+    "Delete account" : "Eyða notandaaðgangi",
     "Add account" : "Bæta við notandaaðgangi",
     "Value" : "Gildi",
     "Date" : "Dagsetning",

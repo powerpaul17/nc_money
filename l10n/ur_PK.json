@@ -1,6 +1,7 @@
 { "translations": {
     "Name" : "اسم",
     "Description" : "تصریح",
+    "Delete account" : "Delete account",
     "Date" : "Date"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

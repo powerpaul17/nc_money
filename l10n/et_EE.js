@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nimi",
     "Description" : "Kirjeldus",
+    "Delete account" : "Kustuta konto",
     "Add account" : "Lisa konto",
     "Date" : "Kuupäev",
     "Import" : "Impordi",

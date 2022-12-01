@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Name" : "Nùmene",
     "Description" : "Descritzione",
+    "Delete account" : "Cantzella contu",
+    "Are you sure?" : "A beru boles sighire?",
     "Add account" : "Agiunghe contu",
     "Value" : "Balore",
     "Date" : "Data",

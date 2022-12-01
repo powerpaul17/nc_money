@@ -7,6 +7,8 @@ OC.L10N.register(
     "Name" : "Meno",
     "Description" : "Popis",
     "Import transactions" : "Importovať transakcie",
+    "Delete account" : "Zmazať účet",
+    "Are you sure?" : "Ste si istý?",
     "Add account" : "Pridať účet",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",

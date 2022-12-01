@@ -4,6 +4,8 @@ OC.L10N.register(
     "Money" : "Soldi",
     "Name" : "Nome",
     "Description" : "Descrizione",
+    "Delete account" : "Elimina account",
+    "Are you sure?" : "Sei sicuro?",
     "Add account" : "Aggiungi account",
     "Value" : "Valore",
     "Date" : "Data",

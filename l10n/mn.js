@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Нэр",
     "Description" : "Тайлбар",
+    "Delete account" : "аккаунтыг устгах",
     "Value" : "Үнийн дүн",
     "Date" : "Он сар өдөр",
     "Import" : "Импорт",

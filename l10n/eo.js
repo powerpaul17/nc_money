@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nomo",
     "Description" : "Priskribo",
+    "Delete account" : "Forigi konton",
     "Add account" : "Aldoni konton",
     "Date" : "Date",
     "Import" : "Importi",

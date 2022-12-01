@@ -7,6 +7,8 @@ OC.L10N.register(
     "Name" : "Namn",
     "Description" : "Beskrivning",
     "Import transactions" : "Importera transaktioner",
+    "Delete account" : "Radera konto",
+    "Are you sure?" : "Är du säker?",
     "Add account" : "Lägg till konto",
     "Unbalanced" : "Obalanserad",
     "Equity" : "Värdeökning",

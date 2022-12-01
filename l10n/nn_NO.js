@@ -4,6 +4,7 @@ OC.L10N.register(
     "Money" : "Pengar",
     "Name" : "Namn",
     "Description" : "Skildring",
+    "Delete account" : "Delete account",
     "Add account" : "Legg til konto",
     "Value" : "Verdi",
     "Date" : "Dato",

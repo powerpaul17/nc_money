@@ -5,6 +5,8 @@ OC.L10N.register(
     "Manage your finances." : "Beheer uw financiën.",
     "Name" : "Naam",
     "Description" : "Beschrijving",
+    "Delete account" : "Account verwijderen",
+    "Are you sure?" : "Weet je het zeker?",
     "Add account" : "Toevoegen account ",
     "Value" : "Waarden",
     "Date" : "Datum",

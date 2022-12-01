@@ -7,6 +7,8 @@ OC.L10N.register(
     "Name" : "Izena",
     "Description" : "Deskribapena",
     "Import transactions" : "Inportazio transakzioak",
+    "Delete account" : "Ezabatu kontua",
+    "Are you sure?" : "Ziur zaude?",
     "Add account" : "Gehitu kontua",
     "Unbalanced" : "Desorekatua",
     "Equity" : "Ekitatea",

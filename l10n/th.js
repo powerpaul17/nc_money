@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "ชื่อ",
     "Description" : "รายละเอียด",
+    "Delete account" : "Delete account",
     "Add account" : "เพิ่มบัญชี",
     "Date" : "วันที่",
     "Import" : "นำเข้า",

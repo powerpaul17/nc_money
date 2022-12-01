@@ -4,6 +4,8 @@ OC.L10N.register(
     "Money" : "Denar",
     "Name" : "Ime",
     "Description" : "Opis",
+    "Delete account" : "Izbriši račun",
+    "Are you sure?" : "Ali ste prepričani?",
     "Add account" : "Dodaj račun",
     "Value" : "Vrednost",
     "Date" : "Datum",

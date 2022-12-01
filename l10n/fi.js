@@ -6,6 +6,8 @@ OC.L10N.register(
     "Name" : "Nimi",
     "Description" : "Kuvaus",
     "Import transactions" : "Tuo tapahtumia",
+    "Delete account" : "Poista tili",
+    "Are you sure?" : "Oletko varma?",
     "Add account" : "Lisää tili",
     "Equity" : "Pääoma",
     "Value" : "Arvo",

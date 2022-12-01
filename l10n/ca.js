@@ -4,6 +4,7 @@ OC.L10N.register(
     "Money" : "Diners",
     "Name" : "Cognom",
     "Description" : "Descripció",
+    "Are you sure?" : "Estas segur?",
     "Add account" : "Afegeix un compte",
     "Value" : "Valor",
     "Date" : "Data",

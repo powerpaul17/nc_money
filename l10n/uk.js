@@ -7,6 +7,8 @@ OC.L10N.register(
     "Name" : "Назва",
     "Description" : "Опис",
     "Import transactions" : "Імпорт транзакцій",
+    "Delete account" : "Вилучити обліковий запис",
+    "Are you sure?" : "Ви впевнені?",
     "Add account" : "Додати обліковий запис",
     "Unbalanced" : "Неврівноважений",
     "Equity" : "Власний капітал",

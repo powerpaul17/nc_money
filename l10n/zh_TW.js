@@ -8,6 +8,8 @@ OC.L10N.register(
     "Description" : "描述",
     "mo" : "月",
     "Import transactions" : "匯入交易",
+    "Delete account" : "刪除帳號",
+    "Are you sure?" : "您確定嗎？",
     "Add account" : "新增帳號",
     "Unbalanced" : "不平衡",
     "Equity" : "權益",

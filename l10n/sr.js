@@ -7,6 +7,7 @@ OC.L10N.register(
     "Name" : "Име",
     "Description" : "Опис",
     "Import transactions" : "Увези трансакције",
+    "Delete account" : "Обриши налог",
     "Add account" : "Додај налог",
     "Unbalanced" : "Не сравњено",
     "Equity" : "Салдо",

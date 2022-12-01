@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "ئاتى",
     "Description" : "چۈشەندۈرۈش",
+    "Delete account" : "Delete account",
     "Date" : "Date",
     "Import" : "ئەكىر"
 },

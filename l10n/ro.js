@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nume",
     "Description" : "Descriere",
+    "Delete account" : "Delete account",
     "Add account" : "Adaugă cont",
     "Date" : "Date",
     "Select File" : "Selectează Fișier",
