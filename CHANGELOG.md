@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.11.1] - 2022-12-01
+
 ### Changed
 
 - Fixed navigation bar appearance in NC 25
