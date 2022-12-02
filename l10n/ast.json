@@ -1,6 +1,7 @@
 { "translations": {
     "Name" : "Nome",
     "Description" : "Descripción",
+    "Delete account" : "Desaniciar cuenta",
     "Add account" : "Amestar cuenta",
     "Date" : "Date",
     "Import" : "Importar",

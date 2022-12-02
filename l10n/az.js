@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Ad",
     "Description" : "Açıqlanma",
+    "Delete account" : "Delete account",
     "Add account" : "Hesab əlavə et",
     "Date" : "Date",
     "Import" : "Əlavə et",

@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Naam",
     "Description" : "Beskrywing",
+    "Delete account" : "Skrap rekening",
     "Add account" : "Voeg rekening toe",
     "Value" : "Waarde",
     "Date" : "Datum",

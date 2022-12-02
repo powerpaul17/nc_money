@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Ime",
     "Description" : "Opis",
+    "Delete account" : "Delete account",
     "Date" : "Date",
     "Import" : "Uvoz",
     "Comment" : "Komentar"

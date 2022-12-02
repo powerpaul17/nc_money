@@ -8,6 +8,8 @@ OC.L10N.register(
     "Description" : "Описание",
     "mo" : "мо",
     "Import transactions" : "Операции по вноса",
+    "Delete account" : "Изтриване на профила",
+    "Are you sure?" : "Сигурни ли сте?",
     "Add account" : "Добавяне на регистрация",
     "Unbalanced" : "Небалансиран",
     "Equity" : "Собствен капитал",

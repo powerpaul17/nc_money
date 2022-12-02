@@ -7,6 +7,7 @@ OC.L10N.register(
     "Name" : "Όνομα",
     "Description" : "Περιγραφή",
     "Import transactions" : "Εισαγωγή συναλλαγών",
+    "Delete account" : "Διαγραφή λογαριασμού",
     "Are you sure?" : "Είστε σίγουροι;",
     "Add account" : "Προσθήκη λογαριασμού",
     "Unbalanced" : "Μη ισορροπημένα",

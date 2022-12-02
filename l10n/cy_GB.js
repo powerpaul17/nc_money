@@ -4,6 +4,7 @@ OC.L10N.register(
     "Money" : "Ddim yn derbyn MTS-Money",
     "Name" : "Enw",
     "Description" : "Disgrifiad",
+    "Delete account" : "Delete account",
     "Date" : "Date",
     "Import" : "Mewnforio"
 },
