@@ -16,7 +16,7 @@ export const useSplitStore = defineStore('splitStore', () => {
   const getById = computed(() => {
     return (splitId: number): Split|undefined => {
       const index = getIndex(splitId);
-      return index ? splits.value[index] : undefined;
+      return index != undefined ? splits.value[index] : undefined;
     };
   });
 
@@ -84,7 +84,7 @@ export const useSplitStore = defineStore('splitStore', () => {
 
   function deleteSplit(splitId: number): void {
     const index = getIndex(splitId);
-    if (index) {
+    if (index != undefined) {
       splits.value.splice(index, 1);
       splitIndex.delete(splitId);
     }

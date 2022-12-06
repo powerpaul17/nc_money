@@ -26,7 +26,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
   const getById = computed(() => {
     return (transactionId: number): Transaction|undefined => {
       const index = getIndex(transactionId);
-      return index ? transactions.value[index] : undefined;
+      return index != undefined ? transactions.value[index] : undefined;
     };
   });
 
@@ -103,7 +103,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
 
   function deleteTransaction(transactionId: number): void {
     const index = getIndex(transactionId);
-    if (index) {
+    if (index != undefined) {
       transactions.value.splice(index, 1);
       transactionIndex.delete(transactionId);
     }
