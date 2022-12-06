@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Fixed problem with duplicates in split/transaction store
+
 ## [0.11.1] - 2022-12-01
 
 ### Changed

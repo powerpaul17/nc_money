@@ -93,7 +93,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     );
 
     const index = getIndex(transactionProxy.id);
-    if (index) {
+    if (index != undefined) {
       transactions.value.splice(index, 1, transactionProxy);
     } else {
       const length = transactions.value.push(transactionProxy);

@@ -68,7 +68,7 @@ export const useSplitStore = defineStore('splitStore', () => {
       });
 
     const index = getIndex(splitProxy.id);
-    if (index) {
+    if (index != undefined) {
       splits.value.splice(index, 1, splitProxy);
     } else {
       const length = splits.value.push(splitProxy);
