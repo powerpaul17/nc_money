@@ -41,8 +41,6 @@ export const useSplitStore = defineStore('splitStore', () => {
       split,
       {
         set(target, p, value, receiver): boolean {
-          console.warn('SPLIT PROXY -->', target, p, value, receiver);
-
           const transaction = transactionStore.getById(target.transactionId);
 
           if (p === 'value') {

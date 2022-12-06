@@ -66,8 +66,6 @@ export const useTransactionStore = defineStore('transactionStore', () => {
       transaction,
       {
         set(target, p, value, receiver): boolean {
-          console.warn('TRANSACTION PROXY -->', target, p, value, receiver);
-
           const splits = splitStore.getByTransactionId(target.id);
 
           if (p === 'date') {
