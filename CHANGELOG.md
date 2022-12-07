@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.11.3] - 2022-12-07
+
 ### Changed
 
 - Fixed more wrong index checks in split/transaction store
