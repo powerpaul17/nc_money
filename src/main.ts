@@ -43,6 +43,14 @@ new Vue({
   pinia
 });
 
+if (
+  document.body.attributes.getNamedItem('data-theme-default') &&
+  window.matchMedia('(prefers-color-scheme: dark)').matches
+) {
+  const contentElement = document.getElementById('content-vue');
+  contentElement?.setAttribute('data-theme-dark', '');
+}
+
 const settingService = useSettingService();
 settingService.loadSettings();
 
