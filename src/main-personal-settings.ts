@@ -18,7 +18,7 @@ Vue.prototype.t = l10n.translate;
 Vue.prototype.n = l10n.translatePlural;
 
 new Vue({
-  el: '#app-content',
+  el: '#settings-personal-money',
   render: (h) => h(PersonalSettings),
   pinia
 });
