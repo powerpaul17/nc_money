@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.12.0] - 2022-12-20
+
 ### Added
 
 - Show chart in account header
