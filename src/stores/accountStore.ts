@@ -49,6 +49,15 @@ export const useAccountStore = defineStore('accountStore', () => {
     return accounts.value.filter((a) => a.type === accountType);
   }
 
+  const getSummary = computed(() => {
+    return (accountId: number, year?: number, month?: number): number => {
+      const date = dayjs();
+      const y = year ?? date.year();
+      const m = month ?? date.month() + 1;
+      return _getById(accountId)?.stats[y]?.[m] ?? 0;
+    };
+  });
+
   const getSummaryByType = computed(() => {
     return (accountType: AccountTypeType, year?: number, month?: number): number => {
       return calculateSummary(_getByType(accountType), year, month);
@@ -129,6 +138,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     unbalancedValue,
     getById,
     getByType,
+    getSummary,
     getSummaryByType,
 
     insertAccount,

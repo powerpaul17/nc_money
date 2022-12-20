@@ -44,6 +44,18 @@
       </div>
     </div>
 
+    <div class="hidden md:block md:h-80">
+      <LineChart
+        v-if="!isMonthlyAccount"
+        :data="lineChartData"
+      />
+
+      <BarChart
+        v-else
+        :data="barChartData"
+      />
+    </div>
+
     <TransactionImportDialog
       v-if="showImportTransactionsDialog"
       @close="() => (showImportTransactionsDialog = false)"
@@ -57,9 +69,10 @@
 
   import { defineComponent, type PropType } from 'vue';
 
+  import { ArrayUtils } from '../utils/arrayUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
-  import type { Account } from '../stores/accountStore';
+  import { type Account, useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
   import { useSettingStore } from '../stores/settingStore';
@@ -67,6 +80,8 @@
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';
   import TransactionImportDialog from './TransactionImportDialog.vue';
+  import LineChart, { type DataItem } from './charts/LineChart.vue';
+  import BarChart from './charts/BarChart.vue';
 
   import NcActions from '@nextcloud/vue/dist/Components/NcActions';
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
@@ -82,6 +97,7 @@
     },
     data() {
       return {
+        accountStore: useAccountStore(),
         accountService: useAccountService(),
         settingStore: useSettingStore(),
         showImportTransactionsDialog: false,
@@ -102,6 +118,49 @@
       },
       isInvertedAccount() {
         return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
+      },
+      lineChartData(): Array<DataItem> {
+        let accountBalance = this.account.balance;
+        const currentDate = dayjs();
+
+        const data = ArrayUtils.createNumberArray(12)
+          .map((num) => {
+            const date = currentDate.subtract(num, 'months');
+
+            accountBalance -= this.accountStore.getSummary(
+              this.account.id,
+              date.year(),
+              date.month() + 1
+            ) * (this.isInvertedAccount ? -1 : 1);
+
+            return {
+              label: date.subtract(1, 'month').format('MMM'),
+              value: accountBalance
+            };
+          })
+          .reverse();
+
+        data.push({
+          label: currentDate.format('MMM'),
+          value: this.account.balance
+        });
+        return data;
+      },
+      barChartData(): Array<DataItem> {
+        return ArrayUtils.createNumberArray(12)
+          .map((num) => {
+            const date = dayjs().subtract(num, 'months');
+            const summary = this.accountStore.getSummary(
+              this.account.id,
+              date.year(),
+              date.month() + 1
+            );
+            return {
+              label: date.format('MMM'),
+              value: this.isInvertedAccount ? summary * -1 : summary
+            };
+          })
+          .reverse();
       }
     },
     methods: {
@@ -123,7 +182,9 @@
       TransactionImportDialog,
       NcActions,
       NcActionButton,
-      Upload
+      Upload,
+      LineChart,
+      BarChart
     }
   });
 </script>
