@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "שם",
     "Description" : "תיאור",
     "Delete account" : "מחיקת חשבון",
+    "Are you sure?" : "האם הינך בטוח?",
     "Add account" : "הוספת חשבון",
     "Value" : "ערך",
     "Date" : "תאריך",
