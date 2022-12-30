@@ -65,13 +65,20 @@ export const useSplitStore = defineStore('splitStore', () => {
         }
       });
 
-    const index = getIndex(splitProxy.id);
-    if (index != undefined) {
-      splits.value.splice(index, 1, splitProxy);
-    } else {
-      const length = splits.value.push(splitProxy);
-      splitIndex.set(splitProxy.id, length - 1);
-    }
+    const index = insertIntoIndices(splitProxy);
+    splits.value.splice(index, 1, split);
+  }
+
+  function insertIntoIndices(split: Split): number {
+    const index = getIndex(split.id) ?? splits.value.length;
+    splitIndex.set(split.id, index);
+    return index;
+  }
+
+  function deleteFromIndices(splitId: number): number|undefined {
+    const index = getIndex(splitId);
+    splitIndex.delete(splitId);
+    return index;
   }
 
   function insertSplits(splits: Array<Split>): void {
@@ -81,11 +88,8 @@ export const useSplitStore = defineStore('splitStore', () => {
   }
 
   function deleteSplit(splitId: number): void {
-    const index = getIndex(splitId);
-    if (index != undefined) {
-      splits.value.splice(index, 1);
-      splitIndex.delete(splitId);
-    }
+    const index = deleteFromIndices(splitId);
+    if(index != undefined) splits.value.splice(index, 1);
   }
 
   return {
