@@ -13,6 +13,11 @@ export const useSplitStore = defineStore('splitStore', () => {
 
   const splitIndex: Map<number, number> = new Map();
 
+  function $reset(): void {
+    splits.value = [];
+    splitIndex.clear();
+  }
+
   const getById = computed(() => {
     return (splitId: number): Split|undefined => {
       const index = getIndex(splitId);
@@ -93,6 +98,8 @@ export const useSplitStore = defineStore('splitStore', () => {
   }
 
   return {
+    $reset,
+
     getById,
     getByTransactionId,
     getByAccountId,

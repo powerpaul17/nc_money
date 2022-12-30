@@ -21,6 +21,8 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     allTransactionsFetched.value = false;
 
     transactionIndex.clear();
+
+    splitStore.$reset();
   }
 
   const getById = computed(() => {
