@@ -120,7 +120,9 @@
         return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
       },
       lineChartData(): Array<DataItem> {
-        let accountBalance = this.account.balance;
+        const inversionFactor = this.isInvertedAccount ? -1 : 1;
+
+        let accountBalance = this.account.balance * inversionFactor;
         const currentDate = dayjs();
 
         const data = ArrayUtils.createNumberArray(12)
@@ -131,18 +133,18 @@
               this.account.id,
               date.year(),
               date.month() + 1
-            ) * (this.isInvertedAccount ? -1 : 1);
+            ) * inversionFactor;
 
             return {
               label: date.subtract(1, 'month').format('MMM'),
-              value: accountBalance
+              value: accountBalance * inversionFactor
             };
           })
           .reverse();
 
         data.push({
           label: currentDate.format('MMM'),
-          value: this.account.balance
+          value: this.account.balance * inversionFactor
         });
         return data;
       },

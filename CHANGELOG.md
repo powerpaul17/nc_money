@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## Changed
+
+- Fixed wrong chart values of income/liabilities account summary
+
 ## [0.12.0] - 2022-12-20
 
 ### Added
