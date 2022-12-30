@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="hidden md:block md:h-80">
+    <div class="hidden max-h-[25vh] md:block md:h-80">
       <LineChart
         v-if="!isMonthlyAccount"
         :data="lineChartData"

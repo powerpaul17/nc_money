@@ -3,6 +3,7 @@
 ## Changed
 
 - Fixed wrong chart values of income/liabilities account summary
+- Limit chart height for small screens
 
 ## [0.12.0] - 2022-12-20
 
