@@ -2,6 +2,7 @@
 
 ## Changed
 
+- Improved performance of transaction list
 - Fixed wrong chart values of income/liabilities account summary
 - Limit chart height for small screens
 

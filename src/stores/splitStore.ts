@@ -12,10 +12,13 @@ export const useSplitStore = defineStore('splitStore', () => {
   const splits: Ref<Array<Split>> = ref([]);
 
   const splitIndex: Map<number, number> = new Map();
+  const indicesByTransactionId: Map<number, Set<number>> = new Map();
 
   function $reset(): void {
     splits.value = [];
+
     splitIndex.clear();
+    indicesByTransactionId.clear();
   }
 
   const getById = computed(() => {
@@ -27,7 +30,12 @@ export const useSplitStore = defineStore('splitStore', () => {
 
   const getByTransactionId = computed(() => {
     return (transactionId: number): Array<Split> => {
-      return splits.value.filter((s) => s.transactionId === transactionId);
+      const indices = getIndicesByTransactionId(transactionId);
+      return indices.map((index) => {
+        const split = splits.value[index];
+        if (!split) throw new Error(`split with index ${index} not found`);
+        return split;
+      });
     };
   });
 
@@ -39,6 +47,10 @@ export const useSplitStore = defineStore('splitStore', () => {
 
   function getIndex(splitId: number): number|undefined {
     return splitIndex.get(splitId);
+  }
+
+  function getIndicesByTransactionId(transactionId: number): Array<number> {
+    return Array.from(indicesByTransactionId.get(transactionId)?.values() ?? []);
   }
 
   function insertSplit(split: Split): void {
@@ -76,13 +88,34 @@ export const useSplitStore = defineStore('splitStore', () => {
 
   function insertIntoIndices(split: Split): number {
     const index = getIndex(split.id) ?? splits.value.length;
+
     splitIndex.set(split.id, index);
+
+    const indices = indicesByTransactionId.get(split.transactionId);
+    if (indices) {
+      indices.add(index);
+    } else {
+      const set = new Set<number>();
+      set.add(index);
+      indicesByTransactionId.set(split.transactionId, set);
+    }
+
     return index;
   }
 
   function deleteFromIndices(splitId: number): number|undefined {
     const index = getIndex(splitId);
+
+    const split = getById.value(splitId);
+    if (!split) throw new Error('split not found');
+
     splitIndex.delete(splitId);
+
+    const indices = indicesByTransactionId.get(split.transactionId);
+    if (index != undefined && indices) {
+      indices.delete(index);
+    }
+
     return index;
   }
 
