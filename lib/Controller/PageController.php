@@ -7,11 +7,21 @@ use OCP\Util;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
+use OCP\IConfig;
 
 class PageController extends Controller {
 
-  public function __construct(string $AppName, IRequest $request) {
+  private IConfig $config;
+
+  public function __construct(
+    string $AppName,
+    IRequest $request,
+    IConfig $config
+  ) {
     parent::__construct($AppName, $request);
+
+    $this->config = $config;
   }
 
   /**
@@ -22,7 +32,16 @@ class PageController extends Controller {
     Util::addScript($this->appName, 'money-main.iife');
     Util::addStyle($this->appName, '../js/money-main');
 
-    return new TemplateResponse($this->appName, 'main');
+    $response = new TemplateResponse($this->appName, 'main');
+
+    if($this->config->getSystemValue('debug')) {
+      $csp = new ContentSecurityPolicy();
+      $csp->allowInlineScript(true);
+      $csp->allowEvalScript(true);
+      $response->setContentSecurityPolicy($csp);
+    }
+
+    return $response;
   }
 
 }
