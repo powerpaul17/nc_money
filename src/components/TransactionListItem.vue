@@ -76,6 +76,7 @@
       class="
         bg-gray-100
         shadow-inner
+        dark:bg-background-darker
       "
     >
       <SplitListItem
