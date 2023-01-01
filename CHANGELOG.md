@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.13.0] - 2023-01-01
+
 ## Changed
 
 - Improved performance of transaction list
