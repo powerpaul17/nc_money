@@ -137,7 +137,7 @@
 
             return {
               label: date.subtract(1, 'month').format('MMM'),
-              value: accountBalance * inversionFactor
+              value: accountBalance
             };
           })
           .reverse();
