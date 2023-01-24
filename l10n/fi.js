@@ -21,6 +21,7 @@ OC.L10N.register(
     "Column Separator" : "Sarake-erotin",
     "Date Format" : "Päiväyksen muoto",
     "Column Selection" : "Sarakevalinta",
+    "Not selected" : "Ei valittu",
     "Import" : "Tuo",
     "Comment" : "Kommentti",
     "Multiple Accounts" : "Useita tilejä",
