@@ -3,11 +3,11 @@ OC.L10N.register(
     {
     "Name" : "ชื่อ",
     "Description" : "รายละเอียด",
-    "Delete account" : "Delete account",
+    "Delete account" : "ลบบัญชี",
     "Add account" : "เพิ่มบัญชี",
     "Date" : "วันที่",
     "Import" : "นำเข้า",
-    "Comment" : "แสดงความคิดเห็น",
+    "Comment" : "ความคิดเห็น",
     "Settings saved" : "บันทึกการตั้งค่าแล้ว"
 },
 "nplurals=1; plural=0;");
