@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Allow usage of percentage in mathematical expressions
+
 ## [0.13.0] - 2023-01-01
 
 ## Changed

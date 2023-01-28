@@ -63,7 +63,7 @@
       handleValueChanged(newValue: string) {
         this.currencyValue = this.formattedValue;
 
-        const newNumber = this.mathExpression.evaluate(newValue);
+        const newNumber = this.mathExpression.evaluate(newValue, this.value);
         if (!Number.isNaN(newNumber)) {
           this.$emit(
             'value-changed',
