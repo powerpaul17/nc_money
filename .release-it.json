@@ -6,6 +6,7 @@
       "npm run build"
     ],
     "after:git:release": [
+      "npm run copy",
       "npm run sign",
       "npm run package"
     ],

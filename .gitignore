@@ -7,3 +7,4 @@ appinfo/signature.json
 *.code-workspace
 coverage
 translationfiles
+build/dist
