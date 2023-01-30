@@ -15,7 +15,7 @@ export const useSplitService = defineStore('splitService', () => {
   const transactionStore = useTransactionStore();
   const accountStore = useAccountStore();
 
-  async function addSplit(split: SplitCreationData, addToStore = true) {
+  async function addSplit(split: SplitCreationData, addToStore = true): Promise<Split> {
     const newSplit = await splitApiService.addSplit(split);
 
     if (addToStore) {
@@ -33,7 +33,7 @@ export const useSplitService = defineStore('splitService', () => {
     return newSplit;
   }
 
-  async function deleteSplit(split: Split) {
+  async function deleteSplit(split: Split): Promise<void> {
     await splitApiService.deleteSplit(split.id);
     splitStore.deleteSplit(split.id);
 
@@ -41,7 +41,7 @@ export const useSplitService = defineStore('splitService', () => {
     accountStore.addValue(split.destAccountId, -split.value, transaction?.date);
   }
 
-  async function updateSplit(split: Split) {
+  async function updateSplit(split: Split): Promise<void> {
     await splitApiService.updateSplit(split);
   }
 
