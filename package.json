@@ -11,7 +11,7 @@
     "coverage": "vitest run --coverage",
     "build": "node build/build.mjs",
     "dev": "VITE_MODE=development node build/build.mjs",
-    "sign": "dotenv node build/sign.js",
+    "sign": "php ../../occ integrity:sign-app --path custom_apps/money/build/dist --privateKey /var/money.key --certificate /var/money.crt",
     "copy": "rm -r build/dist && mkdir build/dist && cp -R appinfo img js l10n lib templates *.md build/dist",
     "package": "tar c -z -f money.tar.gz --transform \"flags=r;s|^build/dist/|money/|\" build/dist/*",
     "release": "dotenv release-it",
