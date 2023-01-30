@@ -83,7 +83,7 @@ export const useSplitStore = defineStore('splitStore', () => {
       });
 
     const index = insertIntoIndices(splitProxy);
-    splits.value.splice(index, 1, split);
+    splits.value.splice(index, 1, splitProxy);
   }
 
   function insertIntoIndices(split: Split): number {
