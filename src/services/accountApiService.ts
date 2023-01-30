@@ -1,5 +1,6 @@
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
+import type { AxiosResponse } from 'axios';
 
 import { defineStore } from 'pinia';
 
@@ -8,35 +9,76 @@ import type { Account } from '../stores/accountStore';
 export const useAccountApiService = defineStore('accountApiService', () => {
 
   async function getAccount(accountId: number): Promise<Account> {
-    const response = await axios.get(
+    const response = await axios.get<AccountApiData>(
       generateUrl(`apps/money/accounts/${accountId}`)
     );
-    return response.data;
+    return transformApiDataToAccount(response.data);
   }
 
   async function getAccounts(): Promise<Array<Account>> {
-    const response = await axios.get<Array<AccountApiResponseData>>(
+    const response = await axios.get<Array<AccountApiData>>(
       generateUrl('apps/money/accounts')
     );
 
-    return response.data;
+    return response.data.map(transformApiDataToAccount);
   }
 
   async function addAccount(account: AccountCreationData): Promise<Account> {
-    const response = await axios.post(
+    const response = await axios.post<
+      AccountApiData,
+      AxiosResponse<AccountApiData>,
+      AccountCreationData
+    >(
       generateUrl('apps/money/accounts'),
       account
     );
 
-    return response.data;
+    return transformApiDataToAccount(response.data);
   }
 
   async function deleteAccount(accountId: number): Promise<void> {
     await axios.delete(generateUrl(`apps/money/accounts/${accountId}`));
   }
 
-  async function updateAccount(account: Account): Promise<void> {
-    await axios.put(generateUrl(`apps/money/accounts/${account.id}`), account);
+  async function updateAccount(account: Account): Promise<Account> {
+    const response = await axios.put<
+      AccountApiData,
+      AxiosResponse<AccountApiData>,
+      AccountApiData
+    >(
+      generateUrl(`apps/money/accounts/${account.id}`),
+      transformAccounToApiData(account)
+    );
+
+    return transformApiDataToAccount(response.data);
+  }
+
+  function transformApiDataToAccount(data: AccountApiData): Account {
+    return {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      currency: data.currency,
+      type: data.type,
+      balance: data.balance,
+      stats: data.stats,
+      hidden: !!data.hidden,
+      archived: !!data.archived
+    };
+  }
+
+  function transformAccounToApiData(data: Account): AccountApiData {
+    return {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      currency: data.currency,
+      type: data.type,
+      balance: data.balance,
+      stats: data.stats,
+      hidden: data.hidden ? 1 : 0,
+      archived: data.archived ? 1 : 0
+    };
   }
 
   return {
@@ -51,7 +93,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
 
 export type AccountCreationData = Omit<Account, 'id' | 'balance' | 'stats'>;
 
-type AccountApiResponseData = {
+type AccountApiData = {
   id: number;
   name: string;
   description: string;
