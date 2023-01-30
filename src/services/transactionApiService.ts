@@ -7,7 +7,8 @@ import { defineStore } from 'pinia';
 
 import type { Transaction } from '../stores/transactionStore';
 import { useSplitStore } from '../stores/splitStore';
-import { useSplitApiService } from './splitApiService';
+import { useSplitApiService, type SplitApiData } from './splitApiService';
+import type { AxiosResponse } from 'axios';
 
 export const useTransactionApiService = defineStore(
   'transactionApiService',
@@ -17,7 +18,7 @@ export const useTransactionApiService = defineStore(
       offset = 0,
       limit = 100
     ): Promise<Array<Transaction>> {
-      const response = await axios.get(
+      const response = await axios.get<Array<TransactionApiData>>(
         generateUrl('apps/money/transactions/for-account'),
         {
           params: {
@@ -36,7 +37,7 @@ export const useTransactionApiService = defineStore(
       startDate: Date,
       endDate: Date
     ): Promise<Array<Transaction>> {
-      const response = await axios.get(
+      const response = await axios.get<Array<TransactionApiData>>(
         generateUrl('apps/money/transactions/for-account-by-date'),
         {
           params: {
@@ -54,7 +55,7 @@ export const useTransactionApiService = defineStore(
       offset = 0,
       limit = 100
     ): Promise<Array<Transaction>> {
-      const response = await axios.get(
+      const response = await axios.get<Array<TransactionApiData>>(
         generateUrl('apps/money/transactions/unbalanced'),
         {
           params: {
@@ -75,7 +76,11 @@ export const useTransactionApiService = defineStore(
         date: dayjs(transaction.date).format('YYYY-MM-DD')
       };
 
-      const response = await axios.post(
+      const response = await axios.post<
+        TransactionApiData,
+        AxiosResponse<TransactionApiData>,
+        TransactionApiCreationData
+      >(
         generateUrl('apps/money/transactions'),
         data
       );
@@ -85,23 +90,31 @@ export const useTransactionApiService = defineStore(
 
     async function updateTransaction(
       transaction: Transaction
-    ): Promise<void> {
+    ): Promise<Transaction> {
       const data = {
         ...transaction,
         date: dayjs(transaction.date).format('YYYY-MM-DD')
       };
 
-      await axios.put(
+      const response = await axios.put<
+        TransactionApiData,
+        AxiosResponse<TransactionApiData>,
+        TransactionApiData
+      >(
         generateUrl(`apps/money/transactions/${transaction.id}`),
         data
       );
+
+      return createTransactionFromResponseData(response.data);
     }
 
-    function createTransactionFromResponseData(data): Transaction {
+    function createTransactionFromResponseData(
+      data: TransactionApiData|TransactionApiDataWithSplits
+    ): Transaction {
       const splitApiService = useSplitApiService();
       const splitStore = useSplitStore();
 
-      if (data.splits) {
+      if ('splits' in data) {
         const splits = data.splits.map(
           splitApiService.createSplitFromResponseData
         );
@@ -130,4 +143,32 @@ export const useTransactionApiService = defineStore(
 export type TransactionCreationData = Omit<
   Transaction,
   'id' | 'timestampAdded' | 'showSplits'
+>;
+
+export type TransactionWithSplitsCreationData = TransactionCreationData & {
+  srcAccountId: number;
+  destAccountId?: number | null;
+  value: number;
+  convertRate: number;
+  srcSplitComment?: string;
+  destSplitComment?: string;
+};
+
+type TransactionApiData = {
+  id: number;
+  description: string;
+
+  /** YYYY-MM-DD  */
+  date: string;
+
+  timestampAdded: number;
+};
+
+type TransactionApiDataWithSplits = TransactionApiData & {
+  splits: Array<SplitApiData>;
+};
+
+type TransactionApiCreationData = Omit<
+  TransactionApiData,
+  'id' | 'timestampAdded'
 >;

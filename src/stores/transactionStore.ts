@@ -67,7 +67,7 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     const transactionProxy = new Proxy(
       transaction,
       {
-        set(target, p, value, receiver): boolean {
+        set(target, p, value): boolean {
           const splits = splitStore.getByTransactionId(target.id);
 
           if (p === 'date') {
