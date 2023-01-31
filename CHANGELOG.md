@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.14.2] - 2023-01-31
+
 ### Changed
 
 - Fixed naming of migrations
