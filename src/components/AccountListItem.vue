@@ -1,25 +1,25 @@
 <template>
   <NcAppNavigationItem
     :class="{
-      'bg-[var(--color-warning)] animate-pulse rounded-full [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout
+      'bg-[var(--color-warning)] animate-pulse rounded-full [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout != null
     }"
     :title="
-      deleteAccountTimeout ?
+      deleteAccountTimeout != null ?
         t('money', '\'{accountName}\' deleted', { accountName: account.name }) :
         account.name
     "
-    :editable="!deleteAccountTimeout"
+    :editable="deleteAccountTimeout == null"
     :edit-label="t('money', 'Rename account')"
     :edit-placeholder="t('money', 'Account name')"
     :to="`/account/${account.id}`"
     :loading="isLoading"
-    :undo="deleteAccountTimeout"
+    :undo="deleteAccountTimeout != null"
     @update:title="handleUpdateAccountName"
     @undo="handleUndo"
   >
     <template
       #counter
-      v-if="!deleteAccountTimeout"
+      v-if="deleteAccountTimeout == null"
     >
       <CurrencyText
         class="mr-2"
@@ -38,7 +38,7 @@
 
     <template
       #actions
-      v-if="!deleteAccountTimeout"
+      v-if="deleteAccountTimeout == null"
     >
       <NcActionButton @click="(showDeleteConfirmationDialog = true)">
         <template #icon>
@@ -161,7 +161,7 @@
       handleDeleteAccount(): void {
         this.showDeleteConfirmationDialog = false;
 
-        if (this.deleteAccountTimeout) return;
+        if (this.deleteAccountTimeout != null) return;
 
         this.deleteAccountTimeout = window.setTimeout(() => {
           if (Number(this.$route.params.accountId) === this.account.id)
@@ -171,7 +171,7 @@
         }, 10000);
       },
       handleUndo(): void {
-        if (this.deleteAccountTimeout) {
+        if (this.deleteAccountTimeout != null) {
           window.clearTimeout(this.deleteAccountTimeout);
           this.deleteAccountTimeout = null;
         }
