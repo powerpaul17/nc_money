@@ -12,6 +12,8 @@ class Account extends Entity implements JsonSerializable {
   protected $type;
   protected $currency;
   protected $description;
+  protected $hidden;
+  protected $archived;
   protected $icon;
   protected $userId;
 
@@ -26,6 +28,8 @@ class Account extends Entity implements JsonSerializable {
       'type' => $this->type,
       'currency' => $this->currency,
       'description' => $this->description,
+      'hidden' => $this->hidden,
+      'archived' => $this->archived,
       'icon' => $this->icon
     ];
   }
