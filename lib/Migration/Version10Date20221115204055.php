@@ -34,7 +34,7 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version001000Date20221115204055 extends SimpleMigrationStep {
+class Version10Date20221115204055 extends SimpleMigrationStep {
 
 	/**
 	 * @param IOutput $output
@@ -54,11 +54,14 @@ class Version001000Date20221115204055 extends SimpleMigrationStep {
 		$schema = $schemaClosure();
 
 		$accountsTable = $schema->getTable('money_accounts');
-		$accountsTable->addColumn('icon', 'string', [
-			'length' => 45,
-			'default' => '',
-			'notnull' => false
-		]);
+
+		if(!$accountsTable->hasColumn('icon')) {
+			$accountsTable->addColumn('icon', 'string', [
+				'length' => 45,
+				'default' => '',
+				'notnull' => false
+			]);
+		}
 
 		return $schema;
 	}
