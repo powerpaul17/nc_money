@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Fixed problem with deletion of accounts due to missing database properties
+
 ## [0.14.0] - 2023-01-30
 
 ### Added
