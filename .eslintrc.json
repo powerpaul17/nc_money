@@ -53,7 +53,7 @@
     ],
     "max-len": [
       "warn",
-      80
+      120
     ],
     "no-trailing-spaces": "error",
     "comma-dangle": "error",
