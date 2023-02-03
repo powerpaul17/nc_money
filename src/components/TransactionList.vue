@@ -95,6 +95,8 @@
       }
     },
     data(): {
+      transactions: Array<Transaction>;
+      transactionWatcher: {stop: () => void} | null;
       isLoadingTransactions: boolean;
       groupBy: 'month';
       items: Array<{
@@ -103,15 +105,14 @@
       }>;
     } {
       return {
+        transactions: [],
+        transactionWatcher: null,
         isLoadingTransactions: false,
         groupBy: 'month',
         items: []
       };
     },
     computed: {
-      transactions(): Array<Transaction> {
-        return this.transactionStore.getByAccountId(this.account.id);
-      },
       groupByDateFormat() {
         return 'MM.YYYY';
       },
@@ -134,6 +135,14 @@
     methods: {
       async changeAccount() {
         await this.transactionService.changeAccount(this.account.id);
+        this.transactions = await this.transactionStore.getByAccountId(this.account.id);
+
+        if (this.transactionWatcher) {
+          this.transactionWatcher.stop();
+        }
+        this.transactionWatcher = await this.transactionStore.watchAll((transactions) => {
+          this.transactions = transactions;
+        })
       },
       async loadMoreTransactions() {
         if(
@@ -174,6 +183,9 @@
     },
     async mounted() {
       await this.changeAccount();
+    },
+    destroyed() {
+      this.transactionWatcher?.stop();
     },
     components: {
       TransactionListItem,
