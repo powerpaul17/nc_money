@@ -11,7 +11,7 @@ describe('transactionStore', () => {
     setActivePinia(createPinia());
   });
 
-  it('should insert a new transaction', () => {
+  it('should insert a new transaction', async () => {
     const transactionStore = useTransactionStore();
 
     const transaction = {
@@ -21,12 +21,12 @@ describe('transactionStore', () => {
       timestampAdded: Date.now()
     };
 
-    transactionStore.insertTransaction(transaction);
+    await transactionStore.insertTransaction(transaction);
 
-    expect(transactionStore.sortedByDate).to.deep.equal([ transaction ]);
+    expect(await transactionStore.getSortedByDate()).to.deep.equal([ transaction ]);
   });
 
-  it('should not insert the same transaction twice', () => {
+  it('should not insert the same transaction twice', async () => {
     const transactionStore = useTransactionStore();
 
     const transaction = {
@@ -36,13 +36,13 @@ describe('transactionStore', () => {
       timestampAdded: Date.now()
     };
 
-    transactionStore.insertTransaction(transaction);
-    transactionStore.insertTransaction(transaction);
+    await transactionStore.insertTransaction(transaction);
+    await transactionStore.insertTransaction(transaction);
 
-    expect(transactionStore.sortedByDate).to.deep.equal([ transaction ]);
+    expect(await transactionStore.getSortedByDate()).to.deep.equal([ transaction ]);
   });
 
-  it('should return a transaction by id', () => {
+  it('should return a transaction by id', async () => {
     const transactionStore = useTransactionStore();
 
     const transaction1 = {
@@ -58,12 +58,12 @@ describe('transactionStore', () => {
       timestampAdded: Date.now()
     };
 
-    transactionStore.insertTransactions([ transaction1, transaction2 ]);
+    await transactionStore.insertTransactions([ transaction1, transaction2 ]);
 
-    expect(transactionStore.getById(0)).to.deep.equal(transaction1);
+    expect(await transactionStore.getById(0)).to.deep.equal(transaction1);
   });
 
-  it('should return transactions by account id', () => {
+  it('should return transactions by account id', async () => {
     const transactionStore = useTransactionStore();
     const splitStore = useSplitStore();
 
@@ -97,13 +97,13 @@ describe('transactionStore', () => {
       destAccountId: 1
     };
 
-    transactionStore.insertTransactions([ transaction1, transaction2 ]);
-    splitStore.insertSplits([ split1, split2 ]);
+    await transactionStore.insertTransactions([ transaction1, transaction2 ]);
+    await splitStore.insertSplits([ split1, split2 ]);
 
-    expect(transactionStore.getByAccountId(0)).to.deep.equal([ transaction1 ]);
+    expect(await transactionStore.getByAccountId(0)).to.deep.equal([ transaction1 ]);
   });
 
-  it('should return transactions sorted by date', () => {
+  it('should return transactions sorted by date', async () => {
     const transactionStore = useTransactionStore();
 
     const date = dayjs();
@@ -121,12 +121,12 @@ describe('transactionStore', () => {
       timestampAdded: Date.now()
     };
 
-    transactionStore.insertTransactions([ transaction1, transaction2 ]);
+    await transactionStore.insertTransactions([ transaction1, transaction2 ]);
 
-    expect(transactionStore.sortedByDate).to.deep.equal([ transaction2, transaction1 ]);
+    expect(await transactionStore.getSortedByDate()).to.deep.equal([ transaction2, transaction1 ]);
   });
 
-  it('should delete a transaction', () => {
+  it('should delete a transaction', async () => {
     const transactionStore = useTransactionStore();
 
     const transaction1 = {
@@ -142,10 +142,10 @@ describe('transactionStore', () => {
       timestampAdded: Date.now()
     };
 
-    transactionStore.insertTransactions([ transaction1, transaction2 ]);
-    transactionStore.deleteTransaction(transaction1.id);
+    await transactionStore.insertTransactions([ transaction1, transaction2 ]);
+    await transactionStore.deleteTransaction(transaction1.id);
 
-    expect(transactionStore.sortedByDate).to.deep.equal([ transaction2 ]);
+    expect(await transactionStore.getSortedByDate()).to.deep.equal([ transaction2 ]);
   });
 
 });

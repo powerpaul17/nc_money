@@ -29,7 +29,7 @@ export const useTransactionApiService = defineStore(
         }
       );
 
-      return response.data.map(createTransactionFromResponseData);
+      return await Promise.all(response.data.map(createTransactionFromResponseData));
     }
 
     async function getTransactionsOfAccountByDate(
@@ -48,7 +48,7 @@ export const useTransactionApiService = defineStore(
         }
       );
 
-      return response.data.map(createTransactionFromResponseData);
+      return await Promise.all(response.data.map(createTransactionFromResponseData));
     }
 
     async function getUnbalancedTransactions(
@@ -65,7 +65,7 @@ export const useTransactionApiService = defineStore(
         }
       );
 
-      return response.data.map(createTransactionFromResponseData);
+      return await Promise.all(response.data.map(createTransactionFromResponseData));
     }
 
     async function addTransaction(
@@ -85,7 +85,7 @@ export const useTransactionApiService = defineStore(
         data
       );
 
-      return createTransactionFromResponseData(response.data);
+      return await createTransactionFromResponseData(response.data);
     }
 
     async function updateTransaction(
@@ -105,12 +105,12 @@ export const useTransactionApiService = defineStore(
         data
       );
 
-      return createTransactionFromResponseData(response.data);
+      return await createTransactionFromResponseData(response.data);
     }
 
-    function createTransactionFromResponseData(
+    async function createTransactionFromResponseData(
       data: TransactionApiData|TransactionApiDataWithSplits
-    ): Transaction {
+    ): Promise<Transaction> {
       const splitApiService = useSplitApiService();
       const splitStore = useSplitStore();
 
@@ -118,7 +118,7 @@ export const useTransactionApiService = defineStore(
         const splits = data.splits.map(
           splitApiService.createSplitFromResponseData
         );
-        splitStore.insertSplits(splits);
+        await splitStore.insertSplits(splits);
       }
 
       return {
