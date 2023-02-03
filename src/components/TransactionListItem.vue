@@ -135,7 +135,9 @@
         default: false
       }
     },
-    data() {
+    data(): {
+      isLoading: boolean;
+    } {
       return {
         isLoading: false
       };
