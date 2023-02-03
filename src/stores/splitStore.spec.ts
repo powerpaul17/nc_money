@@ -23,7 +23,7 @@ describe('splitStore', () => {
 
     splitStore.insertSplit(split);
 
-    expect(splitStore.getByAccountId(0)).to.deep.equal([ split ]);
+    expect(splitStore.getByTransactionId(0)).to.deep.equal([ split ]);
   });
 
   it('should not insert the same split twice', () => {
@@ -41,7 +41,7 @@ describe('splitStore', () => {
     splitStore.insertSplit(split);
     splitStore.insertSplit(split);
 
-    expect(splitStore.getByAccountId(0)).to.deep.equal([ split ]);
+    expect(splitStore.getByTransactionId(0)).to.deep.equal([ split ]);
   });
 
   it('should return a split by id', () => {
@@ -135,14 +135,14 @@ describe('splitStore', () => {
       description: '',
       value: 12.345,
       convertRate: 1.0,
-      transactionId: 1,
+      transactionId: 0,
       destAccountId: 0
     };
 
     splitStore.insertSplits([ split1, split2 ]);
     splitStore.deleteSplit(split1.id);
 
-    expect(splitStore.getByAccountId(0)).to.deep.equal([ split2 ]);
+    expect(splitStore.getByTransactionId(0)).to.deep.equal([ split2 ]);
   });
 
 });
