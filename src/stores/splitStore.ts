@@ -82,9 +82,9 @@ export const useSplitStore = defineStore('splitStore', () => {
               );
               accountStore.addValue(value, oldValue, transaction?.date);
             }
-
-            target[p] = value;
           });
+
+          target[p] = value;
 
           return true;
         }
