@@ -352,8 +352,7 @@
         getHashOfTransaction(
           transaction.date,
           transaction.description,
-          splitStore
-            .getByTransactionId(transaction.id)
+          (await splitStore.getByTransactionId(transaction.id))
             .filter((s) => s.destAccountId === props.accountId)
             .shift()?.value ?? 0
         )
