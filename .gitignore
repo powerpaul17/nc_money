@@ -7,3 +7,4 @@ js
 coverage
 translationfiles
 build/dist
+.vscode
