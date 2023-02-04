@@ -1,141 +1,122 @@
-import { computed, ref, type Ref } from 'vue';
-
 import { defineStore } from 'pinia';
+
+import { createTable, watch, insert, remove, clear, many, first, update } from 'blinkdb';
+import type { Query } from 'blinkdb/dist/query/types';
 
 import { useAccountStore } from './accountStore';
 import { useTransactionStore } from './transactionStore';
+import { useBlinkDB } from './blinkdb';
 
 export const useSplitStore = defineStore('splitStore', () => {
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
 
-  const splits: Ref<Array<Split>> = ref([]);
+  const db = useBlinkDB();
+  const splitsTable = createTable<Split>(db, 'splits')();
 
-  const splitIndex: Map<number, number> = new Map();
-  const indicesByTransactionId: Map<number, Set<number>> = new Map();
-
-  function $reset(): void {
-    splits.value = [];
-
-    splitIndex.clear();
-    indicesByTransactionId.clear();
+  async function reset(): Promise<void> {
+    await clear(splitsTable);
   }
 
-  const getById = computed(() => {
-    return (splitId: number): Split|undefined => {
-      const index = getIndex(splitId);
-      return index != undefined ? splits.value[index] : undefined;
-    };
-  });
-
-  const getByTransactionId = computed(() => {
-    return (transactionId: number): Array<Split> => {
-      const indices = getIndicesByTransactionId(transactionId);
-      return indices.map((index) => {
-        const split = splits.value[index];
-        if (!split) throw new Error(`split with index ${index} not found`);
-        return split;
-      });
-    };
-  });
-
-  const getByAccountId = computed(() => {
-    return (accountId: number): Array<Split> => {
-      return splits.value.filter((s) => s.destAccountId === accountId);
-    };
-  });
-
-  function getIndex(splitId: number): number|undefined {
-    return splitIndex.get(splitId);
+  function getById(splitId: number): Promise<Split|null> {
+    return first(splitsTable, {
+      where: {
+        id: splitId
+      }
+    });
   }
 
-  function getIndicesByTransactionId(transactionId: number): Array<number> {
-    return Array.from(indicesByTransactionId.get(transactionId)?.values() ?? []);
+  function watchForTransactionId(
+    transactionId: number,
+    callback: (splits: Array<Split>) => void
+  ): Promise<{
+    stop: () => void;
+  }> {
+    return watch(splitsTable, {
+      where: {
+        transactionId: transactionId
+      }
+    }, callback);
   }
 
-  function insertSplit(split: Split): void {
+  async function query(query: Query<Split, 'id'>): Promise<Array<Split>> {
+    return many(splitsTable, query);
+  }
+
+  async function getByTransactionId(transactionId: number): Promise<Array<Split>> {
+    return many(splitsTable, {
+      where: {
+        transactionId: transactionId
+      }
+    });
+  }
+
+  async function getByAccountId(accountId: number): Promise<Array<Split>> {
+    return many(splitsTable, {
+      where: {
+        destAccountId: accountId
+      }
+    });
+  }
+
+  async function insertSplit(split: Split): Promise<void> {
     const splitProxy = new Proxy(
       split,
       {
         set(target, p, value): boolean {
-          const transaction = transactionStore.getById(target.transactionId);
+          const oldValue = target.value;
 
-          if (p === 'value') {
-            const diff = value - target.value;
-            accountStore.addValue(
-              target.destAccountId,
-              diff,
-              transaction?.date
-            );
-          } else if (p === 'destAccountId') {
-            accountStore.addValue(
-              target.destAccountId,
-              -target.value,
-              transaction?.date
-            );
-            accountStore.addValue(value, target.value, transaction?.date);
-          }
+          void transactionStore.getById(target.transactionId).then((transaction) => {
+            if (p === 'value') {
+              const diff = value - oldValue;
+              accountStore.addValue(
+                target.destAccountId,
+                diff,
+                transaction?.date
+              );
+            } else if (p === 'destAccountId') {
+              accountStore.addValue(
+                target.destAccountId,
+                -oldValue,
+                transaction?.date
+              );
+              accountStore.addValue(value, oldValue, transaction?.date);
+            }
+          });
 
           target[p] = value;
 
           return true;
         }
-      });
+      }
+    );
 
-    const index = insertIntoIndices(splitProxy);
-    splits.value.splice(index, 1, splitProxy);
-  }
-
-  function insertIntoIndices(split: Split): number {
-    const index = getIndex(split.id) ?? splits.value.length;
-
-    splitIndex.set(split.id, index);
-
-    const indices = indicesByTransactionId.get(split.transactionId);
-    if (indices) {
-      indices.add(index);
+    if (await first(splitsTable, { where: { id: splitProxy.id } })) {
+      await update(splitsTable, splitProxy);
     } else {
-      const set = new Set<number>();
-      set.add(index);
-      indicesByTransactionId.set(split.transactionId, set);
+      await insert(splitsTable, splitProxy);
     }
-
-    return index;
   }
 
-  function deleteFromIndices(splitId: number): number|undefined {
-    const index = getIndex(splitId);
-
-    const split = getById.value(splitId);
-    if (!split) throw new Error('split not found');
-
-    splitIndex.delete(splitId);
-
-    const indices = indicesByTransactionId.get(split.transactionId);
-    if (index != undefined && indices) {
-      indices.delete(index);
-    }
-
-    return index;
-  }
-
-  function insertSplits(splits: Array<Split>): void {
+  async function insertSplits(splits: Array<Split>): Promise<void> {
     for (const split of splits) {
-      insertSplit(split);
+      await insertSplit(split);
     }
   }
 
-  function deleteSplit(splitId: number): void {
-    const index = deleteFromIndices(splitId);
-    if(index != undefined) splits.value.splice(index, 1);
+  async function deleteSplit(splitId: number): Promise<void> {
+    await remove(splitsTable, { id: splitId });
   }
 
   return {
-    $reset,
+    reset,
+    query,
 
     getById,
     getByTransactionId,
     getByAccountId,
+
+    watchForTransactionId,
 
     insertSplit,
     insertSplits,

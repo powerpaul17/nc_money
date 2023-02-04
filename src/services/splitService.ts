@@ -19,9 +19,9 @@ export const useSplitService = defineStore('splitService', () => {
     const newSplit = await splitApiService.addSplit(split);
 
     if (addToStore) {
-      splitStore.insertSplit(newSplit);
+      await splitStore.insertSplit(newSplit);
 
-      const transaction = transactionStore.getById(newSplit.transactionId);
+      const transaction = await transactionStore.getById(newSplit.transactionId);
 
       accountStore.addValue(
         split.destAccountId,
@@ -35,14 +35,16 @@ export const useSplitService = defineStore('splitService', () => {
 
   async function deleteSplit(split: Split): Promise<void> {
     await splitApiService.deleteSplit(split.id);
-    splitStore.deleteSplit(split.id);
+    await splitStore.deleteSplit(split.id);
 
-    const transaction = transactionStore.getById(split.transactionId);
+    const transaction = await transactionStore.getById(split.transactionId);
     accountStore.addValue(split.destAccountId, -split.value, transaction?.date);
   }
 
   async function updateSplit(split: Split): Promise<void> {
-    await splitApiService.updateSplit(split);
+    await splitStore.insertSplit(
+      await splitApiService.updateSplit(split)
+    );
   }
 
   return {

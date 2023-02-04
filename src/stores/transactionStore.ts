@@ -1,88 +1,103 @@
-import { computed, ref, type Ref } from 'vue';
+import { ref, type Ref } from 'vue';
+
+import { clear, createTable, first, insert, many, remove, update, watch } from 'blinkdb';
 
 import { defineStore } from 'pinia';
 
 import { useSplitStore } from './splitStore';
 import { useAccountStore } from './accountStore';
+import { useBlinkDB } from './blinkdb';
 
 export const useTransactionStore = defineStore('transactionStore', () => {
   const splitStore = useSplitStore();
   const accountStore = useAccountStore();
 
-  const transactions: Ref<Array<Transaction>> = ref([]);
+  const db = useBlinkDB();
+  const transactionsTable = createTable<Transaction>(db, 'transactions')();
+
   const currentAccountId: Ref<number|null> = ref(null);
   const allTransactionsFetched = ref(false);
 
-  const transactionIndex: Map<number, number> = new Map();
-
-  function $reset(): void {
-    transactions.value = [];
+  async function reset(): Promise<void> {
+    await clear(transactionsTable);
     currentAccountId.value = null;
     allTransactionsFetched.value = false;
 
-    transactionIndex.clear();
-
-    splitStore.$reset();
+    await splitStore.reset();
   }
 
-  const getById = computed(() => {
-    return (transactionId: number): Transaction|undefined => {
-      const index = getIndex(transactionId);
-      return index != undefined ? transactions.value[index] : undefined;
-    };
-  });
-
-  const getByAccountId = computed(() => {
-    return (accountId: number): Array<Transaction> =>
-      sortedByDate.value.filter((t) => {
-        const splits = splitStore.getByTransactionId(t.id);
-        return (
-          splits.length &&
-          splits.some((s) => s.destAccountId === accountId)
-        );
-      });
-  });
-
-  const sortedByDate = computed(() => {
-    return transactions.value.slice().sort((a, b) => {
-      if (b.date.getTime() === a.date.getTime()) {
-        return b.timestampAdded - a.timestampAdded;
+  async function getById(transactionId: number): Promise<Transaction|null> {
+    return await first(transactionsTable, {
+      where: {
+        id: transactionId
       }
-
-      return b.date.getTime() - a.date.getTime();
     });
-  });
-
-  function getIndex(transactionId: number): number|undefined {
-    return transactionIndex.get(transactionId);
   }
 
-  function insertTransactions(transactions: Array<Transaction>): void {
+  async function getByAccountId(accountId: number): Promise<Array<Transaction>> {
+    const splits = await splitStore.query({
+      where: {
+        destAccountId: accountId
+      }
+    });
+
+    return many(transactionsTable, {
+      where: {
+        id: {
+          in: splits.map(s => s.transactionId)
+        }
+      }
+    });
+  }
+
+  async function getSortedByDate(): Promise<Array<Transaction>> {
+    return many(transactionsTable, {
+      sort: {
+        key: 'date',
+        order: 'desc'
+      }
+    });
+  }
+
+  function watchAll(callback: (transactions: Array<Transaction>) => void): Promise<{
+    stop: () => void;
+  }> {
+    return watch(transactionsTable, {
+      sort: {
+        key: 'date',
+        order: 'desc'
+      }
+    }, callback);
+  }
+
+  async function insertTransactions(transactions: Array<Transaction>): Promise<void> {
     for (const transaction of transactions) {
-      insertTransaction(transaction);
+      await insertTransaction(transaction);
     }
   }
 
-  function insertTransaction(transaction: Transaction): void {
+  async function insertTransaction(transaction: Transaction): Promise<void> {
     const transactionProxy = new Proxy(
       transaction,
       {
         set(target, p, value): boolean {
-          const splits = splitStore.getByTransactionId(target.id);
+          const oldDate = target.date;
 
           if (p === 'date') {
-            for (const split of splits) {
-              accountStore.addSummaryValue(
-                split.destAccountId,
-                -split.value,
-                target.date
-              );
-              accountStore.addSummaryValue(
-                split.destAccountId,
-                split.value,
-                value
-              );
-            }
+            void splitStore.getByTransactionId(target.id).then((splits) => {
+              for (const split of splits) {
+                accountStore.addSummaryValue(
+                  split.destAccountId,
+                  -split.value,
+                  oldDate
+                );
+                accountStore.addSummaryValue(
+                  split.destAccountId,
+                  split.value,
+                  value
+                );
+              }
+            });
           }
 
           target[p] = value;
@@ -92,32 +107,28 @@ export const useTransactionStore = defineStore('transactionStore', () => {
       }
     );
 
-    const index = getIndex(transactionProxy.id);
-    if (index != undefined) {
-      transactions.value.splice(index, 1, transactionProxy);
+    if(await first(transactionsTable, { where: { id: transactionProxy.id } })) {
+      await update(transactionsTable, transactionProxy);
     } else {
-      const length = transactions.value.push(transactionProxy);
-      transactionIndex.set(transactionProxy.id, length - 1);
+      await insert(transactionsTable, transactionProxy);
     }
   }
 
-  function deleteTransaction(transactionId: number): void {
-    const index = getIndex(transactionId);
-    if (index != undefined) {
-      transactions.value.splice(index, 1);
-      transactionIndex.delete(transactionId);
-    }
+  async function deleteTransaction(transactionId: number): Promise<void> {
+    await remove(transactionsTable, { id: transactionId });
   }
 
   return {
-    $reset,
+    reset,
 
     currentAccountId: currentAccountId,
     allTransactionsFetched: allTransactionsFetched,
 
     getById,
     getByAccountId,
-    sortedByDate,
+    getSortedByDate,
+
+    watchAll,
 
     insertTransaction,
     insertTransactions,

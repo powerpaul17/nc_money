@@ -23,12 +23,12 @@ export const useTransactionService = defineStore('transactionService', () => {
   async function reloadTransactions(): Promise<void> {
     const accountId = transactionStore.currentAccountId;
 
-    if(accountId) await accountService.refreshAccount(accountId);
+    if (accountId) await accountService.refreshAccount(accountId);
     await changeAccount(accountId);
   }
 
   async function changeAccount(accountId?: number|null): Promise<void> {
-    transactionStore.$reset();
+    await transactionStore.reset();
     transactionStore.currentAccountId = accountId ?? null;
     await fetchAndInsertTransactions();
   }
@@ -76,7 +76,7 @@ export const useTransactionService = defineStore('transactionService', () => {
       transactions = await fetchUnbalancedTransactions(offset, limit);
     }
 
-    transactionStore.insertTransactions(transactions);
+    await transactionStore.insertTransactions(transactions);
 
     if (transactions.length < limit)
       transactionStore.allTransactionsFetched = true;
@@ -90,13 +90,16 @@ export const useTransactionService = defineStore('transactionService', () => {
       transaction
     );
 
-    if (addToStore) transactionStore.insertTransaction(newTransaction);
+    if (addToStore) await transactionStore.insertTransaction(newTransaction);
 
     return newTransaction;
   }
 
   async function updateTransaction(transaction: Transaction): Promise<void> {
-    await transactionApiService.updateTransaction(transaction);
+    // TODO: find better way to support updates of dates!
+    await transactionStore.insertTransaction(
+      await transactionApiService.updateTransaction(transaction)
+    );
   }
 
   async function addTransactionWithSplits(
