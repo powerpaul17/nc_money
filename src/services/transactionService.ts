@@ -96,7 +96,10 @@ export const useTransactionService = defineStore('transactionService', () => {
   }
 
   async function updateTransaction(transaction: Transaction): Promise<void> {
-    await transactionApiService.updateTransaction(transaction);
+    // TODO: find better way to support updates of dates!
+    await transactionStore.insertTransaction(
+      await transactionApiService.updateTransaction(transaction)
+    );
   }
 
   async function addTransactionWithSplits(

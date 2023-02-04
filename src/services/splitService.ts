@@ -42,7 +42,9 @@ export const useSplitService = defineStore('splitService', () => {
   }
 
   async function updateSplit(split: Split): Promise<void> {
-    await splitApiService.updateSplit(split);
+    await splitStore.insertSplit(
+      await splitApiService.updateSplit(split)
+    );
   }
 
   return {
