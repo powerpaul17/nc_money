@@ -81,13 +81,15 @@ export const useTransactionStore = defineStore('transactionStore', () => {
       transaction,
       {
         set(target, p, value): boolean {
+          const oldDate = target.date;
+
           if (p === 'date') {
             void splitStore.getByTransactionId(target.id).then((splits) => {
               for (const split of splits) {
                 accountStore.addSummaryValue(
                   split.destAccountId,
                   -split.value,
-                  target.date
+                  oldDate
                 );
                 accountStore.addSummaryValue(
                   split.destAccountId,
