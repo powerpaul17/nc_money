@@ -97,6 +97,7 @@
     data(): {
       transactions: Array<Transaction>;
       transactionWatcher: {stop: () => void} | null;
+      accountIsChanging: boolean;
       isLoadingTransactions: boolean;
       groupBy: 'month';
       items: Array<{
@@ -107,6 +108,7 @@
       return {
         transactions: [],
         transactionWatcher: null,
+        accountIsChanging: false,
         isLoadingTransactions: false,
         groupBy: 'month',
         items: []
@@ -134,6 +136,8 @@
     },
     methods: {
       async changeAccount() {
+        this.accountIsChanging = true;
+
         await this.transactionService.changeAccount(this.account.id);
         this.transactions = await this.transactionStore.getByAccountId(this.account.id);
 
@@ -143,9 +147,12 @@
         this.transactionWatcher = await this.transactionStore.watchAll((transactions) => {
           this.transactions = transactions;
         })
+
+        this.accountIsChanging = false;
       },
       async loadMoreTransactions() {
-        if(
+        if (
+          this.accountIsChanging ||
           this.isLoadingTransactions ||
           this.transactionStore.allTransactionsFetched
         ) return;
