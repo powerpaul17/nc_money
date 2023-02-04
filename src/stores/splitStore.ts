@@ -64,9 +64,11 @@ export const useSplitStore = defineStore('splitStore', () => {
       split,
       {
         set(target, p, value): boolean {
+          const oldValue = target.value;
+
           void transactionStore.getById(target.transactionId).then((transaction) => {
             if (p === 'value') {
-              const diff = value - target.value;
+              const diff = value - oldValue;
               accountStore.addValue(
                 target.destAccountId,
                 diff,
@@ -75,10 +77,10 @@ export const useSplitStore = defineStore('splitStore', () => {
             } else if (p === 'destAccountId') {
               accountStore.addValue(
                 target.destAccountId,
-                -target.value,
+                -oldValue,
                 transaction?.date
               );
-              accountStore.addValue(value, target.value, transaction?.date);
+              accountStore.addValue(value, oldValue, transaction?.date);
             }
 
             target[p] = value;
