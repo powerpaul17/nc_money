@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.15.0] - 2023-02-04
+
 ### Changed
 
 - Use BlinkDB for storing transactions/splits
