@@ -6,6 +6,7 @@ OC.L10N.register(
     "Finance manager for Nextcloud." : "Nextclouderako finantza kudeatzailea.",
     "Name" : "Izena",
     "Description" : "Deskribapena",
+    "mo" : "mo",
     "Import transactions" : "Inportazio transakzioak",
     "Rename account" : "Berrizendatu kontua",
     "Account name" : "Kontuaren izena",
