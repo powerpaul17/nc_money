@@ -7,6 +7,7 @@ OC.L10N.register(
     "Delete account" : "Xóa tài khoản",
     "Are you sure?" : "Bạn chắc chắn?",
     "Add account" : "Thêm tài khoản",
+    "Value" : "Giá trị",
     "Date" : "Date",
     "Import" : "Nhập vào",
     "Comment" : "Bình luận",
