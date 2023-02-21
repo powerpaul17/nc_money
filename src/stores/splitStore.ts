@@ -65,6 +65,7 @@ export const useSplitStore = defineStore('splitStore', () => {
       {
         set(target, p, value): boolean {
           const oldValue = target.value;
+          const oldDestAccountId = target.destAccountId;
 
           void transactionStore.getById(target.transactionId).then((transaction) => {
             if (p === 'value') {
@@ -76,7 +77,7 @@ export const useSplitStore = defineStore('splitStore', () => {
               );
             } else if (p === 'destAccountId') {
               accountStore.addValue(
-                target.destAccountId,
+                oldDestAccountId,
                 -oldValue,
                 transaction?.date
               );
