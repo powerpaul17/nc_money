@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.15.1] - 2023-02-23
+
 ### Changed
 
 - Fix updating of account (type) balances
