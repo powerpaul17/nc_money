@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Fix updating of account (type) balances
+
 ## [0.15.0] - 2023-02-04
 
 ### Changed

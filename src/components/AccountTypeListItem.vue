@@ -91,24 +91,31 @@
 
         settingStore: useSettingStore(),
 
+        balance: 0.0,
+
         isOpen: true,
 
         AccountTypeUtils
       };
     },
+    watch: {
+      accountType: {
+        handler() {
+          if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
+            const date = dayjs();
+            this.balance = this.accountStore.getSummaryByType(
+              this.accountType.type,
+              date.year(),
+              date.month() + 1
+            );
+          } else {
+            this.balance = this.accountType.balance;
+          }
+        },
+        deep: true
+      }
+    },
     computed: {
-      balance() {
-        if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
-          const date = dayjs();
-          return this.accountStore.getSummaryByType(
-            this.accountType.type,
-            date.year(),
-            date.month() + 1
-          );
-        } else {
-          return this.accountType.balance;
-        }
-      },
       accounts() {
         return this.accountStore.getByType(this.accountType.type);
       },

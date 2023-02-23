@@ -124,11 +124,13 @@
       };
     },
     data(): {
+      balance: number;
       isLoading: boolean;
       showDeleteConfirmationDialog: boolean;
       deleteAccountTimeout: number|null;
     } {
       return {
+        balance: this.account.balance,
         isLoading: false,
         showDeleteConfirmationDialog: false,
         deleteAccountTimeout: null
@@ -140,14 +142,17 @@
         required: true
       }
     },
-    computed: {
-      balance() {
-        if (AccountTypeUtils.isMonthlyAccount(this.account.type)) {
-          const date = dayjs();
-          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
-        } else {
-          return this.account.balance;
-        }
+    watch: {
+      account: {
+        handler() {
+          if (AccountTypeUtils.isMonthlyAccount(this.account.type)) {
+            const date = dayjs();
+            this.balance = this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+          } else {
+            this.balance = this.account.balance;
+          }
+        },
+        deep: true
       }
     },
     methods: {
