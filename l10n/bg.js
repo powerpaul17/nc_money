@@ -2,7 +2,7 @@ OC.L10N.register(
     "money",
     {
     "Money" : "Пари",
-    "Manage your finances." : "Управлявайте паричните си средства.",
+    "Manage your finances." : "Управление на паричните ви средства.",
     "Finance manager for Nextcloud." : "Финансов мениджър за Nextcloud.",
     "Name" : "Име",
     "Description" : "Описание",
