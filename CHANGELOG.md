@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.15.2] - 2023-03-01
+
 ### Changed
 
 - Fix showing monthly account (type) balances
