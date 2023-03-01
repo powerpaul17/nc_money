@@ -130,7 +130,7 @@
       deleteAccountTimeout: number|null;
     } {
       return {
-        balance: this.account.balance,
+        balance: this.getAccountBalance(),
         isLoading: false,
         showDeleteConfirmationDialog: false,
         deleteAccountTimeout: null
@@ -145,17 +145,20 @@
     watch: {
       account: {
         handler() {
-          if (AccountTypeUtils.isMonthlyAccount(this.account.type)) {
-            const date = dayjs();
-            this.balance = this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
-          } else {
-            this.balance = this.account.balance;
-          }
+          this.balance = this.getAccountBalance();
         },
         deep: true
       }
     },
     methods: {
+      getAccountBalance() {
+        if (AccountTypeUtils.isMonthlyAccount(this.account.type)) {
+          const date = dayjs();
+          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+        } else {
+          return this.account.balance;
+        }
+      },
       async handleUpdateAccountName(accountName: string): Promise<void> {
         this.account.name = accountName;
 

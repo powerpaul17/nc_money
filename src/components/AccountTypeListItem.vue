@@ -86,31 +86,15 @@
     },
     data() {
       return {
-        accountStore: useAccountStore(),
-        accountService: useAccountService(),
-
-        settingStore: useSettingStore(),
-
-        balance: 0.0,
-
+        balance: this.getAccountTypeBalance(),
         isOpen: true,
-
         AccountTypeUtils
       };
     },
     watch: {
       accountType: {
         handler() {
-          if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
-            const date = dayjs();
-            this.balance = this.accountStore.getSummaryByType(
-              this.accountType.type,
-              date.year(),
-              date.month() + 1
-            );
-          } else {
-            this.balance = this.accountType.balance;
-          }
+          this.balance = this.getAccountTypeBalance();
         },
         deep: true
       }
@@ -124,6 +108,18 @@
       }
     },
     methods: {
+      getAccountTypeBalance() {
+        if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
+            const date = dayjs();
+            return this.accountStore.getSummaryByType(
+              this.accountType.type,
+              date.year(),
+              date.month() + 1
+            );
+          } else {
+            return this.accountType.balance;
+          }
+      },
       async handleAddAccountClick(): Promise<void> {
         const newAccount = await this.accountService.addAccount({
           name: this.t('money', 'New Account'),
@@ -135,6 +131,14 @@
         this.$router.push(`/account/${newAccount.id}`);
 
         this.isOpen = true;
+      }
+    },
+    setup() {
+      return {
+        accountStore: useAccountStore(),
+        accountService: useAccountService(),
+
+        settingStore: useSettingStore()
       }
     }
   });
