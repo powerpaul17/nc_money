@@ -14,6 +14,7 @@ OC.L10N.register(
     "Equity" : "Egenkapital",
     "Value" : "Værdi",
     "Date" : "Dato",
+    "Decimals" : "Decimaler",
     "Import Transactions" : "Import af transaktioner",
     "Select File" : "Vælg Fil",
     "Click or drop CSV file" : "Klik eller slip CSV-fil",
