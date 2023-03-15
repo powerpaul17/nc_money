@@ -4,7 +4,7 @@ OC.L10N.register(
     "Name" : "Nama",
     "Description" : "Deskrisi",
     "Delete account" : "Delete account",
-    "Are you sure?" : "Apakah anda yakin?",
+    "Are you sure?" : "Apakah Anda yakin?",
     "Add account" : "Tambah akun",
     "Value" : "Nilari",
     "Date" : "Date",
