@@ -49,6 +49,9 @@ bundles.forEach(async (bundle) => {
     },
     plugins: [
       vue2()
-    ]
+    ],
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(mode)
+    }
   });
 });
