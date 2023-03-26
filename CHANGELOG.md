@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.15.3] - 2023-03-26
+
 ### Changed
 
 - Fix undefined 'process.env.NODE_ENV' variable during build
