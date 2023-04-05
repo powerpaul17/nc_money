@@ -6,6 +6,11 @@
     :disabled="!editable"
     :no-wrap="true"
     :append-to-body="true"
+    :filter-by="
+      (option, label, search) => {
+        return [ label, option.description ].join(' ').toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) >= 0;
+      }
+    "
   >
     <template #option="account">
       <div class="overflow-hidden text-ellipsis whitespace-nowrap">{{ account.name }}</div>
