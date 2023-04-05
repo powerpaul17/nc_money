@@ -1,60 +1,68 @@
 <template>
-  <select
+  <NcSelect
+    :options="accounts"
+    label="name"
+    v-model="selectedAccount"
     :disabled="!editable"
-    v-model="selectedAccountId"
-    @change="handleSelectChange"
+    :no-wrap="true"
+    :append-to-body="true"
   >
-    <option :value="null">
-      -- No Account --
-    </option>
-    <option
-      v-for="account in accounts"
-      :key="account.id"
-      :value="account.id"
-    >
-      {{ account.name }}
-    </option>
-  </select>
+    <template #option="account">
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap">{{ account.name }}</div>
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs">
+        <span class="uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span> {{ account.description ? `· ${account.description}` : '' }}
+      </div>
+    </template>
+
+    <template #selected-option="account" class="w-full">
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap ">
+        {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
+      </div>
+    </template>
+  </NcSelect>
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, watch, type PropType } from 'vue';
+  import { computed } from 'vue';
 
-  import { useAccountStore, type Account } from '../stores/accountStore';
+  import {useAccountStore, type Account} from '../stores/accountStore';
+  import type {AccountTypeType} from '../stores/accountTypeStore';
+
+  import { AccountTypeUtils } from '../utils/accountTypeUtils';
+
+  import NcSelect from '@nextcloud/vue/dist/Components/NcSelect';
 
   const  accountStore = useAccountStore();
 
-  const props = defineProps({
-    accountId: {
-      type: Number,
-      default: null
+  const props = withDefaults(
+    defineProps<{
+      accountId?: number|null;
+      editable?: boolean;
+      excludedAccountIds?: Array<number>;
+    }>(),
+    {
+      accountId: null,
+      editable: true,
+      excludedAccountIds: () => []
+    }
+  );
+
+  const emit = defineEmits(['account-changed']);
+
+  const selectedAccount = computed({
+    get() {
+      const selectedAccount = accounts.value.find((a) => a.id === props.accountId);
+      return selectedAccount ?? null;
     },
-    editable: {
-      type: Boolean,
-      default: true
-    },
-    excludedAccountIds: {
-      type: Array as PropType<Array<number>>,
-      default: () => []
+    set(newSelectedAccount) {
+      emit('account-changed', newSelectedAccount?.id);
     }
   });
 
-  const emit = defineEmits([ 'account-changed' ]);
-
-  const selectedAccountId = ref(props.accountId);
-
   const accounts = computed((): Array<Account> => {
     return accountStore.accounts.filter(
-      (a) => !props.excludedAccountIds.includes(a.id)
+      (a) => !props.excludedAccountIds?.includes(a.id)
     );
   });
-
-  watch(() => props.accountId, (accountId) => {
-    selectedAccountId.value = accountId;
-  });
-
-  function handleSelectChange(): void {
-    emit('account-changed', selectedAccountId.value);
-  }
 
 </script>
