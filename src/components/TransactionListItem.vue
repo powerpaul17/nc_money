@@ -148,7 +148,8 @@
     },
     watch: {
       async transaction() {
-        this.transactionChanged();
+        this.removeTransactionIdWatcher();
+        await this.setTransactionIdWatcher();
       }
     },
     computed: {
@@ -270,21 +271,29 @@
         await this.splitService.updateSplit(split);
         this.isLoading = false;
       },
-      async transactionChanged() {
-        if (this.transactionIdWatcher) {
-          this.transactionIdWatcher.stop();
-        }
-        this.splits = await this.splitStore.getByTransactionId(this.transaction.id);
-        this.transactionIdWatcher = await this.splitStore.watchForTransactionId(this.transaction.id, (splits) => {
+      removeTransactionIdWatcher() {
+        this.transactionIdWatcher?.stop();
+        this.transactionIdWatcher = null;
+      },
+      async setTransactionIdWatcher() {
+        const transactionId = this.transaction.id;
+
+        const transactionIdWatcher = await this.splitStore.watchForTransactionId(transactionId, (splits) => {
           this.splits = splits;
         });
+
+        if (transactionId !== this.transaction.id) {
+          transactionIdWatcher.stop();
+        } else {
+          this.transactionIdWatcher = transactionIdWatcher;
+        }
       }
     },
     async mounted() {
-      await this.transactionChanged();
+      await this.setTransactionIdWatcher();
     },
     destroyed() {
-      this.transactionIdWatcher?.stop();
+      this.removeTransactionIdWatcher();
     },
     setup() {
       return {
