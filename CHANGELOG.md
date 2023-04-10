@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Added dashboard with equity & assets/liabilities charts
+
 ## [0.15.3] - 2023-03-26
 
 ### Changed
