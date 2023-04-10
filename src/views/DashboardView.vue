@@ -4,7 +4,7 @@
       <LineChart :data="equityLineChartData" />
     </Chart>
 
-    <Chart :title="t('money', 'Assets/Liabilities')">
+    <Chart :title="`${t('money', 'Assets')}/${t('money', 'Liabilities')}`">
       <LineChart :data="assetsLiabilitiesLineChartData" />
     </Chart>
   </div>
