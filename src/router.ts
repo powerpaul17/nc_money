@@ -1,11 +1,17 @@
 import VueRouter from 'vue-router';
 
 import AccountView from './views/AccountView.vue';
+import DashboardView from './views/DashboardView.vue';
 import Sidebar from './components/Sidebar.vue';
 
 export default new VueRouter({
   linkActiveClass: 'active',
   routes: [
+    {
+      path: '/',
+      name: 'dashboard',
+      component: DashboardView
+    },
     {
       path: '/account/:accountId',
       components: {

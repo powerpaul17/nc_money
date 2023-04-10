@@ -80,8 +80,8 @@
   import SeamlessInput from './SeamlessInput.vue';
   import CurrencyText from './CurrencyText.vue';
   import TransactionImportDialog from './TransactionImportDialog.vue';
-  import LineChart, { type DataItem } from './charts/LineChart.vue';
-  import BarChart from './charts/BarChart.vue';
+  import LineChart, { type Data } from './charts/LineChart.vue';
+  import BarChart, { type DataItem } from './charts/BarChart.vue';
 
   import NcActions from '@nextcloud/vue/dist/Components/NcActions';
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
@@ -119,11 +119,13 @@
       isInvertedAccount() {
         return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
       },
-      lineChartData(): Array<DataItem> {
+      lineChartData(): Data {
         const inversionFactor = this.isInvertedAccount ? -1 : 1;
 
         let accountBalance = this.account.balance * inversionFactor;
         const currentDate = dayjs();
+
+        const labels: Array<string> = [];
 
         const data = ArrayUtils.createNumberArray(12)
           .map((num) => {
@@ -135,18 +137,25 @@
               date.month() + 1
             ) * inversionFactor;
 
-            return {
-              label: date.subtract(1, 'month').format('MMM'),
-              value: accountBalance
-            };
+            labels.push(date.subtract(1, 'month').format('MMM'));
+
+            return accountBalance;
           })
           .reverse();
 
-        data.push({
-          label: currentDate.format('MMM'),
-          value: this.account.balance * inversionFactor
-        });
-        return data;
+        labels.reverse();
+        labels.push(currentDate.format('MMM'));
+
+        data.push(this.account.balance * inversionFactor);
+
+        return {
+          labels,
+          datasets: [
+            {
+              values: data
+            }
+          ]
+        };
       },
       barChartData(): Array<DataItem> {
         return ArrayUtils.createNumberArray(12)
