@@ -1,6 +1,15 @@
 <template>
   <NcAppNavigation>
     <template #list>
+      <NcAppNavigationItem
+        :title="t('money', 'Overview')"
+        :to="'/'"
+      >
+        <template #icon>
+          <Finance />
+        </template>
+      </NcAppNavigationItem>
+
       <AccountTypeListItem
         v-for="accountType in accountTypes"
         :key="accountType.type"
@@ -46,6 +55,8 @@
 
   import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+
+  import Finance from 'vue-material-design-icons/Finance.vue';
 
   import AccountTypeListItem from './AccountTypeListItem.vue';
   import CurrencyText from './CurrencyText.vue';
