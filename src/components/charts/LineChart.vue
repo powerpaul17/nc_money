@@ -57,25 +57,28 @@
   import { Utils } from '../../utils/utils';
   import { NumberUtils } from '../../utils/numberUtils';
 
-  export type DataItem = {
-    label: string;
-    value: number;
+  export type Data = {
+    labels: Array<string>;
+    datasets: Array<{
+      color?: string;
+      values: Array<number>;
+    }>;
   };
 
   const props = defineProps({
     data: {
-      type: Array as PropType<Array<DataItem>>,
+      type: Object as PropType<Data>,
       required: true
     }
   });
 
-  const color = Utils.getValueOfCSSVar('--color-primary-element');
-
   const chartData = computed<TChartData<'line'>>(() => ({
-    labels: props.data.map((d) => d.label),
-    datasets: [
-      {
-        data: props.data.map((d) => d.value),
+    labels: props.data.labels,
+    datasets: props.data.datasets.map(dataset => {
+      const color = dataset.color ?? Utils.getValueOfCSSVar('--color-primary-element');
+
+      return {
+        data: dataset.values,
         borderColor: 'transparent',
         backgroundColor: color,
         cubicInterpolationMode: 'monotone',
@@ -85,6 +88,6 @@
           below: Utils.convertHexToRgba(colors.red[300], 0.2)
         }
       }
-    ]
+    })
   }));
 </script>
