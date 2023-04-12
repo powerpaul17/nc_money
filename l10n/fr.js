@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Oui, supprimer le compte",
     "Add account" : "Ajouter un compte",
     "New Account" : "Nouveau compte",
+    "Overview" : "Vue d'ensemble",
     "Unbalanced" : "Résultat",
     "Equity" : "Capitaux propres",
     "Show inverted income/liabilities account balances" : "Afficher les soldes revenus/passif inversés",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "Débit",
     "End of transactions" : "Fin des transactions",
     "Multiple Accounts" : "Comptes multiples",
-    "Settings saved" : "Paramètres sauvegardés",
     "Assets" : "Actif",
+    "Settings saved" : "Paramètres sauvegardés",
     "Liabilities" : "Passif",
     "Income" : "Revenus",
     "Expenses" : "Dépenses"

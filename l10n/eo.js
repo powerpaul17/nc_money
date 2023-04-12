@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Priskribo",
     "Delete account" : "Forigi konton",
     "Add account" : "Aldoni konton",
+    "Overview" : "Superrigardo",
     "Date" : "Date",
     "Import" : "Importi",
     "Comment" : "Komento",

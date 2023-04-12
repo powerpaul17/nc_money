@@ -16,6 +16,7 @@
     "Yes, delete account" : "Igen, a fiók törlése",
     "Add account" : "Fiók hozzáadása",
     "New Account" : "Új fiók",
+    "Overview" : "Áttekintés",
     "Unbalanced" : "Kiegyenlítetlen",
     "Equity" : "Saját tőke",
     "Show inverted income/liabilities account balances" : "Bevétel/kötelezettség mérleg fordított megjelenítése",
@@ -43,8 +44,8 @@
     "Debit" : "Bankkártya",
     "End of transactions" : "Tranzakciók vége",
     "Multiple Accounts" : "Több fiók",
-    "Settings saved" : "Beállítások mentve",
     "Assets" : "Pénzeszközök",
+    "Settings saved" : "Beállítások mentve",
     "Liabilities" : "Kötelezettségek",
     "Income" : "Bevétel",
     "Expenses" : "Kiadás"

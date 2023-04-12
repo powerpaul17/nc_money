@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "是，刪除帳號",
     "Add account" : "新增帳號",
     "New Account" : "新帳號",
+    "Overview" : "概覽",
     "Unbalanced" : "不平衡",
     "Equity" : "權益",
     "Show inverted income/liabilities account balances" : "顯示反轉的收入/負債帳號餘額",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "借方",
     "End of transactions" : "交易結束",
     "Multiple Accounts" : "多重帳號",
-    "Settings saved" : "設定已儲存",
     "Assets" : "資產",
+    "Settings saved" : "設定已儲存",
     "Liabilities" : "負債",
     "Income" : "收入",
     "Expenses" : "支出"

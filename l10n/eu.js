@@ -16,6 +16,7 @@ OC.L10N.register(
     "Yes, delete account" : "Bai, ezabatu kontua",
     "Add account" : "Gehitu kontua",
     "New Account" : "Kontu berria",
+    "Overview" : "Ikuspegi orokorra",
     "Unbalanced" : "Desorekatua",
     "Equity" : "Ekitatea",
     "Value" : "Balioa",
@@ -37,8 +38,8 @@ OC.L10N.register(
     "Debit" : "Debitua",
     "End of transactions" : "Transakzioen bukaera",
     "Multiple Accounts" : "Hainbat kontu",
-    "Settings saved" : "Ezarpenak gordeta",
     "Assets" : "Aktiboak",
+    "Settings saved" : "Ezarpenak gordeta",
     "Liabilities" : "Pasiboak",
     "Income" : "Sarrerak",
     "Expenses" : "Gastuak"

@@ -9,6 +9,7 @@ OC.L10N.register(
     "Import transactions" : "وارد کردن تراکنش‌ها",
     "Delete account" : "حذف حساب کاربری",
     "Add account" : "افزودن حساب",
+    "Overview" : "نمای کلّی",
     "Unbalanced" : "ناتراز",
     "Equity" : "قاعده انصاف",
     "Value" : "مقدار",
@@ -23,8 +24,8 @@ OC.L10N.register(
     "Import" : "وارد کردن",
     "Comment" : "دیدگاه",
     "Multiple Accounts" : "حساب‌های چندگانه",
-    "Settings saved" : "تنظیمات ذخیره شد",
     "Assets" : "دارایی‌ها",
+    "Settings saved" : "تنظیمات ذخیره شد",
     "Liabilities" : "بدهی‌ها",
     "Income" : "درآمد",
     "Expenses" : "هزینه‌ها"

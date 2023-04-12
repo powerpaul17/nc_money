@@ -16,6 +16,7 @@
     "Yes, delete account" : "是，刪除賬戶",
     "Add account" : "新增賬戶",
     "New Account" : "新賬戶",
+    "Overview" : "概覽",
     "Unbalanced" : "不平衡",
     "Equity" : "股票",
     "Show inverted income/liabilities account balances" : "顯示倒置的收入/負債賬戶餘額",
@@ -43,8 +44,8 @@
     "Debit" : "借項",
     "End of transactions" : "交易結束",
     "Multiple Accounts" : "多個賬戶",
-    "Settings saved" : "設定已保存",
     "Assets" : "資產",
+    "Settings saved" : "設定已保存",
     "Liabilities" : "債務",
     "Income" : "收入",
     "Expenses" : "支出"

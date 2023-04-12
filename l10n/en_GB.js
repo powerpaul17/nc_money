@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Yes, delete account",
     "Add account" : "Add account",
     "New Account" : "New Account",
+    "Overview" : "Overview",
     "Unbalanced" : "Unbalanced",
     "Equity" : "Equity",
     "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "Debit",
     "End of transactions" : "End of transactions",
     "Multiple Accounts" : "Multiple Accounts",
-    "Settings saved" : "Settings saved",
     "Assets" : "Assets",
+    "Settings saved" : "Settings saved",
     "Liabilities" : "Liabilities",
     "Income" : "Income",
     "Expenses" : "Expenses"

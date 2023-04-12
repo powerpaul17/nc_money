@@ -17,6 +17,7 @@ OC.L10N.register(
     "Yes, delete account" : "Ja, radera konto",
     "Add account" : "Lägg till konto",
     "New Account" : "Nytt konto",
+    "Overview" : "Översikt",
     "Unbalanced" : "Obalanserad",
     "Equity" : "Värdeökning",
     "Show inverted income/liabilities account balances" : "Visa inverterade inkomster/skulder kontosaldon",
@@ -43,8 +44,8 @@ OC.L10N.register(
     "Debit" : "Debet",
     "End of transactions" : "Slut på transaktioner",
     "Multiple Accounts" : "Flera konton",
-    "Settings saved" : "Inställningar sparade",
     "Assets" : "Tillgångar",
+    "Settings saved" : "Inställningar sparade",
     "Liabilities" : "Skulder",
     "Income" : "Inkomster",
     "Expenses" : "Utgifter"

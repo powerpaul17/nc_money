@@ -10,6 +10,7 @@ OC.L10N.register(
     "Import transactions" : "Увези трансакција",
     "Delete account" : "Избриши сметка",
     "Add account" : "Додади сметка",
+    "Overview" : "Преглед",
     "Unbalanced" : "Небалансирано",
     "Equity" : "Капитал",
     "Value" : "Вредност",
@@ -36,8 +37,8 @@ OC.L10N.register(
     "Debit" : "Дебит",
     "End of transactions" : "Крај на трансакциите",
     "Multiple Accounts" : "Повеќе сметки",
-    "Settings saved" : "Параматрите се зачувани",
     "Assets" : "Средства",
+    "Settings saved" : "Параматрите се зачувани",
     "Liabilities" : "Обврски",
     "Income" : "Приходи",
     "Expenses" : "Трошоци"

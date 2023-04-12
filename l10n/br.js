@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Anv",
     "Description" : "Deskrivadur",
     "Add account" : "Ouzhpenn ur c'hont",
+    "Overview" : "Taol-lagad",
     "Date" : "Deiz",
     "Select File" : "Choazit ur Restr",
     "Import" : "Emporzhiañ ",

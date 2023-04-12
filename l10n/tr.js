@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Evet, hesabı sil",
     "Add account" : "Hesap ekle",
     "New Account" : "Hesap ekle",
+    "Overview" : "Özet",
     "Unbalanced" : "Dengesiz",
     "Equity" : "Eşitlik",
     "Show inverted income/liabilities account balances" : "Tersine çevrilmiş gelir/borç hesap bakiyeleri görüntülensin",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "Borç",
     "End of transactions" : "Hesap hareketlerinin sonu",
     "Multiple Accounts" : "Birkaç hesap",
-    "Settings saved" : "Ayarlar kaydedildi",
     "Assets" : "Varlıklar",
+    "Settings saved" : "Ayarlar kaydedildi",
     "Liabilities" : "Sorumluluklar",
     "Income" : "Gelirler",
     "Expenses" : "Giderler"

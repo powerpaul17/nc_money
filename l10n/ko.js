@@ -6,6 +6,7 @@ OC.L10N.register(
     "Delete account" : "계정 삭제",
     "Are you sure?" : "확실합니까?",
     "Add account" : "계정 추가",
+    "Overview" : "개요",
     "Value" : "값",
     "Date" : "날짜",
     "Select File" : "파일 선택",

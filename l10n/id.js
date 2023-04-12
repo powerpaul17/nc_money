@@ -6,6 +6,7 @@ OC.L10N.register(
     "Delete account" : "Delete account",
     "Are you sure?" : "Apakah Anda yakin?",
     "Add account" : "Tambah akun",
+    "Overview" : "Ringkasan",
     "Value" : "Nilari",
     "Date" : "Date",
     "Import" : "Impor",

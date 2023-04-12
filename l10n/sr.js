@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Да, обриши рачун",
     "Add account" : "Додај рачун",
     "New Account" : "Нови рачун",
+    "Overview" : "Преглед",
     "Unbalanced" : "Не сравњено",
     "Equity" : "Салдо",
     "Show inverted income/liabilities account balances" : "Прикажи инвертована стања прихода/расхода рачуна",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "Дебитна",
     "End of transactions" : "Крај трансакција",
     "Multiple Accounts" : "Више налога",
-    "Settings saved" : "Поставке сачуване",
     "Assets" : "Имовина",
+    "Settings saved" : "Поставке сачуване",
     "Liabilities" : "Дугови",
     "Income" : "Приход",
     "Expenses" : "Трошкови"

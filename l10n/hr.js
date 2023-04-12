@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Opis",
     "Delete account" : "Izbriši račun",
     "Add account" : "Dodaj račun",
+    "Overview" : "Pregled",
     "Value" : "Vrijednost",
     "Date" : "Datum",
     "Select File" : "Odaberi datoteku",

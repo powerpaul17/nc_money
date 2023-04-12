@@ -45,8 +45,8 @@ OC.L10N.register(
     "Debit" : "Дебит",
     "End of transactions" : "Край на операциите",
     "Multiple Accounts" : "Множество сметки",
-    "Settings saved" : "Настройките са запазени",
     "Assets" : "Активи",
+    "Settings saved" : "Настройките са запазени",
     "Liabilities" : "Пасиви",
     "Income" : "Приходи",
     "Expenses" : "Разходи"

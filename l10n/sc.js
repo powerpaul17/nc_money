@@ -6,6 +6,7 @@ OC.L10N.register(
     "Delete account" : "Cantzella contu",
     "Are you sure?" : "A beru boles sighire?",
     "Add account" : "Agiunghe contu",
+    "Overview" : "Panoràmica",
     "Value" : "Balore",
     "Date" : "Data",
     "Select File" : "Sèbera archìviu",

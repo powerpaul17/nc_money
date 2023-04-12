@@ -10,6 +10,7 @@ OC.L10N.register(
     "Delete account" : "删除账号",
     "Are you sure?" : "你确定吗？",
     "Add account" : "添加账目",
+    "Overview" : "概览",
     "Unbalanced" : "不平衡",
     "Equity" : "权益",
     "Value" : "值",
@@ -25,8 +26,8 @@ OC.L10N.register(
     "Import" : "导入",
     "Comment" : "备注",
     "Multiple Accounts" : "多账目",
-    "Settings saved" : "已保存设置",
     "Assets" : "资产类",
+    "Settings saved" : "已保存设置",
     "Liabilities" : "负债类",
     "Income" : "收入",
     "Expenses" : "支出"

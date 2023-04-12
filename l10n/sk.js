@@ -10,6 +10,7 @@ OC.L10N.register(
     "Delete account" : "Zmazať účet",
     "Are you sure?" : "Ste si istý?",
     "Add account" : "Pridať účet",
+    "Overview" : "Prehľad",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",
     "Value" : "Hodnota",
@@ -27,8 +28,8 @@ OC.L10N.register(
     "Comment" : "Komentár",
     "End of transactions" : "Koniec transakcií",
     "Multiple Accounts" : "Viacero účtov",
-    "Settings saved" : "Nastavenia uložené",
     "Assets" : "Majetok",
+    "Settings saved" : "Nastavenia uložené",
     "Liabilities" : "Záväzky",
     "Income" : "Príjmy",
     "Expenses" : "Výdaje"

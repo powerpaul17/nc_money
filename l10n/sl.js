@@ -7,6 +7,7 @@ OC.L10N.register(
     "Delete account" : "Izbriši račun",
     "Are you sure?" : "Ali ste prepričani?",
     "Add account" : "Dodaj račun",
+    "Overview" : "Splošni pregled",
     "Value" : "Vrednost",
     "Date" : "Datum",
     "Decimals" : "Decimalna mesta",

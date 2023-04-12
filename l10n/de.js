@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Ja, Konto wirklich löschen.",
     "Add account" : "Konto anlegen",
     "New Account" : "Neues Konto",
+    "Overview" : "Übersicht",
     "Unbalanced" : "Unausgeglichen",
     "Equity" : "Reinvermögen",
     "Show inverted income/liabilities account balances" : "Werte von Ertragskonten und Verbindlichkeiten invertiert anzeigen",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "Soll",
     "End of transactions" : "Ende der Transaktionen",
     "Multiple Accounts" : "Mehrere Konten",
-    "Settings saved" : "Einstellungen gespeichert",
     "Assets" : "Vermögenswerte",
+    "Settings saved" : "Einstellungen gespeichert",
     "Liabilities" : "Verbindlichkeiten",
     "Income" : "Erträge",
     "Expenses" : "Ausgaben"

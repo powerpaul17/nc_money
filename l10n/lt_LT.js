@@ -8,6 +8,7 @@ OC.L10N.register(
     "Delete account" : "Ištrinti paskyrą",
     "Are you sure?" : "Ar esate tikri?",
     "Add account" : "Pridėti paskyrą",
+    "Overview" : "Apžvalga",
     "Value" : "Reikšmė",
     "Date" : "Data",
     "Date Format" : "Datos formatas",

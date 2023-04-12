@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Ano, smazat účet",
     "Add account" : "Přidat účet",
     "New Account" : "Nový účet",
+    "Overview" : "Přehled",
     "Unbalanced" : "Nezaúčtováno",
     "Equity" : "Akcie",
     "Show inverted income/liabilities account balances" : "Zobrazit stavy účtu příjem/závazky invertovaně",
@@ -45,8 +46,8 @@ OC.L10N.register(
     "Debit" : "Debetní",
     "End of transactions" : "Konec transakcí",
     "Multiple Accounts" : "Vícero účtů",
-    "Settings saved" : "Nastavení uložena",
     "Assets" : "Majetek",
+    "Settings saved" : "Nastavení uložena",
     "Liabilities" : "Závazky",
     "Income" : "Příjem",
     "Expenses" : "Výdaje"

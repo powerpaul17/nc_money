@@ -10,6 +10,7 @@ OC.L10N.register(
     "Delete account" : "Удалить учётную запись",
     "Are you sure?" : "Вы уверены?",
     "Add account" : "Добавить счёт",
+    "Overview" : "Общие сведения",
     "Unbalanced" : "Расхождение",
     "Equity" : "Собственный капитал",
     "Value" : "Значение",
@@ -24,8 +25,8 @@ OC.L10N.register(
     "Import" : "Импортировать",
     "Comment" : "Комментарий",
     "Multiple Accounts" : "Несколько счетов",
-    "Settings saved" : "Настройки сохранены",
     "Assets" : "Активы",
+    "Settings saved" : "Настройки сохранены",
     "Liabilities" : "Пассивы",
     "Income" : "Доходы",
     "Expenses" : "Расходы"
