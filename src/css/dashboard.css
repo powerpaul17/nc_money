@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon-money {
+  background-image: url('../img/money-dark.svg');
+}

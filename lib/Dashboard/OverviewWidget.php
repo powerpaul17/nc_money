@@ -67,5 +67,6 @@ class OverviewWidget implements IWidget, IIconWidget {
      */
     public function load(): void {
         \OCP\Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard.iife');
+        \OCP\Util::addStyle(Application::APP_ID, '../js/money-dashboard');
     }
 }
