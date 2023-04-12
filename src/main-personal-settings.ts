@@ -3,7 +3,7 @@ import { createPinia, PiniaVuePlugin } from 'pinia';
 
 import l10n from '@nextcloud/l10n';
 
-import './main.css';
+import './css/main.css';
 
 import '@nextcloud/dialogs/styles/toast.scss';
 
