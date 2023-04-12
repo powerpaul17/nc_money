@@ -3,7 +3,7 @@ import { ArrayUtils } from './arrayUtils';
 export class Utils {
 
   public static getValueOfCSSVar(cssVar: string): string {
-    return getComputedStyle(document.documentElement)
+    return getComputedStyle(document.body)
       .getPropertyValue(cssVar);
   }
 
