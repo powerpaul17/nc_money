@@ -7,13 +7,13 @@
         responsive: true,
         maintainAspectRatio: false,
         resizeDelay: 100,
-        pointHoverRadius: 6,
+        pointHoverRadius: 5,
         layout: {
           padding: 30
         },
         scales: {
           x: {
-            display: true,
+            display: false,
             grid: {
               display: false
             }
@@ -22,17 +22,26 @@
             display: false
           }
         },
+        interaction: {
+          intersect: false
+        },
         plugins: {
           tooltip: {
             enabled: false
           },
           datalabels: {
-            display: true,
-            color: (context) => context.dataset.backgroundColor,
+            display: (context) => context.active || context.dataIndex === context.dataset.data.length - 1,
+            color: (context) => context.dataset.borderColor,
             font: {
               weight: 'bold'
             },
             labels: {
+              key: {
+                anchor: 'start',
+                align: 'start',
+                display: (context) => context.active,
+                formatter: (value, context) => context.dataset.labels[context.dataIndex]
+              },
               value: {
                 anchor: 'end',
                 align: 'end',
@@ -72,6 +81,8 @@
     }
   });
 
+  const backgroundColor = Utils.getValueOfCSSVar('--color-main-background');
+
   const chartData = computed<TChartData<'line'>>(() => ({
     labels: props.data.labels,
     datasets: props.data.datasets.map(dataset => {
@@ -79,8 +90,17 @@
 
       return {
         data: dataset.values,
-        borderColor: 'transparent',
-        backgroundColor: color,
+        labels: props.data.labels,
+
+        borderColor: color,
+        borderWidth: 2,
+
+        pointBackgroundColor: backgroundColor,
+        pointBorderWidth: 2,
+
+        hoverBackgroundColor: backgroundColor,
+        hoverBorderWidth: 2,
+
         cubicInterpolationMode: 'monotone',
         fill: {
           target: 'origin',

@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Improved design/layout of line charts
+
 ## [0.16.0] - 2023-04-10
 
 ### Added
