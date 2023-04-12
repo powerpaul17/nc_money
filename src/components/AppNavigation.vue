@@ -4,6 +4,7 @@
       <NcAppNavigationItem
         :title="t('money', 'Overview')"
         :to="'/'"
+        :exact="true"
       >
         <template #icon>
           <Finance />
