@@ -1,12 +1,8 @@
 <template>
-  <div class="m-8">
-    <Chart :title="t('money', 'Equity')">
-      <LineChart :data="equityLineChartData" />
-    </Chart>
-
-    <Chart :title="`${t('money', 'Assets')}/${t('money', 'Liabilities')}`">
-      <LineChart :data="assetsLiabilitiesLineChartData" />
-    </Chart>
+  <div>
+    <LineChart :data="equityChartData" :title="t('money', 'Equity')" />
+    <LineChart :data="assetsChartData" :title="t('money', 'Assets')" />
+    <LineChart :data="liabilitiesChartData" :title="t('money', 'Liabilities')" />
   </div>
 </template>
 
@@ -15,20 +11,25 @@
   import dayjs from 'dayjs';
   import colors from 'tailwindcss/colors';
 
-  import { computed } from 'vue';
+  import { computed, onBeforeMount } from 'vue';
 
-  import { useAccountStore } from '../stores/accountStore';
-  import { AccountTypeType } from '../stores/accountTypeStore';
+  import { useAccountStore } from '../../stores/accountStore';
+  import { AccountTypeType } from '../../stores/accountTypeStore';
 
-  import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
+  import { useAccountService } from '../../services/accountService';
 
-  import Chart from '../components/dashboard/Chart.vue';
+  import { GraphDataUtils } from '../../utils/graphDataUtils';
 
-  import { GraphDataUtils } from '../utils/graphDataUtils';
+  import LineChart, { type Data as LineChartData } from '../charts/LineChart.vue';
 
   const accountStore = useAccountStore();
+  const accountService = useAccountService();
 
-  const equityLineChartData = computed((): LineChartData => {
+  onBeforeMount(() => {
+    accountService.fetchAccounts();
+  });
+
+  const equityChartData = computed((): LineChartData => {
     const currentDate = dayjs();
 
     const data = GraphDataUtils.createBackwardsCalculatedGraphData({
@@ -36,7 +37,7 @@
         label: currentDate.format('MMM'),
         value: accountStore.assetsBalance + accountStore.liabilitiesBalance
       },
-      numberOfPoints: 12,
+      numberOfPoints: 6,
       callback: (num, value) => {
         const date = currentDate.subtract(num, 'months');
 
@@ -53,10 +54,10 @@
               date.year(),
               date.month() + 1
             )
-          )
+         )
         }
       }
-    });
+    })
 
     return {
       labels: data.map(d => d.label),
@@ -68,15 +69,15 @@
     };
   });
 
-  const assetsLiabilitiesLineChartData = computed((): LineChartData => {
+  const assetsChartData = computed((): LineChartData => {
     const currentDate = dayjs();
 
-    const assetsData = GraphDataUtils.createBackwardsCalculatedGraphData({
+    const data = GraphDataUtils.createBackwardsCalculatedGraphData({
       initialValue: {
         label: currentDate.format('MMM'),
         value: accountStore.assetsBalance
       },
-      numberOfPoints: 12,
+      numberOfPoints: 6,
       callback: (num, value) => {
         const date = currentDate.subtract(num, 'months');
 
@@ -91,12 +92,27 @@
       }
     });
 
-    const liabilitiesData = GraphDataUtils.createBackwardsCalculatedGraphData({
+
+    return {
+      labels: data.map(d => d.label),
+      datasets: [
+        {
+          color: colors.lime[500],
+          values: data.map(d => d.value)
+        }
+      ]
+    };
+  });
+
+  const liabilitiesChartData = computed((): LineChartData => {
+    const currentDate = dayjs();
+
+    const data = GraphDataUtils.createBackwardsCalculatedGraphData({
       initialValue: {
         label: currentDate.format('MMM'),
         value: accountStore.liabilitiesBalance
       },
-      numberOfPoints: 12,
+      numberOfPoints: 6,
       callback: (num, value) => {
         const date = currentDate.subtract(num, 'months');
 
@@ -112,15 +128,11 @@
     });
 
     return {
-      labels: assetsData.map(d => d.label),
+      labels: data.map(d => d.label),
       datasets: [
         {
-          values: assetsData.map(d => d.value),
-          color: colors.lime[500],
-        },
-        {
-          values: liabilitiesData.map(d => d.value),
           color: colors.orange[500],
+          values: data.map(d => d.value)
         }
       ]
     };

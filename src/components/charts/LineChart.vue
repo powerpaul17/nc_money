@@ -26,6 +26,11 @@
           intersect: false
         },
         plugins: {
+          title: {
+            display: !!props.title,
+            text: props.title,
+            color: textColor
+          },
           tooltip: {
             enabled: false
           },
@@ -78,9 +83,14 @@
     data: {
       type: Object as PropType<Data>,
       required: true
+    },
+    title: {
+      type: String,
+      default: ''
     }
   });
 
+  const textColor = Utils.getValueOfCSSVar('--color-main-text');
   const backgroundColor = Utils.getValueOfCSSVar('--color-main-background');
 
   const chartData = computed<TChartData<'line'>>(() => ({

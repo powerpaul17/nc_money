@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Added dashboard widget
+
 ### Changed
 
 - Improved design/layout of line charts

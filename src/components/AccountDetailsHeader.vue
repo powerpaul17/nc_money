@@ -70,6 +70,7 @@
   import { defineComponent, type PropType } from 'vue';
 
   import { ArrayUtils } from '../utils/arrayUtils';
+  import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
   import { type Account, useAccountStore } from '../stores/accountStore';
@@ -122,37 +123,33 @@
       lineChartData(): Data {
         const inversionFactor = this.isInvertedAccount ? -1 : 1;
 
-        let accountBalance = this.account.balance * inversionFactor;
         const currentDate = dayjs();
 
-        const labels: Array<string> = [];
-
-        const data = ArrayUtils.createNumberArray(12)
-          .map((num) => {
+        const data = GraphDataUtils.createBackwardsCalculatedGraphData({
+          initialValue: {
+            label: currentDate.format('MMM'),
+            value: this.account.balance * inversionFactor
+          },
+          numberOfPoints: 12,
+          callback: (num, value) => {
             const date = currentDate.subtract(num, 'months');
 
-            accountBalance -= this.accountStore.getSummary(
-              this.account.id,
-              date.year(),
-              date.month() + 1
-            ) * inversionFactor;
-
-            labels.push(date.subtract(1, 'month').format('MMM'));
-
-            return accountBalance;
-          })
-          .reverse();
-
-        labels.reverse();
-        labels.push(currentDate.format('MMM'));
-
-        data.push(this.account.balance * inversionFactor);
+            return {
+              label: date.subtract(1, 'month').format('MMM'),
+              value: value - this.accountStore.getSummary(
+                this.account.id,
+                date.year(),
+                date.month() + 1
+              ) * inversionFactor
+            }
+          }
+        })
 
         return {
-          labels,
+          labels: data.map(d => d.label),
           datasets: [
             {
-              values: data
+              values: data.map(d => d.value)
             }
           ]
         };
