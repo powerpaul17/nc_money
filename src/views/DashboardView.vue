@@ -24,107 +24,102 @@
 
   import Chart from '../components/dashboard/Chart.vue';
 
-  import { ArrayUtils } from '../utils/arrayUtils';
+  import { GraphDataUtils } from '../utils/graphDataUtils';
 
   const accountStore = useAccountStore();
 
   const equityLineChartData = computed((): LineChartData => {
-    let equity =
-      accountStore.assetsBalance +
-      accountStore.liabilitiesBalance;
-
     const currentDate = dayjs();
 
-    const labels: Array<string> = [];
-
-    const data = ArrayUtils.createNumberArray(12)
-      .map((num) => {
+    const data = GraphDataUtils.createBackwardsCalculatedGraphData({
+      initialValue: {
+        label: currentDate.format('MMM'),
+        value: accountStore.assetsBalance + accountStore.liabilitiesBalance
+      },
+      numberOfPoints: 12,
+      callback: (num, value) => {
         const date = currentDate.subtract(num, 'months');
 
-        equity -= (
-          accountStore.getSummaryByType(
-            AccountTypeType.ASSET,
-            date.year(),
-            date.month() + 1
-          ) +
-          accountStore.getSummaryByType(
-            AccountTypeType.LIABILITY,
-            date.year(),
-            date.month() + 1
+        return {
+          label: date.subtract(1, 'month').format('MMM'),
+          value: value - (
+            accountStore.getSummaryByType(
+              AccountTypeType.ASSET,
+              date.year(),
+              date.month() + 1
+            ) +
+            accountStore.getSummaryByType(
+              AccountTypeType.LIABILITY,
+              date.year(),
+              date.month() + 1
+            )
           )
-        );
-
-        labels.push(date.subtract(1, 'month').format('MMM'));
-
-        return equity;
-      })
-      .reverse();
-
-    labels.reverse();
-    labels.push(currentDate.format('MMM'))
-
-    data.push(accountStore.assetsBalance + accountStore.liabilitiesBalance);
+        }
+      }
+    });
 
     return {
-      labels,
+      labels: data.map(d => d.label),
       datasets: [
         {
-          values: data
+          values: data.map(d => d.value)
         }
       ]
     };
   });
 
   const assetsLiabilitiesLineChartData = computed((): LineChartData => {
-    let assets = accountStore.assetsBalance;
-    let liabilities = accountStore.liabilitiesBalance;
-
     const currentDate = dayjs();
 
-    const labels = [];
+    const assetsData = GraphDataUtils.createBackwardsCalculatedGraphData({
+      initialValue: {
+        label: currentDate.format('MMM'),
+        value: accountStore.assetsBalance
+      },
+      numberOfPoints: 12,
+      callback: (num, value) => {
+        const date = currentDate.subtract(num, 'months');
 
-    const assetsData = [];
-    const liabilitiesData = [];
+        return {
+          label: date.subtract(1, 'month').format('MMM'),
+          value: value - accountStore.getSummaryByType(
+            AccountTypeType.ASSET,
+            date.year(),
+            date.month() + 1
+          )
+        }
+      }
+    });
 
-    for (let num = 0; num < 12; num++) {
-      const date = currentDate.subtract(num, 'months');
+    const liabilitiesData = GraphDataUtils.createBackwardsCalculatedGraphData({
+      initialValue: {
+        label: currentDate.format('MMM'),
+        value: accountStore.liabilitiesBalance
+      },
+      numberOfPoints: 12,
+      callback: (num, value) => {
+        const date = currentDate.subtract(num, 'months');
 
-      assets -= accountStore.getSummaryByType(
-        AccountTypeType.ASSET,
-        date.year(),
-        date.month() + 1
-      );
-      assetsData.push(assets);
-
-      liabilities -= accountStore.getSummaryByType(
-        AccountTypeType.LIABILITY,
-        date.year(),
-        date.month() + 1
-      );
-      liabilitiesData.push(liabilities);
-
-      labels.push(date.subtract(1, 'month').format('MMM'));
-    }
-
-    labels.reverse();
-
-    assetsData.reverse();
-    liabilitiesData.reverse();
-
-    labels.push(currentDate.format('MMM'));
-
-    assetsData.push(accountStore.assetsBalance);
-    liabilitiesData.push(accountStore.liabilitiesBalance);
+        return {
+          label: date.subtract(1, 'month').format('MMM'),
+          value: value - accountStore.getSummaryByType(
+            AccountTypeType.LIABILITY,
+            date.year(),
+            date.month() + 1
+          )
+        }
+      }
+    });
 
     return {
-      labels,
+      labels: assetsData.map(d => d.label),
       datasets: [
         {
-          values: assetsData,
+          values: assetsData.map(d => d.value),
           color: colors.lime[500],
         },
         {
-          values: liabilitiesData,
+          values: liabilitiesData.map(d => d.value),
           color: colors.orange[500],
         }
       ]
