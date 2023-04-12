@@ -15,7 +15,7 @@
 
   import { useAccountService } from '../../services/accountService';
 
-  import { ArrayUtils } from '../../utils/arrayUtils';
+  import { GraphDataUtils } from '../../utils/graphDataUtils';
 
   import LineChart, { type Data as LineChartData } from '../charts/LineChart.vue';
 
@@ -27,47 +27,40 @@
   });
 
   const equityChartData = computed((): LineChartData => {
-    let equity =
-      accountStore.assetsBalance +
-      accountStore.liabilitiesBalance;
-
     const currentDate = dayjs();
 
-    const labels: Array<string> = [];
-
-    const data = ArrayUtils.createNumberArray(6)
-      .map((num) => {
+    const data = GraphDataUtils.createBackwardsCalculatedGraphData({
+      initialValue: {
+        label: currentDate.format('MMM'),
+        value: accountStore.assetsBalance + accountStore.liabilitiesBalance
+      },
+      numberOfPoints: 6,
+      callback: (num, value) => {
         const date = currentDate.subtract(num, 'months');
 
-        equity -= (
-          accountStore.getSummaryByType(
-            AccountTypeType.ASSET,
-            date.year(),
-            date.month() + 1
-          ) +
-          accountStore.getSummaryByType(
-            AccountTypeType.LIABILITY,
-            date.year(),
-            date.month() + 1
-          )
-        );
-
-        labels.push(date.subtract(1, 'month').format('MMM'));
-
-        return equity;
-      })
-      .reverse();
-
-    labels.reverse();
-    labels.push(currentDate.format('MMM'))
-
-    data.push(accountStore.assetsBalance + accountStore.liabilitiesBalance);
+        return {
+          label: date.subtract(1, 'month').format('MMM'),
+          value: value - (
+            accountStore.getSummaryByType(
+              AccountTypeType.ASSET,
+              date.year(),
+              date.month() + 1
+            ) +
+            accountStore.getSummaryByType(
+              AccountTypeType.LIABILITY,
+              date.year(),
+              date.month() + 1
+            )
+         )
+        }
+      }
+    })
 
     return {
-      labels,
+      labels: data.map(d => d.label),
       datasets: [
         {
-          values: data
+          values: data.map(d => d.value)
         }
       ]
     };
