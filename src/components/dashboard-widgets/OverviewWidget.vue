@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LineChart :data="equityChartData" />
+    <LineChart :data="equityChartData" :title="t('money', 'Equity')" />
   </div>
 </template>
 
