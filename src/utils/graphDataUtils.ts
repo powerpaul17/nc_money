@@ -34,6 +34,27 @@ export class GraphDataUtils {
     return data;
   }
 
+  public static createBarGraphData({
+    startDate = dayjs(),
+    numberOfMonths = 12,
+    callback
+  }: {
+    startDate?: Dayjs;
+    numberOfMonths?: number;
+    callback: (date: Dayjs) => number;
+  }): Array<GraphData> {
+    return ArrayUtils.createNumberArray(numberOfMonths)
+      .map((num) => {
+        const date = startDate.subtract(num, 'months');
+
+        return {
+          label: date.format('MMM'),
+          value: callback(date)
+        };
+      })
+      .reverse();
+  }
+
   public static createBackwardsCalculatedGraphData({
     initialValue,
     numberOfPoints,

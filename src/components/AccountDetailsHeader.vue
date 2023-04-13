@@ -69,7 +69,6 @@
 
   import { defineComponent, type PropType } from 'vue';
 
-  import { ArrayUtils } from '../utils/arrayUtils';
   import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -144,20 +143,17 @@
         };
       },
       barChartData(): Array<DataItem> {
-        return ArrayUtils.createNumberArray(12)
-          .map((num) => {
-            const date = dayjs().subtract(num, 'months');
+        return GraphDataUtils.createBarGraphData({
+          callback: (date) => {
             const summary = this.accountStore.getSummary(
               this.account.id,
               date.year(),
               date.month() + 1
             );
-            return {
-              label: date.format('MMM'),
-              value: this.isInvertedAccount ? summary * -1 : summary
-            };
-          })
-          .reverse();
+
+            return this.isInvertedAccount ? summary * -1 : summary;
+          }
+        })
       }
     },
     methods: {
