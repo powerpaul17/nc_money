@@ -1,6 +1,8 @@
 <template>
   <NcAppNavigationItem
     :title="accountType.name"
+    :to="`/accountType/${accountType.type}`"
+    :exact="true"
     :allow-collapse="collapsible"
     :open.sync="isOpen"
     icon="icon-folder"
