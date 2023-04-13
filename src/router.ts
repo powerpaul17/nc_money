@@ -2,6 +2,7 @@ import VueRouter from 'vue-router';
 
 import AccountView from './views/AccountView.vue';
 import DashboardView from './views/DashboardView.vue';
+import AccountTypeView from './views/AccountTypeView.vue';
 import Sidebar from './components/Sidebar.vue';
 
 export default new VueRouter({
@@ -25,6 +26,14 @@ export default new VueRouter({
           };
         }
       }
+    },
+    {
+      path: '/accountType/:accountTypeType',
+      name: 'account-type-view',
+      component: AccountTypeView,
+      props: (route) => ({
+        accountTypeType: Number(route.params.accountTypeType)
+      })
     }
   ]
 });
