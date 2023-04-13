@@ -1,6 +1,38 @@
+import dayjs, { Dayjs } from 'dayjs';
+
 import { ArrayUtils } from './arrayUtils';
 
 export class GraphDataUtils {
+
+  public static createLineGraphData({
+    startDate = dayjs(),
+    startValue,
+    numberOfMonths = 12,
+    callback
+  }: {
+    startDate?: Dayjs;
+    startValue: number;
+    numberOfMonths?: number;
+    callback: (date: Dayjs) => number;
+  }): Array<GraphData> {
+    const data = this.createBackwardsCalculatedGraphData({
+      initialValue: {
+        label: startDate.format('MMM'),
+        value: startValue
+      },
+      numberOfPoints: numberOfMonths,
+      callback: (num, value) => {
+        const date = startDate.subtract(num, 'months');
+
+        return {
+          label: date.subtract(1, 'month').format('MMM'),
+          value: value - callback(date)
+        };
+      }
+    });
+
+    return data;
+  }
 
   public static createBackwardsCalculatedGraphData({
     initialValue,

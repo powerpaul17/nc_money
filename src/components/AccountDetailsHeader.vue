@@ -123,25 +123,14 @@
       lineChartData(): Data {
         const inversionFactor = this.isInvertedAccount ? -1 : 1;
 
-        const currentDate = dayjs();
-
-        const data = GraphDataUtils.createBackwardsCalculatedGraphData({
-          initialValue: {
-            label: currentDate.format('MMM'),
-            value: this.account.balance * inversionFactor
-          },
-          numberOfPoints: 12,
-          callback: (num, value) => {
-            const date = currentDate.subtract(num, 'months');
-
-            return {
-              label: date.subtract(1, 'month').format('MMM'),
-              value: value - this.accountStore.getSummary(
-                this.account.id,
-                date.year(),
-                date.month() + 1
-              ) * inversionFactor
-            }
+        const data = GraphDataUtils.createLineGraphData({
+          startValue: this.account.balance * inversionFactor,
+          callback: (date) => {
+            return this.accountStore.getSummary(
+              this.account.id,
+              date.year(),
+              date.month() + 1
+            ) * inversionFactor
           }
         })
 
