@@ -47,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "Ende der Transaktionen",
     "Multiple Accounts" : "Mehrere Konten",
     "Assets" : "Vermögenswerte",
-    "Settings saved" : "Einstellungen gespeichert",
     "Liabilities" : "Verbindlichkeiten",
+    "Settings saved" : "Einstellungen gespeichert",
     "Income" : "Einkommen",
     "Expenses" : "Ausgaben"
 },

@@ -31,8 +31,8 @@ OC.L10N.register(
     "End of transactions" : "Кінець транзакції",
     "Multiple Accounts" : "Кілька облікових записів",
     "Assets" : "Активи",
-    "Settings saved" : "Налаштування збережено",
     "Liabilities" : "Зобов'язання",
+    "Settings saved" : "Налаштування збережено",
     "Income" : "Дохід",
     "Expenses" : "Витрати"
 },

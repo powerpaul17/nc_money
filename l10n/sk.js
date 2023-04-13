@@ -29,8 +29,8 @@ OC.L10N.register(
     "End of transactions" : "Koniec transakcií",
     "Multiple Accounts" : "Viacero účtov",
     "Assets" : "Majetok",
-    "Settings saved" : "Nastavenia uložené",
     "Liabilities" : "Záväzky",
+    "Settings saved" : "Nastavenia uložené",
     "Income" : "Príjmy",
     "Expenses" : "Výdaje"
 },

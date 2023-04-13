@@ -47,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "Hesap hareketlerinin sonu",
     "Multiple Accounts" : "Birkaç hesap",
     "Assets" : "Varlıklar",
-    "Settings saved" : "Ayarlar kaydedildi",
     "Liabilities" : "Sorumluluklar",
+    "Settings saved" : "Ayarlar kaydedildi",
     "Income" : "Gelirler",
     "Expenses" : "Giderler"
 },

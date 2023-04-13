@@ -27,8 +27,8 @@ OC.L10N.register(
     "Comment" : "备注",
     "Multiple Accounts" : "多账目",
     "Assets" : "资产类",
-    "Settings saved" : "已保存设置",
     "Liabilities" : "负债类",
+    "Settings saved" : "已保存设置",
     "Income" : "收入",
     "Expenses" : "支出"
 },

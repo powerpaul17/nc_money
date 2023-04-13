@@ -18,6 +18,7 @@ OC.L10N.register(
     "Yes, delete account" : "Да, изтриване на профил",
     "Add account" : "Добавяне на регистрация",
     "New Account" : "Нов профил",
+    "Overview" : "Преглед",
     "Unbalanced" : "Небалансиран",
     "Equity" : "Собствен капитал",
     "Show inverted income/liabilities account balances" : "Показване на обърнато салдо по сметките за приходите/пасивите",
@@ -46,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "Край на операциите",
     "Multiple Accounts" : "Множество сметки",
     "Assets" : "Активи",
-    "Settings saved" : "Настройките са запазени",
     "Liabilities" : "Пасиви",
+    "Settings saved" : "Настройките са запазени",
     "Income" : "Приходи",
     "Expenses" : "Разходи"
 },

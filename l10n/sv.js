@@ -45,8 +45,8 @@ OC.L10N.register(
     "End of transactions" : "Slut på transaktioner",
     "Multiple Accounts" : "Flera konton",
     "Assets" : "Tillgångar",
-    "Settings saved" : "Inställningar sparade",
     "Liabilities" : "Skulder",
+    "Settings saved" : "Inställningar sparade",
     "Income" : "Inkomster",
     "Expenses" : "Utgifter"
 },

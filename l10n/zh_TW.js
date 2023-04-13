@@ -47,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "交易結束",
     "Multiple Accounts" : "多重帳號",
     "Assets" : "資產",
-    "Settings saved" : "設定已儲存",
     "Liabilities" : "負債",
+    "Settings saved" : "設定已儲存",
     "Income" : "收入",
     "Expenses" : "支出"
 },

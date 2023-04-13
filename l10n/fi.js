@@ -34,8 +34,8 @@ OC.L10N.register(
     "Comment" : "Kommentti",
     "Multiple Accounts" : "Useita tilejä",
     "Assets" : "Varallisuus",
-    "Settings saved" : "Asetukset tallennettu",
     "Liabilities" : "Velat",
+    "Settings saved" : "Asetukset tallennettu",
     "Income" : "Tulot",
     "Expenses" : "Menot"
 },

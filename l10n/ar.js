@@ -6,6 +6,7 @@ OC.L10N.register(
     "Delete account" : "حذف الحساب",
     "Are you sure?" : "هل أنت متأكد؟",
     "Add account" : "أضف حساباً",
+    "Overview" : "نظرة شاملة",
     "Value" : "القيمة",
     "Date" : "التاريخ ",
     "Import" : "استيراد",

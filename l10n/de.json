@@ -45,8 +45,8 @@
     "End of transactions" : "Ende der Transaktionen",
     "Multiple Accounts" : "Mehrere Konten",
     "Assets" : "Vermögenswerte",
-    "Settings saved" : "Einstellungen gespeichert",
     "Liabilities" : "Verbindlichkeiten",
+    "Settings saved" : "Einstellungen gespeichert",
     "Income" : "Erträge",
     "Expenses" : "Ausgaben"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

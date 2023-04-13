@@ -47,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "Крај трансакција",
     "Multiple Accounts" : "Више налога",
     "Assets" : "Имовина",
-    "Settings saved" : "Поставке сачуване",
     "Liabilities" : "Дугови",
+    "Settings saved" : "Поставке сачуване",
     "Income" : "Приход",
     "Expenses" : "Трошкови"
 },

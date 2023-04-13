@@ -45,8 +45,8 @@
     "End of transactions" : "Fin des transactions",
     "Multiple Accounts" : "Comptes multiples",
     "Assets" : "Actif",
-    "Settings saved" : "Paramètres sauvegardés",
     "Liabilities" : "Passif",
+    "Settings saved" : "Paramètres sauvegardés",
     "Income" : "Revenus",
     "Expenses" : "Dépenses"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

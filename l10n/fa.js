@@ -25,8 +25,8 @@ OC.L10N.register(
     "Comment" : "دیدگاه",
     "Multiple Accounts" : "حساب‌های چندگانه",
     "Assets" : "دارایی‌ها",
-    "Settings saved" : "تنظیمات ذخیره شد",
     "Liabilities" : "بدهی‌ها",
+    "Settings saved" : "تنظیمات ذخیره شد",
     "Income" : "درآمد",
     "Expenses" : "هزینه‌ها"
 },

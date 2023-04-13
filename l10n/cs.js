@@ -47,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "Konec transakcí",
     "Multiple Accounts" : "Vícero účtů",
     "Assets" : "Majetek",
-    "Settings saved" : "Nastavení uložena",
     "Liabilities" : "Závazky",
+    "Settings saved" : "Nastavení uložena",
     "Income" : "Příjem",
     "Expenses" : "Výdaje"
 },

@@ -47,8 +47,8 @@ OC.L10N.register(
     "End of transactions" : "Tranzakciók vége",
     "Multiple Accounts" : "Több fiók",
     "Assets" : "Pénzeszközök",
-    "Settings saved" : "Beállítások mentve",
     "Liabilities" : "Kötelezettségek",
+    "Settings saved" : "Beállítások mentve",
     "Income" : "Bevétel",
     "Expenses" : "Kiadás"
 },

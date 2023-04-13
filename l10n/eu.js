@@ -39,8 +39,8 @@ OC.L10N.register(
     "End of transactions" : "Transakzioen bukaera",
     "Multiple Accounts" : "Hainbat kontu",
     "Assets" : "Aktiboak",
-    "Settings saved" : "Ezarpenak gordeta",
     "Liabilities" : "Pasiboak",
+    "Settings saved" : "Ezarpenak gordeta",
     "Income" : "Sarrerak",
     "Expenses" : "Gastuak"
 },

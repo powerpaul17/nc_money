@@ -26,8 +26,8 @@ OC.L10N.register(
     "Comment" : "Комментарий",
     "Multiple Accounts" : "Несколько счетов",
     "Assets" : "Активы",
-    "Settings saved" : "Настройки сохранены",
     "Liabilities" : "Пассивы",
+    "Settings saved" : "Настройки сохранены",
     "Income" : "Доходы",
     "Expenses" : "Расходы"
 },

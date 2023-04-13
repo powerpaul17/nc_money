@@ -27,8 +27,8 @@ OC.L10N.register(
     "Comment" : "Kommentar",
     "Multiple Accounts" : "Flere kontoer",
     "Assets" : "Ressurser",
-    "Settings saved" : "Innstillinger lagret",
     "Liabilities" : "Forpliktelser",
+    "Settings saved" : "Innstillinger lagret",
     "Income" : "Inntekt",
     "Expenses" : "Utgifter"
 },

@@ -38,8 +38,8 @@ OC.L10N.register(
     "End of transactions" : "Крај на трансакциите",
     "Multiple Accounts" : "Повеќе сметки",
     "Assets" : "Средства",
-    "Settings saved" : "Параматрите се зачувани",
     "Liabilities" : "Обврски",
+    "Settings saved" : "Параматрите се зачувани",
     "Income" : "Приходи",
     "Expenses" : "Трошоци"
 },
