@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Mali durum",
     "Money" : "Money",
     "Manage your finances." : "Mali durumunuzu izleyin.",
     "Finance manager for Nextcloud." : "Nextclodu için mali durum yönetimi uygulaması",

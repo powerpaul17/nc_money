@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Financial Overview",
     "Money" : "Money",
     "Manage your finances." : "Manage your finances.",
     "Finance manager for Nextcloud." : "Finance manager for Nextcloud.",

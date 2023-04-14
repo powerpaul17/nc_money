@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "財務概覽",
     "Money" : "金錢",
     "Manage your finances." : "管理您的財務。",
     "Finance manager for Nextcloud." : "Nextcloud 的財務經理。",

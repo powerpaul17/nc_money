@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Финансијски преглед",
     "Money" : "Новац",
     "Manage your finances." : "Управљајте својим финансијама.",
     "Finance manager for Nextcloud." : "Управник финансија за Некстклауд.",
