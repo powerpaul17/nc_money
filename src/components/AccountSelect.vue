@@ -1,10 +1,10 @@
 <template>
   <VueSelect
+    class="w-full min-w-0 account-select"
     :options="accounts"
     label="name"
     v-model="selectedAccount"
     :disabled="!editable"
-    :no-wrap="true"
     :append-to-body="true"
     :filter-by="
       (option, label, search) => {
@@ -27,6 +27,69 @@
     </template>
   </VueSelect>
 </template>
+
+<style>
+
+:root {
+  --vs-dropdown-bg: var(--color-main-background);
+
+  --vs-dropdown-option--active-bg: var(--color-background-hover);
+	--vs-dropdown-option--active-color: var(--color-main-text);
+}
+
+.vs__dropdown-menu {
+  --vs-border-width: 2px;
+  --vs-border-radius: var(--border-radius-large);
+}
+
+.vs__dropdown-menu {
+  --vs-border-color: var(--color-primary-element);
+}
+
+.account-select {
+  --vs-search-input-bg: transparent;
+
+  --vs-selected-color: var(--color-main-text);
+
+  --vs-border-color: transparent;
+  --vs-border-width: 2px;
+  --vs-border-radius: var(--border-radius-large);
+
+  --vs-dropdown-color: var(--color-main-text);
+}
+
+.account-select.vs--open {
+  --vs-search-input-bg: var(--color-main-background);
+}
+
+.account-select:hover,
+.account-select:focus-within {
+  --vs-border-color: var(--color-primary-element);
+}
+
+.account-select .vs__selected-options {
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+
+.account-select .vs__selected {
+  overflow: hidden;
+  margin: 0;
+}
+
+.account-select.vs--open .vs__selected {
+  position: unset;
+}
+
+.account-select .vs__dropdown-toggle {
+  padding: 0;
+}
+
+.account-select .vs__search {
+  margin: 0;
+}
+
+</style>
 
 <script setup lang="ts">
   import { computed } from 'vue';
