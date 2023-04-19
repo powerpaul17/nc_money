@@ -1,60 +1,142 @@
 <template>
-  <select
+  <VueSelect
+    class="w-full min-w-0 account-select"
+    :options="accounts"
+    label="name"
+    v-model="selectedAccount"
     :disabled="!editable"
-    v-model="selectedAccountId"
-    @change="handleSelectChange"
+    :append-to-body="true"
+    :filter-by="
+      (option, label, search) => {
+        return [ label, option.description ].join(' ').toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) >= 0;
+      }
+    "
+    :placeholder="t('money', '-- No Account --')"
   >
-    <option :value="null">
-      -- No Account --
-    </option>
-    <option
-      v-for="account in accounts"
-      :key="account.id"
-      :value="account.id"
-    >
-      {{ account.name }}
-    </option>
-  </select>
+    <template #option="account">
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap">{{ account.name }}</div>
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs">
+        <span class="uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span> {{ account.description ? `· ${account.description}` : '' }}
+      </div>
+    </template>
+
+    <template #selected-option="account" class="w-full">
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap ">
+        {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
+      </div>
+    </template>
+  </VueSelect>
 </template>
 
-<script setup lang="ts">
-  import { computed, ref, watch, type PropType } from 'vue';
+<style>
 
-  import { useAccountStore, type Account } from '../stores/accountStore';
+:root {
+  --vs-dropdown-bg: var(--color-main-background);
+
+  --vs-dropdown-option--active-bg: var(--color-background-hover);
+	--vs-dropdown-option--active-color: var(--color-main-text);
+}
+
+.vs__dropdown-menu {
+  --vs-border-width: 2px;
+  --vs-border-radius: var(--border-radius-large);
+}
+
+.vs__dropdown-menu {
+  --vs-border-color: var(--color-primary-element);
+}
+
+.account-select {
+  --vs-search-input-bg: transparent;
+
+  --vs-selected-color: var(--color-main-text);
+
+  --vs-border-color: transparent;
+  --vs-border-width: 2px;
+  --vs-border-radius: var(--border-radius-large);
+
+  --vs-dropdown-color: var(--color-main-text);
+}
+
+.account-select.vs--open {
+  --vs-search-input-bg: var(--color-main-background);
+}
+
+.account-select:hover,
+.account-select:focus-within {
+  --vs-border-color: var(--color-primary-element);
+}
+
+.account-select .vs__selected-options {
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+
+.account-select .vs__selected {
+  overflow: hidden;
+  margin: 0;
+}
+
+.account-select.vs--open .vs__selected {
+  position: unset;
+}
+
+.account-select .vs__dropdown-toggle {
+  padding: 0;
+}
+
+.account-select .vs__search {
+  margin: 0;
+}
+
+</style>
+
+<script setup lang="ts">
+  import { computed } from 'vue';
+
+  import {useAccountStore, type Account} from '../stores/accountStore';
+
+  import { AccountTypeUtils } from '../utils/accountTypeUtils';
+
+  import VueSelect from 'vue-select';
 
   const  accountStore = useAccountStore();
 
-  const props = defineProps({
-    accountId: {
-      type: Number,
-      default: null
+  const props = withDefaults(
+    defineProps<{
+      accountId?: number|null;
+      editable?: boolean;
+      excludedAccountIds?: Array<number>;
+    }>(),
+    {
+      accountId: null,
+      editable: true,
+      excludedAccountIds: () => []
+    }
+  );
+
+  const emit = defineEmits(['account-changed']);
+
+  const selectedAccount = computed({
+    get() {
+      const selectedAccount = accounts.value.find((a) => a.id === props.accountId);
+      return selectedAccount ?? null;
     },
-    editable: {
-      type: Boolean,
-      default: true
-    },
-    excludedAccountIds: {
-      type: Array as PropType<Array<number>>,
-      default: () => []
+    set(newSelectedAccount) {
+      emit('account-changed', newSelectedAccount?.id);
     }
   });
 
-  const emit = defineEmits([ 'account-changed' ]);
-
-  const selectedAccountId = ref(props.accountId);
-
   const accounts = computed((): Array<Account> => {
     return accountStore.accounts.filter(
-      (a) => !props.excludedAccountIds.includes(a.id)
-    );
-  });
+      (a) => !props.excludedAccountIds?.includes(a.id)
+    ).sort((a1, a2) => {
+      if (a1.type === a2.type) {
+        return a1.name.localeCompare(a2.name);
+      }
 
-  watch(() => props.accountId, (accountId) => {
-    selectedAccountId.value = accountId;
+      return a1.type - a2.type;
+    });
   });
-
-  function handleSelectChange(): void {
-    emit('account-changed', selectedAccountId.value);
-  }
 
 </script>

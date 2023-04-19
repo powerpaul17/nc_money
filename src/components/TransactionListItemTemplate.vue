@@ -34,7 +34,7 @@
         />
       </slot>
     </div>
-    <div class="justify-center">
+    <div class="justify-center min-w-0">
       <slot name="account">
         <div
           v-if="isLoading"
