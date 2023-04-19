@@ -1,5 +1,5 @@
 <template>
-  <NcSelect
+  <VueSelect
     :options="accounts"
     label="name"
     v-model="selectedAccount"
@@ -24,18 +24,17 @@
         {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
       </div>
     </template>
-  </NcSelect>
+  </VueSelect>
 </template>
 
 <script setup lang="ts">
   import { computed } from 'vue';
 
   import {useAccountStore, type Account} from '../stores/accountStore';
-  import type {AccountTypeType} from '../stores/accountTypeStore';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
-  import NcSelect from '@nextcloud/vue/dist/Components/NcSelect';
+  import VueSelect from 'vue-select';
 
   const  accountStore = useAccountStore();
 
