@@ -66,7 +66,13 @@
   const accounts = computed((): Array<Account> => {
     return accountStore.accounts.filter(
       (a) => !props.excludedAccountIds?.includes(a.id)
-    );
+    ).sort((a1, a2) => {
+      if (a1.type === a2.type) {
+        return a1.name.localeCompare(a2.name);
+      }
+
+      return a1.type - a2.type;
+    });
   });
 
 </script>
