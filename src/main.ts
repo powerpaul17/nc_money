@@ -8,6 +8,7 @@ import './css/main.css';
 
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import '@nextcloud/dialogs/styles/toast.scss';
+import 'vue-select/dist/vue-select.css';
 
 import { useSettingService } from './services/settingService';
 
