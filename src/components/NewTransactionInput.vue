@@ -18,6 +18,7 @@
 
     <template #account>
       <AccountSelect
+        :account-id="destAccountId"
         :excluded-account-ids="[accountId]"
         @account-changed="(accountId) => (destAccountId = accountId)"
       />
