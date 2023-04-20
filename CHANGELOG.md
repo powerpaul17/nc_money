@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.18.0] - 2023-04-20
+
 ### Changed
 
 - Improved account selection component
