@@ -21,8 +21,14 @@
     </template>
 
     <template #selected-option="account" class="w-full">
-      <div class="overflow-hidden text-ellipsis whitespace-nowrap ">
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap">
         {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
+      </div>
+    </template>
+
+    <template #no-options="{ search }">
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+        {{ search ? t('money', 'No account found...') : t('money', 'No account available...') }}
       </div>
     </template>
   </VueSelect>
