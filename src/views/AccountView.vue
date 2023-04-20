@@ -10,7 +10,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  import { useAccountStore } from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
 
   import AccountDetails from '../components/AccountDetails.vue';
 
@@ -33,8 +33,8 @@
       }
     },
     watch: {
-      selectedAccount() {
-        this.forceRerender();
+      selectedAccount(newAccount: Account, oldAccount?: Account) {
+        if(newAccount.id !== oldAccount?.id) this.forceRerender();
       }
     },
     methods: {
