@@ -17,6 +17,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "¡Todas las transacciones de esta cuenta serán eliminadas!",
     "No, go back" : "No, regresar",
     "Yes, delete account" : "Si, eliminar cuenta",
+    "-- No Account --" : "-- Sin Cuenta --",
     "Add account" : "Añadir cuenta",
     "New Account" : "Nueva cuenta",
     "Overview" : "Vista general",
