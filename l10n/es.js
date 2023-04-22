@@ -18,6 +18,8 @@ OC.L10N.register(
     "No, go back" : "No, regresar",
     "Yes, delete account" : "Si, eliminar cuenta",
     "-- No Account --" : "-- Sin Cuenta --",
+    "No account found..." : "No se encontró ninguna cuenta...",
+    "No account available..." : "No hay cuentas disponibles...",
     "Add account" : "Añadir cuenta",
     "New Account" : "Nueva cuenta",
     "Overview" : "Vista general",
