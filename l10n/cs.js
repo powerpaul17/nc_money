@@ -17,6 +17,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Veškeré transakce související s tímto účtem budou smazány!",
     "No, go back" : "Ne, jít zpět",
     "Yes, delete account" : "Ano, smazat účet",
+    "-- No Account --" : "-- Źádný účet --",
     "Add account" : "Přidat účet",
     "New Account" : "Nový účet",
     "Overview" : "Přehled",
