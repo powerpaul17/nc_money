@@ -18,6 +18,8 @@ OC.L10N.register(
     "No, go back" : "不，不要刪除",
     "Yes, delete account" : "是，刪除帳號",
     "-- No Account --" : "-- 無帳號 --",
+    "No account found..." : "找不到帳號……",
+    "No account available..." : "無可用帳號……",
     "Add account" : "新增帳號",
     "New Account" : "新帳號",
     "Overview" : "概覽",
