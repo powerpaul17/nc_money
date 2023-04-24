@@ -70,6 +70,34 @@ describe('NumberUtils', () => {
 
   });
 
+  const shouldBeZero = 0.1 + 0.2 - 0.3;
+
+  describe('areEqual', () => {
+
+    it('should return true if numbers are equal', () => {
+      expect(NumberUtils.areEqual(shouldBeZero, 0.0)).to.be.true;
+      expect(NumberUtils.areEqual(0.0, shouldBeZero)).to.be.true;
+    });
+
+    it('should return false if numbers are not equal', () => {
+      expect(NumberUtils.areEqual(0.3000000005, 0.3)).to.be.false;
+    });
+
+  });
+
+  describe('areNotEqual', () => {
+
+    it('should return true if numbers are not equal', () => {
+      expect(NumberUtils.areNotEqual(0.3000000005, 0.3)).to.be.true;
+    });
+
+    it('should return false if numbers are equal', () => {
+      expect(NumberUtils.areNotEqual(shouldBeZero, 0.0)).to.be.false;
+      expect(NumberUtils.areNotEqual(0.0, shouldBeZero)).to.be.false;
+    });
+
+  });
+
   describe('roundToPrecision', () => {
 
     it('should round a number to a precision', () => {

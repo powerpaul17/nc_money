@@ -60,6 +60,14 @@ export class NumberUtils {
         .replace('#', '.'));
   }
 
+  public static areEqual(num1: number, num2: number): boolean {
+    return this.roundToPrecision(num1) === this.roundToPrecision(num2);
+  }
+
+  public static areNotEqual(num1: number, num2: number): boolean {
+    return !this.areEqual(num1, num2);
+  }
+
   public static roundToPrecision(number: number, precision: number = 15): number {
     return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
   }
