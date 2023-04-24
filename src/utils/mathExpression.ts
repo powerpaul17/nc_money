@@ -1,10 +1,13 @@
+import { NumberUtils } from '../utils/numberUtils';
+
 export function useMathExpression(): {
   evaluate: (expression: string, previousValue?: number) => number
   } {
 
   function evaluate(expression: string, previousValue = 0.0): number {
     expression = expression.replace(/ /g, '');
-    return addition(expression, previousValue);
+    const result = addition(expression, previousValue);
+    return NumberUtils.roundToPrecision(result);
   }
 
   function addition(expression: string, previousValue: number): number {

@@ -18,5 +18,8 @@ describe('mathExpression', () => {
     expect(mathExpression.evaluate('25%')).to.equal(0.0);
     expect(mathExpression.evaluate('25%', 120)).to.equal(30);
     expect(mathExpression.evaluate('100*2%')).to.equal(200);
+
+    expect(mathExpression.evaluate('0.1 + 0.2')).to.equal(0.3);
+    expect(mathExpression.evaluate('0.1 + 0.2 - 0.3')).to.equal(0.0);
   });
 });
