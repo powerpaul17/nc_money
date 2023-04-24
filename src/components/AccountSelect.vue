@@ -11,7 +11,7 @@
         return [ label, option.description ].join(' ').toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) >= 0;
       }
     "
-    :placeholder="t('money', '-- No Account --')"
+    :placeholder="`-- ${t('money', 'No Account')} --`"
   >
     <template #option="account">
       <div class="overflow-hidden text-ellipsis whitespace-nowrap">{{ account.name }}</div>
