@@ -70,4 +70,13 @@ describe('NumberUtils', () => {
 
   });
 
+  describe('roundToPrecision', () => {
+
+    it('should round a number to a precision', () => {
+      expect(NumberUtils.roundToPrecision(0.12345678, 2)).to.equal(0.12);
+      expect(NumberUtils.roundToPrecision(0.1 + 0.2)).to.equal(0.3);
+    });
+
+  });
+
 });
