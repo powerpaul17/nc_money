@@ -51,6 +51,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
+  import { NumberUtils } from '../utils/numberUtils';
+
   import { useTransactionService } from '../services/transactionService';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
@@ -81,7 +83,7 @@
     },
     computed: {
       isValid() {
-        return this.value !== 0.0;
+        return NumberUtils.areNotEqual(this.value, 0.0);
       }
     },
     methods: {

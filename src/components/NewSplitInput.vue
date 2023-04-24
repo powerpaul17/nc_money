@@ -43,6 +43,8 @@
 <script lang="ts">
   import { defineComponent, type PropType } from 'vue';
 
+  import { NumberUtils } from '../utils/numberUtils';
+
   import { useSplitService } from '../services/splitService';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
@@ -84,7 +86,7 @@
     },
     computed: {
       isValid() {
-        return this.destAccountId != null && this.value !== 0.0;
+        return this.destAccountId != null && NumberUtils.areNotEqual(this.value, 0.0);
       }
     },
     methods: {

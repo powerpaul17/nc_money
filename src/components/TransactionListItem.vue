@@ -108,6 +108,8 @@
 
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
 
+  import { NumberUtils } from '../utils/numberUtils';
+
   import type { Transaction } from '../stores/transactionStore';
   import { useTransactionService } from '../services/transactionService';
   import { useSplitStore, type Split } from '../stores/splitStore';
@@ -189,7 +191,7 @@
         return this.splits.reduce((value, s) => (value += s.value), 0.0);
       },
       isUnbalanced() {
-        return this.unbalancedValue !== 0.0;
+        return NumberUtils.areNotEqual(this.unbalancedValue, 0.0);
       },
       excludedAccountIds(): Array<number> {
         if (this.accountId) {
