@@ -17,6 +17,8 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Bu hesabın tüm işlemleri silinecek!",
     "No, go back" : "Hayır, geri dön",
     "Yes, delete account" : "Evet, hesabı sil",
+    "No account found..." : "Herhangi bir hesap bulunamadı...",
+    "No account available..." : "Kullanılabilecek bir hesap yok...",
     "Add account" : "Hesap ekle",
     "New Account" : "Hesap ekle",
     "Overview" : "Özet",

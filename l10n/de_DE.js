@@ -17,7 +17,6 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Alle Transaktionen dieses Kontos werden gelöscht!",
     "No, go back" : "Nein, zurückkehren",
     "Yes, delete account" : "Ja, Konto bitte löschen",
-    "-- No Account --" : "-- Kein Konto --",
     "No account found..." : "Kein Konto gefunden...",
     "No account available..." : "Kein Konto verfügbar...",
     "Add account" : "Konto hinzufügen",

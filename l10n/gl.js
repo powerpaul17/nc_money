@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "Diñeiro",
     "Name" : "Nome",
     "Description" : "Descrición",
     "Delete account" : "Eliminar a conta",

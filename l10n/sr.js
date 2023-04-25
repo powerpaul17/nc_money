@@ -17,6 +17,8 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Обрисаће се све трансакције овог рачуна",
     "No, go back" : "Не, врати се",
     "Yes, delete account" : "Да, обриши рачун",
+    "No account found..." : "Није пронађен ниједан налог...",
+    "No account available..." : "Није доступан ниједан налог...",
     "Add account" : "Додај рачун",
     "New Account" : "Нови рачун",
     "Overview" : "Преглед",
