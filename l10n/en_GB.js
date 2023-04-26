@@ -17,6 +17,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "All transactions of this account will be deleted!",
     "No, go back" : "No, do not delete account",
     "Yes, delete account" : "Yes, delete account",
+    "No Account" : "No Account",
     "No account found..." : "No account found...",
     "No account available..." : "No account available...",
     "Add account" : "Add account",

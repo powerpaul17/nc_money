@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Finanzübersicht",
     "Money" : "Geld",
     "Manage your finances." : "Verwalte deine Finanzen.",
     "Finance manager for Nextcloud." : "Finanzmanager für Nextcloud.",
@@ -16,6 +17,9 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Alle Transaktionen dieses Kontos werden gelöscht!",
     "No, go back" : "Nein, bitte zurück",
     "Yes, delete account" : "Ja, Konto wirklich löschen.",
+    "No Account" : "Kein Konto",
+    "No account found..." : "Kein Konto gefunden...",
+    "No account available..." : "Kein Konto verfügbar...",
     "Add account" : "Konto anlegen",
     "New Account" : "Neues Konto",
     "Overview" : "Übersicht",

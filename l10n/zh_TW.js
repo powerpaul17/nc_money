@@ -17,6 +17,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "此帳號的所有交易將被刪除！",
     "No, go back" : "不，不要刪除",
     "Yes, delete account" : "是，刪除帳號",
+    "No Account" : "無帳號",
     "No account found..." : "找不到帳號……",
     "No account available..." : "無可用帳號……",
     "Add account" : "新增帳號",
