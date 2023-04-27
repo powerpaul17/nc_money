@@ -68,7 +68,7 @@ export class NumberUtils {
     return !this.areEqual(num1, num2);
   }
 
-  public static roundToPrecision(number: number, precision: number = 15): number {
+  public static roundToPrecision(number: number, precision: number = 10): number {
     return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
   }
 
