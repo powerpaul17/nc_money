@@ -78,7 +78,7 @@
     labels: props.data.map((d) => d.label),
     datasets: [
       {
-        data: props.data.map((d) => d.value),
+        data: props.data.map((d) => NumberUtils.roundToPrecision(d.value)),
         borderWidth: 2,
         borderColor: Utils.convertHexToRgba(color),
         backgroundColor: Utils.convertHexToRgba(color, 0.2)

@@ -99,7 +99,7 @@
       const color = dataset.color ?? Utils.getValueOfCSSVar('--color-primary-element');
 
       return {
-        data: dataset.values,
+        data: dataset.values.map(v => NumberUtils.roundToPrecision(v)),
         labels: props.data.labels,
 
         borderColor: color,
