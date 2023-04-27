@@ -61,9 +61,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
       currency: data.currency,
       type: data.type,
       balance: data.balance,
-      stats: data.stats,
-      hidden: !!data.hidden,
-      archived: !!data.archived
+      stats: data.stats
     };
   }
 
@@ -75,9 +73,7 @@ export const useAccountApiService = defineStore('accountApiService', () => {
       currency: data.currency,
       type: data.type,
       balance: data.balance,
-      stats: data.stats,
-      hidden: data.hidden ? 1 : 0,
-      archived: data.archived ? 1 : 0
+      stats: data.stats
     };
   }
 
