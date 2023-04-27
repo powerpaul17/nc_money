@@ -6,7 +6,7 @@ import { defineStore } from 'pinia';
 export const useSettingApiService = defineStore('settingApiService', () => {
 
   async function loadSettings(): Promise<SettingsApiData> {
-    const response = await axios.get(generateUrl('apps/money/settings'));
+    const response = await axios.get<SettingsApiData>(generateUrl('apps/money/settings'));
     return response.data;
   }
 

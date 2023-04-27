@@ -21,4 +21,4 @@ new Vue({
 });
 
 const settingService = useSettingService();
-settingService.loadSettings();
+void settingService.loadSettings();

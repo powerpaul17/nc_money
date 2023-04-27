@@ -6,7 +6,7 @@ export class ArrayUtils {
     return array.reduce<Array<Array<T>>>((chunks, item, index) => {
       return index % chunkSize === 0
         ? [ ...chunks, [ item ] ]
-        : [ ...chunks.slice(0, -1), [ ...chunks.slice(-1)[0], item ] ];
+        : [ ...chunks.slice(0, -1), [ ...chunks.slice(-1)[0] ?? [], item ] ];
     }, []);
   }
 
