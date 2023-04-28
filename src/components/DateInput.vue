@@ -6,53 +6,48 @@
   />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+
   import dayjs from 'dayjs';
 
-  import { defineComponent } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
 
   import SeamlessInput from './SeamlessInput.vue';
 
-  export default defineComponent({
-    props: {
-      date: {
-        type: Date,
-        required: true
-      },
-      placeholder: {
-        type: String,
-        default: ''
-      }
+  const props = defineProps({
+    date: {
+      type: Date,
+      required: true
     },
-    emits: [ 'date-changed' ],
-    data() {
-      return {
-        dateValue: ''
-      };
-    },
-    watch: {
-      formattedDate() {
-        this.dateValue = this.formattedDate;
-      }
-    },
-    computed: {
-      formattedDate() {
-        return dayjs(this.date).format('L');
-      }
-    },
-    methods: {
-      handleDateValueChanged(newDateValue: string) {
-        this.dateValue = this.formattedDate;
-
-        const newDate = dayjs(newDateValue, 'L').toDate();
-        if (!Number.isNaN(newDate.valueOf())) {
-          this.$emit('date-changed', newDate);
-        }
-      }
-    },
-    mounted() {
-      this.dateValue = this.formattedDate;
-    },
-    components: { SeamlessInput }
+    placeholder: {
+      type: String,
+      default: ''
+    }
   });
+
+  const emit = defineEmits(['date-changed'])
+
+  const dateValue = ref('');
+
+  const formattedDate = computed(() => {
+    return dayjs(props.date).format('L');
+  });
+
+  watch(formattedDate, () => {
+    dateValue.value = formattedDate.value;
+  })
+
+  function handleDateValueChanged(newDateValue: string) {
+    dateValue.value = formattedDate.value;
+
+    const newDate = dayjs(newDateValue, 'L').toDate();
+    if (!Number.isNaN(newDate.valueOf())) {
+      emit('date-changed', newDate);
+    }
+  }
+
+  onMounted(() => {
+    dateValue.value = formattedDate.value;
+  });
+
 </script>
