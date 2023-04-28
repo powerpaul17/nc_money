@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Use date picker for date inputs
+
 ## [0.18.0] - 2023-04-20
 
 ### Changed
