@@ -1,58 +1,72 @@
 <template>
-  <SeamlessInput
-    :value="dateValue"
+  <NcDatetimePicker
+    class="date-input"
+    v-model="dateValue"
+    :append-to-body="true"
     :placeholder="placeholder"
-    @value-changed="handleDateValueChanged"
+    :formatter="formatter"
+    :disabled="!editable"
   />
 </template>
 
-<script lang="ts">
+<style>
+
+.date-input.mx-datepicker .mx-input-wrapper .mx-input {
+  background: transparent !important;
+  border: 2px solid transparent !important;
+  box-shadow: none;
+}
+
+.date-input.mx-datepicker:not(.disabled) .mx-input-wrapper .mx-input:hover,
+.date-input.mx-datepicker .mx-input-wrapper .mx-input:focus {
+  border-color: var(--color-primary-element) !important;
+}
+
+</style>
+
+<script setup lang="ts">
+
   import dayjs from 'dayjs';
 
-  import { defineComponent } from 'vue';
+  import { computed } from 'vue';
 
-  import SeamlessInput from './SeamlessInput.vue';
+  import NcDatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker';
 
-  export default defineComponent({
-    props: {
-      date: {
-        type: Date,
-        required: true
-      },
-      placeholder: {
-        type: String,
-        default: ''
-      }
+  const props = defineProps({
+    date: {
+      type: Date,
+      required: true
     },
-    emits: [ 'date-changed' ],
-    data() {
-      return {
-        dateValue: ''
-      };
+    placeholder: {
+      type: String,
+      default: ''
     },
-    watch: {
-      formattedDate() {
-        this.dateValue = this.formattedDate;
-      }
-    },
-    computed: {
-      formattedDate() {
-        return dayjs(this.date).format('L');
-      }
-    },
-    methods: {
-      handleDateValueChanged(newDateValue: string) {
-        this.dateValue = this.formattedDate;
-
-        const newDate = dayjs(newDateValue, 'L').toDate();
-        if (!Number.isNaN(newDate.valueOf())) {
-          this.$emit('date-changed', newDate);
-        }
-      }
-    },
-    mounted() {
-      this.dateValue = this.formattedDate;
-    },
-    components: { SeamlessInput }
+    editable: {
+      type: Boolean,
+      default: true
+    }
   });
+
+  const emit = defineEmits(['date-changed']);
+
+  const dateValue = computed({
+    get() {
+      return props.date;
+    },
+    set(newDateValue) {
+      const newDate = newDateValue ?? dayjs().toDate();
+      emit('date-changed', newDate);
+    }
+  });
+
+  const formatter = {
+    stringify: (date: Date) => dayjs(date).format('L'),
+    parse: (value: string) => getDateFromValue(value)
+  };
+
+  function getDateFromValue(value: string): Date {
+    const date = ['L', 'D', 'DD'].map(f => dayjs(value, f)).find(djs => djs.isValid());
+    return (date ?? dayjs()).toDate();
+  }
+
 </script>
