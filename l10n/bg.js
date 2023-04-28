@@ -17,6 +17,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Всички транзакции на този профил ще бъдат изтрити!",
     "No, go back" : "Не, връщане назад",
     "Yes, delete account" : "Да, изтриване на профил",
+    "No Account" : "Без Профил",
     "No account found..." : "Не е открит профил ...",
     "No account available..." : "Няма наличен профил ...",
     "Add account" : "Добавяне на регистрация",
