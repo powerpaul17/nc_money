@@ -68,7 +68,7 @@
   --vs-search-input-bg: var(--color-main-background);
 }
 
-.account-select:hover,
+.account-select:hover:not(.vs--disabled),
 .account-select:focus-within {
   --vs-border-color: var(--color-primary-element);
 }
