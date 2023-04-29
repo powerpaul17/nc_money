@@ -22,6 +22,7 @@ OC.L10N.register(
     "Column Separator" : "Разделитель столбцов",
     "Date Format" : "Формат даты",
     "Column Selection" : "Выбор столбцов",
+    "Not selected" : "Не выбрано",
     "Import" : "Импортировать",
     "Comment" : "Комментарий",
     "Multiple Accounts" : "Несколько счетов",
