@@ -14,6 +14,8 @@ OC.L10N.register(
     "Are you sure?" : "Ziur zaude?",
     "No, go back" : "Ez, joan atzera",
     "Yes, delete account" : "Bai, ezabatu kontua",
+    "No account found..." : "Ez da konturik aurkitu...",
+    "No account available..." : "Ez dago konturik eskuragarri...",
     "Add account" : "Gehitu kontua",
     "New Account" : "Kontu berria",
     "Overview" : "Ikuspegi orokorra",
