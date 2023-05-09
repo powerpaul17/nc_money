@@ -30,9 +30,8 @@
         v-if="isLoading"
         class="icon-loading-small"
       />
-      <div
+      <Plus
         v-else
-        class="icon-confirm"
         :class="{ 'opacity-25': !isValid }"
         @click="isValid && handleSubmitSplitClick()"
       />
@@ -46,6 +45,8 @@
   import { NumberUtils } from '../utils/numberUtils';
 
   import { useSplitService } from '../services/splitService';
+
+  import Plus from 'vue-material-design-icons/Plus.vue';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import SeamlessInput from './SeamlessInput.vue';
@@ -126,7 +127,8 @@
       SeamlessInput,
       AccountSelect,
       CurrencyInput,
-      TransactionListItemTemplate
+      TransactionListItemTemplate,
+      Plus
     }
   });
 </script>

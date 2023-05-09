@@ -38,9 +38,8 @@
         v-if="isLoading"
         class="icon-loading-small"
       />
-      <div
+      <Plus
         v-else
-        class="icon-confirm"
         :class="{ 'opacity-25': !isValid }"
         @click="() => isValid && handleSubmitTransactionClick()"
       />
@@ -54,6 +53,8 @@
   import { NumberUtils } from '../utils/numberUtils';
 
   import { useTransactionService } from '../services/transactionService';
+
+  import Plus from 'vue-material-design-icons/Plus.vue'
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -119,7 +120,8 @@
       CurrencyInput,
       DateInput,
       SeamlessInput,
-      TransactionListItemTemplate
+      TransactionListItemTemplate,
+      Plus
     }
   });
 </script>
