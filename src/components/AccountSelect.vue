@@ -60,6 +60,8 @@
   --vs-border-radius: var(--border-radius-large);
 
   --vs-dropdown-color: var(--color-main-text);
+
+  --vs-disabled-bg: transparent;
 }
 
 .account-select.vs--open {
