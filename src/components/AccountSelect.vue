@@ -36,13 +36,6 @@
 
 <style>
 
-:root {
-  --vs-dropdown-bg: var(--color-main-background);
-
-  --vs-dropdown-option--active-bg: var(--color-background-hover);
-	--vs-dropdown-option--active-color: var(--color-main-text);
-}
-
 .vs__dropdown-menu {
   --vs-border-width: 2px;
   --vs-border-radius: var(--border-radius-large);
@@ -53,6 +46,11 @@
 }
 
 .account-select {
+  --vs-dropdown-bg: var(--color-main-background);
+
+  --vs-dropdown-option--active-bg: var(--color-background-hover);
+  --vs-dropdown-option--active-color: var(--color-main-text);
+
   --vs-search-input-bg: transparent;
 
   --vs-selected-color: var(--color-main-text);
