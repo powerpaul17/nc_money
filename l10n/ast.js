@@ -3,11 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nome",
     "Description" : "Descripción",
-    "Delete account" : "Desaniciar cuenta",
-    "Add account" : "Amestar cuenta",
-    "Date" : "Date",
-    "Import" : "Importar",
-    "Comment" : "Comentariu",
-    "Settings saved" : "Axustes guardaos"
+    "Value" : "Valor",
+    "Date" : "Data"
 },
 "nplurals=2; plural=(n != 1);");
