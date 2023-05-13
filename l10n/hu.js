@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Pénzügyi áttekintés",
     "Money" : "Pénz",
     "Manage your finances." : "Kezelje pénzügyeit.",
     "Finance manager for Nextcloud." : "Pénzügykezelő a Nextcloudhoz.",
@@ -16,6 +17,9 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "A fiók összes tranzakciója törölve lesz.",
     "No, go back" : "Nem, ugrás vissza",
     "Yes, delete account" : "Igen, a fiók törlése",
+    "No Account" : "Nincs fiók",
+    "No account found..." : "Nem található fiók…",
+    "No account available..." : "Nincs elérhető fiók…",
     "Add account" : "Fiók hozzáadása",
     "New Account" : "Új fiók",
     "Overview" : "Áttekintés",
