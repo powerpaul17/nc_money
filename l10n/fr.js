@@ -18,6 +18,7 @@ OC.L10N.register(
     "No, go back" : "Non, retour",
     "Yes, delete account" : "Oui, supprimer le compte",
     "No account found..." : "Pas de compte trouvé",
+    "No account available..." : "Aucun compte disponible...",
     "Add account" : "Ajouter un compte",
     "New Account" : "Nouveau compte",
     "Overview" : "Vue d'ensemble",

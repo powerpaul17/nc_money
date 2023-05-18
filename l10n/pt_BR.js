@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Visão geral financeira",
     "Money" : "Dinheiro",
     "Manage your finances." : "Gerencie suas finanças.",
     "Finance manager for Nextcloud." : "Gerenciador de finanças para o Nextcloud.",
