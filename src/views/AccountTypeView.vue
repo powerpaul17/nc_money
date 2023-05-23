@@ -1,5 +1,9 @@
 <template>
   <NcAppContent>
+    <template #list>
+      <AccountList :account-type="accountTypeType" />
+    </template>
+
     <div class="m-8">
       <Chart :title="accountType ? accountType.name : ''">
         <LineChart
@@ -25,6 +29,8 @@
   import { useSettingStore } from '../stores/settingStore';
 
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
+
+  import AccountList from '../components/AccountList.vue';
 
   import Chart from '../components/dashboard/Chart.vue';
   import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';

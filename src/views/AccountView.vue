@@ -2,6 +2,13 @@
   <NcAppContent
     v-if="renderComponent"
   >
+    <template #list>
+      <AccountList
+        v-if="selectedAccount"
+        :account-type="selectedAccount.type"
+      />
+    </template>
+
     <AccountDetails
       v-if="selectedAccount"
       :account="selectedAccount"
@@ -16,6 +23,7 @@
 
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
 
+  import AccountList from '../components/AccountList.vue';
   import AccountDetails from '../components/AccountDetails.vue';
 
   export default defineComponent({
@@ -51,6 +59,7 @@
     },
     components: {
       NcAppContent,
+      AccountList,
       AccountDetails
     }
   });
