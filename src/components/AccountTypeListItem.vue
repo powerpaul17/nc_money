@@ -3,10 +3,8 @@
     :title="accountType.name"
     :to="`/accountType/${accountType.type}`"
     :exact="true"
-    :allow-collapse="collapsible"
-    :open.sync="isOpen"
+    :allow-collapse="false"
     icon="icon-folder"
-    :class="{ 'mb-5': collapsible && isOpen }"
   >
     <template #counter>
       <CurrencyText
@@ -82,7 +80,6 @@
     data() {
       return {
         balance: this.getAccountTypeBalance(),
-        isOpen: true,
         AccountTypeUtils
       };
     },
@@ -97,9 +94,6 @@
     computed: {
       accounts() {
         return this.accountStore.getByType(this.accountType.type);
-      },
-      collapsible() {
-        return !!this.accounts.length;
       }
     },
     methods: {
@@ -124,8 +118,6 @@
         });
 
         this.$router.push(`/account/${newAccount.id}`);
-
-        this.isOpen = true;
       }
     },
     setup() {
