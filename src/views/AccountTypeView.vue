@@ -1,10 +1,18 @@
 <template>
-  <div class="m-8">
-    <Chart :title="accountType ? accountType.name : ''">
-      <LineChart v-if="!isMonthlyAccountType" :data="lineChartData" />
-      <BarChart v-else :data="barChartData" />
-    </Chart>
-  </div>
+  <NcAppContent>
+    <div class="m-8">
+      <Chart :title="accountType ? accountType.name : ''">
+        <LineChart
+          v-if="!isMonthlyAccountType"
+          :data="lineChartData"
+        />
+        <BarChart
+          v-else
+          :data="barChartData"
+        />
+      </Chart>
+    </div>
+  </NcAppContent>
 </template>
 
 <script setup lang="ts">
@@ -15,6 +23,8 @@
   import { useAccountStore } from '../stores/accountStore';
 
   import { useSettingStore } from '../stores/settingStore';
+
+  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
 
   import Chart from '../components/dashboard/Chart.vue';
   import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';

@@ -1,13 +1,15 @@
 <template>
-  <div class="m-8">
-    <Chart :title="t('money', 'Equity')">
-      <LineChart :data="equityLineChartData" />
-    </Chart>
+  <NcAppContent>
+    <div class="m-8">
+      <Chart :title="t('money', 'Equity')">
+        <LineChart :data="equityLineChartData" />
+      </Chart>
 
-    <Chart :title="`${t('money', 'Assets')}/${t('money', 'Liabilities')}`">
-      <LineChart :data="assetsLiabilitiesLineChartData" />
-    </Chart>
-  </div>
+      <Chart :title="`${t('money', 'Assets')}/${t('money', 'Liabilities')}`">
+        <LineChart :data="assetsLiabilitiesLineChartData" />
+      </Chart>
+    </div>
+  </NcAppContent>
 </template>
 
 <script setup lang="ts">
@@ -18,6 +20,8 @@
 
   import { useAccountStore } from '../stores/accountStore';
   import { AccountTypeType } from '../stores/accountTypeStore';
+
+  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
 
   import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
 

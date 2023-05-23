@@ -1,16 +1,20 @@
 <template>
-  <div v-if="renderComponent">
+  <NcAppContent
+    v-if="renderComponent"
+  >
     <AccountDetails
       v-if="selectedAccount"
       :account="selectedAccount"
     />
-  </div>
+  </NcAppContent>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { useAccountStore, type Account } from '../stores/accountStore';
+
+  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
 
   import AccountDetails from '../components/AccountDetails.vue';
 
@@ -45,6 +49,9 @@
         });
       }
     },
-    components: { AccountDetails }
+    components: {
+      NcAppContent,
+      AccountDetails
+    }
   });
 </script>
