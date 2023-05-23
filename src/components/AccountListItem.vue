@@ -85,10 +85,12 @@
   </NcAppNavigationItem>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import dayjs from 'dayjs';
 
-  import { defineComponent, type PropType } from 'vue';
+  import { ref, watch, type PropType, type Ref } from 'vue';
+
+  import { useRoute, useRouter } from 'vue2-helpers/vue-router';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -106,85 +108,67 @@
   import Delete from 'vue-material-design-icons/Delete.vue';
 
   import CurrencyText from './CurrencyText.vue';
-  export default defineComponent({
-    components: {
-      NcAppNavigationItem,
-      CurrencyText,
-      NcActionButton,
-      ArrowLeft,
-      Delete,
-      NcModal,
-      NcButton
-    },
-    setup() {
-      return {
-        settingStore: useSettingStore(),
-        accountService: useAccountService(),
-        AccountTypeUtils
-      };
-    },
-    data(): {
-      balance: number;
-      isLoading: boolean;
-      showDeleteConfirmationDialog: boolean;
-      deleteAccountTimeout: number|null;
-    } {
-      return {
-        balance: this.getAccountBalance(),
-        isLoading: false,
-        showDeleteConfirmationDialog: false,
-        deleteAccountTimeout: null
-      };
-    },
-    props: {
-      account: {
-        type: Object as PropType<Account>,
-        required: true
-      }
-    },
-    watch: {
-      account: {
-        handler() {
-          this.balance = this.getAccountBalance();
-        },
-        deep: true
-      }
-    },
-    methods: {
-      getAccountBalance() {
-        if (AccountTypeUtils.isMonthlyAccount(this.account.type)) {
-          const date = dayjs();
-          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
-        } else {
-          return this.account.balance;
-        }
-      },
-      async handleUpdateAccountName(accountName: string): Promise<void> {
-        this.account.name = accountName;
 
-        this.isLoading = true;
-        await this.accountService.updateAccount(this.account);
-        this.isLoading = false;
-      },
-      handleDeleteAccount(): void {
-        this.showDeleteConfirmationDialog = false;
+  const route = useRoute();
+  const router = useRouter();
 
-        if (this.deleteAccountTimeout != null) return;
+  const settingStore = useSettingStore();
+  const accountService = useAccountService();
+  // AccountTypeUtils
 
-        this.deleteAccountTimeout = window.setTimeout(() => {
-          if (Number(this.$route.params.accountId) === this.account.id)
-            this.$router.push('/');
+  const balance = ref(getAccountBalance());
+  const isLoading = ref(false);
+  const showDeleteConfirmationDialog = ref(false);
+  const deleteAccountTimeout: Ref<null|number> = ref(null);
 
-          this.accountService.deleteAccount(this.account.id);
-        }, 10000);
-      },
-      handleUndo(): void {
-        if (this.deleteAccountTimeout != null) {
-          window.clearTimeout(this.deleteAccountTimeout);
-          this.deleteAccountTimeout = null;
-        }
-      }
+  const props = defineProps({
+    account: {
+      type: Object as PropType<Account>,
+      required: true
     }
   });
+
+  watch(props.account, () => {
+    balance.value = getAccountBalance();
+  }, {
+    deep: true
+  });
+
+  function getAccountBalance(): number {
+    if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
+      const date = dayjs();
+      return props.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+    } else {
+      return props.account.balance;
+    }
+  }
+
+  async function handleUpdateAccountName(accountName: string): Promise<void> {
+    props.account.name = accountName;
+
+    isLoading.value = true;
+    await accountService.updateAccount(props.account);
+    isLoading.value = false;
+  }
+
+  function handleDeleteAccount(): void {
+    showDeleteConfirmationDialog.value = false;
+
+    if (deleteAccountTimeout.value != null) return;
+
+    deleteAccountTimeout.value = window.setTimeout(() => {
+      if (Number(route.params.accountId) === props.account.id)
+        void router.push('/');
+
+      void accountService.deleteAccount(props.account.id);
+    }, 10000);
+  }
+
+  function handleUndo(): void {
+    if (deleteAccountTimeout.value != null) {
+      window.clearTimeout(deleteAccountTimeout.value);
+      deleteAccountTimeout.value = null;
+    }
+  }
 
 </script>
