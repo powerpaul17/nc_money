@@ -41,13 +41,6 @@
       </NcActionButton>
     </template>
 
-    <template #default>
-      <AccountListItem
-        v-for="account in accounts"
-        :key="account.id"
-        :account="account"
-      />
-    </template>
   </NcAppNavigationItem>
 </template>
 
