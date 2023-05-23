@@ -73,9 +73,9 @@
           props.accountTypeType,
           date.year(),
           date.month() + 1
-        ) * inversionFactor
+        ) * inversionFactor;
       }
-    })
+    });
 
     return {
       labels: data.map(d => d.label),
@@ -84,7 +84,7 @@
           values: data.map(d => d.value)
         }
       ]
-    }
+    };
   });
 
   const barChartData = computed(() => {
@@ -98,7 +98,7 @@
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }
-    })
+    });
   });
 
 </script>

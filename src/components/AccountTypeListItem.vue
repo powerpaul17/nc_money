@@ -38,7 +38,6 @@
         </template>
       </NcActionButton>
     </template>
-
   </NcAppNavigationItem>
 </template>
 
@@ -99,15 +98,15 @@
     methods: {
       getAccountTypeBalance() {
         if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
-            const date = dayjs();
-            return this.accountStore.getSummaryByType(
-              this.accountType.type,
-              date.year(),
-              date.month() + 1
-            );
-          } else {
-            return this.accountType.balance;
-          }
+          const date = dayjs();
+          return this.accountStore.getSummaryByType(
+            this.accountType.type,
+            date.year(),
+            date.month() + 1
+          );
+        } else {
+          return this.accountType.balance;
+        }
       },
       async handleAddAccountClick(): Promise<void> {
         const newAccount = await this.accountService.addAccount({
@@ -126,7 +125,7 @@
         accountService: useAccountService(),
 
         settingStore: useSettingStore()
-      }
+      };
     }
   });
 </script>
