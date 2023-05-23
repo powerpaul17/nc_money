@@ -24,10 +24,12 @@
   "parserOptions": {
     "project": "tsconfig.json",
     "parser": {
-      "ts": "@typescript-eslint/parser"
+      "ts": "@typescript-eslint/parser",
+      "js": "@typescript-eslint/parser"
     },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "extraFileExtensions": [ ".vue" ]
   },
   "plugins": [
     "vue",
