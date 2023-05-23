@@ -15,6 +15,13 @@ export default defineConfig({
     exclude: [
       'node_modules',
       'src/vendor'
+    ],
+    alias: [
+      // remove this when migration to vue 3 is complete
+      {
+        find: 'vue',
+        replacement: 'vue/dist/vue.runtime.mjs',
+      }
     ]
   }
 });
