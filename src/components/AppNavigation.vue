@@ -11,6 +11,8 @@
         </template>
       </NcAppNavigationItem>
 
+      <NcAppNavigationSpacer class="order-none" />
+
       <AccountTypeListItem
         v-for="accountType in accountTypes"
         :key="accountType.type"
@@ -56,6 +58,7 @@
 
   import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer';
 
   import Finance from 'vue-material-design-icons/Finance.vue';
 
