@@ -8,6 +8,7 @@
       <AccountList
         v-if="selectedAccount"
         :account-type="selectedAccount.type"
+        @item-clicked="$emit('show-details-changed', true)"
       />
     </template>
 

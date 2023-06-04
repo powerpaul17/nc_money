@@ -4,7 +4,10 @@
     @update:showDetails="emit('show-details-changed', false)"
   >
     <template #list>
-      <AccountList :account-type="accountTypeType" />
+      <AccountList
+        :account-type="accountTypeType"
+        @item-clicked="emit('show-details-changed', true)"
+      />
     </template>
 
     <div class="m-8">
