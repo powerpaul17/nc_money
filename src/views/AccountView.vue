@@ -1,6 +1,8 @@
 <template>
   <NcAppContent
     v-if="renderComponent"
+    :show-details="showDetails"
+    @update:showDetails="$emit('show-details-changed', false)"
   >
     <template #list>
       <AccountList
@@ -31,8 +33,13 @@
       accountId: {
         type: Number,
         required: true
+      },
+      showDetails: {
+        type: Boolean,
+        default: true
       }
     },
+    emits: [ 'show-details-changed' ],
     data() {
       return {
         renderComponent: true,

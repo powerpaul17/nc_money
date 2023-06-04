@@ -1,5 +1,8 @@
 <template>
-  <NcAppContent>
+  <NcAppContent
+    :show-details="showDetails"
+    @update:showDetails="emit('show-details-changed', false)"
+  >
     <template #list>
       <AccountList :account-type="accountTypeType" />
     </template>
@@ -48,8 +51,16 @@
     accountTypeType: {
       type: Number,
       required: true
+    },
+    showDetails: {
+      type: Boolean,
+      default: false
     }
   });
+
+  const emit = defineEmits<{
+    (event: 'show-details-changed', showDetails: boolean): void
+  }>();
 
   const accountType = computed(() => {
     return accountTypeStore.getByType(props.accountTypeType);
