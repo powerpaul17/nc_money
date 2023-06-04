@@ -4,7 +4,7 @@
       class="mt-2 px-2"
       :title="`${accountTypeName} - ${t('money', 'Übersicht')}`"
       :to="`/accountType/${accountType}`"
-      @click="emit('overview-clicked')"
+      @click="emit('item-clicked')"
     />
 
     <AccountListItem
@@ -12,6 +12,7 @@
       class="mt-2 px-2"
       :key="account.id"
       :account="account"
+      @click="emit('item-clicked')"
     />
   </NcAppContentList>
 </template>
@@ -40,7 +41,7 @@
   });
 
   const emit = defineEmits([
-    'overview-clicked'
+    'item-clicked'
   ]);
 
   const accounts = computed(() => {

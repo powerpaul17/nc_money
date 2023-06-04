@@ -16,6 +16,7 @@
     :undo="deleteAccountTimeout != null"
     @update:title="handleUpdateAccountName"
     @undo="handleUndo"
+    @click="$emit('click')"
   >
     <template
       #counter
@@ -86,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+
   import dayjs from 'dayjs';
 
   import { ref, watch, type PropType, type Ref } from 'vue';
