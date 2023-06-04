@@ -4,6 +4,7 @@
       class="mt-2 px-2"
       :title="`${accountTypeName} - ${t('money', 'Übersicht')}`"
       :to="`/accountType/${accountType}`"
+      @click="emit('overview-clicked')"
     />
 
     <AccountListItem
@@ -37,6 +38,10 @@
       required: true
     }
   });
+
+  const emit = defineEmits([
+    'overview-clicked'
+  ]);
 
   const accounts = computed(() => {
     return accountStore.getByType(props.accountType);
