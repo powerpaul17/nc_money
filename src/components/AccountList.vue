@@ -38,7 +38,7 @@
 
   const props = defineProps({
     accountType: {
-      type: Object as PropType<AccountTypeType>,
+      type: Number as PropType<AccountTypeType>,
       required: true
     }
   });
