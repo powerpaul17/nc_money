@@ -7,6 +7,8 @@
       @click="emit('item-clicked')"
     />
 
+    <NcAppNavigationSpacer class="order-none" />
+
     <AccountListItem
       v-for="account in accounts"
       class="mt-2 px-2"
@@ -28,6 +30,7 @@
 
   import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer';
 
   import AccountListItem from './AccountListItem.vue';
 
