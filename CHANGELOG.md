@@ -1,8 +1,13 @@
 ## [Unreleased]
 
+### Added
+
+- Show charts for account type page
+
 ### Changed
 
 - Use date picker for date inputs
+- Move accounts from navigation into separate list
 
 ## [0.18.0] - 2023-04-20
 
