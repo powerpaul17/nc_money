@@ -1,6 +1,6 @@
 <template>
   <NcContent app-name="money">
-    <AppNavigation />
+    <AppNavigation @show-details-changed="$event => showDetails = $event" />
 
     <router-view
       :show-details="showDetails"

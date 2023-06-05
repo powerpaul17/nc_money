@@ -17,6 +17,7 @@
         v-for="accountType in accountTypes"
         :key="accountType.type"
         :account-type="accountType"
+        @show-details-changed="$event => emit('show-details-changed', $event)"
       />
 
       <li class="border-t border-solid border-border-dark" />
@@ -73,6 +74,10 @@
   const accountStore = useAccountStore();
   const accountService = useAccountService();
   const accountTypeStore = useAccountTypeStore();
+
+  const emit = defineEmits<{
+    (event: 'show-details-changed', showDetails: boolean): void
+  }>();
 
   const accountTypes = computed(() => {
     return accountTypeStore.accountTypes;
