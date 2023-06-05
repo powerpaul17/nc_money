@@ -24,7 +24,7 @@
     "@nextcloud/dialogs": "^3.2.0",
     "@nextcloud/l10n": "^1.6.0",
     "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^7.1.0",
+    "@nextcloud/vue": "^7.11.2",
     "@pinia/testing": "^0.0.14",
     "@release-it/bumper": "^4.0.0",
     "@release-it/keep-a-changelog": "^3.1.0",
@@ -63,6 +63,7 @@
     "vue-router": "^3.6.5",
     "vue-select": "^3.20.2",
     "vue-tsc": "^0.39.4",
-    "vue-virtual-scroller": "^1.1.2"
+    "vue-virtual-scroller": "^1.1.2",
+    "vue2-helpers": "^2.1.1"
   }
 }

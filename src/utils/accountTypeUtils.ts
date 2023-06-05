@@ -18,16 +18,16 @@ export class AccountTypeUtils {
     ].includes(accountType);
   }
 
-  public static getNameOfAccountType(accountType: AccountTypeType): string {
+  public static getNameOfAccountType(accountType: AccountTypeType, plural = false): string {
     switch (accountType) {
       case AccountTypeType.ASSET:
-        return translate('money', 'Asset');
+        return plural ? translate('money', 'Assets') : translate('money', 'Asset');
 
       case AccountTypeType.LIABILITY:
-        return translate('money', 'Liability');
+        return plural ? translate('money', 'Liabilities') : translate('money', 'Liability');
 
       case AccountTypeType.EXPENSE:
-        return translate('money', 'Expense');
+        return plural ? translate('money', 'Expenses') : translate('money', 'Expense');
 
       case AccountTypeType.INCOME:
         return translate('money', 'Income');

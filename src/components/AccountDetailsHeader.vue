@@ -69,7 +69,6 @@
 
   import { defineComponent, type PropType } from 'vue';
 
-  import { ArrayUtils } from '../utils/arrayUtils';
   import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -123,25 +122,14 @@
       lineChartData(): Data {
         const inversionFactor = this.isInvertedAccount ? -1 : 1;
 
-        const currentDate = dayjs();
-
-        const data = GraphDataUtils.createBackwardsCalculatedGraphData({
-          initialValue: {
-            label: currentDate.format('MMM'),
-            value: this.account.balance * inversionFactor
-          },
-          numberOfPoints: 12,
-          callback: (num, value) => {
-            const date = currentDate.subtract(num, 'months');
-
-            return {
-              label: date.subtract(1, 'month').format('MMM'),
-              value: value - this.accountStore.getSummary(
-                this.account.id,
-                date.year(),
-                date.month() + 1
-              ) * inversionFactor
-            }
+        const data = GraphDataUtils.createLineGraphData({
+          startValue: this.account.balance * inversionFactor,
+          callback: (date) => {
+            return this.accountStore.getSummary(
+              this.account.id,
+              date.year(),
+              date.month() + 1
+            ) * inversionFactor
           }
         })
 
@@ -155,20 +143,17 @@
         };
       },
       barChartData(): Array<DataItem> {
-        return ArrayUtils.createNumberArray(12)
-          .map((num) => {
-            const date = dayjs().subtract(num, 'months');
+        return GraphDataUtils.createBarGraphData({
+          callback: (date) => {
             const summary = this.accountStore.getSummary(
               this.account.id,
               date.year(),
               date.month() + 1
             );
-            return {
-              label: date.format('MMM'),
-              value: this.isInvertedAccount ? summary * -1 : summary
-            };
-          })
-          .reverse();
+
+            return this.isInvertedAccount ? summary * -1 : summary;
+          }
+        })
       }
     },
     methods: {

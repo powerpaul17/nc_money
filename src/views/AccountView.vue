@@ -1,10 +1,22 @@
 <template>
-  <div v-if="renderComponent">
+  <NcAppContent
+    v-if="renderComponent"
+    :show-details="showDetails"
+    @update:showDetails="$emit('show-details-changed', false)"
+  >
+    <template #list>
+      <AccountList
+        v-if="selectedAccount"
+        :account-type="selectedAccount.type"
+        @item-clicked="$emit('show-details-changed', true)"
+      />
+    </template>
+
     <AccountDetails
       v-if="selectedAccount"
       :account="selectedAccount"
     />
-  </div>
+  </NcAppContent>
 </template>
 
 <script lang="ts">
@@ -12,6 +24,9 @@
 
   import { useAccountStore, type Account } from '../stores/accountStore';
 
+  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
+
+  import AccountList from '../components/AccountList.vue';
   import AccountDetails from '../components/AccountDetails.vue';
 
   export default defineComponent({
@@ -19,8 +34,13 @@
       accountId: {
         type: Number,
         required: true
+      },
+      showDetails: {
+        type: Boolean,
+        default: true
       }
     },
+    emits: [ 'show-details-changed' ],
     data() {
       return {
         renderComponent: true,
@@ -45,6 +65,10 @@
         });
       }
     },
-    components: { AccountDetails }
+    components: {
+      NcAppContent,
+      AccountList,
+      AccountDetails
+    }
   });
 </script>

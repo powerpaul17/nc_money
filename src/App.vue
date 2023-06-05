@@ -1,10 +1,11 @@
 <template>
   <NcContent app-name="money">
-    <AppNavigation />
+    <AppNavigation @show-details-changed="$event => showDetails = $event" />
 
-    <NcAppContent>
-      <router-view />
-    </NcAppContent>
+    <router-view
+      :show-details="showDetails"
+      @show-details-changed="$event => showDetails = $event"
+    />
 
     <router-view name="sidebar" />
   </NcContent>
@@ -12,9 +13,12 @@
 
 <script setup lang="ts">
 
+  import { ref } from 'vue';
+
   import NcContent from '@nextcloud/vue/dist/Components/NcContent';
-  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
 
   import AppNavigation from './components/AppNavigation.vue';
+
+  const showDetails = ref(false);
 
 </script>

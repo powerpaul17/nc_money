@@ -11,10 +11,13 @@
         </template>
       </NcAppNavigationItem>
 
+      <NcAppNavigationSpacer class="order-none" />
+
       <AccountTypeListItem
         v-for="accountType in accountTypes"
         :key="accountType.type"
         :account-type="accountType"
+        @show-details-changed="$event => emit('show-details-changed', $event)"
       />
 
       <li class="border-t border-solid border-border-dark" />
@@ -56,6 +59,7 @@
 
   import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer';
 
   import Finance from 'vue-material-design-icons/Finance.vue';
 
@@ -70,6 +74,10 @@
   const accountStore = useAccountStore();
   const accountService = useAccountService();
   const accountTypeStore = useAccountTypeStore();
+
+  const emit = defineEmits<{
+    (event: 'show-details-changed', showDetails: boolean): void
+  }>();
 
   const accountTypes = computed(() => {
     return accountTypeStore.accountTypes;

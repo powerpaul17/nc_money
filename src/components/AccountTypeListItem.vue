@@ -1,10 +1,11 @@
 <template>
   <NcAppNavigationItem
     :title="accountType.name"
-    :allow-collapse="collapsible"
-    :open.sync="isOpen"
+    :to="`/accountType/${accountType.type}`"
+    :exact="true"
+    :allow-collapse="false"
     icon="icon-folder"
-    :class="{ 'mb-5': collapsible && isOpen }"
+    @click="$emit('show-details-changed', false)"
   >
     <template #counter>
       <CurrencyText
@@ -37,14 +38,6 @@
           </span>
         </template>
       </NcActionButton>
-    </template>
-
-    <template #default>
-      <AccountListItem
-        v-for="account in accounts"
-        :key="account.id"
-        :account="account"
-      />
     </template>
   </NcAppNavigationItem>
 </template>
@@ -84,10 +77,10 @@
         required: true
       }
     },
+    emits: [ 'show-details-changed' ],
     data() {
       return {
         balance: this.getAccountTypeBalance(),
-        isOpen: true,
         AccountTypeUtils
       };
     },
@@ -102,23 +95,20 @@
     computed: {
       accounts() {
         return this.accountStore.getByType(this.accountType.type);
-      },
-      collapsible() {
-        return !!this.accounts.length;
       }
     },
     methods: {
       getAccountTypeBalance() {
         if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
-            const date = dayjs();
-            return this.accountStore.getSummaryByType(
-              this.accountType.type,
-              date.year(),
-              date.month() + 1
-            );
-          } else {
-            return this.accountType.balance;
-          }
+          const date = dayjs();
+          return this.accountStore.getSummaryByType(
+            this.accountType.type,
+            date.year(),
+            date.month() + 1
+          );
+        } else {
+          return this.accountType.balance;
+        }
       },
       async handleAddAccountClick(): Promise<void> {
         const newAccount = await this.accountService.addAccount({
@@ -129,8 +119,6 @@
         });
 
         this.$router.push(`/account/${newAccount.id}`);
-
-        this.isOpen = true;
       }
     },
     setup() {
@@ -139,7 +127,7 @@
         accountService: useAccountService(),
 
         settingStore: useSettingStore()
-      }
+      };
     }
   });
 </script>
