@@ -118,7 +118,7 @@
           type: this.accountType.type
         });
 
-        this.$router.push(`/account/${newAccount.id}`);
+        await this.$router.push(`/account/${newAccount.id}`);
       }
     },
     setup() {

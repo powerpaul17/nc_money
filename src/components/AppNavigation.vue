@@ -94,6 +94,6 @@
   });
 
   // TODO: initialize accounts at some other point
-  accountService.fetchAccounts();
+  void accountService.fetchAccounts();
 
 </script>

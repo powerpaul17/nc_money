@@ -1,7 +1,7 @@
 <template>
   <NcAppNavigationItem
     :class="{
-      'bg-[var(--color-warning)] animate-pulse rounded-full [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout != null
+      'animate-pulse rounded-full bg-[var(--color-warning)] [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout != null
     }"
     :title="
       deleteAccountTimeout != null ?
