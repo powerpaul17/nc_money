@@ -16,7 +16,7 @@
         "*.vue"
       ],
       "rules": {
-        "indent": "off"
+        "@typescript-eslint/indent": "off"
       }
     }
   ],
@@ -29,7 +29,9 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "extraFileExtensions": [ ".vue" ]
+    "extraFileExtensions": [
+      ".vue"
+    ]
   },
   "plugins": [
     "vue",
@@ -37,10 +39,6 @@
     "tailwindcss"
   ],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
     "linebreak-style": [
       "error",
       "unix"
@@ -85,11 +83,26 @@
       "always"
     ],
     "@typescript-eslint/explicit-function-return-type": "error",
-    "vue/script-indent": [
-      "warn",
+    "@typescript-eslint/indent": [
+      "error",
       2,
       {
-        "baseIndent": 1
+        "SwitchCase": 1,
+        "MemberExpression": 1,
+        "FunctionDeclaration": {
+          "parameters": "first"
+        },
+        "FunctionExpression": {
+          "parameters": "first"
+        }
+      }
+    ],
+    "vue/script-indent": [
+      "error",
+      2,
+      {
+        "baseIndent": 1,
+        "switchCase": 1
       }
     ],
     "vue/block-lang": [
