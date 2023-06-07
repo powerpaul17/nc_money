@@ -2,7 +2,7 @@
   <NcAppContentList class="pb-2">
     <NcAppNavigationItem
       class="mt-2 px-2"
-      :title="`${accountTypeName} - ${t('money', 'Übersicht')}`"
+      :title="`${accountTypeName} - ${t('money', 'Overview')}`"
       :to="`/accountType/${accountType}`"
       @click="emit('item-clicked')"
     />
