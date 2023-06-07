@@ -9,6 +9,7 @@ OC.L10N.register(
     "Description" : "Beschreibung",
     "mo" : "Mo",
     "Import transactions" : "Transaktionen importieren",
+    "Übersicht" : "Übersicht",
     "'{accountName}' deleted" : "'{accountName}' gelöscht",
     "Rename account" : "Konto umbenennen",
     "Account name" : "Konto Name",

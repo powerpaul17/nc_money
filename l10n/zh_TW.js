@@ -9,6 +9,7 @@ OC.L10N.register(
     "Description" : "描述",
     "mo" : "月",
     "Import transactions" : "匯入交易",
+    "Übersicht" : "Übersicht",
     "'{accountName}' deleted" : "已刪除「{accountName}」",
     "Rename account" : "重新命名帳號",
     "Account name" : "帳號名稱",
