@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Name" : "الاسم",
     "Description" : "الوصف",
+    "Overview" : "نظرة شاملة",
     "Delete account" : "حذف الحساب",
     "Are you sure?" : "هل أنت متأكد؟",
     "Add account" : "أضف حساباً",
-    "Overview" : "نظرة شاملة",
     "Value" : "القيمة",
     "Date" : "التاريخ ",
     "Import" : "استيراد",

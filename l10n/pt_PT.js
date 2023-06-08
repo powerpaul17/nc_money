@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Name" : "Nome",
     "Description" : "Descrição",
+    "Overview" : "Visão Geral",
     "Delete account" : "Apagar conta",
     "Are you sure?" : "Tem a certeza?",
     "Add account" : "Adicionar conta",
-    "Overview" : "Visão Geral",
     "Value" : "Valor",
     "Date" : "Data",
     "Import" : "Importar",

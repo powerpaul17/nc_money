@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Name" : "שם",
     "Description" : "תיאור",
+    "Overview" : "סקירה",
     "Delete account" : "מחיקת חשבון",
     "Are you sure?" : "האם הינך בטוח?",
     "Add account" : "הוספת חשבון",
-    "Overview" : "סקירה",
     "Value" : "ערך",
     "Date" : "תאריך",
     "Select File" : "בחירת קובץ",

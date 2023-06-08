@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Name" : "Nomo",
     "Description" : "Priskribo",
+    "Overview" : "Superrigardo",
     "Delete account" : "Forigi konton",
     "Add account" : "Aldoni konton",
-    "Overview" : "Superrigardo",
     "Date" : "Date",
     "Import" : "Importi",
     "Comment" : "Komento",

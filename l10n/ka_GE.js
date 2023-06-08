@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Name" : "სახელი",
     "Description" : "აღწერილობა",
+    "Overview" : "ზოგადი მიმოხილვა",
     "Delete account" : "ანგარიშის გაუქმება",
     "Add account" : "ანგარიშის დამატება",
-    "Overview" : "ზოგადი მიმოხილვა",
     "Value" : "მნიშვნელობა",
     "Date" : "თარიღი",
     "Import" : "იმპორტი",
