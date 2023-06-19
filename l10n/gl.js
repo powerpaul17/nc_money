@@ -11,6 +11,7 @@ OC.L10N.register(
     "Value" : "Valor",
     "Date" : "Data",
     "Select File" : "Seleccione un ficheiro",
+    "Click or drop CSV file" : "Prema ou solte o ficheiro CSV",
     "Import" : "Importar",
     "Comment" : "Comentario",
     "Settings saved" : "Axustes gardados"
