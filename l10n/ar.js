@@ -9,6 +9,7 @@ OC.L10N.register(
     "Add account" : "أضف حساباً",
     "Value" : "القيمة",
     "Date" : "التاريخ ",
+    "Select File" : "إختر ملفاً",
     "Import" : "استيراد",
     "Comment" : "تعليق",
     "Settings saved" : "تم حفظ الإعدادات"
