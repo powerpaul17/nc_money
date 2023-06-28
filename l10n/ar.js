@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "مال",
     "Name" : "الاسم",
     "Description" : "الوصف",
     "Overview" : "نظرة شاملة",
