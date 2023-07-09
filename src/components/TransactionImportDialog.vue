@@ -421,7 +421,19 @@
     availableColumns.value = Object.keys(records[0]);
     parsedData.value = records;
 
+    selectMatchingColumns();
     updateColumnParsedData();
+  }
+
+  function selectMatchingColumns(): void {
+    for (const column of Object.values(columns)) {
+      const selectedColumn = column.selectedColumn;
+
+      if (!selectedColumn && availableColumns.value.indexOf(column.name) >= 0) {
+        column.selectedColumn = column.name;
+        handleColumnSelectionChanged(column);
+      }
+    }
   }
 
   function updateColumnParsedData(): void {
