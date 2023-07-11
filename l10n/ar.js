@@ -13,6 +13,7 @@ OC.L10N.register(
     "New Account" : "حساب جديد",
     "Value" : "القيمة",
     "Date" : "التاريخ ",
+    "Decimals" : "الكسور العشرية",
     "Select File" : "إختر ملفاً",
     "Import" : "استيراد",
     "Comment" : "تعليق",
