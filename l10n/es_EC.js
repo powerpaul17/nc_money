@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "Dinero",
     "Name" : "Nombre",
     "Description" : "Descripción",
     "Overview" : "Generalidades",
@@ -9,6 +10,7 @@ OC.L10N.register(
     "Add account" : "Agregar cuenta",
     "Value" : "Valor",
     "Date" : "Fecha",
+    "Decimals" : "Decimales",
     "Import" : "Importar",
     "Comment" : "Comentario",
     "Settings saved" : "Se han guardado las configuraciones "
