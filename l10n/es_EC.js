@@ -11,6 +11,8 @@ OC.L10N.register(
     "Value" : "Valor",
     "Date" : "Fecha",
     "Decimals" : "Decimales",
+    "Select File" : "Seleccionar archivo",
+    "Not selected" : "No seleccionado",
     "Import" : "Importar",
     "Comment" : "Comentario",
     "Settings saved" : "Se han guardado las configuraciones "
