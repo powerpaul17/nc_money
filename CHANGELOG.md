@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.20.0] - 2023-07-29
+
 ### Changed
 
 - Enable app for NC 27
