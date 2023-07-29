@@ -3,7 +3,7 @@
   "version": "0.20.0",
   "description": "",
   "author": "Paul Tirk",
-  "license": "ISC",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "check": "vue-tsc --noEmit",
     "lint": "eslint .",
