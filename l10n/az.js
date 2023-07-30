@@ -3,10 +3,12 @@ OC.L10N.register(
     {
     "Name" : "Ad",
     "Description" : "Açıqlanma",
+    "Overview" : "İcmal",
     "Delete account" : "Delete account",
     "Add account" : "Hesab əlavə et",
     "Date" : "Date",
     "Import" : "Əlavə et",
-    "Comment" : "Komentariya"
+    "Comment" : "Komentariya",
+    "Settings saved" : "Parametrlər yaddaşa verildi"
 },
 "nplurals=2; plural=(n != 1);");

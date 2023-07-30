@@ -7,7 +7,7 @@
     <description>Finance manager for Nextcloud.</description>
     <licence>agpl</licence>
     <author mail="paultirk@paultirk.com">Paul Tirk</author>
-    <version>0.19.0</version>
+    <version>0.20.0</version>
     <namespace>Money</namespace>
     <category>office</category>
     <category>organization</category>
@@ -24,7 +24,7 @@
       </navigation>
     </navigations>
     <dependencies>
-      <nextcloud min-version="25" max-version="26" />
+      <nextcloud min-version="25" max-version="27" />
     </dependencies>
     <background-jobs>
       <job>OCA\Money\BackgroundJob\CleanupDatabase</job>
