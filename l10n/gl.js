@@ -39,7 +39,7 @@ OC.L10N.register(
     "Import Transactions" : "Importar transaccións",
     "Select File" : "Seleccione un ficheiro",
     "Click or drop CSV file" : "Prema ou solte o ficheiro CSV",
-    "File Settings" : "Axustes de ficheiros",
+    "File Settings" : "Axustes do ficheiro",
     "Column Separator" : "Separador de columnas",
     "Date Format" : "Formato de data",
     "Column Selection" : "Selección de columnas",
