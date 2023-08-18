@@ -23,6 +23,7 @@ OC.L10N.register(
     "Column Separator" : "Kolonneseparator",
     "Date Format" : "Datoformat",
     "Column Selection" : "Kolonnevalg",
+    "Not selected" : "Ikke valgt",
     "Import" : "Importer",
     "Comment" : "Kommentar",
     "Multiple Accounts" : "Flere kontoer",
