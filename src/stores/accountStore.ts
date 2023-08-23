@@ -142,6 +142,10 @@ export type Account = {
   type: AccountTypeType;
   currency: string;
   description: string;
-  balance: number;
-  stats: Record<number, Record<number, number>>;
+  stats: Record<number, Record<number, MonthlyAccountStats>>;
 };
+
+export type MonthlyAccountStats = {
+  balance: number;
+  value: number;
+}

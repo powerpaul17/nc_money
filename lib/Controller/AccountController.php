@@ -33,6 +33,7 @@ class AccountController extends MoneyController {
       ->selectAlias($yearFunction, 'year')
       ->selectAlias($monthFunction, 'month')
       ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
+      ->selectAlias($qb->createFunction('SUM(SUM(b.value)) OVER (PARTITION BY a.id ORDER BY EXTRACT(YEAR FROM c.date), EXTRACT(MONTH FROM c.date))'), 'running_balance')
       ->from('money_accounts', 'a')
       ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
       ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
@@ -118,6 +119,7 @@ class AccountController extends MoneyController {
     foreach ($rows as $row) {
       $id = (int) $row['id'];
       $balance = (float) $row['balance'];
+      $running_balance = (float) $row['running_balance'];
 
       if (array_key_exists($row['id'], $accounts)) {
         $account = $accounts[$id];
@@ -129,14 +131,18 @@ class AccountController extends MoneyController {
           'description' => $row['description'],
           'icon' => $row['icon'],
           'currency' => $row['currency'],
-          'balance' => 0.0,
           'stats' => new ArrayObject()
         ];
       }
 
-      if (!is_null($balance)) {
-        $account['balance'] += $balance;
-        $account['stats'][$row['year']][$row['month']] = $balance;
+      $year = $row['year'];
+      $month = $row['month'];
+
+      if (!is_null($balance) && !is_null($year) && !is_null($month)) {
+        $account['stats'][$year][$month] = [
+          'value' => $balance,
+          'balance' => $running_balance
+        ];
       }
       $accounts[$id] = $account;
     }

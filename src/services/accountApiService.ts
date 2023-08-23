@@ -2,7 +2,7 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import type { AxiosResponse } from 'axios';
 
-import type { Account } from '../stores/accountStore';
+import type { Account, MonthlyAccountStats } from '../stores/accountStore';
 
 let accountApiService: AccountApiService|null = null;
 
@@ -32,9 +32,9 @@ class AccountApiService {
 
   public async addAccount(account: AccountCreationData): Promise<Account> {
     const response = await axios.post<
-      AccountApiData,
-      AxiosResponse<AccountApiData>,
-      AccountCreationData
+    AccountApiData,
+    AxiosResponse<AccountApiData>,
+    AccountCreationData
     >(
       generateUrl('apps/money/accounts'),
       account
@@ -49,9 +49,9 @@ class AccountApiService {
 
   public async updateAccount(account: Account): Promise<Account> {
     const response = await axios.put<
-      AccountApiData,
-      AxiosResponse<AccountApiData>,
-      AccountApiData
+    AccountApiData,
+    AxiosResponse<AccountApiData>,
+    AccountApiData
     >(
       generateUrl(`apps/money/accounts/${account.id}`),
       this.transformAccounToApiData(account)
@@ -67,7 +67,6 @@ class AccountApiService {
       description: data.description,
       currency: data.currency,
       type: data.type,
-      balance: data.balance,
       stats: data.stats
     };
   }
@@ -79,14 +78,13 @@ class AccountApiService {
       description: data.description,
       currency: data.currency,
       type: data.type,
-      balance: data.balance,
       stats: data.stats
     };
   }
 
 }
 
-export type AccountCreationData = Omit<Account, 'id' | 'balance' | 'stats'>;
+export type AccountCreationData = Omit<Account, 'id' | 'stats'>;
 
 type AccountApiData = {
   id: number;
@@ -94,6 +92,5 @@ type AccountApiData = {
   description: string;
   currency: string;
   type: number;
-  balance: number;
-  stats: Record<string, Record<string, number>>;
+  stats: Record<string, Record<string, MonthlyAccountStats>>;
 };
