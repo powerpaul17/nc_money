@@ -113,7 +113,7 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(props.account.type);
+    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.account.type);
   });
 
   watch(() => props.account, async () => {

@@ -1,5 +1,4 @@
 import type { WatchStopHandle } from 'vue';
-import { defineStore } from 'pinia';
 
 import { translate as t } from '@nextcloud/l10n';
 
@@ -8,47 +7,49 @@ import { showSuccess } from '@nextcloud/dialogs';
 import { useSettingStore } from '../stores/settingStore';
 import { useSettingApiService } from './settingApiService';
 
-export const useSettingService = defineStore('settingService', () => {
+let settingService: SettingService|null = null;
 
-  const settingStore = useSettingStore();
-  const settingApiService = useSettingApiService();
+export const useSettingService = (): SettingService => {
+  if (!settingService) settingService = new SettingService();
+  return settingService;
+};
 
-  let watcher: WatchStopHandle|null = null;
+class SettingService {
 
-  function setupWatcher(): void {
-    watcher = settingStore.$subscribe(() => {
-      void saveSettings().then(() => {
+  private settingStore = useSettingStore();
+  private settingApiService = useSettingApiService();
+
+  private watcher: WatchStopHandle|null = null;
+
+  private setupWatcher(): void {
+    this.watcher = this.settingStore.subscribe(() => {
+      void this.saveSettings().then(() => {
         showSuccess(t('money', 'Settings saved'));
       });
     });
   }
 
-  function disposeWatcher(): void {
-    watcher?.();
+  private disposeWatcher(): void {
+    this.watcher?.();
   }
 
-  async function loadSettings(): Promise<void> {
-    disposeWatcher();
+  public async loadSettings(): Promise<void> {
+    this.disposeWatcher();
 
-    const newSettings = await settingApiService.loadSettings();
+    const newSettings = await this.settingApiService.loadSettings();
 
-    settingStore.useInvertedAccounts = newSettings.useInvertedAccounts ?? true;
+    this.settingStore.useInvertedAccounts.value = newSettings.useInvertedAccounts ?? true;
 
-    settingStore.numberFormat_decimals = newSettings.numberFormat_decimals ?? 2;
-    settingStore.numberFormat_decimalSeparator = newSettings.numberFormat_decimalSeparator ?? '.';
-    settingStore.numberFormat_groupBy = newSettings.numberFormat_groupBy ?? 3;
-    settingStore.numberFormat_groupSeparator = newSettings.numberFormat_groupSeparator ?? ' ';
+    this.settingStore.numberFormat_decimals.value = newSettings.numberFormat_decimals ?? 2;
+    this.settingStore.numberFormat_decimalSeparator.value = newSettings.numberFormat_decimalSeparator ?? '.';
+    this.settingStore.numberFormat_groupBy.value = newSettings.numberFormat_groupBy ?? 3;
+    this.settingStore.numberFormat_groupSeparator.value = newSettings.numberFormat_groupSeparator ?? ' ';
 
-    setupWatcher();
+    this.setupWatcher();
   }
 
-  async function saveSettings(): Promise<void> {
-    await settingApiService.saveSettings(settingStore.$state);
+  public async saveSettings(): Promise<void> {
+    await this.settingApiService.saveSettings(this.settingStore.state.value);
   }
 
-  return {
-    loadSettings,
-    saveSettings
-  };
-
-});
+}

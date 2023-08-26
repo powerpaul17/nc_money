@@ -1,28 +1,28 @@
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 
-import { defineStore } from 'pinia';
+let settingApiService: SettingApiService|null = null;
 
-export const useSettingApiService = defineStore('settingApiService', () => {
+export const useSettingApiService = (): SettingApiService => {
+  if (!settingApiService) settingApiService = new SettingApiService();
+  return settingApiService;
+};
 
-  async function loadSettings(): Promise<SettingsApiData> {
+class SettingApiService {
+
+  public async loadSettings(): Promise<SettingsApiData> {
     const response = await axios.get<SettingsApiData>(generateUrl('apps/money/settings'));
     return response.data;
   }
 
-  async function saveSettings(settings: SettingsApiData): Promise<void> {
+  public async saveSettings(settings: SettingsApiData): Promise<void> {
     await axios.post(
       generateUrl('apps/money/settings'),
       settings
     );
   }
 
-  return {
-    loadSettings,
-    saveSettings
-  };
-
-});
+}
 
 export type SettingsApiData = {
   useInvertedAccounts?: boolean;

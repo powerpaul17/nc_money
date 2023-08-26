@@ -88,10 +88,10 @@
 
   const formattedValue = computed(() => {
     return NumberUtils.formatNumber(shownValue.value, {
-      decimals: settingStore.numberFormat_decimals,
-      decimalSeparator: settingStore.numberFormat_decimalSeparator,
-      groupBy: settingStore.numberFormat_groupBy,
-      groupSeparator: settingStore.numberFormat_groupSeparator,
+      decimals: settingStore.numberFormat_decimals.value,
+      decimalSeparator: settingStore.numberFormat_decimalSeparator.value,
+      groupBy: settingStore.numberFormat_groupBy.value,
+      groupSeparator: settingStore.numberFormat_groupSeparator.value,
       invertedValue: props.invertedValue
     });
   });

@@ -74,7 +74,7 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(props.accountTypeType);
+    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.accountTypeType);
   });
 
   const lineChartData = computed((): LineChartData => {

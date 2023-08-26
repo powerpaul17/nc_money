@@ -26,7 +26,7 @@
         class="mr-2"
         :value="balance"
         :animation="true"
-        :inverted-value="settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(account.type)"
+        :inverted-value="settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(account.type)"
       >
         <template
           #suffix

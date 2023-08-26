@@ -1,6 +1,6 @@
 <template>
   <NcAppNavigationSettings>
-    <NcCheckboxRadioSwitch :checked.sync="settingStore.useInvertedAccounts">
+    <NcCheckboxRadioSwitch :checked.sync="settingStore.useInvertedAccounts.value">
       {{ t('money', 'Show inverted income/liabilities account balances') }}
     </NcCheckboxRadioSwitch>
   </NcAppNavigationSettings>
