@@ -95,13 +95,17 @@
         required: true
       }
     },
-    data() {
+    setup() {
       return {
         accountStore: useAccountStore(),
         accountService: useAccountService(),
         settingStore: useSettingStore(),
-        showImportTransactionsDialog: false,
         AccountTypeUtils
+      };
+    },
+    data() {
+      return {
+        showImportTransactionsDialog: false
       };
     },
     computed: {

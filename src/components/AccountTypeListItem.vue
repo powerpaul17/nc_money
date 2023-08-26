@@ -80,8 +80,7 @@
     emits: [ 'show-details-changed' ],
     data() {
       return {
-        balance: this.getAccountTypeBalance(),
-        AccountTypeUtils
+        balance: this.getAccountTypeBalance()
       };
     },
     watch: {
@@ -126,7 +125,9 @@
         accountStore: useAccountStore(),
         accountService: useAccountService(),
 
-        settingStore: useSettingStore()
+        settingStore: useSettingStore(),
+
+        AccountTypeUtils
       };
     }
   });
