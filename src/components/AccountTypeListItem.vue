@@ -42,10 +42,14 @@
   </NcAppNavigationItem>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+
   import dayjs from 'dayjs';
 
-  import { defineComponent, type PropType } from 'vue';
+  import { ref, watch, type PropType } from 'vue';
+  import { useRouter } from 'vue2-helpers/vue-router';
+
+  import { translate as t } from '@nextcloud/l10n';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -60,75 +64,52 @@
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 
-  import AccountListItem from './AccountListItem.vue';
   import CurrencyText from './CurrencyText.vue';
 
-  export default defineComponent({
-    components: {
-      NcAppNavigationItem,
-      CurrencyText,
-      NcActionButton,
-      Plus,
-      AccountListItem
-    },
-    props: {
-      accountType: {
-        type: Object as PropType<AccountType>,
-        required: true
-      }
-    },
-    emits: [ 'show-details-changed' ],
-    data() {
-      return {
-        balance: this.getAccountTypeBalance()
-      };
-    },
-    watch: {
-      accountType: {
-        handler() {
-          this.balance = this.getAccountTypeBalance();
-        },
-        deep: true
-      }
-    },
-    computed: {
-      accounts() {
-        return this.accountStore.getByType(this.accountType.type);
-      }
-    },
-    methods: {
-      getAccountTypeBalance() {
-        if (AccountTypeUtils.isMonthlyAccount(this.accountType.type)) {
-          const date = dayjs();
-          return this.accountStore.getSummaryByType(
-            this.accountType.type,
-            date.year(),
-            date.month() + 1
-          );
-        } else {
-          return this.accountType.balance;
-        }
-      },
-      async handleAddAccountClick(): Promise<void> {
-        const newAccount = await this.accountService.addAccount({
-          name: this.t('money', 'New Account'),
-          description: '',
-          currency: '',
-          type: this.accountType.type
-        });
+  const router = useRouter();
 
-        await this.$router.push(`/account/${newAccount.id}`);
-      }
-    },
-    setup() {
-      return {
-        accountStore: useAccountStore(),
-        accountService: useAccountService(),
+  const accountStore = useAccountStore();
+  const accountService = useAccountService();
 
-        settingStore: useSettingStore(),
+  const settingStore = useSettingStore();
 
-        AccountTypeUtils
-      };
+  const props = defineProps({
+    accountType: {
+      type: Object as PropType<AccountType>,
+      required: true
     }
   });
+
+  const balance = ref(getAccountTypeBalance());
+
+  watch(() => props.accountType, () => {
+    balance.value = getAccountTypeBalance();
+  }, {
+    deep: true
+  });
+
+  function getAccountTypeBalance(): number {
+    if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
+      const date = dayjs();
+      return accountStore.getSummaryByType(
+        props.accountType.type,
+        date.year(),
+        date.month() + 1
+      );
+    } else {
+      return props.accountType.balance;
+    }
+  }
+
+  async function handleAddAccountClick(): Promise<void> {
+    const newAccount = await accountService.addAccount({
+      name: t('money', 'New Account'),
+      description: '',
+      currency: '',
+      type: props.accountType.type
+    });
+
+    await router.push(`/account/${newAccount.id}`);
+  }
+
 </script>
