@@ -8,8 +8,9 @@
   />
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
+
+  import { ref, watch, computed, onMounted } from 'vue';
 
   import { useSettingStore } from '../stores/settingStore';
 
@@ -18,69 +19,60 @@
 
   import SeamlessInput from './SeamlessInput.vue';
 
-  export default defineComponent({
-    props: {
-      value: {
-        type: Number,
-        required: true
-      },
-      editable: {
-        type: Boolean,
-        default: true
-      },
-      placeholder: {
-        type: String,
-        default: ''
-      },
-      invertedValue: {
-        type: Boolean,
-        default: false
-      }
-    },
-    emits: [ 'value-changed' ],
-    data() {
-      return {
-        currencyValue: ''
-      };
-    },
-    watch: {
-      formattedValue() {
-        this.currencyValue = this.formattedValue;
-      }
-    },
-    computed: {
-      formattedValue() {
-        return NumberUtils.formatNumber(this.value, {
-          decimals: this.settingStore.numberFormat_decimals,
-          decimalSeparator: this.settingStore.numberFormat_decimalSeparator,
-          groupBy: this.settingStore.numberFormat_groupBy,
-          groupSeparator: this.settingStore.numberFormat_groupSeparator,
-          invertedValue: this.invertedValue
-        });
-      }
-    },
-    methods: {
-      handleValueChanged(newValue: string) {
-        this.currencyValue = this.formattedValue;
+  const mathExpression = useMathExpression();
+  const settingStore = useSettingStore();
 
-        const newNumber = this.mathExpression.evaluate(newValue, this.value);
-        if (!Number.isNaN(newNumber)) {
-          this.$emit(
-            'value-changed',
-            this.invertedValue ? newNumber * -1.0 : newNumber
-          );
-        }
-      }
+  const props = defineProps({
+    value: {
+      type: Number,
+      required: true
     },
-    mounted() {
-      this.currencyValue = this.formattedValue;
+    editable: {
+      type: Boolean,
+      default: true
     },
-    setup() {
-      return {
-        mathExpression: useMathExpression(),
-        settingStore: useSettingStore()
-      };
+    placeholder: {
+      type: String,
+      default: ''
     },
-    components: { SeamlessInput }
+    invertedValue: {
+      type: Boolean,
+      default: false
+    }
   });
+
+  const emit = defineEmits([ 'value-changed' ]);
+
+  const currencyValue = ref('');
+
+  const formattedValue = computed(() => {
+    return NumberUtils.formatNumber(props.value, {
+      decimals: settingStore.numberFormat_decimals,
+      decimalSeparator: settingStore.numberFormat_decimalSeparator,
+      groupBy: settingStore.numberFormat_groupBy,
+      groupSeparator: settingStore.numberFormat_groupSeparator,
+      invertedValue: props.invertedValue
+    });
+  });
+
+  watch(formattedValue, () => {
+    currencyValue.value = formattedValue.value;
+  });
+
+  function handleValueChanged(newValue: string): void {
+    currencyValue.value = formattedValue.value;
+
+    const newNumber = mathExpression.evaluate(newValue, props.value);
+    if (!Number.isNaN(newNumber)) {
+      emit(
+        'value-changed',
+        props.invertedValue ? newNumber * -1.0 : newNumber
+      );
+    }
+  }
+
+  onMounted(() => {
+    currencyValue.value = formattedValue.value;
+  });
+
 </script>
