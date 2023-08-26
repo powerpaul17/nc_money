@@ -64,10 +64,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+
   import dayjs from 'dayjs';
 
-  import { defineComponent, type PropType } from 'vue';
+  import { ref, type PropType } from 'vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
@@ -87,101 +88,88 @@
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
+  import { computed } from 'vue';
 
-  export default defineComponent({
-    props: {
-      account: {
-        type: Object as PropType<Account>,
-        required: true
-      }
-    },
-    setup() {
-      return {
-        accountStore: useAccountStore(),
-        accountService: useAccountService(),
-        settingStore: useSettingStore(),
-        AccountTypeUtils
-      };
-    },
-    data() {
-      return {
-        showImportTransactionsDialog: false
-      };
-    },
-    computed: {
-      balance() {
-        if (this.isMonthlyAccount) {
-          const date = dayjs();
-          return this.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
-        } else {
-          return this.account.balance;
-        }
-      },
-      isMonthlyAccount() {
-        return AccountTypeUtils.isMonthlyAccount(this.account.type);
-      },
-      isInvertedAccount() {
-        return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
-      },
-      lineChartData(): Data {
-        const inversionFactor = this.isInvertedAccount ? -1 : 1;
+  const accountStore = useAccountStore();
+  const accountService = useAccountService();
+  const settingStore = useSettingStore();
 
-        const data = GraphDataUtils.createLineGraphData({
-          startValue: this.account.balance * inversionFactor,
-          callback: (date) => {
-            return this.accountStore.getSummary(
-              this.account.id,
-              date.year(),
-              date.month() + 1
-            ) * inversionFactor;
-          }
-        });
-
-        return {
-          labels: data.map(d => d.label),
-          datasets: [
-            {
-              values: data.map(d => d.value)
-            }
-          ]
-        };
-      },
-      barChartData(): Array<DataItem> {
-        return GraphDataUtils.createBarGraphData({
-          callback: (date) => {
-            const summary = this.accountStore.getSummary(
-              this.account.id,
-              date.year(),
-              date.month() + 1
-            );
-
-            return this.isInvertedAccount ? summary * -1 : summary;
-          }
-        });
-      }
-    },
-    methods: {
-      handleAccountNameModified(newName: string) {
-        this.account.name = newName;
-        this.handleAccountModified();
-      },
-      handleAccountDescriptionModified(newDescription: string) {
-        this.account.description = newDescription;
-        this.handleAccountModified();
-      },
-      handleAccountModified() {
-        this.accountService.updateAccount(this.account);
-      }
-    },
-    components: {
-      SeamlessInput,
-      CurrencyText,
-      TransactionImportDialog,
-      NcActions,
-      NcActionButton,
-      Upload,
-      LineChart,
-      BarChart
+  const props = defineProps({
+    account: {
+      type: Object as PropType<Account>,
+      required: true
     }
   });
+
+  const showImportTransactionsDialog = ref(false);
+
+  const balance = computed(() => {
+    if (isMonthlyAccount.value) {
+      const date = dayjs();
+      return props.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+    } else {
+      return props.account.balance;
+    }
+  });
+
+  const isMonthlyAccount = computed(() => {
+    return AccountTypeUtils.isMonthlyAccount(props.account.type);
+  });
+
+  const isInvertedAccount = computed(() => {
+    return settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(props.account.type);
+  });
+
+  const lineChartData = computed((): Data => {
+    const inversionFactor = isInvertedAccount.value ? -1 : 1;
+
+    const data = GraphDataUtils.createLineGraphData({
+      startValue: props.account.balance * inversionFactor,
+      callback: (date) => {
+        return accountStore.getSummary(
+          props.account.id,
+          date.year(),
+          date.month() + 1
+        ) * inversionFactor;
+      }
+    });
+
+    return {
+      labels: data.map(d => d.label),
+      datasets: [
+        {
+          values: data.map(d => d.value)
+        }
+      ]
+    };
+  });
+
+  const barChartData = computed((): Array<DataItem> => {
+    return GraphDataUtils.createBarGraphData({
+      callback: (date) => {
+        const summary = accountStore.getSummary(
+          props.account.id,
+          date.year(),
+          date.month() + 1
+        );
+
+        return isInvertedAccount.value ? summary * -1 : summary;
+      }
+    });
+  });
+
+  async function handleAccountNameModified(newName: string): Promise<void> {
+    props.account.name = newName;
+    await handleAccountModified();
+  }
+
+  async function handleAccountDescriptionModified(newDescription: string): Promise<void> {
+    props.account.description = newDescription;
+    await handleAccountModified();
+  }
+
+  async function handleAccountModified(): Promise<void> {
+    await accountService.updateAccount(props.account);
+  }
+
 </script>
