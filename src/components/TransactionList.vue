@@ -146,7 +146,7 @@
         }
         this.transactionWatcher = await this.transactionStore.watchAll((transactions) => {
           this.transactions = transactions;
-        })
+        });
 
         this.accountIsChanging = false;
       },

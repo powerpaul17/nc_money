@@ -28,7 +28,7 @@
         default: false
       }
     },
-    emits: ['file-changed'],
+    emits: [ 'file-changed' ],
     methods: {
       handleFileChanged(event: Event) {
         const target = event.target as HTMLInputElement;

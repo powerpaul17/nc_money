@@ -117,7 +117,7 @@
           above: Utils.convertHexToRgba(color, 0.2),
           below: Utils.convertHexToRgba(colors.red[300], 0.2)
         }
-      }
+      };
     })
   }));
 </script>

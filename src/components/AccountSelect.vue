@@ -1,6 +1,6 @@
 <template>
   <VueSelect
-    class="w-full min-w-0 account-select"
+    class="account-select w-full min-w-0"
     :options="accounts"
     label="name"
     v-model="selectedAccount"
@@ -14,13 +14,18 @@
     :placeholder="`-- ${t('money', 'No Account')} --`"
   >
     <template #option="account">
-      <div class="overflow-hidden text-ellipsis whitespace-nowrap">{{ account.name }}</div>
+      <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+        {{ account.name }}
+      </div>
       <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs">
         <span class="uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span> {{ account.description ? `· ${account.description}` : '' }}
       </div>
     </template>
 
-    <template #selected-option="account" class="w-full">
+    <template
+      #selected-option="account"
+      class="w-full"
+    >
       <div class="overflow-hidden text-ellipsis whitespace-nowrap">
         {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
       </div>
@@ -100,7 +105,7 @@
 <script setup lang="ts">
   import { computed } from 'vue';
 
-  import {useAccountStore, type Account} from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -121,7 +126,7 @@
     }
   );
 
-  const emit = defineEmits(['account-changed']);
+  const emit = defineEmits([ 'account-changed' ]);
 
   const selectedAccount = computed({
     get() {

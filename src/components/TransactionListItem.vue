@@ -130,7 +130,8 @@
         required: true
       },
       accountId: {
-        type: Number
+        type: Number,
+        default: undefined
       },
       invertedValue: {
         type: Boolean,

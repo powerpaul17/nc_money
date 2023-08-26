@@ -47,7 +47,7 @@
     }
   });
 
-  const emit = defineEmits(['date-changed']);
+  const emit = defineEmits([ 'date-changed' ]);
 
   const dateValue = computed({
     get() {
@@ -65,7 +65,7 @@
   };
 
   function getDateFromValue(value: string): Date {
-    const date = ['L', 'D', 'DD'].map(f => dayjs(value, f)).find(djs => djs.isValid());
+    const date = [ 'L', 'D', 'DD' ].map(f => dayjs(value, f)).find(djs => djs.isValid());
     return (date ?? dayjs()).toDate();
   }
 

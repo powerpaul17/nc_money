@@ -1,8 +1,17 @@
 <template>
   <div>
-    <LineChart :data="equityChartData" :title="t('money', 'Equity')" />
-    <LineChart :data="assetsChartData" :title="t('money', 'Assets')" />
-    <LineChart :data="liabilitiesChartData" :title="t('money', 'Liabilities')" />
+    <LineChart
+      :data="equityChartData"
+      :title="t('money', 'Equity')"
+    />
+    <LineChart
+      :data="assetsChartData"
+      :title="t('money', 'Assets')"
+    />
+    <LineChart
+      :data="liabilitiesChartData"
+      :title="t('money', 'Liabilities')"
+    />
   </div>
 </template>
 
@@ -46,7 +55,7 @@
           )
         );
       }
-    })
+    });
 
     return {
       labels: data.map(d => d.label),

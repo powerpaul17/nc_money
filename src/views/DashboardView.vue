@@ -86,11 +86,11 @@
       datasets: [
         {
           values: assetsData.map(d => d.value),
-          color: colors.lime[500],
+          color: colors.lime[500]
         },
         {
           values: liabilitiesData.map(d => d.value),
-          color: colors.orange[500],
+          color: colors.orange[500]
         }
       ]
     };

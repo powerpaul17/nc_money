@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h2 class="text-2xl">{{ title }}</h2>
+    <h2 class="text-2xl">
+      {{ title }}
+    </h2>
     <div class="h-96">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>
@@ -14,6 +16,6 @@
       type: String,
       required: true
     }
-  })
+  });
 
 </script>

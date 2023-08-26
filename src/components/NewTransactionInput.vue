@@ -19,7 +19,7 @@
     <template #account>
       <AccountSelect
         :account-id="destAccountId"
-        :excluded-account-ids="[accountId]"
+        :excluded-account-ids="[ accountId ]"
         @account-changed="(accountId) => (destAccountId = accountId)"
       />
     </template>
@@ -54,7 +54,7 @@
 
   import { useTransactionService } from '../services/transactionService';
 
-  import Plus from 'vue-material-design-icons/Plus.vue'
+  import Plus from 'vue-material-design-icons/Plus.vue';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';

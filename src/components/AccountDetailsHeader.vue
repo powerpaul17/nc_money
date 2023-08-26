@@ -133,9 +133,9 @@
               this.account.id,
               date.year(),
               date.month() + 1
-            ) * inversionFactor
+            ) * inversionFactor;
           }
-        })
+        });
 
         return {
           labels: data.map(d => d.label),
@@ -157,7 +157,7 @@
 
             return this.isInvertedAccount ? summary * -1 : summary;
           }
-        })
+        });
       }
     },
     methods: {
