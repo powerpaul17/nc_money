@@ -39,8 +39,9 @@
   </TransactionListItemTemplate>
 </template>
 
-<script lang="ts">
-  import { defineComponent, type PropType } from 'vue';
+<script setup lang="ts">
+
+  import { ref, type PropType, watch, onMounted } from 'vue';
 
   import type { Split } from '../stores/splitStore';
   import { useSplitService } from '../services/splitService';
@@ -50,69 +51,67 @@
   import AccountSelect from './AccountSelect.vue';
   import SeamlessInput from './SeamlessInput.vue';
 
-  export default defineComponent({
-    props: {
-      split: {
-        type: Object as PropType<Split>,
-        required: true
-      },
-      excludedAccountIds: {
-        type: Array as PropType<Array<number>>,
-        default: () => []
-      },
-      isLoading: {
-        type: Boolean,
-        default: false
-      },
-      invertedValue: {
-        type: Boolean,
-        default: false
-      }
+  const splitService = useSplitService();
+
+  const props = defineProps({
+    split: {
+      type: Object as PropType<Split>,
+      required: true
     },
-    emits: [ 'split-deleted' ],
-    data() {
-      return {
-        showLoadingIcon: false
-      };
+    excludedAccountIds: {
+      type: Array as PropType<Array<number>>,
+      default: () => []
     },
-    watch: {
-      isLoading() {
-        this.showLoadingIcon = this.isLoading;
-      }
+    isLoading: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      async handleValueChanged(value: number) {
-        this.split.value = value;
-        await this.handleSplitChanged();
-      },
-      handleDeleteSplit() {
-        this.showLoadingIcon = true;
-        this.$emit('split-deleted', this.split);
-      },
-      async handleDescriptionChanged(description: string) {
-        this.split.description = description;
-        await this.handleSplitChanged();
-      },
-      async handleDestinationAccountChanged(accountId: number|null) {
-        if(accountId) {
-          this.split.destAccountId = accountId;
-          await this.handleSplitChanged();
-        } else {
-          this.handleDeleteSplit();
-        }
-      },
-      async handleSplitChanged() {
-        this.showLoadingIcon = true;
-        await this.splitService.updateSplit(this.split);
-        this.showLoadingIcon = false;
-      }
-    },
-    mounted() {
-      this.showLoadingIcon = this.isLoading;
-    },
-    setup() {
-      return { splitService: useSplitService() };
-    },
-    components: { CurrencyInput, AccountSelect, SeamlessInput, TransactionListItemTemplate }
+    invertedValue: {
+      type: Boolean,
+      default: false
+    }
   });
+
+  const emit = defineEmits([ 'split-deleted' ]);
+
+  const showLoadingIcon = ref(false);
+
+  watch(() => props.isLoading, () => {
+    showLoadingIcon.value = props.isLoading;
+  });
+
+  async function handleValueChanged(value: number): Promise<void> {
+    props.split.value = value;
+    await handleSplitChanged();
+  }
+
+  function handleDeleteSplit(): void {
+    showLoadingIcon.value = true;
+    emit('split-deleted', props.split);
+  }
+
+  async function handleDescriptionChanged(description: string): Promise<void> {
+    props.split.description = description;
+    await handleSplitChanged();
+  }
+
+  async function handleDestinationAccountChanged(accountId: number|null): Promise<void> {
+    if(accountId) {
+      props.split.destAccountId = accountId;
+      await handleSplitChanged();
+    } else {
+      handleDeleteSplit();
+    }
+  }
+
+  async function handleSplitChanged(): Promise<void> {
+    showLoadingIcon.value = true;
+    await splitService.updateSplit(props.split);
+    showLoadingIcon.value = false;
+  }
+
+  onMounted(() => {
+    showLoadingIcon.value = props.isLoading;
+  });
+
 </script>
