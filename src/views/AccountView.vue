@@ -2,13 +2,13 @@
   <NcAppContent
     v-if="renderComponent"
     :show-details="showDetails"
-    @update:showDetails="$emit('show-details-changed', false)"
+    @update:showDetails="emit('show-details-changed', false)"
   >
     <template #list>
       <AccountList
         v-if="selectedAccount"
         :account-type="selectedAccount.type"
-        @item-clicked="$emit('show-details-changed', true)"
+        @item-clicked="emit('show-details-changed', true)"
       />
     </template>
 
@@ -19,56 +19,47 @@
   </NcAppContent>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
 
-  import { useAccountStore, type Account } from '../stores/accountStore';
+  import { computed, nextTick, ref, watch } from 'vue';
+
+  import { useAccountStore } from '../stores/accountStore';
 
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
 
   import AccountList from '../components/AccountList.vue';
   import AccountDetails from '../components/AccountDetails.vue';
 
-  export default defineComponent({
-    props: {
-      accountId: {
-        type: Number,
-        required: true
-      },
-      showDetails: {
-        type: Boolean,
-        default: true
-      }
+  const accountStore = useAccountStore();
+
+  const props = defineProps({
+    accountId: {
+      type: Number,
+      required: true
     },
-    emits: [ 'show-details-changed' ],
-    data() {
-      return {
-        renderComponent: true,
-        accountStore: useAccountStore()
-      };
-    },
-    computed: {
-      selectedAccount() {
-        return this.accountStore.getById(this.accountId);
-      }
-    },
-    watch: {
-      selectedAccount(newAccount: Account, oldAccount?: Account) {
-        if(newAccount.id !== oldAccount?.id) this.forceRerender();
-      }
-    },
-    methods: {
-      forceRerender() {
-        this.renderComponent = false;
-        this.$nextTick(() => {
-          this.renderComponent = true;
-        });
-      }
-    },
-    components: {
-      NcAppContent,
-      AccountList,
-      AccountDetails
+    showDetails: {
+      type: Boolean,
+      default: true
     }
   });
+
+  const emit = defineEmits([ 'show-details-changed' ]);
+
+  const renderComponent = ref(true);
+
+  const selectedAccount = computed(() => {
+    return accountStore.getById(props.accountId);
+  });
+
+  watch(selectedAccount, (newAccount, oldAccount) => {
+    if (newAccount?.id !== oldAccount?.id) forceRerender();
+  });
+
+  function forceRerender(): void {
+    renderComponent.value = false;
+    nextTick(() => {
+      renderComponent.value = true;
+    });
+  }
+
 </script>
