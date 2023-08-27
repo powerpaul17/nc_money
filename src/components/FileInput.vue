@@ -14,32 +14,35 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
 
-  export default defineComponent({
-    props: {
-      accept: {
-        type: String,
-        default: undefined
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
+  import { ref } from 'vue';
+
+  defineProps({
+    accept: {
+      type: String,
+      default: undefined
     },
-    emits: [ 'file-changed' ],
-    methods: {
-      handleFileChanged(event: Event) {
-        const target = event.target as HTMLInputElement;
-
-        const fileList = target.files;
-        const file = fileList?.[0];
-
-        this.$emit('file-changed', file);
-
-        this.$refs.fileInput.value = '';
-      }
+    disabled: {
+      type: Boolean,
+      default: false
     }
   });
+
+  const emit = defineEmits([ 'file-changed' ]);
+
+  const fileInput = ref<HTMLInputElement|null>(null);
+
+  function handleFileChanged(event: Event): void {
+    const target = event.target as HTMLInputElement;
+
+    const fileList = target.files;
+    const file = fileList?.[0];
+
+    emit('file-changed', file);
+
+    if (!fileInput.value) throw new Error('file input does not exist');
+    fileInput.value.value = '';
+  }
+
 </script>
