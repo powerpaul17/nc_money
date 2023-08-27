@@ -6,14 +6,15 @@
   />
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
 
-  export default defineComponent({
-    computed: {
-      sidebarVisible() {
-        return this.$route.meta.showSidebar;
-      }
-    }
+  import { computed } from 'vue';
+  import { useRoute } from 'vue2-helpers/vue-router';
+
+  const route = useRoute();
+
+  const sidebarVisible = computed(() => {
+    return route.meta?.showSidebar;
   });
+
 </script>
