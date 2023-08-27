@@ -39,8 +39,9 @@
   </TransactionListItemTemplate>
 </template>
 
-<script lang="ts">
-  import { defineComponent, type PropType } from 'vue';
+<script setup lang="ts">
+
+  import { ref, type PropType, watch, computed } from 'vue';
 
   import { NumberUtils } from '../utils/numberUtils';
 
@@ -52,83 +53,72 @@
   import SeamlessInput from './SeamlessInput.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
+  import { onMounted } from 'vue';
 
-  export default defineComponent({
-    props: {
-      transactionId: {
-        type: Number,
-        required: true
-      },
-      excludedAccountIds: {
-        type: Array as PropType<Array<number>>,
-        default: () => []
-      },
-      initialValue: {
-        type: Number,
-        default: 0.0
-      },
-      invertedValue: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        description: '',
-        destAccountId: null,
-        value: 0.0,
-        isLoading: false
-      };
-    },
-    watch: {
-      initialValue() {
-        this.value = this.initialValue;
-      }
-    },
-    computed: {
-      isValid() {
-        return this.destAccountId != null && NumberUtils.areNotEqual(this.value, 0.0);
-      }
-    },
-    methods: {
-      async handleSubmitSplitClick() {
-        // TODO validation
-        await this.createNewSplit();
-      },
-      async createNewSplit() {
-        if (!this.destAccountId)
-          throw new Error('cannot add split without an account id');
+  const splitService = useSplitService();
 
-        this.isLoading = true;
-        await this.splitService.addSplit({
-          transactionId: this.transactionId,
-          destAccountId: this.destAccountId,
-          value: this.value,
-          convertRate: 1.0,
-          description: this.description
-        });
-        this.isLoading = false;
-
-        this.resetFields();
-      },
-      resetFields() {
-        this.description = '';
-        this.destAccountId = null;
-        this.value = this.initialValue;
-      }
+  const props = defineProps({
+    transactionId: {
+      type: Number,
+      required: true
     },
-    setup() {
-      return { splitService: useSplitService() };
+    excludedAccountIds: {
+      type: Array as PropType<Array<number>>,
+      default: () => []
     },
-    mounted() {
-      this.value = this.initialValue;
+    initialValue: {
+      type: Number,
+      default: 0.0
     },
-    components: {
-      SeamlessInput,
-      AccountSelect,
-      CurrencyInput,
-      TransactionListItemTemplate,
-      Plus
+    invertedValue: {
+      type: Boolean,
+      default: false
     }
   });
+
+  const description = ref('');
+  const destAccountId = ref(null);
+  const value = ref(0.0);
+  const isLoading = ref(false);
+
+  watch(() => props.initialValue, () => {
+    value.value = props.initialValue;
+  });
+
+  const isValid = computed(() => {
+    return destAccountId.value != null && NumberUtils.areNotEqual(value.value, 0.0);
+  });
+
+  async function handleSubmitSplitClick(): Promise<void> {
+    // TODO validation
+    await createNewSplit();
+  }
+
+  async function createNewSplit(): Promise<void> {
+    if (!destAccountId.value)
+      throw new Error('cannot add split without an account id');
+
+    isLoading.value = true;
+    await splitService.addSplit({
+      transactionId: props.transactionId,
+      destAccountId: destAccountId.value,
+      value: value.value,
+      convertRate: 1.0,
+      description: description.value
+    });
+    isLoading.value = false;
+
+    resetFields();
+  }
+
+  function resetFields(): void {
+    description.value = '';
+    destAccountId.value = null;
+    value.value = props.initialValue;
+  }
+
+  onMounted(() => {
+    value.value = props.initialValue;
+  });
+
 </script>
