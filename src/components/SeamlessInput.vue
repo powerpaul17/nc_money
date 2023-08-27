@@ -18,41 +18,39 @@
   >
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
 
-  export default defineComponent({
-    props: {
-      value: {
-        type: String,
-        default: ''
-      },
-      placeholder: {
-        type: String,
-        default: ''
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
+  import { ref, watch } from 'vue';
+
+  const props = defineProps({
+    value: {
+      type: String,
+      default: ''
     },
-    emits: [ 'value-changed' ],
-    data() {
-      return {
-        inputValue: this.value
-      };
+    placeholder: {
+      type: String,
+      default: ''
     },
-    watch: {
-      value() {
-        this.inputValue = this.value;
-      }
-    },
-    methods: {
-      handleValueChange() {
-        const newValue = this.inputValue;
-        this.inputValue = this.value;
-        this.$emit('value-changed', newValue);
-      }
+    disabled: {
+      type: Boolean,
+      default: false
     }
   });
+
+  const emit = defineEmits<{
+    (event: 'value-changed', value: string): void
+  }>();
+
+  const inputValue = ref(props.value);
+
+  watch(() => props.value, () => {
+    inputValue.value = props.value;
+  });
+
+  function handleValueChange(): void {
+    const newValue = inputValue.value;
+    inputValue.value = props.value;
+    emit('value-changed', newValue);
+  }
+
 </script>
