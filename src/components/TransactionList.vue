@@ -65,10 +65,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+
   import dayjs from 'dayjs';
 
-  import { defineComponent, type PropType } from 'vue';
+  import { ref, type PropType, computed, watch, onMounted, onUnmounted } from 'vue';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -77,7 +78,6 @@
     type Transaction,
     useTransactionStore
   } from '../stores/transactionStore';
-  import { useSplitStore } from '../stores/splitStore';
   import { useTransactionService } from '../services/transactionService';
 
   import { useSettingStore } from '../stores/settingStore';
@@ -87,118 +87,99 @@
 
   import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 
-  export default defineComponent({
-    props: {
-      account: {
-        type: Object as PropType<Account>,
-        required: true
-      }
-    },
-    data(): {
-      transactions: Array<Transaction>;
-      transactionWatcher: {stop: () => void} | null;
-      accountIsChanging: boolean;
-      isLoadingTransactions: boolean;
-      groupBy: 'month';
-      items: Array<{
-        transaction: Transaction;
-        type: 'normal'|'headOfGroup'
-      }>;
-    } {
-      return {
-        transactions: [],
-        transactionWatcher: null,
-        accountIsChanging: false,
-        isLoadingTransactions: false,
-        groupBy: 'month',
-        items: []
-      };
-    },
-    computed: {
-      groupByDateFormat() {
-        return 'MM.YYYY';
-      },
-      isInvertedAccount() {
-        return this.settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(this.account.type);
-      }
-    },
-    watch: {
-      async account() {
-        await this.changeAccount();
-      },
-      transactions() {
-        this.items = this.transactions.map((t, index) => ({
-          id: t.id,
-          transaction: t,
-          type: this.transactionIsHeadOfGroup(t, index) ? 'headOfGroup' : 'normal'
-        }));
-      }
-    },
-    methods: {
-      async changeAccount() {
-        this.accountIsChanging = true;
+  const transactionStore = useTransactionStore();
+  const transactionService = useTransactionService();
+  const settingStore = useSettingStore();
 
-        await this.transactionService.changeAccount(this.account.id);
-        this.transactions = await this.transactionStore.getByAccountId(this.account.id);
-
-        if (this.transactionWatcher) {
-          this.transactionWatcher.stop();
-        }
-        this.transactionWatcher = await this.transactionStore.watchAll((transactions) => {
-          this.transactions = transactions;
-        });
-
-        this.accountIsChanging = false;
-      },
-      async loadMoreTransactions() {
-        if (
-          this.accountIsChanging ||
-          this.isLoadingTransactions ||
-          this.transactionStore.allTransactionsFetched
-        ) return;
-
-        this.isLoadingTransactions = true;
-
-        const offset = this.transactions.length;
-        await this.transactionService.fetchAndInsertTransactions(offset);
-
-        this.isLoadingTransactions = false;
-      },
-      async onDynamicScrollerUpdate(_startIndex: number, endIndex: number) {
-        if(endIndex + 10 >= this.transactions.length) {
-          await this.loadMoreTransactions();
-        }
-      },
-      transactionIsHeadOfGroup(transaction: Transaction, index: number) {
-        return this.groupBy &&
-          (
-            !this.transactions[index - 1] ||
-            dayjs(transaction.date)
-              .isBefore(this.transactions[index - 1]?.date, this.groupBy)
-          );
-      }
-    },
-    setup() {
-      return {
-        transactionStore: useTransactionStore(),
-        transactionService: useTransactionService(),
-        splitStore: useSplitStore(),
-        settingStore: useSettingStore(),
-        dayjs,
-        AccountTypeUtils
-      };
-    },
-    async mounted() {
-      await this.changeAccount();
-    },
-    destroyed() {
-      this.transactionWatcher?.stop();
-    },
-    components: {
-      TransactionListItem,
-      NewTransactionInput,
-      DynamicScroller,
-      DynamicScrollerItem
+  const props = defineProps({
+    account: {
+      type: Object as PropType<Account>,
+      required: true
     }
   });
+
+  const transactions = ref<Array<Transaction>>([]);
+  const transactionWatcher = ref <{ stop: () => void }|null>(null);
+  const accountIsChanging = ref(false);
+  const isLoadingTransactions = ref(false);
+  const groupBy = ref('month');
+  const items = ref<Array<{
+    transaction: Transaction;
+    type: 'normal'|'headOfGroup'
+  }>>([]);
+
+  const groupByDateFormat = computed(() => {
+    return 'MM.YYYY';
+  });
+
+  const isInvertedAccount = computed(() => {
+    return settingStore.useInvertedAccounts && AccountTypeUtils.isInvertedAccount(props.account.type);
+  });
+
+  watch(() => props.account, async () => {
+    await changeAccount();
+  });
+
+  watch(transactions, () => {
+    items.value = transactions.value.map((t, index) => ({
+      id: t.id,
+      transaction: t,
+      type: transactionIsHeadOfGroup(t, index) ? 'headOfGroup' : 'normal'
+    }));
+  });
+
+  async function changeAccount(): Promise<void> {
+    accountIsChanging.value = true;
+
+    await transactionService.changeAccount(props.account.id);
+    transactions.value = await transactionStore.getByAccountId(props.account.id);
+
+    if (transactionWatcher.value) {
+      transactionWatcher.value.stop();
+    }
+    transactionWatcher.value = await transactionStore.watchAll((t) => {
+      transactions.value = t;
+    });
+
+    accountIsChanging.value = false;
+  }
+
+  async function loadMoreTransactions(): Promise<void> {
+    if (
+      accountIsChanging.value ||
+      isLoadingTransactions.value ||
+      transactionStore.allTransactionsFetched.value
+    ) return;
+
+    isLoadingTransactions.value = true;
+
+    const offset = transactions.value.length;
+    await transactionService.fetchAndInsertTransactions(offset);
+
+    isLoadingTransactions.value = false;
+  }
+
+  async function onDynamicScrollerUpdate(_startIndex: number, endIndex: number): Promise<void> {
+    if(endIndex + 10 >= transactions.value.length) {
+      await loadMoreTransactions();
+    }
+  }
+
+  function transactionIsHeadOfGroup(transaction: Transaction, index: number): boolean {
+    return !!groupBy.value &&
+      (
+        !transactions.value[index - 1] ||
+        dayjs(transaction.date)
+          .isBefore(transactions.value[index - 1]?.date, groupBy.value)
+      );
+  }
+
+  onMounted(() => {
+    void changeAccount();
+  });
+
+  onUnmounted(() => {
+    transactionWatcher.value?.stop();
+  });
+
 </script>
