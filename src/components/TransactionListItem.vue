@@ -100,8 +100,9 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, type PropType } from 'vue';
+<script setup lang="ts">
+
+  import { ref, type PropType, watch, computed, onMounted, onUnmounted } from 'vue';
 
   import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
   import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
@@ -123,199 +124,191 @@
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
 
-  export default defineComponent({
-    props: {
-      transaction: {
-        type: Object as PropType<Transaction>,
-        required: true
-      },
-      accountId: {
-        type: Number,
-        default: undefined
-      },
-      invertedValue: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data(): {
-      splits: Array<Split>;
-      transactionIdWatcher: {stop: () => void}|null;
-      isLoading: boolean;
-    } {
-      return {
-        splits: [],
-        transactionIdWatcher: null,
-        isLoading: false
-      };
-    },
-    watch: {
-      async transaction() {
-        this.removeTransactionIdWatcher();
-        await this.setTransactionIdWatcher();
-      }
-    },
-    computed: {
-      value() {
-        return this.splitsOfAccount.reduce((v, split) => {
-          return (v += split.value);
-        }, 0.0);
-      },
-      splitOfAccount() {
-        return this.splitsOfAccount.length > 1
-          ? undefined
-          : this.splitsOfAccount[0];
-      },
-      splitsOfAccount() {
-        return this.splits.filter((s) => s.destAccountId === this.accountId);
-      },
-      splitOfDestinationAccount() {
-        return this.hasMultipleDestinationSplits
-          ? undefined
-          : this.splitsOfDestinationAccounts[0];
-      },
-      splitsOfDestinationAccounts() {
-        return this.splits.filter(
-          (s) => this.accountId && s.destAccountId !== this.accountId
-        );
-      },
-      hasMultipleDestinationSplits() {
-        return this.splitsOfDestinationAccounts.length > 1;
-      },
-      destinationAccountId() {
-        return this.splitOfDestinationAccount?.destAccountId;
-      },
-      valueIsEditable() {
-        return !this.transaction.showSplits && !this.hasMultipleDestinationSplits;
-      },
-      unbalancedValue() {
-        return this.splits.reduce((value, s) => (value += s.value), 0.0);
-      },
-      isUnbalanced() {
-        return NumberUtils.areNotEqual(this.unbalancedValue, 0.0);
-      },
-      excludedAccountIds(): Array<number> {
-        if (this.accountId) {
-          return [ this.accountId ];
-        } else {
-          return [];
-        }
-      },
-      excludedSplitAccountIds() {
-        return this.splits.map((s) => s.destAccountId);
-      }
-    },
-    methods: {
-      toggleSplits() {
-        this.transaction.showSplits = !this.transaction.showSplits;
-      },
-      async handleTransactionChanged() {
-        this.isLoading = true;
-        await this.transactionService.updateTransaction(this.transaction);
-        this.isLoading = false;
-      },
-      async handleDateChanged(date: Date) {
-        this.transaction.date = date;
-        await this.handleTransactionChanged();
-      },
-      async handleDescriptionChanged(description: string) {
-        this.transaction.description = description;
-        await this.handleTransactionChanged();
-      },
-      async handleValueChanged(value: number) {
-        if (this.hasMultipleDestinationSplits)
-          throw new Error('cannot change value of multi-split-transaction');
+  const transactionService = useTransactionService();
+  const splitStore = useSplitStore();
+  const splitService = useSplitService();
 
-        const split = this.splitOfDestinationAccount;
-        if (!split) {
-          // TODO
-        } else {
-          split.value = -value;
-          await this.handleSplitChanged(split);
-        }
-
-        const splitOfAccount = this.splitOfAccount;
-        if (splitOfAccount) {
-          splitOfAccount.value = value;
-          await this.handleSplitChanged(splitOfAccount);
-        } else {
-          // TODO
-        }
-      },
-      async handleDestinationAccountChanged(accountId?: number) {
-        if (this.hasMultipleDestinationSplits)
-          throw new Error(
-            'cannot change destination account of multi-split-transaction'
-          );
-
-        const split = this.splitOfDestinationAccount;
-        if (!split) {
-          if (accountId) {
-            await this.splitService.addSplit({
-              transactionId: this.transaction.id,
-              destAccountId: accountId,
-              value: -this.value,
-              convertRate: 1.0,
-              description: ''
-            });
-          }
-        } else if (accountId) {
-          split.destAccountId = accountId;
-          await this.handleSplitChanged(split);
-        } else {
-          await this.handleSplitDeleted(split);
-        }
-      },
-      async handleSplitDeleted(split: Split) {
-        await this.splitService.deleteSplit(split);
-      },
-      async handleSplitChanged(split: Split) {
-        this.isLoading = true;
-        await this.splitService.updateSplit(split);
-        this.isLoading = false;
-      },
-      removeTransactionIdWatcher() {
-        this.transactionIdWatcher?.stop();
-        this.transactionIdWatcher = null;
-      },
-      async setTransactionIdWatcher() {
-        const transactionId = this.transaction.id;
-
-        const transactionIdWatcher = await this.splitStore.watchForTransactionId(transactionId, (splits) => {
-          this.splits = splits;
-        });
-
-        if (transactionId !== this.transaction.id) {
-          transactionIdWatcher.stop();
-        } else {
-          this.transactionIdWatcher = transactionIdWatcher;
-        }
-      }
+  const props = defineProps({
+    transaction: {
+      type: Object as PropType<Transaction>,
+      required: true
     },
-    async mounted() {
-      await this.setTransactionIdWatcher();
+    accountId: {
+      type: Number,
+      default: undefined
     },
-    destroyed() {
-      this.removeTransactionIdWatcher();
-    },
-    setup() {
-      return {
-        transactionService: useTransactionService(),
-        splitStore: useSplitStore(),
-        splitService: useSplitService()
-      };
-    },
-    components: {
-      SplitListItem,
-      CurrencyInput,
-      AccountSelect,
-      NewSplitInput,
-      SeamlessInput,
-      DateInput,
-      ChevronRight,
-      ChevronDown,
-      NcLoadingIcon,
-      TransactionListItemTemplate
+    invertedValue: {
+      type: Boolean,
+      default: false
     }
   });
+
+  const splits = ref<Array<Split>>([]);
+  const transactionIdWatcher = ref<{ stop: () => void }|null>(null);
+  const isLoading = ref(false);
+
+  watch(() => props.transaction, async () => {
+    removeTransactionIdWatcher();
+    await setTransactionIdWatcher();
+  });
+
+  const value = computed(() => {
+    return splitsOfAccount.value.reduce((v, split) => {
+      return (v += split.value);
+    }, 0.0);
+  });
+
+  const splitOfAccount = computed(() => {
+    return splitsOfAccount.value.length > 1
+      ? undefined
+      : splitsOfAccount.value[0];
+  });
+
+  const splitsOfAccount = computed(() => {
+    return splits.value.filter((s) => s.destAccountId === props.accountId);
+  });
+
+  const splitOfDestinationAccount = computed(() => {
+    return hasMultipleDestinationSplits.value
+      ? undefined
+      : splitsOfDestinationAccounts.value[0];
+  });
+
+  const splitsOfDestinationAccounts = computed(() => {
+    return splits.value.filter(
+      (s) => props.accountId && s.destAccountId !== props.accountId
+    );
+  });
+
+  const hasMultipleDestinationSplits = computed(() => {
+    return splitsOfDestinationAccounts.value.length > 1;
+  });
+
+  const destinationAccountId = computed(() => {
+    return splitOfDestinationAccount.value?.destAccountId;
+  });
+
+  const valueIsEditable = computed(() => {
+    return !props.transaction.showSplits && !hasMultipleDestinationSplits.value;
+  });
+
+  const unbalancedValue = computed(() => {
+    return splits.value.reduce((value, s) => (value += s.value), 0.0);
+  });
+
+  const isUnbalanced = computed(() => {
+    return NumberUtils.areNotEqual(unbalancedValue.value, 0.0);
+  });
+
+  const excludedAccountIds = computed((): Array<number> => {
+    if (props.accountId) {
+      return [ props.accountId ];
+    } else {
+      return [];
+    }
+  });
+
+  function toggleSplits(): void {
+    props.transaction.showSplits = !props.transaction.showSplits;
+  }
+
+  async function handleTransactionChanged(): Promise<void> {
+    isLoading.value = true;
+    await transactionService.updateTransaction(props.transaction);
+    isLoading.value = false;
+  }
+
+  async function handleDateChanged(date: Date): Promise<void> {
+    props.transaction.date = date;
+    await handleTransactionChanged();
+  }
+
+  async function handleDescriptionChanged(description: string): Promise<void> {
+    props.transaction.description = description;
+    await handleTransactionChanged();
+  }
+
+  async function handleValueChanged(value: number): Promise<void> {
+    if (hasMultipleDestinationSplits.value)
+      throw new Error('cannot change value of multi-split-transaction');
+
+    const split = splitOfDestinationAccount.value;
+    if (!split) {
+      // TODO
+    } else {
+      split.value = -value;
+      await handleSplitChanged(split);
+    }
+
+    const splitOfAcc = splitOfAccount.value;
+    if (splitOfAcc) {
+      splitOfAcc.value = value;
+      await handleSplitChanged(splitOfAcc);
+    } else {
+      // TODO
+    }
+  }
+
+  async function handleDestinationAccountChanged(accountId?: number): Promise<void> {
+    if (hasMultipleDestinationSplits.value)
+      throw new Error(
+        'cannot change destination account of multi-split-transaction'
+      );
+
+    const split = splitOfDestinationAccount.value;
+    if (!split) {
+      if (accountId) {
+        await splitService.addSplit({
+          transactionId: props.transaction.id,
+          destAccountId: accountId,
+          value: -value.value,
+          convertRate: 1.0,
+          description: ''
+        });
+      }
+    } else if (accountId) {
+      split.destAccountId = accountId;
+      await handleSplitChanged(split);
+    } else {
+      await handleSplitDeleted(split);
+    }
+  }
+
+  async function handleSplitDeleted(split: Split): Promise<void> {
+    await splitService.deleteSplit(split);
+  }
+
+  async function handleSplitChanged(split: Split): Promise<void> {
+    isLoading.value = true;
+    await splitService.updateSplit(split);
+    isLoading.value = false;
+  }
+
+  function removeTransactionIdWatcher(): void {
+    transactionIdWatcher.value?.stop();
+    transactionIdWatcher.value = null;
+  }
+
+  async function setTransactionIdWatcher(): Promise<void> {
+    const transactionId = props.transaction.id;
+
+    const watcher = await splitStore.watchForTransactionId(transactionId, (s) => {
+      splits.value = s;
+    });
+
+    if (transactionId !== props.transaction.id) {
+      watcher.stop();
+    } else {
+      transactionIdWatcher.value = watcher;
+    }
+  }
+
+  onMounted(() => {
+    void setTransactionIdWatcher();
+  });
+
+  onUnmounted(() => {
+    removeTransactionIdWatcher();
+  });
+
 </script>
