@@ -47,8 +47,9 @@
   </TransactionListItemTemplate>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
+
+  import { ref, computed } from 'vue';
 
   import { NumberUtils } from '../utils/numberUtils';
 
@@ -62,66 +63,51 @@
   import DateInput from './DateInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
 
-  export default defineComponent({
-    props: {
-      accountId: {
-        type: Number,
-        required: true
-      },
-      invertedValue: {
-        type: Boolean,
-        default: false
-      }
+  const transactionService = useTransactionService();
+
+  const props = defineProps({
+    accountId: {
+      type: Number,
+      required: true
     },
-    data() {
-      return {
-        date: new Date(),
-        description: '',
-        destAccountId: null,
-        value: 0.0,
-        isLoading: false
-      };
-    },
-    computed: {
-      isValid() {
-        return NumberUtils.areNotEqual(this.value, 0.0);
-      }
-    },
-    methods: {
-      async handleSubmitTransactionClick() {
-        // TODO validation
-        await this.createNewTransaction();
-      },
-      async createNewTransaction() {
-        this.isLoading = true;
-        await this.transactionService.addTransactionWithSplits({
-          date: this.date,
-          description: this.description,
-          value: -this.value,
-          convertRate: 1.0,
-          srcAccountId: this.accountId,
-          destAccountId: this.destAccountId
-        });
-        this.isLoading = false;
-        this.resetFields();
-      },
-      resetFields() {
-        this.description = '';
-        this.value = 0.0;
-      }
-    },
-    setup() {
-      return {
-        transactionService: useTransactionService()
-      };
-    },
-    components: {
-      AccountSelect,
-      CurrencyInput,
-      DateInput,
-      SeamlessInput,
-      TransactionListItemTemplate,
-      Plus
+    invertedValue: {
+      type: Boolean,
+      default: false
     }
   });
+
+  const date = ref(new Date());
+  const description = ref('');
+  const destAccountId = ref(null);
+  const value = ref(0.0);
+  const isLoading = ref(false);
+
+  const isValid = computed(() => {
+    return NumberUtils.areNotEqual(value.value, 0.0);
+  });
+
+  async function handleSubmitTransactionClick(): Promise<void> {
+    // TODO validation
+    await createNewTransaction();
+  }
+
+  async function createNewTransaction(): Promise<void> {
+    isLoading.value = true;
+    await transactionService.addTransactionWithSplits({
+      date: date.value,
+      description: description.value,
+      value: -value.value,
+      convertRate: 1.0,
+      srcAccountId: props.accountId,
+      destAccountId: destAccountId.value
+    });
+    isLoading.value = false;
+    resetFields();
+  }
+
+  function resetFields(): void {
+    description.value = '';
+    value.value = 0.0;
+  }
+
 </script>
