@@ -81,7 +81,7 @@
     const inversionFactor = isInvertedAccount.value ? -1 : 1;
 
     const data = GraphDataUtils.createLineGraphData({
-      startValue: (accountType.value?.balance ?? 0.0) * inversionFactor,
+      startValue: (accountType.value?.balance.value ?? 0.0) * inversionFactor,
       callback: (date) => {
         return  accountStore.getSummaryByType(
           props.accountTypeType,

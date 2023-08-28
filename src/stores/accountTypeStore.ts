@@ -1,49 +1,48 @@
 import { translate as t } from '@nextcloud/l10n';
 
-import { defineStore, storeToRefs } from 'pinia';
-
 import { computed, type Ref } from 'vue';
 
 import { useAccountStore } from './accountStore';
 
-export const useAccountTypeStore = defineStore('accountTypeStore', () => {
+let accountTypeStore: AccountTypeStore|null = null;
 
-  const accountStore = storeToRefs(useAccountStore());
+export const useAccountTypeStore = (): AccountTypeStore => {
+  if (!accountTypeStore) accountTypeStore = new AccountTypeStore();
+  return accountTypeStore;
+};
 
-  const accountTypes: Array<AccountType> = [
+class AccountTypeStore {
+
+  private accountStore = useAccountStore();
+
+  public readonly accountTypes: Array<AccountType> = [
     {
       type: AccountTypeType.ASSET,
       name: t('money', 'Assets'),
-      balance: accountStore.assetsBalance
+      balance: this.accountStore.assetsBalance
     },
     {
       type: AccountTypeType.LIABILITY,
       name: t('money', 'Liabilities'),
-      balance: accountStore.liabilitiesBalance
+      balance: this.accountStore.liabilitiesBalance
     },
     {
       type: AccountTypeType.INCOME,
       name: t('money', 'Income'),
-      balance: accountStore.incomeBalance
+      balance: this.accountStore.incomeBalance
     },
     {
       type: AccountTypeType.EXPENSE,
       name: t('money', 'Expenses'),
-      balance: accountStore.expensesBalance
+      balance: this.accountStore.expensesBalance
     }
   ];
 
-  const getByType = computed(() => {
-    return (accountType: AccountTypeType): AccountType|undefined => {
-      return accountTypes.find(aT => aT.type === accountType);
-    };
-  });
+  public getByType(accountType: AccountTypeType): AccountType|undefined {
+    return this.accountTypes.find(aT => aT.type === accountType);
+  }
 
-  return {
-    accountTypes,
-    getByType
-  };
-});
+}
 
 export enum AccountTypeType {
   ASSET = 0,
