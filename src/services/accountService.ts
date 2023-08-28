@@ -1,51 +1,46 @@
-import { defineStore } from 'pinia';
-
 import {
   useAccountApiService,
   type AccountCreationData
 } from './accountApiService';
 import { useAccountStore, type Account } from '../stores/accountStore';
 
-export const useAccountService = defineStore('accountService', () => {
+let accountService: AccountService|null = null;
 
-  const accountStore = useAccountStore();
-  const accountApiService = useAccountApiService();
+export const useAccountService = (): AccountService => {
+  if (!accountService) accountService = new AccountService();
+  return accountService;
+};
+class AccountService {
 
-  async function fetchAccounts(): Promise<void> {
-    const accounts = await accountApiService.getAccounts();
+  private accountStore = useAccountStore();
+  private accountApiService = useAccountApiService();
+
+  public async fetchAccounts(): Promise<void> {
+    const accounts = await this.accountApiService.getAccounts();
     for (const account of accounts) {
-      accountStore.insertAccount(account);
+      this.accountStore.insertAccount(account);
     }
   }
 
-  async function refreshAccount(accountId: number): Promise<void> {
-    const account = await accountApiService.getAccount(accountId);
-    accountStore.insertAccount(account);
+  public async refreshAccount(accountId: number): Promise<void> {
+    const account = await this.accountApiService.getAccount(accountId);
+    this.accountStore.insertAccount(account);
   }
 
-  async function addAccount(account: AccountCreationData): Promise<Account> {
-    const newAccount = await accountApiService.addAccount(account);
-    accountStore.insertAccount(newAccount);
+  public async addAccount(account: AccountCreationData): Promise<Account> {
+    const newAccount = await this.accountApiService.addAccount(account);
+    this.accountStore.insertAccount(newAccount);
 
     return newAccount;
   }
 
-  async function updateAccount(account: Account): Promise<void> {
-    await accountApiService.updateAccount(account);
+  public async updateAccount(account: Account): Promise<void> {
+    await this.accountApiService.updateAccount(account);
   }
 
-  async function deleteAccount(accountId: number): Promise<void> {
-    await accountApiService.deleteAccount(accountId);
-    accountStore.deleteAccount(accountId);
+  public async deleteAccount(accountId: number): Promise<void> {
+    await this.accountApiService.deleteAccount(accountId);
+    this.accountStore.deleteAccount(accountId);
   }
 
-  return {
-    fetchAccounts,
-    refreshAccount,
-
-    addAccount,
-    updateAccount,
-    deleteAccount
-  };
-
-});
+}
