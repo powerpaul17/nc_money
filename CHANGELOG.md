@@ -4,6 +4,10 @@
 
 - Automatic selection of matching columns of imported CSV file
 
+### Changed
+
+- Convert stores and services to classes
+
 ## [0.20.0] - 2023-07-29
 
 ### Changed
