@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 import {
   useSplitApiService,
   type SplitCreationData
@@ -8,22 +6,30 @@ import { useAccountStore } from '../stores/accountStore';
 import { useSplitStore, type Split } from '../stores/splitStore';
 import { useTransactionStore } from '../stores/transactionStore';
 
-export const useSplitService = defineStore('splitService', () => {
-  const splitStore = useSplitStore();
-  const splitApiService = useSplitApiService();
+let splitService: SplitService|null = null;
 
-  const transactionStore = useTransactionStore();
-  const accountStore = useAccountStore();
+export const useSplitService = (): SplitService => {
+  if (!splitService) splitService = new SplitService();
+  return splitService;
+};
 
-  async function addSplit(split: SplitCreationData, addToStore = true): Promise<Split> {
-    const newSplit = await splitApiService.addSplit(split);
+class SplitService {
+
+  private splitStore = useSplitStore();
+  private splitApiService = useSplitApiService();
+
+  private transactionStore = useTransactionStore();
+  private accountStore = useAccountStore();
+
+  public async addSplit(split: SplitCreationData, addToStore = true): Promise<Split> {
+    const newSplit = await this.splitApiService.addSplit(split);
 
     if (addToStore) {
-      await splitStore.insertSplit(newSplit);
+      await this.splitStore.insertSplit(newSplit);
 
-      const transaction = await transactionStore.getById(newSplit.transactionId);
+      const transaction = await this.transactionStore.getById(newSplit.transactionId);
 
-      accountStore.addValue(
+      this.accountStore.addValue(
         split.destAccountId,
         split.value,
         transaction?.date
@@ -33,23 +39,18 @@ export const useSplitService = defineStore('splitService', () => {
     return newSplit;
   }
 
-  async function deleteSplit(split: Split): Promise<void> {
-    await splitApiService.deleteSplit(split.id);
-    await splitStore.deleteSplit(split.id);
+  public async deleteSplit(split: Split): Promise<void> {
+    await this.splitApiService.deleteSplit(split.id);
+    await this.splitStore.deleteSplit(split.id);
 
-    const transaction = await transactionStore.getById(split.transactionId);
-    accountStore.addValue(split.destAccountId, -split.value, transaction?.date);
+    const transaction = await this.transactionStore.getById(split.transactionId);
+    this.accountStore.addValue(split.destAccountId, -split.value, transaction?.date);
   }
 
-  async function updateSplit(split: Split): Promise<void> {
-    await splitStore.insertSplit(
-      await splitApiService.updateSplit(split)
+  public async updateSplit(split: Split): Promise<void> {
+    await this.splitStore.insertSplit(
+      await this.splitApiService.updateSplit(split)
     );
   }
 
-  return {
-    addSplit,
-    deleteSplit,
-    updateSplit
-  };
-});
+}

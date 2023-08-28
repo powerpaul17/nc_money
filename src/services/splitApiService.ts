@@ -2,36 +2,41 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import type { AxiosResponse } from 'axios';
 
-import { defineStore } from 'pinia';
-
 import type { Split } from '../stores/splitStore';
 
-export const useSplitApiService = defineStore('splitApiService', () => {
+let splitApiService: SplitApiService|null = null;
 
-  async function addSplit(split: SplitCreationData): Promise<Split> {
+export const useSplitApiService = (): SplitApiService => {
+  if (!splitApiService) splitApiService = new SplitApiService();
+  return splitApiService;
+};
+
+class SplitApiService {
+
+  public async addSplit(split: SplitCreationData): Promise<Split> {
     const response = await axios.post<
       SplitApiData,
       AxiosResponse<SplitApiData>,
       SplitCreationData
     >(generateUrl('apps/money/splits'), split);
-    return createSplitFromResponseData(response.data);
+    return this.createSplitFromResponseData(response.data);
   }
 
-  async function deleteSplit(splitId: number): Promise<void> {
+  public async deleteSplit(splitId: number): Promise<void> {
     await axios.delete(generateUrl(`apps/money/splits/${splitId}`));
   }
 
-  async function updateSplit(split: Split): Promise<Split> {
+  public async updateSplit(split: Split): Promise<Split> {
     const response = await axios.put<
       SplitApiData,
       AxiosResponse<SplitApiData>,
       SplitApiData
     >(generateUrl(`apps/money/splits/${split.id}`), split);
 
-    return createSplitFromResponseData(response.data);
+    return this.createSplitFromResponseData(response.data);
   }
 
-  function createSplitFromResponseData(data: SplitApiData): Split {
+  public createSplitFromResponseData(data: SplitApiData): Split {
     return {
       id: data.id,
       transactionId: data.transactionId,
@@ -42,14 +47,7 @@ export const useSplitApiService = defineStore('splitApiService', () => {
     };
   }
 
-  return {
-    addSplit,
-    deleteSplit,
-    updateSplit,
-    createSplitFromResponseData
-  };
-
-});
+}
 
 export type SplitCreationData = Omit<Split, 'id'>;
 
