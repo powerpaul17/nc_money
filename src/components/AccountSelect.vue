@@ -139,7 +139,7 @@
   });
 
   const accounts = computed((): Array<Account> => {
-    return accountStore.accounts.filter(
+    return accountStore.accounts.value.filter(
       (a) => !props.excludedAccountIds?.includes(a.id)
     ).sort((a1, a2) => {
       if (a1.type === a2.type) {

@@ -85,12 +85,12 @@
 
   const equity = computed(() => {
     return (
-      accountStore.assetsBalance + accountStore.liabilitiesBalance
+      accountStore.assetsBalance.value + accountStore.liabilitiesBalance.value
     );
   });
 
   const unbalancedValue = computed(() => {
-    return accountStore.unbalancedValue;
+    return accountStore.unbalancedValue.value;
   });
 
   // TODO: initialize accounts at some other point

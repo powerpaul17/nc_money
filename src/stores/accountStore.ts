@@ -2,97 +2,103 @@ import dayjs from 'dayjs';
 
 import { computed, ref, type Ref } from 'vue';
 
-import { defineStore } from 'pinia';
-
 import { AccountTypeType } from './accountTypeStore';
 
-export const useAccountStore = defineStore('accountStore', () => {
-  const accounts: Ref<Array<Account>> = ref([]);
+let accountStore: AccountStore|null = null;
 
-  const assetsBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountTypeType.ASSET));
+export const useAccountStore = (): AccountStore => {
+  if (!accountStore) accountStore = new AccountStore();
+  return accountStore;
+};
+
+class AccountStore {
+
+  public readonly accounts: Ref<Array<Account>> = ref([]);
+
+  public readonly assetsBalance = computed((): number => {
+    return this.calculateBalance(
+      this.getByType(AccountTypeType.ASSET).value
+    );
   });
 
-  const liabilitiesBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountTypeType.LIABILITY));
+  public readonly liabilitiesBalance = computed((): number => {
+    return this.calculateBalance(
+      this.getByType(AccountTypeType.LIABILITY).value
+    );
   });
 
-  const incomeBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountTypeType.INCOME));
+  public readonly incomeBalance = computed((): number => {
+    return this.calculateBalance(
+      this.getByType(AccountTypeType.INCOME).value
+    );
   });
 
-  const expensesBalance = computed((): number => {
-    return calculateBalance(_getByType(AccountTypeType.EXPENSE));
+  public readonly expensesBalance = computed((): number => {
+    return this.calculateBalance(
+      this.getByType(AccountTypeType.EXPENSE).value
+    );
   });
 
-  const unbalancedValue = computed((): number => {
-    return calculateBalance(accounts.value);
+  public readonly unbalancedValue = computed((): number => {
+    return this.calculateBalance(this.accounts.value);
   });
 
-  function getIndex(accountId: number): number {
-    return accounts.value.findIndex(a => a.id === accountId);
+  private getIndex(accountId: number): number {
+    return this.accounts.value.findIndex(a => a.id === accountId);
   }
 
-  const getById = computed(() => {
-    return _getById;
-  });
-
-  function _getById(accountId: number): Account|undefined {
-    return accounts.value.find(a => a.id === accountId);
+  public getById(accountId: number): Account|undefined {
+    return this.accounts.value.find(a => a.id === accountId);
   }
 
-  const getByType = computed(() => {
-    return _getByType;
-  });
-
-  function _getByType(accountType: AccountTypeType): Array<Account> {
-    return accounts.value.filter((a) => a.type === accountType);
+  public getByType(accountType: AccountTypeType): Ref<Array<Account>> {
+    return computed(() => this.accounts.value.filter((a) => a.type === accountType));
   }
 
-  const getSummary = computed(() => {
-    return (accountId: number, year?: number, month?: number): number => {
+  public getSummary(accountId: number, year?: number, month?: number): Ref<number> {
+    return computed(() => {
       const date = dayjs();
       const y = year ?? date.year();
       const m = month ?? date.month() + 1;
-      return _getById(accountId)?.stats[y]?.[m] ?? 0;
-    };
-  });
+      return this.getById(accountId)?.stats[y]?.[m] ?? 0;
+    });
+  }
 
-  const getSummaryByType = computed(() => {
-    return (accountType: AccountTypeType, year?: number, month?: number): number => {
-      return calculateSummary(_getByType(accountType), year, month);
-    };
-  });
+  public getSummaryByType(accountType: AccountTypeType, year?: number, month?: number): Ref<number> {
+    return computed(() => {
+      return this.calculateSummary(this.getByType(accountType).value, year, month);
+    });
+  }
 
-  function deleteAccount(accountId: number): void {
-    const index = getIndex(accountId);
+  public deleteAccount(accountId: number): void {
+    const index = this.getIndex(accountId);
     if (index >= 0) {
-      accounts.value.splice(index, 1);
+      this.accounts.value.splice(index, 1);
     }
   }
 
-  function insertAccount(account: Account): void {
-    const index = getIndex(account.id);
+  public insertAccount(account: Account): void {
+    const index = this.getIndex(account.id);
     if (index >= 0) {
-      accounts.value.splice(index, 1, account);
+      this.accounts.value.splice(index, 1, account);
     } else {
-      accounts.value.push(account);
+      this.accounts.value.push(account);
     }
   }
 
-  function addValue(accountId: number, value: number, date?: Date): void {
-    const account = _getById(accountId);
+  public addValue(accountId: number, value: number, date?: Date): void {
+    const account = this.getById(accountId);
     if (!account) throw new Error('cannot add value to non-existing account');
 
     account.balance += value;
 
     if (date) {
-      addSummaryValue(accountId, value, date);
+      this.addSummaryValue(accountId, value, date);
     }
   }
 
-  function addSummaryValue(accountId: number, value: number, date: Date): void {
-    const account = _getById(accountId);
+  public addSummaryValue(accountId: number, value: number, date: Date): void {
+    const account = this.getById(accountId);
     if (!account)
       throw new Error('cannot add summary value to non-existing account');
 
@@ -108,13 +114,13 @@ export const useAccountStore = defineStore('accountStore', () => {
     yearMap[month] = (yearMap[month] ?? 0) + value;
   }
 
-  function calculateBalance(accounts: Array<Account>): number {
+  private calculateBalance(accounts: Array<Account>): number {
     return accounts.reduce<number>((balance, account) => {
       return (balance += account.balance);
     }, 0.0);
   }
 
-  function calculateSummary(
+  private calculateSummary(
     accounts: Array<Account>,
     year?: number,
     month?: number
@@ -128,26 +134,7 @@ export const useAccountStore = defineStore('accountStore', () => {
     }, 0.0);
   }
 
-  return {
-    accounts,
-
-    assetsBalance,
-    liabilitiesBalance,
-    incomeBalance,
-    expensesBalance,
-    unbalancedValue,
-    getById,
-    getByType,
-    getSummary,
-    getSummaryByType,
-
-    insertAccount,
-    deleteAccount,
-
-    addValue,
-    addSummaryValue
-  };
-});
+}
 
 export type Account = {
   id: number;

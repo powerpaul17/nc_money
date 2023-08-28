@@ -87,7 +87,7 @@
           props.accountTypeType,
           date.year(),
           date.month() + 1
-        ) * inversionFactor;
+        ).value * inversionFactor;
       }
     });
 
@@ -108,7 +108,7 @@
           props.accountTypeType,
           date.year(),
           date.month() + 1
-        );
+        ).value;
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }

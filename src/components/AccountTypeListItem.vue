@@ -95,9 +95,9 @@
         props.accountType.type,
         date.year(),
         date.month() + 1
-      );
+      ).value;
     } else {
-      return props.accountType.balance;
+      return props.accountType.balance.value;
     }
   }
 

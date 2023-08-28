@@ -47,9 +47,7 @@
     'item-clicked'
   ]);
 
-  const accounts = computed(() => {
-    return accountStore.getByType(props.accountType);
-  });
+  const accounts = accountStore.getByType(props.accountType);
 
   const accountTypeName = computed(() => {
     return AccountTypeUtils.getNameOfAccountType(props.accountType, true);

@@ -34,12 +34,12 @@
   const accountService = useAccountService();
 
   onBeforeMount(() => {
-    accountService.fetchAccounts();
+    void accountService.fetchAccounts();
   });
 
   const equityChartData = computed((): LineChartData => {
     const data = GraphDataUtils.createLineGraphData({
-      startValue: accountStore.assetsBalance + accountStore.liabilitiesBalance,
+      startValue: accountStore.assetsBalance.value + accountStore.liabilitiesBalance.value,
       numberOfMonths: 6,
       callback: (date) => {
         return (
@@ -47,12 +47,12 @@
             AccountTypeType.ASSET,
             date.year(),
             date.month() + 1
-          ) +
+          ).value +
           accountStore.getSummaryByType(
             AccountTypeType.LIABILITY,
             date.year(),
             date.month() + 1
-          )
+          ).value
         );
       }
     });
@@ -69,14 +69,14 @@
 
   const assetsChartData = computed((): LineChartData => {
     const data = GraphDataUtils.createLineGraphData({
-      startValue: accountStore.assetsBalance,
+      startValue: accountStore.assetsBalance.value,
       numberOfMonths: 6,
       callback: (date) => {
         return accountStore.getSummaryByType(
           AccountTypeType.ASSET,
           date.year(),
           date.month() + 1
-        );
+        ).value;
       }
     });
 
@@ -93,14 +93,14 @@
 
   const liabilitiesChartData = computed((): LineChartData => {
     const data = GraphDataUtils.createLineGraphData({
-      startValue: accountStore.liabilitiesBalance,
+      startValue: accountStore.liabilitiesBalance.value,
       numberOfMonths: 6,
       callback: (date) => {
         return accountStore.getSummaryByType(
           AccountTypeType.LIABILITY,
           date.year(),
           date.month() + 1
-        );
+        ).value;
       }
     });
 
