@@ -50,7 +50,7 @@
 
       <template #after>
         <div
-          v-if="transactionStore.allTransactionsFetched"
+          v-if="transactionStore.allTransactionsFetched.value"
           class="
             mt-3 mb-10
             border-t border-solid border-border-dark

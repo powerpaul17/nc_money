@@ -27,7 +27,7 @@ class TransactionService {
   private accountService = useAccountService();
 
   public async reloadTransactions(): Promise<void> {
-    const accountId = this.transactionStore.currentAccountId;
+    const accountId = this.transactionStore.currentAccountId.value;
 
     if (accountId) await this.accountService.refreshAccount(accountId);
     await this.changeAccount(accountId);
@@ -35,7 +35,7 @@ class TransactionService {
 
   public async changeAccount(accountId?: number|null): Promise<void> {
     await this.transactionStore.reset();
-    this.transactionStore.currentAccountId = accountId ?? null;
+    this.transactionStore.currentAccountId.value = accountId ?? null;
     await this.fetchAndInsertTransactions();
   }
 
@@ -68,13 +68,13 @@ class TransactionService {
   }
 
   public async fetchAndInsertTransactions(offset = 0, limit = 100): Promise<void> {
-    if (this.transactionStore.allTransactionsFetched) return;
+    if (this.transactionStore.allTransactionsFetched.value) return;
 
     let transactions = [];
 
-    if (this.transactionStore.currentAccountId) {
+    if (this.transactionStore.currentAccountId.value) {
       transactions = await this.fetchTransactionsOfAccount(
-        this.transactionStore.currentAccountId,
+        this.transactionStore.currentAccountId.value,
         offset,
         limit
       );
@@ -85,7 +85,7 @@ class TransactionService {
     await this.transactionStore.insertTransactions(transactions);
 
     if (transactions.length < limit)
-    this.transactionStore.allTransactionsFetched = true;
+      this.transactionStore.allTransactionsFetched.value = true;
   }
 
   public async addTransaction(

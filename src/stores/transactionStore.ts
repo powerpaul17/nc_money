@@ -2,46 +2,52 @@ import { ref, type Ref } from 'vue';
 
 import { clear, createTable, first, insert, many, remove, update, watch } from 'blinkdb';
 
-import { defineStore } from 'pinia';
-
 import { useSplitStore } from './splitStore';
 import { useAccountStore } from './accountStore';
 import { useBlinkDB } from './blinkdb';
 
-export const useTransactionStore = defineStore('transactionStore', () => {
-  const splitStore = useSplitStore();
-  const accountStore = useAccountStore();
+let transactionStore: TransactionStore|null = null;
 
-  const db = useBlinkDB();
-  const transactionsTable = createTable<Transaction>(db, 'transactions')();
+export const useTransactionStore = (): TransactionStore => {
+  if (!transactionStore) transactionStore = new TransactionStore();
+  return transactionStore;
+};
 
-  const currentAccountId: Ref<number|null> = ref(null);
-  const allTransactionsFetched = ref(false);
+class TransactionStore {
 
-  async function reset(): Promise<void> {
-    await clear(transactionsTable);
-    currentAccountId.value = null;
-    allTransactionsFetched.value = false;
+  private splitStore = useSplitStore();
+  private accountStore = useAccountStore();
 
-    await splitStore.reset();
+  private db = useBlinkDB();
+  private transactionsTable = createTable<Transaction>(this.db, 'transactions')();
+
+  public readonly currentAccountId: Ref<number|null> = ref(null);
+  public readonly allTransactionsFetched = ref(false);
+
+  public async reset(): Promise<void> {
+    await clear(this.transactionsTable);
+    this.currentAccountId.value = null;
+    this.allTransactionsFetched.value = false;
+
+    await this.splitStore.reset();
   }
 
-  async function getById(transactionId: number): Promise<Transaction|null> {
-    return await first(transactionsTable, {
+  public async getById(transactionId: number): Promise<Transaction|null> {
+    return await first(this.transactionsTable, {
       where: {
         id: transactionId
       }
     });
   }
 
-  async function getByAccountId(accountId: number): Promise<Array<Transaction>> {
-    const splits = await splitStore.query({
+  public async getByAccountId(accountId: number): Promise<Array<Transaction>> {
+    const splits = await this.splitStore.query({
       where: {
         destAccountId: accountId
       }
     });
 
-    return many(transactionsTable, {
+    return many(this.transactionsTable, {
       where: {
         id: {
           in: splits.map(s => s.transactionId)
@@ -50,8 +56,8 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     });
   }
 
-  async function getSortedByDate(): Promise<Array<Transaction>> {
-    return many(transactionsTable, {
+  public async getSortedByDate(): Promise<Array<Transaction>> {
+    return many(this.transactionsTable, {
       sort: {
         key: 'date',
         order: 'desc'
@@ -59,10 +65,10 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     });
   }
 
-  function watchAll(callback: (transactions: Array<Transaction>) => void): Promise<{
+  public watchAll(callback: (transactions: Array<Transaction>) => void): Promise<{
     stop: () => void;
   }> {
-    return watch(transactionsTable, {
+    return watch(this.transactionsTable, {
       sort: {
         key: 'date',
         order: 'desc'
@@ -70,13 +76,16 @@ export const useTransactionStore = defineStore('transactionStore', () => {
     }, callback);
   }
 
-  async function insertTransactions(transactions: Array<Transaction>): Promise<void> {
+  public async insertTransactions(transactions: Array<Transaction>): Promise<void> {
     for (const transaction of transactions) {
-      await insertTransaction(transaction);
+      await this.insertTransaction(transaction);
     }
   }
 
-  async function insertTransaction(transaction: Transaction): Promise<void> {
+  public async insertTransaction(transaction: Transaction): Promise<void> {
+    const splitStore = this.splitStore;
+    const accountStore = this.accountStore;
+
     const transactionProxy = new Proxy(
       transaction,
       {
@@ -107,34 +116,18 @@ export const useTransactionStore = defineStore('transactionStore', () => {
       }
     );
 
-    if(await first(transactionsTable, { where: { id: transactionProxy.id } })) {
-      await update(transactionsTable, transactionProxy);
+    if(await first(this.transactionsTable, { where: { id: transactionProxy.id } })) {
+      await update(this.transactionsTable, transactionProxy);
     } else {
-      await insert(transactionsTable, transactionProxy);
+      await insert(this.transactionsTable, transactionProxy);
     }
   }
 
-  async function deleteTransaction(transactionId: number): Promise<void> {
-    await remove(transactionsTable, { id: transactionId });
+  public async deleteTransaction(transactionId: number): Promise<void> {
+    await remove(this.transactionsTable, { id: transactionId });
   }
 
-  return {
-    reset,
-
-    currentAccountId: currentAccountId,
-    allTransactionsFetched: allTransactionsFetched,
-
-    getById,
-    getByAccountId,
-    getSortedByDate,
-
-    watchAll,
-
-    insertTransaction,
-    insertTransactions,
-    deleteTransaction
-  };
-});
+}
 
 export type Transaction = {
   id: number;
