@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 import { ArrayUtils } from '../utils/arrayUtils';
 
 import {
@@ -12,97 +10,105 @@ import { useAccountService } from './accountService';
 import { useTransactionStore, type Transaction } from '../stores/transactionStore';
 import type { Split } from '../stores/splitStore';
 
-export const useTransactionService = defineStore('transactionService', () => {
-  const transactionStore = useTransactionStore();
-  const transactionApiService = useTransactionApiService();
+let transactionService: TransactionService|null = null;
 
-  const splitService = useSplitService();
+export const useTransactionService = (): TransactionService => {
+  if (!transactionService) transactionService = new TransactionService();
+  return transactionService;
+};
 
-  const accountService = useAccountService();
+class TransactionService {
 
-  async function reloadTransactions(): Promise<void> {
-    const accountId = transactionStore.currentAccountId;
+  private transactionStore = useTransactionStore();
+  private transactionApiService = useTransactionApiService();
 
-    if (accountId) await accountService.refreshAccount(accountId);
-    await changeAccount(accountId);
+  private splitService = useSplitService();
+
+  private accountService = useAccountService();
+
+  public async reloadTransactions(): Promise<void> {
+    const accountId = this.transactionStore.currentAccountId;
+
+    if (accountId) await this.accountService.refreshAccount(accountId);
+    await this.changeAccount(accountId);
   }
 
-  async function changeAccount(accountId?: number|null): Promise<void> {
-    await transactionStore.reset();
-    transactionStore.currentAccountId = accountId ?? null;
-    await fetchAndInsertTransactions();
+  public async changeAccount(accountId?: number|null): Promise<void> {
+    await this.transactionStore.reset();
+    this.transactionStore.currentAccountId = accountId ?? null;
+    await this.fetchAndInsertTransactions();
   }
 
-  async function fetchTransactionsOfAccount(
+  private async fetchTransactionsOfAccount(
     accountId: number,
     offset = 0,
     limit = 100
   ): Promise<Array<Transaction>> {
-    return await transactionApiService.getTransactionsOfAccount(
+    return await this.transactionApiService.getTransactionsOfAccount(
       accountId,
       offset,
       limit
     );
   }
 
-  async function fetchTransactionsOfAccountByDate(
+  public async fetchTransactionsOfAccountByDate(
     accountId: number,
     startDate: Date,
     endDate: Date
   ): Promise<Array<Transaction>> {
-    return await transactionApiService.getTransactionsOfAccountByDate(
+    return await this.transactionApiService.getTransactionsOfAccountByDate(
       accountId,
       startDate,
       endDate
     );
   }
 
-  async function fetchUnbalancedTransactions(offset = 0, limit = 100): Promise<Array<Transaction>> {
-    return await transactionApiService.getUnbalancedTransactions(offset, limit);
+  public async fetchUnbalancedTransactions(offset = 0, limit = 100): Promise<Array<Transaction>> {
+    return await this.transactionApiService.getUnbalancedTransactions(offset, limit);
   }
 
-  async function fetchAndInsertTransactions(offset = 0, limit = 100): Promise<void> {
-    if (transactionStore.allTransactionsFetched) return;
+  public async fetchAndInsertTransactions(offset = 0, limit = 100): Promise<void> {
+    if (this.transactionStore.allTransactionsFetched) return;
 
     let transactions = [];
 
-    if (transactionStore.currentAccountId) {
-      transactions = await fetchTransactionsOfAccount(
-        transactionStore.currentAccountId,
+    if (this.transactionStore.currentAccountId) {
+      transactions = await this.fetchTransactionsOfAccount(
+        this.transactionStore.currentAccountId,
         offset,
         limit
       );
     } else {
-      transactions = await fetchUnbalancedTransactions(offset, limit);
+      transactions = await this.fetchUnbalancedTransactions(offset, limit);
     }
 
-    await transactionStore.insertTransactions(transactions);
+    await this.transactionStore.insertTransactions(transactions);
 
     if (transactions.length < limit)
-      transactionStore.allTransactionsFetched = true;
+    this.transactionStore.allTransactionsFetched = true;
   }
 
-  async function addTransaction(
+  public async addTransaction(
     transaction: TransactionCreationData,
     addToStore = true
   ): Promise<Transaction> {
-    const newTransaction = await transactionApiService.addTransaction(
+    const newTransaction = await this.transactionApiService.addTransaction(
       transaction
     );
 
-    if (addToStore) await transactionStore.insertTransaction(newTransaction);
+    if (addToStore) await this.transactionStore.insertTransaction(newTransaction);
 
     return newTransaction;
   }
 
-  async function updateTransaction(transaction: Transaction): Promise<void> {
+  public async updateTransaction(transaction: Transaction): Promise<void> {
     // TODO: find better way to support updates of dates!
-    await transactionStore.insertTransaction(
-      await transactionApiService.updateTransaction(transaction)
+    await this.transactionStore.insertTransaction(
+      await this.transactionApiService.updateTransaction(transaction)
     );
   }
 
-  async function addTransactionWithSplits(
+  public async addTransactionWithSplits(
     transaction: TransactionWithSplitsCreationData,
     addToStore = true
   ): Promise<{
@@ -110,7 +116,7 @@ export const useTransactionService = defineStore('transactionService', () => {
     srcSplit: Split;
     destSplit?: Split;
   }> {
-    const newTransaction = await addTransaction(
+    const newTransaction = await this.addTransaction(
       {
         date: transaction.date,
         description: transaction.description
@@ -120,7 +126,7 @@ export const useTransactionService = defineStore('transactionService', () => {
 
     let newDestSplit;
     if (transaction.destAccountId) {
-      newDestSplit = await splitService.addSplit(
+      newDestSplit = await this.splitService.addSplit(
         {
           transactionId: newTransaction.id,
           destAccountId: transaction.destAccountId,
@@ -132,7 +138,7 @@ export const useTransactionService = defineStore('transactionService', () => {
       );
     }
 
-    const newSrcSplit = await splitService.addSplit(
+    const newSrcSplit = await this.splitService.addSplit(
       {
         transactionId: newTransaction.id,
         destAccountId: transaction.srcAccountId,
@@ -150,7 +156,7 @@ export const useTransactionService = defineStore('transactionService', () => {
     };
   }
 
-  async function addTransactionsWithSplits(
+  public async addTransactionsWithSplits(
     transactions: Array<TransactionWithSplitsCreationData>,
     addToStore = true
   ): Promise<Array<{
@@ -165,24 +171,11 @@ export const useTransactionService = defineStore('transactionService', () => {
 
     for (const chunk of chunks) {
       for (const transaction of chunk) {
-        results.push(await addTransactionWithSplits(transaction, addToStore));
+        results.push(await this.addTransactionWithSplits(transaction, addToStore));
       }
     }
 
     return results;
   }
 
-  return {
-    addTransaction,
-    updateTransaction,
-
-    addTransactionWithSplits,
-    addTransactionsWithSplits,
-
-    reloadTransactions,
-    changeAccount,
-
-    fetchTransactionsOfAccountByDate,
-    fetchAndInsertTransactions
-  };
-});
+}
