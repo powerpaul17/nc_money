@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 import { createTable, watch, insert, remove, clear, many, first, update } from 'blinkdb';
 import type { Query } from 'blinkdb/dist/query/types';
 
@@ -7,59 +5,67 @@ import { useAccountStore } from './accountStore';
 import { useTransactionStore } from './transactionStore';
 import { useBlinkDB } from './blinkdb';
 
-export const useSplitStore = defineStore('splitStore', () => {
-  const accountStore = useAccountStore();
-  const transactionStore = useTransactionStore();
+let splitStore: SplitStore|null = null;
 
-  const db = useBlinkDB();
-  const splitsTable = createTable<Split>(db, 'splits')();
+export const useSplitStore = (): SplitStore => {
+  if (!splitStore) splitStore = new SplitStore();
+  return splitStore;
+};
 
-  async function reset(): Promise<void> {
-    await clear(splitsTable);
+class SplitStore {
+
+  private db = useBlinkDB();
+  private splitsTable = createTable<Split>(this.db, 'splits')();
+
+  public async reset(): Promise<void> {
+    await clear(this.splitsTable);
   }
 
-  function getById(splitId: number): Promise<Split|null> {
-    return first(splitsTable, {
+  public getById(splitId: number): Promise<Split|null> {
+    return first(this.splitsTable, {
       where: {
         id: splitId
       }
     });
   }
 
-  function watchForTransactionId(
+  public watchForTransactionId(
     transactionId: number,
     callback: (splits: Array<Split>) => void
   ): Promise<{
     stop: () => void;
   }> {
-    return watch(splitsTable, {
+    return watch(this.splitsTable, {
       where: {
         transactionId: transactionId
       }
     }, callback);
   }
 
-  async function query(query: Query<Split, 'id'>): Promise<Array<Split>> {
-    return many(splitsTable, query);
+  public async query(query: Query<Split, 'id'>): Promise<Array<Split>> {
+    return many(this.splitsTable, query);
   }
 
-  async function getByTransactionId(transactionId: number): Promise<Array<Split>> {
-    return many(splitsTable, {
+  public async getByTransactionId(transactionId: number): Promise<Array<Split>> {
+    return many(this.splitsTable, {
       where: {
         transactionId: transactionId
       }
     });
   }
 
-  async function getByAccountId(accountId: number): Promise<Array<Split>> {
-    return many(splitsTable, {
+  public async getByAccountId(accountId: number): Promise<Array<Split>> {
+    return many(this.splitsTable, {
       where: {
         destAccountId: accountId
       }
     });
   }
 
-  async function insertSplit(split: Split): Promise<void> {
+  public async insertSplit(split: Split): Promise<void> {
+    const accountStore = useAccountStore();
+    const transactionStore = useTransactionStore();
+
     const splitProxy = new Proxy(
       split,
       {
@@ -92,38 +98,24 @@ export const useSplitStore = defineStore('splitStore', () => {
       }
     );
 
-    if (await first(splitsTable, { where: { id: splitProxy.id } })) {
-      await update(splitsTable, splitProxy);
+    if (await first(this.splitsTable, { where: { id: splitProxy.id } })) {
+      await update(this.splitsTable, splitProxy);
     } else {
-      await insert(splitsTable, splitProxy);
+      await insert(this.splitsTable, splitProxy);
     }
   }
 
-  async function insertSplits(splits: Array<Split>): Promise<void> {
+  public async insertSplits(splits: Array<Split>): Promise<void> {
     for (const split of splits) {
-      await insertSplit(split);
+      await this.insertSplit(split);
     }
   }
 
-  async function deleteSplit(splitId: number): Promise<void> {
-    await remove(splitsTable, { id: splitId });
+  public async deleteSplit(splitId: number): Promise<void> {
+    await remove(this.splitsTable, { id: splitId });
   }
 
-  return {
-    reset,
-    query,
-
-    getById,
-    getByTransactionId,
-    getByAccountId,
-
-    watchForTransactionId,
-
-    insertSplit,
-    insertSplits,
-    deleteSplit
-  };
-});
+}
 
 export type Split = {
   id: number;
