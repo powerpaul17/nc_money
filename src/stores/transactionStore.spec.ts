@@ -1,15 +1,10 @@
-import { beforeEach, describe, expect, it } from 'vitest';
-import { createPinia, setActivePinia } from 'pinia';
+import { describe, expect, it } from 'vitest';
 
 import { useTransactionStore } from './transactionStore';
 import dayjs from 'dayjs';
 import { useSplitStore } from './splitStore';
 
 describe('transactionStore', () => {
-
-  beforeEach(() => {
-    setActivePinia(createPinia());
-  });
 
   it('should insert a new transaction', async () => {
     const transactionStore = useTransactionStore();

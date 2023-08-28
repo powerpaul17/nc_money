@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { createPinia, PiniaVuePlugin } from 'pinia';
 
 import './l10n';
 
@@ -20,14 +19,10 @@ import App from './App.vue';
 
 Vue.use(VueRouter);
 
-Vue.use(PiniaVuePlugin);
-const pinia = createPinia();
-
 new Vue({
   el: '#content',
   render: (h) => h(App),
-  router,
-  pinia
+  router
 });
 
 if (

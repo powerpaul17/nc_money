@@ -1,14 +1,9 @@
-import { beforeEach, describe, expect, it } from 'vitest';
-import { createPinia, setActivePinia } from 'pinia';
+import { describe, expect, it } from 'vitest';
 
 import { useSplitStore } from './splitStore';
 import { useAccountStore } from './accountStore';
 
 describe('splitStore', () => {
-
-  beforeEach(() => {
-    setActivePinia(createPinia());
-  });
 
   it('should insert a new split', async () => {
     const splitStore = useSplitStore();
