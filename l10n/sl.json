@@ -6,6 +6,8 @@
     "Account name" : "Ime računa",
     "Delete account" : "Izbriši račun",
     "Are you sure?" : "Ali ste prepričani?",
+    "No account found..." : "Ni najdenega računa ..",
+    "No account available..." : "Ni razpoložljivega računa ...",
     "Add account" : "Dodaj račun",
     "New Account" : "Nov račun",
     "Value" : "Vrednost",
