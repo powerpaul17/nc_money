@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "Mono",
     "Name" : "Nomo",
     "Description" : "Priskribo",
     "Overview" : "Superrigardo",
