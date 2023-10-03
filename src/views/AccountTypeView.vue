@@ -80,10 +80,9 @@
   const lineChartData = computed((): LineChartData => {
     const inversionFactor = isInvertedAccount.value ? -1 : 1;
 
-    const data = GraphDataUtils.createLineGraphData({
-      startValue: (accountType.value?.balance.value ?? 0.0) * inversionFactor,
+    const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return  accountStore.getSummaryByType(
+        return  accountStore.getBalanceByType(
           props.accountTypeType,
           date.year(),
           date.month() + 1

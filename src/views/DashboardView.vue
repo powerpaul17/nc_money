@@ -32,14 +32,13 @@
   const accountStore = useAccountStore();
 
   const equityLineChartData = computed((): LineChartData => {
-    const data = GraphDataUtils.createLineGraphData({
-      startValue: accountStore.assetsBalance.value + accountStore.liabilitiesBalance.value,
+    const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getSummaryByType(
+        return accountStore.getBalanceByType(
           AccountTypeType.ASSET,
           date.year(),
           date.month() + 1
-        ).value + accountStore.getSummaryByType(
+        ).value + accountStore.getBalanceByType(
           AccountTypeType.LIABILITY,
           date.year(),
           date.month() + 1
@@ -58,10 +57,9 @@
   });
 
   const assetsLiabilitiesLineChartData = computed((): LineChartData => {
-    const assetsData = GraphDataUtils.createLineGraphData({
-      startValue: accountStore.assetsBalance.value,
+    const assetsData = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getSummaryByType(
+        return accountStore.getBalanceByType(
           AccountTypeType.ASSET,
           date.year(),
           date.month() + 1
@@ -69,10 +67,9 @@
       }
     });
 
-    const liabilitiesData = GraphDataUtils.createLineGraphData({
-      startValue: accountStore.liabilitiesBalance.value,
+    const liabilitiesData = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getSummaryByType(
+        return accountStore.getBalanceByType(
           AccountTypeType.LIABILITY,
           date.year(),
           date.month() + 1

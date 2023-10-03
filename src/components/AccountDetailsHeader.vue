@@ -123,14 +123,13 @@
   const lineChartData = computed((): Data => {
     const inversionFactor = isInvertedAccount.value ? -1 : 1;
 
-    const data = GraphDataUtils.createLineGraphData({
-      startValue: props.account.balance * inversionFactor,
+    const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getSummary(
+        return accountStore.getBalance(
           props.account.id,
           date.year(),
           date.month() + 1
-        ).value * inversionFactor;
+        ) * inversionFactor;
       }
     });
 
@@ -151,7 +150,7 @@
           props.account.id,
           date.year(),
           date.month() + 1
-        ).value;
+        );
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }
