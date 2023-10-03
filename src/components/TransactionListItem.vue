@@ -208,6 +208,10 @@
     }
   });
 
+  const excludedSplitAccountIds = computed(() => {
+    return splits.value.map((s) => s.destAccountId);
+  });
+
   function toggleSplits(): void {
     props.transaction.showSplits = !props.transaction.showSplits;
   }
