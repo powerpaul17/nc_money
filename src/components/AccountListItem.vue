@@ -96,7 +96,7 @@
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
-  import type { Account } from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
   import { useSettingStore } from '../stores/settingStore';
@@ -115,6 +115,7 @@
   const router = useRouter();
 
   const settingStore = useSettingStore();
+  const accountStore = useAccountStore();
   const accountService = useAccountService();
   // AccountTypeUtils
 
@@ -137,11 +138,12 @@
   });
 
   function getAccountBalance(): number {
+    const accountStats = accountStore.getStats(props.account.id);
+
     if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
-      const date = dayjs();
-      return props.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+      return accountStats?.value ?? 0.0;
     } else {
-      return props.account.balance;
+      return accountStats?.balance ?? 0.0;
     }
   }
 
