@@ -2,7 +2,7 @@
   <NcAppNavigation>
     <template #list>
       <NcAppNavigationItem
-        :title="t('money', 'Overview')"
+        :name="t('money', 'Overview')"
         :to="'/'"
         :exact="true"
       >
@@ -23,7 +23,7 @@
       <li class="border-t border-solid border-border-dark" />
 
       <NcAppNavigationItem
-        :title="t('money', 'Unbalanced')"
+        :name="t('money', 'Unbalanced')"
       >
         <template #counter>
           <CurrencyText
@@ -35,7 +35,7 @@
       </NcAppNavigationItem>
 
       <NcAppNavigationItem
-        :title="t('money', 'Equity')"
+        :name="t('money', 'Equity')"
       >
         <template #counter>
           <CurrencyText

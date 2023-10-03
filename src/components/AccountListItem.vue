@@ -3,7 +3,7 @@
     :class="{
       'animate-pulse rounded-full bg-[var(--color-warning)] [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout != null
     }"
-    :title="
+    :name="
       deleteAccountTimeout != null ?
         t('money', '\'{accountName}\' deleted', { accountName: account.name }) :
         account.name
