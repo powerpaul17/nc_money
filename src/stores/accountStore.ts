@@ -298,3 +298,5 @@ export type MonthlyAccountStats = {
   balance: number;
   value: number;
 }
+
+export type { AccountStore };
