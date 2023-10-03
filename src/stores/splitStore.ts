@@ -4,6 +4,7 @@ import type { Query } from 'blinkdb/dist/query/types';
 import { useAccountStore } from './accountStore';
 import { useTransactionStore } from './transactionStore';
 import { useBlinkDB } from './blinkdb';
+import { NumberUtils } from '../utils/numberUtils';
 
 let splitStore: SplitStore|null = null;
 
@@ -75,13 +76,15 @@ class SplitStore {
 
           void transactionStore.getById(target.transactionId).then((transaction) => {
             if (p === 'value') {
+              if (NumberUtils.areEqual(value, oldValue)) return;
+
               const diff = value - oldValue;
               accountStore.addValue(
                 target.destAccountId,
                 diff,
                 transaction?.date
               );
-            } else if (p === 'destAccountId') {
+            } else if (p === 'destAccountId' && value !== oldDestAccountId) {
               accountStore.addValue(
                 oldDestAccountId,
                 -oldValue,
