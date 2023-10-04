@@ -103,10 +103,6 @@
   const accountIsChanging = ref(false);
   const isLoadingTransactions = ref(false);
   const groupBy = ref('month');
-  const items = ref<Array<{
-    transaction: Transaction;
-    type: 'normal'|'headOfGroup'
-  }>>([]);
 
   const groupByDateFormat = computed(() => {
     return 'MM.YYYY';
@@ -120,8 +116,12 @@
     await changeAccount();
   });
 
-  watch(transactions, () => {
-    items.value = transactions.value.map((t, index) => ({
+  const items = computed<Array<{
+    id: number;
+    transaction: Transaction;
+    type: 'normal'|'headOfGroup'
+  }>>(() => {
+    return transactions.value.map((t, index) => ({
       id: t.id,
       transaction: t,
       type: transactionIsHeadOfGroup(t, index) ? 'headOfGroup' : 'normal'
