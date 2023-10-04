@@ -204,12 +204,19 @@ class AccountStore {
     if (!account)
       throw new Error('cannot get stats of non-existing account');
 
+    const value = account.stats[year]?.[month]?.value ?? 0.0;
+    const balance = this.getBalanceOfAccount(account, year, month);
+
+    return {
+      value,
+      balance
+    };
+  }
+
+  private getBalanceOfAccount(account: Account, year: number, month: number): number {
     const years = Object.keys(account.stats).map(Number);
     if (!years.length) {
-      return {
-        value: 0.0,
-        balance: 0.0
-      };
+      return 0.0;
     }
 
     const earliestYear = Math.min(...years);
@@ -231,15 +238,9 @@ class AccountStore {
 
       const monthStats = year[latestMonth];
 
-      return {
-        value: monthStats!.value,
-        balance: monthStats!.balance
-      };
+      return monthStats.balance;
     } else if(date.isBefore(earliestDate)) {
-      return {
-        value: 0.0,
-        balance: 0.0
-      };
+      return 0.0;
     }
 
     let y = year;
@@ -249,10 +250,7 @@ class AccountStore {
       for (; m >= 1; m--) {
         const monthStats = account.stats[y]?.[m];
         if (monthStats) {
-          return {
-            value: monthStats.value,
-            balance: monthStats.balance
-          };
+          return monthStats.balance;
         }
       }
 
