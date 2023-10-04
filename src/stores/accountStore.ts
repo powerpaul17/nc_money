@@ -220,23 +220,24 @@ class AccountStore {
     }
 
     const earliestYear = Math.min(...years);
-    const earliestMonth = Math.min(...Object.keys(account.stats[earliestYear]).map(Number));
+    const earliestMonth = Math.min(...Object.keys(account.stats[earliestYear] ?? {}).map(Number));
     const earliestDate = dayjs().set('year', earliestYear).set('month', earliestMonth);
 
     const latestYear = Math.max(...years);
-    const latestMonth = Math.max(...Object.keys(account.stats[latestYear]).map(Number));
+    const latestMonth = Math.max(...Object.keys(account.stats[latestYear] ?? {}).map(Number));
     const latestDate = dayjs().set('year', latestYear).set('month', latestMonth);
 
     const date = dayjs().set('year', year).set('month', month);
 
     if (date.isAfter(latestDate)) {
-      const year = account.stats[latestYear];
-      if (!year) throw new Error('year not found');
+      const yearStats = account.stats[latestYear];
+      if (!yearStats) throw new Error('stats for year not found');
 
-      const months = Object.keys(year).map(Number);
+      const months = Object.keys(yearStats).map(Number);
       const latestMonth = Math.max(...months);
 
-      const monthStats = year[latestMonth];
+      const monthStats = yearStats[latestMonth];
+      if (!monthStats) throw new Error('stats for month not found');
 
       return monthStats.balance;
     } else if(date.isBefore(earliestDate)) {
