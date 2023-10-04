@@ -17,6 +17,9 @@
             },
             grid: {
               display: false
+            },
+            ticks: {
+              padding: 30
             }
           },
           y: {
