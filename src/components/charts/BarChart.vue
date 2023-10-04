@@ -12,7 +12,12 @@
         },
         scales: {
           x: {
-            display: true
+            border: {
+              display: false
+            },
+            grid: {
+              display: false
+            }
           },
           y: {
             display: false
@@ -24,7 +29,6 @@
             enabled: false
           },
           datalabels: {
-            display: true,
             font: {
               weight: 'bold'
             },
