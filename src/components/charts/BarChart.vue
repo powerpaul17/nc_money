@@ -18,6 +18,7 @@
             display: false
           }
         },
+        borderRadius,
         plugins: {
           tooltip: {
             enabled: false
@@ -73,6 +74,7 @@
   });
 
   const color = Utils.getValueOfCSSVar('--color-primary-element');
+  const borderRadius = Utils.getValueOfCSSVar('--border-radius-large').replace('px', '');
 
   const chartData = computed<TChartData<'bar'>>(() => ({
     labels: props.data.map((d) => d.label),
