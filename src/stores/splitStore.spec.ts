@@ -28,7 +28,6 @@ describe('splitStore', () => {
     const accountStore = useAccountStore();
     accountStore.insertAccount({
       id: 0,
-      balance: 0.0,
       currency: '',
       description: '',
       name: '',

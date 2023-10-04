@@ -66,8 +66,6 @@
 
 <script setup lang="ts">
 
-  import dayjs from 'dayjs';
-
   import { ref, type PropType } from 'vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
@@ -104,11 +102,12 @@
   const showImportTransactionsDialog = ref(false);
 
   const balance = computed(() => {
+    const accountStats = accountStore.getStats(props.account.id);
+
     if (isMonthlyAccount.value) {
-      const date = dayjs();
-      return props.account.stats[date.year()]?.[date.month() + 1] ?? 0.0;
+      return accountStats?.value ?? 0.0;
     } else {
-      return props.account.balance;
+      return accountStats?.balance ?? 0.0;
     }
   });
 
@@ -123,14 +122,13 @@
   const lineChartData = computed((): Data => {
     const inversionFactor = isInvertedAccount.value ? -1 : 1;
 
-    const data = GraphDataUtils.createLineGraphData({
-      startValue: props.account.balance * inversionFactor,
+    const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getSummary(
+        return accountStore.getBalance(
           props.account.id,
           date.year(),
           date.month() + 1
-        ).value * inversionFactor;
+        ) * inversionFactor;
       }
     });
 
@@ -151,7 +149,7 @@
           props.account.id,
           date.year(),
           date.month() + 1
-        ).value;
+        );
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }

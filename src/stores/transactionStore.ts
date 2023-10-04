@@ -95,12 +95,12 @@ class TransactionStore {
           if (p === 'date') {
             void splitStore.getByTransactionId(target.id).then((splits) => {
               for (const split of splits) {
-                accountStore.addSummaryValue(
+                accountStore.addValue(
                   split.destAccountId,
                   -split.value,
                   oldDate
                 );
-                accountStore.addSummaryValue(
+                accountStore.addValue(
                   split.destAccountId,
                   split.value,
                   value
