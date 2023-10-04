@@ -23,7 +23,18 @@
             }
           },
           y: {
-            display: false
+            border: {
+              display: false
+            },
+            ticks: {
+              color,
+              callback: (value) => {
+                if(NumberUtils.areEqual(value, 0.0)) {
+                  return '';
+                }
+                return;
+              }
+            }
           }
         },
         borderRadius,
