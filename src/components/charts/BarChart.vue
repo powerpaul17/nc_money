@@ -99,9 +99,7 @@
     datasets: [
       {
         data: props.data.map((d) => NumberUtils.roundToPrecision(d.value)),
-        borderWidth: 2,
-        borderColor: Utils.convertHexToRgba(color),
-        backgroundColor: Utils.convertHexToRgba(color, 0.2)
+        backgroundColor: Utils.convertHexToRgba(color)
       }
     ]
   }));
