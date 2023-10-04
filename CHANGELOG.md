@@ -7,6 +7,7 @@
 ### Changed
 
 - Convert stores and services to classes
+- Improve bar chart design/layout
 
 ## [0.20.0] - 2023-07-29
 
