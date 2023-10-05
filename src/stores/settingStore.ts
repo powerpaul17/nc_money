@@ -7,6 +7,10 @@ export const useSettingStore = (): SettingStore => {
   return settingStore;
 };
 
+export function resetSettingStore(): void {
+  settingStore = null;
+}
+
 class SettingStore {
 
   public readonly useInvertedAccounts = ref(true);

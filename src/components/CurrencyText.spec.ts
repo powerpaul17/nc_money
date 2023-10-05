@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { render } from '@testing-library/vue';
 
-import { useSettingStore } from '../stores/settingStore';
+import { resetSettingStore, useSettingStore } from '../stores/settingStore';
 
 import CurrencyText from './CurrencyText.vue';
 
@@ -109,6 +109,10 @@ describe('CurrencyText', () => {
     });
 
     expect(container.firstChild?.textContent).to.be.equal('0.00');
+  });
+
+  afterEach(() => {
+    resetSettingStore();
   });
 
 });
