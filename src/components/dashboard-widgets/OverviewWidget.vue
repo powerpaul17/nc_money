@@ -1,17 +1,23 @@
 <template>
   <div>
-    <LineChart
-      :data="equityChartData"
-      :title="t('money', 'Equity')"
-    />
-    <LineChart
-      :data="assetsChartData"
-      :title="t('money', 'Assets')"
-    />
-    <LineChart
-      :data="liabilitiesChartData"
-      :title="t('money', 'Liabilities')"
-    />
+    <div>
+      <LineChart
+        :data="equityChartData"
+        :title="t('money', 'Equity')"
+      />
+    </div>
+    <div>
+      <LineChart
+        :data="assetsChartData"
+        :title="t('money', 'Assets')"
+      />
+    </div>
+    <div>
+      <LineChart
+        :data="liabilitiesChartData"
+        :title="t('money', 'Liabilities')"
+      />
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Add container around each chart to fix dashboard widget
+
 ## [0.21.1] - 2023-10-05
 
 ### Changed
