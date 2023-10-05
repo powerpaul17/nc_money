@@ -64,7 +64,7 @@
   import colors from 'tailwindcss/colors';
 
   import { Line as ChartJSLineChart } from 'vue-chartjs';
-  import type { TChartData } from 'vue-chartjs/dist/types';
+  import type { ChartData } from 'chart.js';
 
   import { computed, type PropType } from 'vue';
 
@@ -93,7 +93,7 @@
   const textColor = Utils.getValueOfCSSVar('--color-main-text');
   const backgroundColor = Utils.getValueOfCSSVar('--color-main-background');
 
-  const chartData = computed<TChartData<'line'>>(() => ({
+  const chartData = computed<ChartData<'line'>>(() => ({
     labels: props.data.labels,
     datasets: props.data.datasets.map(dataset => {
       const color = dataset.color ?? Utils.getValueOfCSSVar('--color-primary-element');

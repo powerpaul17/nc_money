@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
   import { Bar as ChartJSBarChart } from 'vue-chartjs';
-  import type { TChartData } from 'vue-chartjs/dist/types';
+  import type { ChartData } from 'chart.js';
 
   import { computed, type PropType } from 'vue';
 
@@ -94,7 +94,7 @@
   const color = Utils.getValueOfCSSVar('--color-primary-element');
   const borderRadius = Utils.getValueOfCSSVar('--border-radius-large').replace('px', '');
 
-  const chartData = computed<TChartData<'bar'>>(() => ({
+  const chartData = computed<ChartData<'bar'>>(() => ({
     labels: props.data.map((d) => d.label),
     datasets: [
       {
