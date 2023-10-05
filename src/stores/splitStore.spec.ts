@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { useSplitStore } from './splitStore';
-import { useAccountStore } from './accountStore';
+import { resetSplitStore, useSplitStore } from './splitStore';
+import { resetAccountStore, useAccountStore } from './accountStore';
 
 describe('splitStore', () => {
 
@@ -149,6 +149,11 @@ describe('splitStore', () => {
     await splitStore.deleteSplit(split1.id);
 
     expect(await splitStore.getByTransactionId(0)).to.deep.equal([ split2 ]);
+  });
+
+  afterEach(() => {
+    resetSplitStore();
+    resetAccountStore();
   });
 
 });

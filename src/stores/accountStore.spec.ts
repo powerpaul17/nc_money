@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { useAccountStore, type AccountStore, type Account } from './accountStore';
+import { useAccountStore, type AccountStore, type Account, resetAccountStore } from './accountStore';
 import { AccountTypeType } from './accountTypeStore';
 
 describe('accountStore', () => {
@@ -105,6 +105,10 @@ describe('accountStore', () => {
       });
     });
 
+  });
+
+  afterEach(() => {
+    resetAccountStore();
   });
 
   function setupEnvironment(): {

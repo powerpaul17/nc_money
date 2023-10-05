@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import dayjs from 'dayjs';
 
-import { useTransactionStore } from './transactionStore';
-import { useSplitStore } from './splitStore';
-import { useAccountStore } from './accountStore';
+import { resetTransactionStore, useTransactionStore } from './transactionStore';
+import { resetSplitStore, useSplitStore } from './splitStore';
+import { resetAccountStore, useAccountStore } from './accountStore';
 import { AccountTypeType } from './accountTypeStore';
 
 describe('transactionStore', () => {
@@ -172,6 +172,12 @@ describe('transactionStore', () => {
     await transactionStore.deleteTransaction(transaction1.id);
 
     expect(await transactionStore.getSortedByDate()).to.deep.equal([ transaction2 ]);
+  });
+
+  afterEach(() => {
+    resetTransactionStore();
+    resetSplitStore();
+    resetAccountStore();
   });
 
 });
