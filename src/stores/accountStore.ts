@@ -11,6 +11,10 @@ export const useAccountStore = (): AccountStore => {
   return accountStore;
 };
 
+export function resetAccountStore(): void {
+  accountStore = null;
+}
+
 class AccountStore {
 
   public readonly accounts: Ref<Array<Account>> = ref([]);

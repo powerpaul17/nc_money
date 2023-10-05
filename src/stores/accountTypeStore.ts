@@ -11,6 +11,10 @@ export const useAccountTypeStore = (): AccountTypeStore => {
   return accountTypeStore;
 };
 
+export function resetAccountTypeStore(): void {
+  accountTypeStore = null;
+}
+
 class AccountTypeStore {
 
   private accountStore = useAccountStore();

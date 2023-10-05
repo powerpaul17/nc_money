@@ -13,6 +13,10 @@ export const useSplitStore = (): SplitStore => {
   return splitStore;
 };
 
+export function resetSplitStore(): void {
+  splitStore = null;
+}
+
 class SplitStore {
 
   private db = useBlinkDB();

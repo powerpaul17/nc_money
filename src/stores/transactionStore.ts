@@ -13,6 +13,10 @@ export const useTransactionStore = (): TransactionStore => {
   return transactionStore;
 };
 
+export function resetTransactionStore(): void {
+  transactionStore = null;
+}
+
 class TransactionStore {
 
   private splitStore = useSplitStore();
