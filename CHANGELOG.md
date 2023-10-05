@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.21.0] - 2023-10-05
+
 ### Added
 
 - Automatic selection of matching columns of imported CSV file
