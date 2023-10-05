@@ -55,7 +55,7 @@
     "vite": "^4.3.0",
     "vitest": "^0.22.1",
     "vue": "^2.7.13",
-    "vue-chartjs": "^5.2.0",
+    "vue-chartjs": "^5.1.0",
     "vue-eslint-parser": "^9.1.0",
     "vue-material-design-icons": "^5.1.2",
     "vue-router": "^3.6.5",

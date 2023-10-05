@@ -1,8 +1,8 @@
 <template>
   <ChartJSLineChart
     class="relative h-full w-full"
-    :chart-data="chartData"
-    :chart-options="
+    :data="chartData"
+    :options="
       {
         responsive: true,
         maintainAspectRatio: false,

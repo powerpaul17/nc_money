@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Downgrade vue-chartjs to a version supporting vue 2.7 & fix changed chart props
+
 ## [0.21.0] - 2023-10-05
 
 ### Added
