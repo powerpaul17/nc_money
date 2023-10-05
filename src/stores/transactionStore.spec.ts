@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { useTransactionStore } from './transactionStore';
 import dayjs from 'dayjs';
+
+import { useTransactionStore } from './transactionStore';
 import { useSplitStore } from './splitStore';
+import { useAccountStore } from './accountStore';
+import { AccountTypeType } from './accountTypeStore';
 
 describe('transactionStore', () => {
 
@@ -65,6 +68,24 @@ describe('transactionStore', () => {
   it('should return transactions by account id', async () => {
     const transactionStore = useTransactionStore();
     const splitStore = useSplitStore();
+
+    const accountStore = useAccountStore();
+    accountStore.insertAccount({
+      id: 0,
+      name: 'account0',
+      description: '',
+      currency: '',
+      type: AccountTypeType.ASSET,
+      stats: {}
+    });
+    accountStore.insertAccount({
+      id: 1,
+      name: 'account1',
+      description: '',
+      currency: '',
+      type: AccountTypeType.ASSET,
+      stats: {}
+    });
 
     const transaction1 = {
       id: 0,
