@@ -304,6 +304,12 @@ export type MonthlyAccountStats = {
 }
 
 export type ExtraData = {
+  csvImport?: {
+    columnSeparator?: string|null;
+    decimalSeparator?: string|null;
+    dateFormat?: string|null;
+    columnMapping?: Record<string, string>;
+  }
 }
 
 export type { AccountStore };

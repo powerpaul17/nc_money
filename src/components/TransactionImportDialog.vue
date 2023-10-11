@@ -153,6 +153,7 @@
 </template>
 
 <script setup lang="ts">
+
   import { parse } from 'csv-parse/browser/esm/sync';
   import dayjs from 'dayjs';
 
@@ -162,6 +163,8 @@
 
   import { useSplitStore } from '../stores/splitStore';
   import { useTransactionService } from '../services/transactionService';
+  import { useAccountStore } from '../stores/accountStore';
+  import { useAccountService } from '../services/accountService';
 
   import NcModal from '@nextcloud/vue/dist/Components/NcModal';
   import NcButton from '@nextcloud/vue/dist/Components/NcButton';
@@ -174,6 +177,8 @@
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
+  const accountStore = useAccountStore();
+  const accountService = useAccountService();
 
   const props = defineProps({
     accountId: {
@@ -185,9 +190,7 @@
   const emit = defineEmits([ 'close', 'transactions-imported' ]);
 
   const isImporting = ref(false);
-  const columnSeparator = ref(',');
-  const decimalSeparator = ref('.');
-  const dateFormat = ref('DD.MM.YYYY');
+
   const columns: Columns = reactive({
     date: {
       name: t('money', 'Date'),
@@ -240,6 +243,14 @@
   const numberOfImportedTransactions = ref(0);
   const numberOfTransactionsToImport = ref(0);
 
+  const account = computed(() => {
+    return accountStore.getById(props.accountId);
+  });
+
+  const columnSeparator = ref(account.value?.extraData.csvImport?.columnSeparator ?? ',');
+  const decimalSeparator = ref(account.value?.extraData.csvImport?.decimalSeparator ?? '.');
+  const dateFormat = ref(account.value?.extraData.csvImport?.dateFormat ?? 'DD.MM.YYYY');
+
   const isValid = computed(() => {
     return Object.values(columns).every((column) => columnIsValid(column));
   });
@@ -256,11 +267,11 @@
     }
   }
 
-  function handleFileChanged(file: File|null): void {
+  async function handleFileChanged(file: File|null): Promise<void> {
     if (!file)
       throw new Error('cannot import transactions without a csv file');
 
-    readFile(file);
+    await readFile(file);
   }
 
   function handleColumnSeparatorChanged(): void {
@@ -298,6 +309,8 @@
       (!columns.credit.selectedColumn && !columns.debit.selectedColumn)
     )
       throw new Error('cannot import without selected columns');
+
+    await saveAccountSettings();
 
     const transactionsToImport = [];
     for (const index of parsedData.value.keys()) {
@@ -407,6 +420,7 @@
 
       fileReader.readAsText(file);
     });
+
     parseFile();
   }
 
@@ -426,12 +440,19 @@
   }
 
   function selectMatchingColumns(): void {
-    for (const column of Object.values(columns)) {
-      const selectedColumn = column.selectedColumn;
+    const savedColumnMapping = account.value?.extraData.csvImport?.columnMapping;
 
-      if (!selectedColumn && availableColumns.value.indexOf(column.name) >= 0) {
-        column.selectedColumn = column.name;
-        handleColumnSelectionChanged(column);
+    for (const [ columnName, columnInfo ] of Object.entries(columns)) {
+      const selectedColumn = columnInfo.selectedColumn;
+      if (selectedColumn) continue;
+
+      const savedColumnName = savedColumnMapping?.[columnName];
+      if (savedColumnName) {
+        columnInfo.selectedColumn = savedColumnName;
+        handleColumnSelectionChanged(columnInfo);
+      } else if (availableColumns.value.indexOf(columnInfo.name) >= 0) {
+        columnInfo.selectedColumn = columnInfo.name;
+        handleColumnSelectionChanged(columnInfo);
       }
     }
   }
@@ -454,6 +475,30 @@
     value: number
   ): string {
     return `${dayjs(date).format('YYYY-MM-DD')}-${description}-${value}`;
+  }
+
+  async function saveAccountSettings(): Promise<void> {
+    if (!account.value) throw new Error('cannot save column mapping without account');
+
+    const newColumnMapping: Record<string, string> = {};
+
+    for(const [ columnName, columnInfo ] of Object.entries(columns)) {
+      if(columnInfo.selectedColumn) newColumnMapping[columnName] = columnInfo.selectedColumn;
+    }
+
+    await accountService.updateAccount({
+      ...account.value,
+      extraData: {
+        ...account.value.extraData,
+        csvImport: {
+          ...account.value.extraData.csvImport,
+          columnSeparator: columnSeparator.value,
+          decimalSeparator: decimalSeparator.value,
+          dateFormat: dateFormat.value,
+          columnMapping: newColumnMapping
+        }
+      }
+    });
   }
 
   type Columns = {
