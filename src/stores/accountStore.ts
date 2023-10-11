@@ -295,11 +295,15 @@ export type Account = {
   currency: string;
   description: string;
   stats: Record<number, Record<number, MonthlyAccountStats>>;
+  extraData: Partial<ExtraData>;
 };
 
 export type MonthlyAccountStats = {
   balance: number;
   value: number;
+}
+
+export type ExtraData = {
 }
 
 export type { AccountStore };
