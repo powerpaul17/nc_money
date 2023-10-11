@@ -2,7 +2,7 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import type { AxiosResponse } from 'axios';
 
-import type { Account, MonthlyAccountStats } from '../stores/accountStore';
+import type { Account, ExtraData, MonthlyAccountStats } from '../stores/accountStore';
 
 let accountApiService: AccountApiService|null = null;
 
@@ -67,7 +67,8 @@ class AccountApiService {
       description: data.description,
       currency: data.currency,
       type: data.type,
-      stats: data.stats
+      stats: data.stats,
+      extraData: data.extraData ? JSON.parse(data.extraData) as ExtraData : {}
     };
   }
 
@@ -78,7 +79,8 @@ class AccountApiService {
       description: data.description,
       currency: data.currency,
       type: data.type,
-      stats: data.stats
+      stats: data.stats,
+      extraData: JSON.stringify(data.extraData)
     };
   }
 
@@ -93,4 +95,5 @@ type AccountApiData = {
   currency: string;
   type: number;
   stats: Record<string, Record<string, MonthlyAccountStats>>;
+  extraData: string|null;
 };

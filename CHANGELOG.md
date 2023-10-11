@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Save transaction import settings to account
+
 ## [0.21.2] - 2023-10-06
 
 ### Changed

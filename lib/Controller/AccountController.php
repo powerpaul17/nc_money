@@ -87,8 +87,23 @@ class AccountController extends MoneyController {
    * @param int $id
    * @param int $type
    */
-  public function updateAccount($id, $name, $type, $currency, $description) {
-    $this->accountService->update($id, $name, $type, $currency, $description, $this->userId);
+  public function updateAccount(
+    $id,
+    $name,
+    $type,
+    $currency,
+    $description,
+    $extraData
+  ) {
+    $this->accountService->update(
+      $id,
+      $name,
+      $type,
+      $currency,
+      $description,
+      $extraData,
+      $this->userId
+    );
     return $this->getAccount($id);
   }
 
@@ -97,8 +112,21 @@ class AccountController extends MoneyController {
    *
    * @param int $type
    */
-  public function addAccount($name, $type, $currency, $description) {
-    $response = $this->accountService->create($name, $type, $currency, $description, $this->userId);
+  public function addAccount(
+    $name,
+    $type,
+    $currency,
+    $description,
+    $extraData
+  ) {
+    $response = $this->accountService->create(
+      $name,
+      $type,
+      $currency,
+      $description,
+      $extraData,
+      $this->userId
+    );
     return $this->getAccount($response->id);
   }
 
@@ -131,7 +159,8 @@ class AccountController extends MoneyController {
           'description' => $row['description'],
           'icon' => $row['icon'],
           'currency' => $row['currency'],
-          'stats' => new ArrayObject()
+          'stats' => new ArrayObject(),
+          'extraData' => $row['extra_data']
         ];
       }
 

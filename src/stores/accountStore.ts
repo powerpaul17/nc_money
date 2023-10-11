@@ -295,11 +295,21 @@ export type Account = {
   currency: string;
   description: string;
   stats: Record<number, Record<number, MonthlyAccountStats>>;
+  extraData: Partial<ExtraData>;
 };
 
 export type MonthlyAccountStats = {
   balance: number;
   value: number;
+}
+
+export type ExtraData = {
+  csvImport?: {
+    columnSeparator?: string|null;
+    decimalSeparator?: string|null;
+    dateFormat?: string|null;
+    columnMapping?: Record<string, string>;
+  }
 }
 
 export type { AccountStore };
