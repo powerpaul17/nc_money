@@ -11,6 +11,7 @@ OC.L10N.register(
     "Delete account" : "Zmazať účet",
     "Are you sure?" : "Ste si istý?",
     "Add account" : "Pridať účet",
+    "New Account" : "Nový účet",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",
     "Value" : "Hodnota",
