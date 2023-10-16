@@ -352,6 +352,8 @@
     if (!startDate || !endDate)
       throw new Error('cannot import transactions without a start/end date');
 
+    isImporting.value = true;
+
     const existingTransactions =
       await transactionService.fetchTransactionsOfAccountByDate(
         props.accountId,
@@ -381,8 +383,6 @@
 
     numberOfTransactionsToImport.value = transactionsToCreate.length;
     numberOfImportedTransactions.value = 0;
-
-    isImporting.value = true;
 
     for(const transaction of transactionsToCreate)  {
       await transactionService.addTransactionWithSplits(
