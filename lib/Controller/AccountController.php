@@ -24,23 +24,9 @@ class AccountController extends MoneyController {
    * @NoAdminRequired
    */
   public function getAccounts() {
-    $qb = $this->db->getQueryBuilder();
+    $qb = $this->createQueryBuilderForAccount();
 
-    $yearFunction = $qb->createFunction('EXTRACT(YEAR FROM c.date)');
-    $monthFunction = $qb->createFunction('EXTRACT(MONTH FROM c.date)');
-
-    $qb->select('a.*')
-      ->selectAlias($yearFunction, 'year')
-      ->selectAlias($monthFunction, 'month')
-      ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
-      ->selectAlias($qb->createFunction('SUM(SUM(b.value)) OVER (PARTITION BY a.id ORDER BY EXTRACT(YEAR FROM c.date), EXTRACT(MONTH FROM c.date))'), 'running_balance')
-      ->from('money_accounts', 'a')
-      ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
-      ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
-      ->where('a.user_id = :user_id')
-      ->groupBy($yearFunction, $monthFunction, 'a.id')
-
-      ->setParameter('user_id', $this->userId);
+    $qb->setParameter('user_id', $this->userId);
 
     $result = $qb->executeQuery();
     $rows = $result->fetchAll();
@@ -55,6 +41,20 @@ class AccountController extends MoneyController {
    * @param int $id
    */
   public function getAccount($id) {
+    $qb = $this->createQueryBuilderForAccount();
+
+    $qb->where('a.id = :id')
+      ->setParameter('user_id', $this->userId)
+      ->setParameter('id', $id);
+
+    $result = $qb->executeQuery();
+    $rows = $result->fetchAll();
+    $result->closeCursor();
+
+    return array_values($this->transformAccountRowsWithBalances($rows))[0];
+  }
+
+  private function createQueryBuilderForAccount() {
     $qb = $this->db->getQueryBuilder();
 
     $yearFunction = $qb->createFunction('EXTRACT(YEAR FROM c.date)');
@@ -64,21 +64,14 @@ class AccountController extends MoneyController {
       ->selectAlias($yearFunction, 'year')
       ->selectAlias($monthFunction, 'month')
       ->selectAlias($qb->createFunction('SUM(b.value)'), 'balance')
+      ->selectAlias($qb->createFunction('SUM(SUM(b.value)) OVER (PARTITION BY a.id ORDER BY EXTRACT(YEAR FROM c.date), EXTRACT(MONTH FROM c.date))'), 'running_balance')
       ->from('money_accounts', 'a')
       ->leftJoin('a', 'money_splits', 'b', 'b.dest_account_id = a.id')
       ->leftJoin('b', 'money_transactions', 'c', 'b.transaction_id = c.id')
-      ->where('a.id = :id')
-      ->andWhere('a.user_id = :user_id')
-      ->groupBy($yearFunction, $monthFunction, 'a.id')
+      ->where('a.user_id = :user_id')
+      ->groupBy($yearFunction, $monthFunction, 'a.id');
 
-      ->setParameter('user_id', $this->userId)
-      ->setParameter('id', $id);
-
-    $result = $qb->executeQuery();
-    $rows = $result->fetchAll();
-    $result->closeCursor();
-
-    return array_values($this->transformAccountRowsWithBalances($rows))[0];
+    return $qb;
   }
 
   /**

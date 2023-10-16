@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Fix balance calculation for account query & extract query builder generation
+
 ## [0.22.0] - 2023-10-12
 
 ### Added
