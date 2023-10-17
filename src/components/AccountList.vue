@@ -1,13 +1,11 @@
 <template>
   <NcAppContentList class="pb-2">
     <NcAppNavigationItem
-      class="mt-2 px-2"
+      class="mt-2 mb-6 px-2"
       :name="`${accountTypeName} - ${t('money', 'Overview')}`"
       :to="`/accountType/${accountType}`"
       @click="emit('item-clicked')"
     />
-
-    <NcAppNavigationSpacer class="order-none" />
 
     <AccountListItem
       v-for="account in accounts"
@@ -30,7 +28,6 @@
 
   import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
-  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer';
 
   import AccountListItem from './AccountListItem.vue';
 
