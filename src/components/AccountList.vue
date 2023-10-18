@@ -7,6 +7,40 @@
       @click="emit('item-clicked')"
     />
 
+    <div class="flex items-center justify-end px-2">
+      <NcButton
+        :type="sortMode === SortMode.BY_NAME ? 'secondary' : 'tertiary'"
+        @click="clickOnSortMode(SortMode.BY_NAME)"
+      >
+        <template #icon>
+          <SortAlphabeticalDescending
+            v-if="sortMode === SortMode.BY_NAME && sortDirection"
+            :size="20"
+          />
+          <SortAlphabeticalAscending
+            v-else
+            :size="20"
+          />
+        </template>
+      </NcButton>
+
+      <NcButton
+        :type="sortMode === SortMode.BY_VALUE ? 'secondary' : 'tertiary'"
+        @click="clickOnSortMode(SortMode.BY_VALUE)"
+      >
+        <template #icon>
+          <SortNumericDescending
+            v-if="sortMode === SortMode.BY_VALUE && sortDirection"
+            :size="20"
+          />
+          <SortNumericAscending
+            v-else
+            :size="20"
+          />
+        </template>
+      </NcButton>
+    </div>
+
     <AccountListItem
       v-for="account in accounts"
       class="mt-2 px-2"
@@ -28,6 +62,13 @@
 
   import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcButton from '@nextcloud/vue/dist/Components/NcButton';
+
+  import SortAlphabeticalAscending from 'vue-material-design-icons/SortAlphabeticalAscending.vue';
+  import SortAlphabeticalDescending from 'vue-material-design-icons/SortAlphabeticalDescending.vue';
+
+  import SortNumericAscending from 'vue-material-design-icons/SortNumericAscending.vue';
+  import SortNumericDescending from 'vue-material-design-icons/SortNumericDescending.vue';
 
   import AccountListItem from './AccountListItem.vue';
 
@@ -74,6 +115,15 @@
   const accountTypeName = computed(() => {
     return AccountTypeUtils.getNameOfAccountType(props.accountType, true);
   });
+
+  function clickOnSortMode(newSortMode: SortMode): void {
+    if (sortMode.value === newSortMode) {
+      sortDirection.value = !sortDirection.value;
+    } else {
+      sortMode.value = newSortMode;
+      sortDirection.value = false;
+    }
+  }
 
   enum SortMode {
     BY_NAME = 'by_name',
