@@ -7,7 +7,7 @@
       @click="emit('item-clicked')"
     />
 
-    <div class="flex items-center justify-end px-2">
+    <div class="flex items-center justify-end gap-1 px-2">
       <NcInputField
         :value.sync="filterString"
         :placeholder="t('money', 'Filter list') + '...'"
