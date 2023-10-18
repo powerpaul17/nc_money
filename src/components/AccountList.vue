@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 
-  import { computed, ref, type PropType } from 'vue';
+  import { computed, ref, type PropType, watch } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
   import type { AccountTypeType } from '../stores/accountTypeStore';
@@ -89,6 +89,10 @@
   ]);
 
   const filterString = ref('');
+
+  watch(() => props.accountType, () => {
+    filterString.value = '';
+  });
 
   const sortMode = ref(loadSortMode());
   const sortDirection = ref(loadSortDirection());
