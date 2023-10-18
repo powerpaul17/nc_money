@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 
-  import { computed, type PropType } from 'vue';
+  import { computed, ref, type PropType } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
   import type { AccountTypeType } from '../stores/accountTypeStore';
@@ -44,12 +44,40 @@
     'item-clicked'
   ]);
 
+  const sortMode = ref(SortMode.BY_NAME);
+  const sortDirection = ref(false);
+
   const accounts = computed(() => {
-    return accountStore.getByType(props.accountType).value;
+    const acc = accountStore.getByType(props.accountType).value
+      .sort((a1, a2) => {
+        switch (sortMode.value) {
+          default:
+          case SortMode.BY_NAME:
+            return a1.name.localeCompare(a2.name);
+
+          case SortMode.BY_VALUE:
+            if (AccountTypeUtils.isMonthlyAccount(props.accountType)) {
+              return accountStore.getSummary(a1.id) - accountStore.getSummary(a2.id);
+            }
+
+            return accountStore.getBalance(a1.id) - accountStore.getBalance(a2.id);
+        }
+      });
+
+    if (sortDirection.value) {
+      return acc.reverse();
+    }
+
+    return acc;
   });
 
   const accountTypeName = computed(() => {
     return AccountTypeUtils.getNameOfAccountType(props.accountType, true);
   });
+
+  enum SortMode {
+    BY_NAME = 'by_name',
+    BY_VALUE = 'by_value'
+  }
 
 </script>
