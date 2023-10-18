@@ -8,6 +8,8 @@
     />
 
     <div class="flex items-center justify-end px-2">
+      <NcInputField :value.sync="filterString" />
+
       <NcButton
         :type="sortMode === SortMode.BY_NAME ? 'secondary' : 'tertiary'"
         @click="clickOnSortMode(SortMode.BY_NAME)"
@@ -62,6 +64,7 @@
 
   import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
+  import NcInputField from '@nextcloud/vue/dist/Components/NcInputField';
   import NcButton from '@nextcloud/vue/dist/Components/NcButton';
 
   import SortAlphabeticalAscending from 'vue-material-design-icons/SortAlphabeticalAscending.vue';
@@ -85,11 +88,17 @@
     'item-clicked'
   ]);
 
+  const filterString = ref('');
+
   const sortMode = ref(loadSortMode());
   const sortDirection = ref(loadSortDirection());
 
   const accounts = computed(() => {
     const acc = accountStore.getByType(props.accountType).value
+      .filter((a) => {
+        if (filterString.value.length <= 1) return true;
+        return [ a.name, a.description ].join(' ').toLocaleLowerCase().includes(filterString.value.toLocaleLowerCase());
+      })
       .sort((a1, a2) => {
         switch (sortMode.value) {
           default:
