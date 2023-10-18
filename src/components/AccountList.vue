@@ -85,8 +85,8 @@
     'item-clicked'
   ]);
 
-  const sortMode = ref(SortMode.BY_NAME);
-  const sortDirection = ref(false);
+  const sortMode = ref(loadSortMode());
+  const sortDirection = ref(loadSortDirection());
 
   const accounts = computed(() => {
     const acc = accountStore.getByType(props.accountType).value
@@ -123,6 +123,23 @@
       sortMode.value = newSortMode;
       sortDirection.value = false;
     }
+
+    saveSortingSettings(sortMode.value, sortDirection.value);
+  }
+
+  function loadSortMode(): SortMode {
+    const savedSortMode = localStorage.getItem('money.accountListSortMode');
+    if (savedSortMode === SortMode.BY_VALUE) return SortMode.BY_VALUE;
+    else return SortMode.BY_NAME;
+  }
+
+  function loadSortDirection():boolean {
+    return localStorage.getItem('money.accountListSortDirection') === 'true';
+  }
+
+  function saveSortingSettings(sortMode: SortMode, sortDirection: boolean): void {
+    localStorage.setItem('money.accountListSortMode', sortMode);
+    localStorage.setItem('money.accountListSortDirection', sortDirection.toString());
   }
 
   enum SortMode {
