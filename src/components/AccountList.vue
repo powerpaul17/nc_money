@@ -8,7 +8,10 @@
     />
 
     <div class="flex items-center justify-end px-2">
-      <NcInputField :value.sync="filterString" />
+      <NcInputField
+        :value.sync="filterString"
+        :placeholder="t('money', 'Filter list') + '...'"
+      />
 
       <NcButton
         :type="sortMode === SortMode.BY_NAME ? 'secondary' : 'tertiary'"
