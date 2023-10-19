@@ -17,6 +17,7 @@ OC.L10N.register(
     "Value" : "Hodnota",
     "Date" : "Dátum",
     "Decimals" : "Desatinné",
+    "Values will be rounded to the selected number of decimals." : "Hodnoty budú zaokrúhlené na zadaný počet desatinných miest.",
     "Decimal Separator" : "Oddelovač desatinných miest",
     "Import Transactions" : "Importovať Transakcie",
     "Select File" : "Vybrať súbor",
