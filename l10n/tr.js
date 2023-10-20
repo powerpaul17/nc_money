@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "mo",
     "Import transactions" : "Hesap hareketlerini içe aktar",
     "Overview" : "Özet",
+    "Filter list" : "Süzgeç listesi",
     "'{accountName}' deleted" : "'{accountName}' silindi",
     "Rename account" : "Hesabı yeniden adlandır",
     "Account name" : "Hesap adı",

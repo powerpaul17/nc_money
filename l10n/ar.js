@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "أنقُل",
     "Import transactions" : "إستيراد معاملاتٍ",
     "Overview" : "نظرة شاملة",
+    "Filter list" : "فَلتِر القائمة",
     "'{accountName}' deleted" : "تم حذف \"{accountName}\"",
     "Rename account" : "إعادة تسمية الحساب",
     "Account name" : "اسم الحساب",

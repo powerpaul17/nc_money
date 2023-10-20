@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "月",
     "Import transactions" : "匯入交易",
     "Overview" : "概覽",
+    "Filter list" : "過濾條件清單",
     "'{accountName}' deleted" : "已刪除「{accountName}」",
     "Rename account" : "重新命名帳號",
     "Account name" : "帳號名稱",

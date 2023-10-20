@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "měs",
     "Import transactions" : "Naimportovat transakce",
     "Overview" : "Přehled",
+    "Filter list" : "Filtrovat seznam",
     "'{accountName}' deleted" : "„{accountName} smazán",
     "Rename account" : "Přejmenovat účet",
     "Account name" : "Název účtu",
