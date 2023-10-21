@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "hó",
     "Import transactions" : "Tranzakciók importálása",
     "Overview" : "Áttekintés",
+    "Filter list" : "Szűrő lista",
     "'{accountName}' deleted" : "„{accountName}” törölve",
     "Rename account" : "Fiók átnevezése",
     "Account name" : "Fiók neve",

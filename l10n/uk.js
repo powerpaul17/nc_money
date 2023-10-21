@@ -15,6 +15,7 @@ OC.L10N.register(
     "Equity" : "Власний капітал",
     "Value" : "Значення",
     "Date" : "Дата",
+    "Decimals" : "Знак після коми",
     "Decimal Separator" : "Десятковий роздільник",
     "Import Transactions" : "Імпортувати трансакції",
     "Select File" : "Вибрати файл",
