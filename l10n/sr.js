@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "м",
     "Import transactions" : "Увези трансакције",
     "Overview" : "Преглед",
+    "Filter list" : "Филтрирај листу",
     "'{accountName}' deleted" : "{accountName}’ је обрисан",
     "Rename account" : "Промени име рачуна",
     "Account name" : "Име рачуна",
