@@ -10,6 +10,7 @@ OC.L10N.register(
     "mo" : "mes",
     "Import transactions" : "Importar transaccións",
     "Overview" : "Vista xeral",
+    "Filter list" : "Lista de filtros",
     "'{accountName}' deleted" : "Eliminouse «{accountName}».",
     "Rename account" : "Cambiar o nome da conta",
     "Account name" : "Nome da conta",
