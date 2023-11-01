@@ -106,7 +106,8 @@
       name: t('money', 'New Account'),
       description: '',
       currency: '',
-      type: props.accountType.type
+      type: props.accountType.type,
+      extraData: {}
     });
 
     await router.push(`/account/${newAccount.id}`);
