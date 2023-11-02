@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.23.0] - 2023-11-02
+
 ### Added
 
 - Allow sorting/filtering of accounts in list
