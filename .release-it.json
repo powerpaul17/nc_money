@@ -2,10 +2,10 @@
   "hooks": {
     "before:init": "npm run test -- --run",
     "after:@release-it/bumper:bump": [
-      "npm i",
-      "npm run build"
+      "npm i"
     ],
     "before:github:release": [
+      "npm run build",
       "npm run copy",
       "npm run sign",
       "npm run package",
