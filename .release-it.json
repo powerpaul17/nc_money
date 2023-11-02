@@ -5,16 +5,19 @@
       "npm i",
       "npm run build"
     ],
-    "after:git:release": [
+    "before:github:release": [
       "npm run copy",
       "npm run sign",
-      "npm run package"
+      "npm run package",
+      "git push --follow-tags"
     ],
     "after:release": [
       "TAG_NAME=v${version} npm run upload"
     ]
   },
-  "git": {},
+  "git": {
+    "push": false
+  },
   "npm": false,
   "github": {
     "release": true,
