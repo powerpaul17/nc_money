@@ -5,7 +5,7 @@ const https = require('https');
 const API_TOKEN = process.env.API_TOKEN;
 const TAG_NAME = process.env.TAG_NAME;
 
-const privateKey = process.env.PRIVATE_KEY && Buffer.from(process.env.PRIVATE_KEY, 'base64').toString() || process.env.PRIVATE_KEY_FILE && fs.readFileSync(process.env.PRIVATE_KEY_FILE);
+const privateKey = process.env.APP_PRIVATE_KEY && Buffer.from(process.env.APP_PRIVATE_KEY, 'base64').toString();
 
 const filePath = process.env.FILE_PATH || 'money.tar.gz';
 
