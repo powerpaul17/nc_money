@@ -59,4 +59,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APP_PRIVATE_KEY: ${{ secrets.NC_MONEY_PRIVATE_KEY }}
           APP_CERTIFICATE: ${{ secrets.NC_MONEY_CERTIFICATE}}
+          NC_APP_DIRECTORY: apps
           API_TOKEN: ${{ secrets.NC_STORE_API_TOKEN }}
