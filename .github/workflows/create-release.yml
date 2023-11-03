@@ -54,10 +54,18 @@ jobs:
         working-directory: ../server/apps/${{ env.APP_NAME }}
 
       - run: npx release-it ${{ inputs.increment }}
+        id: release-it
         working-directory: ../server/apps/${{ env.APP_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APP_PRIVATE_KEY: ${{ secrets.NC_MONEY_PRIVATE_KEY }}
           APP_CERTIFICATE: ${{ secrets.NC_MONEY_CERTIFICATE}}
           NC_APP_DIRECTORY: apps
-          API_TOKEN: ${{ secrets.NC_STORE_API_TOKEN }}
+
+      - name: Upload app to Nextcloud appstore
+        uses: R0Wi/nextcloud-appstore-push-action@a011fe619bcf6e77ddebc96f9908e1af4071b9c1
+        with:
+          app_name: ${{ env.APP_NAME }}
+          appstore_token: ${{ secrets.NC_STORE_API_TOKEN }}
+          download_url: https://github.com/powerpaul17/nc_money/releases/download/v${{ steps.release-it.outputs.version }}/money.tar.gz
+          app_private_key: ${{ secrets.NC_MONEY_PRIVATE_KEY }}

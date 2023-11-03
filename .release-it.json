@@ -12,7 +12,7 @@
       "git push --follow-tags"
     ],
     "after:release": [
-      "TAG_NAME=v${version} npm run upload"
+      "echo \"version=${version}\" >> \"$GITHUB_OUTPUT\""
     ]
   },
   "git": {
