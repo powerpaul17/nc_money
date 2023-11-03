@@ -74,7 +74,7 @@ class AccountApiService {
 
   private transformAccounToApiSendData(data: Account|AccountCreationData): AccountApiSendData {
     return {
-      id: data.id,
+      id: 'id' in data ? data.id : undefined,
       name: data.name,
       description: data.description,
       currency: data.currency,
