@@ -19,8 +19,10 @@ env:
   APP_NAME: money
 
 jobs:
-  build_and_publish:
+  build_and_sign:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.release-it.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,10 +64,14 @@ jobs:
           APP_CERTIFICATE: ${{ secrets.NC_MONEY_CERTIFICATE}}
           NC_APP_DIRECTORY: apps
 
+  upload_to_store:
+    runs-on: ubuntu-latest
+    needs: build_and_sign
+    steps:
       - name: Upload app to Nextcloud appstore
         uses: R0Wi/nextcloud-appstore-push-action@a011fe619bcf6e77ddebc96f9908e1af4071b9c1
         with:
           app_name: ${{ env.APP_NAME }}
           appstore_token: ${{ secrets.NC_STORE_API_TOKEN }}
-          download_url: https://github.com/powerpaul17/nc_money/releases/download/v${{ steps.release-it.outputs.version }}/money.tar.gz
+          download_url: https://github.com/powerpaul17/nc_money/releases/download/v${{ needs.build_and_sign.outputs.version }}/money.tar.gz
           app_private_key: ${{ secrets.NC_MONEY_PRIVATE_KEY }}
