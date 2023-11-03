@@ -79,7 +79,6 @@ class AccountApiService {
       description: data.description,
       currency: data.currency,
       type: data.type,
-      stats: data.stats,
       extraData: JSON.stringify(data.extraData)
     };
   }
