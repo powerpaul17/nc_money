@@ -13,34 +13,34 @@ export const useAccountApiService = (): AccountApiService => {
 
 class AccountApiService {
 
-  private boundTransformApiDataToAccount = this.transformApiDataToAccount.bind(this);
+  private boundTransformApiResponseDataToAccount = this.transformApiResponseDataToAccount.bind(this);
 
   public async getAccount(accountId: number): Promise<Account> {
-    const response = await axios.get<AccountApiData>(
+    const response = await axios.get<AccountApiResponseData>(
       generateUrl(`apps/money/accounts/${accountId}`)
     );
-    return this.transformApiDataToAccount(response.data);
+    return this.transformApiResponseDataToAccount(response.data);
   }
 
   public async getAccounts(): Promise<Array<Account>> {
-    const response = await axios.get<Array<AccountApiData>>(
+    const response = await axios.get<Array<AccountApiResponseData>>(
       generateUrl('apps/money/accounts')
     );
 
-    return response.data.map(this.boundTransformApiDataToAccount);
+    return response.data.map(this.boundTransformApiResponseDataToAccount);
   }
 
   public async addAccount(account: AccountCreationData): Promise<Account> {
     const response = await axios.post<
-    AccountApiData,
-    AxiosResponse<AccountApiData>,
-    AccountCreationData
+      AccountApiResponseData,
+      AxiosResponse<AccountApiResponseData>,
+      AccountApiSendData
     >(
       generateUrl('apps/money/accounts'),
-      account
+      this.transformAccounToApiSendData(account)
     );
 
-    return this.transformApiDataToAccount(response.data);
+    return this.transformApiResponseDataToAccount(response.data);
   }
 
   public async deleteAccount(accountId: number): Promise<void> {
@@ -49,18 +49,18 @@ class AccountApiService {
 
   public async updateAccount(account: Account): Promise<Account> {
     const response = await axios.put<
-    AccountApiData,
-    AxiosResponse<AccountApiData>,
-    AccountApiData
+      AccountApiResponseData,
+      AxiosResponse<AccountApiResponseData>,
+      AccountApiSendData
     >(
       generateUrl(`apps/money/accounts/${account.id}`),
-      this.transformAccounToApiData(account)
+      this.transformAccounToApiSendData(account)
     );
 
-    return this.transformApiDataToAccount(response.data);
+    return this.transformApiResponseDataToAccount(response.data);
   }
 
-  private transformApiDataToAccount(data: AccountApiData): Account {
+  private transformApiResponseDataToAccount(data: AccountApiResponseData): Account {
     return {
       id: data.id,
       name: data.name,
@@ -72,7 +72,7 @@ class AccountApiService {
     };
   }
 
-  private transformAccounToApiData(data: Account): AccountApiData {
+  private transformAccounToApiSendData(data: Account|AccountCreationData): AccountApiSendData {
     return {
       id: data.id,
       name: data.name,
@@ -88,12 +88,19 @@ class AccountApiService {
 
 export type AccountCreationData = Omit<Account, 'id' | 'stats'>;
 
-type AccountApiData = {
+type AccountApiSendData = AccountApiCommonData & {
+  id?: number;
+};
+
+type AccountApiResponseData = AccountApiCommonData & {
   id: number;
+  stats: Record<string, Record<string, MonthlyAccountStats>>;
+};
+
+type AccountApiCommonData = {
   name: string;
   description: string;
   currency: string;
   type: number;
-  stats: Record<string, Record<string, MonthlyAccountStats>>;
   extraData: string|null;
 };
