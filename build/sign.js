@@ -11,8 +11,11 @@ function writeEnvToFile(envName, fileName) {
 
 console.log('writing key/cert file');
 
-writeEnvToFile('APP_PRIVATE_KEY', '/tmp/money.key');
-writeEnvToFile('APP_CERTIFICATE', '/tmp/money.crt');
+const keyFilePath = '/tmp/money.key';
+const certFilePath = '/tmp/money.crt';
+
+writeEnvToFile('APP_PRIVATE_KEY', keyFilePath);
+writeEnvToFile('APP_CERTIFICATE', certFilePath);
 
 console.log('signing app');
 
@@ -21,8 +24,8 @@ try {
     '../../occ',
     'integrity:sign-app',
     '--path', path.join(process.env.NC_APP_DIRECTORY ?? 'custom_apps', '/money/build/dist'),
-    '--privateKey', '/tmp/money.key',
-    '--certificate', '/tmp/money.crt'
+    '--privateKey', keyFilePath,
+    '--certificate', certFilePath
   ])
 
   const output = occSign.stdout.toString();
@@ -34,6 +37,6 @@ try {
 } finally {
   console.log('removing key/cert file');
 
-  fs.unlinkSync('/tmp/money.key');
-  fs.unlinkSync('/tmp/money.crt');
+  fs.unlinkSync(keyFilePath);
+  fs.unlinkSync(certFilePath);
 }
