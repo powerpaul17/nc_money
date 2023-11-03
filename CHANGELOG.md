@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Fix typing & wrong account api calls
+
 ## [0.23.0] - 2023-11-02
 
 ### Added
