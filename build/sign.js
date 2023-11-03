@@ -1,5 +1,6 @@
 const {spawnSync} = require('child_process');
 const fs = require('fs');
+const path = require('path');
 
 function writeEnvToFile(envName, fileName) {
   const value = process.env[envName];
@@ -19,7 +20,7 @@ try {
   const occSign = spawnSync('php', [
     '../../occ',
     'integrity:sign-app',
-    '--path', 'custom_apps/money/build/dist',
+    '--path', path.join(process.env.NC_APP_DIRECTORY ?? 'custom_apps', '/money/build/dist'),
     '--privateKey', '/tmp/money.key',
     '--certificate', '/tmp/money.crt'
   ])
