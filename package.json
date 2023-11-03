@@ -11,7 +11,7 @@
     "coverage": "vitest run --coverage",
     "build": "node build/build.mjs",
     "dev": "VITE_MODE=development node build/build.mjs",
-    "sign": "node build/sign.js",
+    "sign": "dotenv node build/sign.js",
     "copy": "rm -rf build/dist && mkdir build/dist && cp -R appinfo img js l10n lib templates *.md build/dist",
     "package": "tar c -z -f money.tar.gz --transform \"flags=r;s|^build/dist/|money/|\" build/dist/*",
     "release": "dotenv release-it",
