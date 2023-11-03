@@ -58,5 +58,3 @@ jobs:
           APP_PRIVATE_KEY: ${{ secrets.NC_MONEY_PRIVATE_KEY }}
           APP_CERTIFICATE: ${{ secrets.NC_MONEY_CERTIFICATE}}
           API_TOKEN: ${{ secrets.NC_STORE_API_TOKEN }}
-
-      - run: rm -f /var/money.key && rm -f /var/money.crt
