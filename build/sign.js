@@ -24,7 +24,12 @@ try {
     '--certificate', '/tmp/money.crt'
   ])
 
-  console.log(occSign.output[1]?.toString());
+  const output = occSign.stdout.toString();
+  console.log(output);
+
+  if (occSign.status) {
+    throw new Error(output)
+  }
 } finally {
   console.log('removing key/cert file');
 
