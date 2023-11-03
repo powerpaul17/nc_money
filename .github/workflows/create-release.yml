@@ -1,0 +1,62 @@
+name: Create and publish app release
+
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        description: Major/minor/patch?
+        type: choice
+        required: true
+        options:
+          - major
+          - minor
+          - patch
+        default: patch
+
+env:
+  PHP_VERSION: 8.1
+  NC_VERSION: stable27
+  APP_NAME: money
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: git config
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: gd, pdo_sqlite
+          coverage: none
+
+      - name: Set up server without SQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: false
+          version: ${{ env.NC_VERSION }}
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: ${{ env.APP_NAME }}
+
+      - run: npm i
+        working-directory: ../server/apps/${{ env.APP_NAME }}
+
+      - run: npx release-it ${{ inputs.increment }}
+        working-directory: ../server/apps/${{ env.APP_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APP_PRIVATE_KEY: ${{ secrets.NC_MONEY_PRIVATE_KEY }}
+          APP_CERTIFICATE: ${{ secrets.NC_MONEY_CERTIFICATE}}
+          API_TOKEN: ${{ secrets.NC_STORE_API_TOKEN }}
+
+      - run: rm -f /var/money.key && rm -f /var/money.crt
