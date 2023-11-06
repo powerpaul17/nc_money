@@ -5,6 +5,8 @@ const https = require('https');
 const API_TOKEN = process.env.API_TOKEN;
 const TAG_NAME = process.env.TAG_NAME;
 
+if (!API_TOKEN || !TAG_NAME) throw new Error('no api token or tag name given');
+
 const privateKey = process.env.APP_PRIVATE_KEY;
 
 const filePath = process.env.FILE_PATH || 'money.tar.gz';
