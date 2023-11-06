@@ -11,9 +11,14 @@ export class Utils {
     const hexColorString = hexColor.toUpperCase().replace('#', '');
 
     const hexColorValues = ArrayUtils.chunk(hexColorString.split(''), 2).map(s => s.join(''));
-    if (hexColorValues.length !== 3) throw new Error('expected 3 hex values');
 
-    return `rgba(${Number(`0x${hexColorValues[0]}`)}, ${Number(`0x${hexColorValues[1]}`)}, ${Number(`0x${hexColorValues[2]}`)}, ${opacity})`;
+    const red = hexColorValues[0];
+    const green = hexColorValues[1];
+    const blue = hexColorValues[2];
+
+    if (!red || !green || !blue) throw new Error('expected 3 hex values');
+
+    return `rgba(${Number(`0x${red}`)}, ${Number(`0x${green}`)}, ${Number(`0x${blue}`)}, ${opacity})`;
   }
 
 }
