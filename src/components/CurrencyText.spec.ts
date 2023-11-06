@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { render } from '@testing-library/vue';
+import { render, type RenderOptions } from '@testing-library/vue';
 
 import { resetSettingStore, useSettingStore } from '../stores/settingStore';
 
@@ -8,7 +8,7 @@ import CurrencyText from './CurrencyText.vue';
 describe('CurrencyText', () => {
 
   it('should render correct amount of decimals', async () => {
-    const { container, updateProps } = render(CurrencyText, {
+    const { container, updateProps } = setupEnvironment({
       props: {
         value: 0.123
       }
@@ -45,7 +45,7 @@ describe('CurrencyText', () => {
   it('should group digits correctly', async () => {
     const settingStore = useSettingStore();
 
-    const { container, updateProps } = render(CurrencyText, {
+    const { container, updateProps } = setupEnvironment({
       props: {
         value: 1234
       }
@@ -89,7 +89,7 @@ describe('CurrencyText', () => {
   });
 
   it('should show inverted values if enabled', async () => {
-    const { container, updateProps } = render(CurrencyText, {
+    const { container, updateProps } = setupEnvironment({
       props: {
         value: -123.456,
         invertedValue: true
@@ -114,5 +114,17 @@ describe('CurrencyText', () => {
   afterEach(() => {
     resetSettingStore();
   });
+
+  function setupEnvironment(renderOptions: RenderOptions<CurrencyText>): {
+    container: Element,
+    updateProps: (props: Object) => Promise<void>
+  } {
+    const renderResult = render(CurrencyText, renderOptions);
+
+    return {
+      container: renderResult.container,
+      updateProps: renderResult.updateProps.bind(undefined)
+    };
+  }
 
 });
