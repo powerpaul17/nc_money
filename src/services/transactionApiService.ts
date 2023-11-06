@@ -122,7 +122,7 @@ class TransactionApiService {
 
     if ('splits' in data) {
       const splits = data.splits.map(
-        splitApiService.createSplitFromResponseData
+        splitApiService.createSplitFromResponseData.bind(this)
       );
       await splitStore.insertSplits(splits);
     }
