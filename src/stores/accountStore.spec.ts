@@ -147,8 +147,8 @@ describe('accountStore', () => {
     };
   }
 
-  function cloneRecursively(obj: Record<string, any>): Record<string, any> {
-    const clone: Record<string, Object|string|number> = {};
+  function cloneRecursively(obj: Record<string, AnyType>): Record<string, AnyType> {
+    const clone: Record<string, AnyType> = {};
 
     for (const [ key, value ] of Object.entries(obj)) {
       if (typeof value !== 'object') {
@@ -161,3 +161,7 @@ describe('accountStore', () => {
   }
 
 });
+
+type AnyType = string | number | RecordOfAnyType;
+
+interface RecordOfAnyType extends Record<string, AnyType> {}
