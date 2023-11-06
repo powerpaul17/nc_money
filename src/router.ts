@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import AccountView from './views/AccountView.vue';
 import DashboardView from './views/DashboardView.vue';
 import AccountTypeView from './views/AccountTypeView.vue';
-import Sidebar from './components/Sidebar.vue';
+import Sidebar from './components/SidebarComponent.vue';
 
 export default new VueRouter({
   linkActiveClass: 'active',
