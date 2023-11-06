@@ -17,7 +17,8 @@
         "*.vue"
       ],
       "rules": {
-        "@typescript-eslint/indent": "off"
+        "@typescript-eslint/indent": "off",
+        "indent": "off"
       }
     }
   ],
