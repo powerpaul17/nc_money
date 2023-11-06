@@ -1,4 +1,4 @@
-const {spawnSync} = require('child_process');
+const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -26,13 +26,13 @@ try {
     '--path', path.join(process.env.NC_APP_DIRECTORY ?? 'custom_apps', '/money/build/dist'),
     '--privateKey', keyFilePath,
     '--certificate', certFilePath
-  ])
+  ]);
 
   const output = occSign.stdout.toString();
   console.log(output);
 
   if (occSign.status) {
-    throw new Error(output)
+    throw new Error(output);
   }
 } finally {
   console.log('removing key/cert file');

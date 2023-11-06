@@ -20,7 +20,7 @@ export default defineConfig({
       // remove this when migration to vue 3 is complete
       {
         find: 'vue',
-        replacement: 'vue/dist/vue.runtime.mjs',
+        replacement: 'vue/dist/vue.runtime.mjs'
       }
     ]
   }

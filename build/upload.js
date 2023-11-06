@@ -27,10 +27,10 @@ const req = https.request('https://apps.nextcloud.com/api/v1/apps/releases', {
   res.on('data', (chunk) => data += chunk);
   res.on('close', () => {
     if (res.statusCode ?? 0 >= 400) {
-      throw new Error(data)
+      throw new Error(data);
     }
 
-    console.log(data)
+    console.log(data);
   });
 });
 
