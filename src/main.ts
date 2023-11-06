@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue, { type VNode } from 'vue';
 import VueRouter from 'vue-router';
 
 import './l10n';
@@ -21,7 +21,7 @@ Vue.use(VueRouter);
 
 new Vue({
   el: '#content',
-  render: (h) => h(App),
+  render: (h): VNode => h(App),
   router
 });
 

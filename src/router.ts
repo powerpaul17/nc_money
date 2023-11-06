@@ -20,7 +20,7 @@ export default new VueRouter({
         sidebar: Sidebar
       },
       props: {
-        default: (route) => {
+        default: (route): { accountId: number } => {
           return {
             accountId: Number(route.params.accountId)
           };
@@ -31,7 +31,7 @@ export default new VueRouter({
       path: '/accountType/:accountTypeType',
       name: 'account-type-view',
       component: AccountTypeView,
-      props: (route) => ({
+      props: (route): { accountTypeType: number } => ({
         accountTypeType: Number(route.params.accountTypeType)
       })
     }

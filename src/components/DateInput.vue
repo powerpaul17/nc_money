@@ -60,8 +60,8 @@
   });
 
   const formatter = {
-    stringify: (date: Date) => dayjs(date).format('L'),
-    parse: (value: string) => getDateFromValue(value)
+    stringify: (date: Date): string => dayjs(date).format('L'),
+    parse: (value: string): Date => getDateFromValue(value)
   };
 
   function getDateFromValue(value: string): Date {

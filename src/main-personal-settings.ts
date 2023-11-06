@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue, { type VNode } from 'vue';
 
 import './l10n';
 
@@ -12,7 +12,7 @@ import PersonalSettings from './components/PersonalSettings.vue';
 
 new Vue({
   el: '#settings-personal-money',
-  render: (h) => h(PersonalSettings)
+  render: (h): VNode => h(PersonalSettings)
 });
 
 const settingService = useSettingService();
