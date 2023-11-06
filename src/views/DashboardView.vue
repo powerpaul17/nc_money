@@ -25,7 +25,7 @@
 
   import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
 
-  import Chart from '../components/dashboard/Chart.vue';
+  import Chart from '../components/dashboard/ChartComponent.vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
 

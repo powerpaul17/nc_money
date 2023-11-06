@@ -38,7 +38,7 @@
 
   import AccountList from '../components/AccountList.vue';
 
-  import Chart from '../components/dashboard/Chart.vue';
+  import Chart from '../components/dashboard/ChartComponent.vue';
   import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
   import BarChart from '../components/charts/BarChart.vue';
 
