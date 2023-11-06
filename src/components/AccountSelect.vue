@@ -14,10 +14,10 @@
     :placeholder="`-- ${t('money', 'No Account')} --`"
   >
     <template #option="account">
-      <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+      <div class="truncate">
         {{ account.name }}
       </div>
-      <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs">
+      <div class="truncate text-xs">
         <span class="uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span> {{ account.description ? `· ${account.description}` : '' }}
       </div>
     </template>
@@ -26,13 +26,13 @@
       #selected-option="account"
       class="w-full"
     >
-      <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+      <div class="truncate">
         {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
       </div>
     </template>
 
     <template #no-options="{ search }">
-      <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+      <div class="truncate">
         {{ search ? t('money', 'No account found...') : t('money', 'No account available...') }}
       </div>
     </template>

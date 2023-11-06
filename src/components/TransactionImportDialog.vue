@@ -115,7 +115,7 @@
               <div
                 v-for="(dataItem, index) in column.parsedData.slice(0, 5)"
                 :key="index"
-                class="overflow-hidden text-ellipsis whitespace-nowrap"
+                class="truncate"
               >
                 {{ column.printValue?.(dataItem) ?? dataItem }} &nbsp;
               </div>

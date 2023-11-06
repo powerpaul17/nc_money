@@ -30,8 +30,8 @@
           <div
             v-if="item.type === 'headOfGroup'"
             class="
-              mt-8
               mb-5
+              mt-8
               border-b
               border-solid border-border-dark pb-3
               text-center text-xl text-border-dark
@@ -52,7 +52,7 @@
         <div
           v-if="transactionStore.allTransactionsFetched.value"
           class="
-            mt-3 mb-10
+            mb-10 mt-3
             border-t border-solid border-border-dark
             pt-5
             text-center text-xl text-border-dark

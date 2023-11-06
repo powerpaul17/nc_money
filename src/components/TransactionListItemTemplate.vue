@@ -6,12 +6,12 @@
         grid-cols-transactionListItem
         items-center
 
-        [&>*]:flex
-        [&>*]:h-full
-        [&>*]:items-center
         [&>*:first-child]:justify-center
         [&>*:last-child]:justify-center
         [&>*:not(:first-child):not(:last-child)]:mx-2
+        [&>*]:flex
+        [&>*]:h-full
+        [&>*]:items-center
       "
     :class="itemClass"
   >
