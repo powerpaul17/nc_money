@@ -35,7 +35,8 @@ describe('accountStore', () => {
         description: '',
         currency: '',
         stats: {},
-        type: AccountTypeType.ASSET
+        type: AccountTypeType.ASSET,
+        extraData: {}
       });
       expect(accountStore.getBalance(10)).to.equal(0);
     });
@@ -123,6 +124,7 @@ describe('accountStore', () => {
       id: 1,
       name: 'TestAccount',
       type: AccountTypeType.ASSET,
+      extraData: {},
       stats: {
         2023: {
           3: {
