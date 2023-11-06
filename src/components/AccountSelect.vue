@@ -22,10 +22,7 @@
       </div>
     </template>
 
-    <template
-      #selected-option="account"
-      class="w-full"
-    >
+    <template #selected-option="account">
       <div class="truncate">
         {{ account.name }} · <span class="text-xs uppercase">{{ AccountTypeUtils.getAbbreviationOfAccountType(account.type) }}</span>
       </div>
