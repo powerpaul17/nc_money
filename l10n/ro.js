@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "Bani",
     "Name" : "Nume",
     "Description" : "Descriere",
     "Overview" : "Prezentare generală",
