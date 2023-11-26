@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Prezentare generală",
     "Delete account" : "Delete account",
     "Add account" : "Adaugă cont",
+    "Value" : "Valoare",
     "Date" : "Date",
     "Select File" : "Selectează Fișier",
     "Import" : "Importă",
