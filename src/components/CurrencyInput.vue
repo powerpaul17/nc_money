@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { ref, watch, computed, onMounted } from 'vue';
 
   import { useSettingStore } from '../stores/settingStore';
@@ -41,7 +40,7 @@
     }
   });
 
-  const emit = defineEmits([ 'value-changed' ]);
+  const emit = defineEmits(['value-changed']);
 
   const currencyValue = ref('');
 
@@ -72,15 +71,11 @@
     });
 
     if (!Number.isNaN(newNumber)) {
-      emit(
-        'value-changed',
-        props.invertedValue ? newNumber * -1.0 : newNumber
-      );
+      emit('value-changed', props.invertedValue ? newNumber * -1.0 : newNumber);
     }
   }
 
   onMounted(() => {
     currencyValue.value = formattedValue.value;
   });
-
 </script>
