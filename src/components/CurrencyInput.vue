@@ -64,7 +64,11 @@
 
     const newNumber = mathExpression.evaluate({
       expression: newValue,
-      previousValue: props.value
+      previousValue: props.value,
+      numberFormat: {
+        decimalSeparator: settingStore.numberFormat_decimalSeparator.value,
+        groupSeparator: settingStore.numberFormat_groupSeparator.value
+      }
     });
 
     if (!Number.isNaN(newNumber)) {
