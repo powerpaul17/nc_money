@@ -43,4 +43,15 @@ describe('mathExpression', () => {
       0.0
     );
   });
+
+  it('should respect locale settings for number format', () => {
+    const mathExpression = useMathExpression();
+
+    expect(
+      mathExpression.evaluate({
+        expression: '10.00,24 + 5.000,4',
+        numberFormat: { decimalSeparator: ',', groupSeparator: '.' }
+      })
+    ).to.equal(6000.64);
+  });
 });
