@@ -3,20 +3,44 @@ import { NumberUtils } from '../utils/numberUtils';
 export function useMathExpression(): {
   evaluate: ({
     expression,
-    previousValue
+    previousValue,
+    numberFormat
   }: {
     expression: string;
     previousValue?: number;
+    numberFormat?: {
+      decimalSeparator: string;
+      groupSeparator: string;
+    };
   }) => number;
 } {
   function evaluate({
     expression,
-    previousValue = 0.0
+    previousValue = 0.0,
+    numberFormat = {
+      decimalSeparator: '.',
+      groupSeparator: ' '
+    }
   }: {
     expression: string;
     previousValue?: number;
+    numberFormat?: {
+      decimalSeparator: string;
+      groupSeparator: string;
+    };
   }): number {
     expression = expression.replace(/ /g, '');
+
+    expression = expression.replace(
+      new RegExp(`\\${numberFormat.groupSeparator}`, 'g'),
+      ''
+    );
+
+    expression = expression.replace(
+      new RegExp(`\\${numberFormat.decimalSeparator}`, 'g'),
+      '.'
+    );
+
     const result = addition(expression, previousValue);
     return NumberUtils.roundToPrecision(result);
   }
