@@ -62,7 +62,11 @@
   function handleValueChanged(newValue: string): void {
     currencyValue.value = formattedValue.value;
 
-    const newNumber = mathExpression.evaluate(newValue, props.value);
+    const newNumber = mathExpression.evaluate({
+      expression: newValue,
+      previousValue: props.value
+    });
+
     if (!Number.isNaN(newNumber)) {
       emit(
         'value-changed',

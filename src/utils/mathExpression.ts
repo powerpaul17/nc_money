@@ -1,9 +1,21 @@
 import { NumberUtils } from '../utils/numberUtils';
 
 export function useMathExpression(): {
-  evaluate: (expression: string, previousValue?: number) => number;
+  evaluate: ({
+    expression,
+    previousValue
+  }: {
+    expression: string;
+    previousValue?: number;
+  }) => number;
 } {
-  function evaluate(expression: string, previousValue = 0.0): number {
+  function evaluate({
+    expression,
+    previousValue = 0.0
+  }: {
+    expression: string;
+    previousValue?: number;
+  }): number {
     expression = expression.replace(/ /g, '');
     const result = addition(expression, previousValue);
     return NumberUtils.roundToPrecision(result);
