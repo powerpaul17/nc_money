@@ -1,9 +1,8 @@
 import { NumberUtils } from '../utils/numberUtils';
 
 export function useMathExpression(): {
-  evaluate: (expression: string, previousValue?: number) => number
-  } {
-
+  evaluate: (expression: string, previousValue?: number) => number;
+} {
   function evaluate(expression: string, previousValue = 0.0): number {
     expression = expression.replace(/ /g, '');
     const result = addition(expression, previousValue);
@@ -11,22 +10,26 @@ export function useMathExpression(): {
   }
 
   function addition(expression: string, previousValue: number): number {
-    const parts = split(expression, '+')
-      .reduce<Array<number>>((prevVal, p, index) => {
+    const parts = split(expression, '+').reduce<Array<number>>(
+      (prevVal, p, index) => {
         const result = subtraction(p, prevVal[index - 1] ?? previousValue);
         prevVal.push(result);
         return prevVal;
-      }, []);
+      },
+      []
+    );
     return parts.reduce((sum, num) => sum + num, 0);
   }
 
   function subtraction(expression: string, previousValue: number): number {
-    const parts = split(expression, '-')
-      .reduce<Array<number>>((prevVal, p, index) => {
+    const parts = split(expression, '-').reduce<Array<number>>(
+      (prevVal, p, index) => {
         const result = multiplication(p, prevVal[index - 1] ?? previousValue);
         prevVal.push(result);
         return prevVal;
-      }, []);
+      },
+      []
+    );
 
     const initialValue = parts.shift();
     if (initialValue == undefined)
@@ -36,12 +39,14 @@ export function useMathExpression(): {
   }
 
   function multiplication(expression: string, previousValue: number): number {
-    const parts = split(expression, '*')
-      .reduce<Array<number>>((prevVal, p, index) => {
+    const parts = split(expression, '*').reduce<Array<number>>(
+      (prevVal, p, index) => {
         const result = division(p, prevVal[index - 1] ?? previousValue);
         prevVal.push(result);
         return prevVal;
-      }, []);
+      },
+      []
+    );
     return parts.reduce((sum, num) => sum * num, 1.0);
   }
 
@@ -54,7 +59,7 @@ export function useMathExpression(): {
       const num = parseFloat(p);
 
       if (p[p.length - 1] === '%') {
-        return num / 100 * previousValue;
+        return (num / 100) * previousValue;
       }
 
       return num;
@@ -96,5 +101,4 @@ export function useMathExpression(): {
   }
 
   return { evaluate };
-
 }
