@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Respect locale number settings when entering in a currency input
+
 ## [0.23.1] - 2023-11-03
 
 ### Changed
