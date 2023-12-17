@@ -30,6 +30,7 @@ OC.L10N.register(
     "Group By" : "Grupperad av",
     "Digits will be split into groups of selected size." : "Siffror kommer att delas upp i grupper av vald storlek.",
     "Group Separator" : "Gruppseparator",
+    "Space" : "Utrymme",
     "Import Transactions" : "Importera Transaktioner",
     "Select File" : "Välj fil",
     "Click or drop CSV file" : "Klicka eller släpp CSV-fil",
