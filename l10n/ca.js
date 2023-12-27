@@ -12,6 +12,7 @@ OC.L10N.register(
     "Value" : "Valor",
     "Date" : "Data",
     "Decimals" : "Decimals",
+    "Space" : "Espai",
     "Select File" : "Selecciona un fitxer",
     "Import" : "Importa",
     "Comment" : "Comentari",
