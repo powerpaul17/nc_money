@@ -2,6 +2,7 @@
     "Name" : "Nome",
     "Description" : "Descripción",
     "Value" : "Valor",
-    "Date" : "Data"
+    "Date" : "Data",
+    "Comment" : "Comentariu"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

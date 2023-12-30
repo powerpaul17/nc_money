@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nome",
     "Description" : "Descripción",
     "Value" : "Valor",
-    "Date" : "Data"
+    "Date" : "Data",
+    "Comment" : "Comentariu"
 },
 "nplurals=2; plural=(n != 1);");
