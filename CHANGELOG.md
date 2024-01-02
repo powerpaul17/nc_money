@@ -4,6 +4,10 @@
 
 - Respect locale number settings when entering in a currency input
 
+### Changed
+
+- Enable NC 28
+
 ## [0.23.1] - 2023-11-03
 
 ### Changed
