@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.24.0] - 2024-01-02
+
 ### Added
 
 - Respect locale number settings when entering in a currency input
