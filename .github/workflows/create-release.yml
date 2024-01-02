@@ -17,10 +17,23 @@ env:
   PHP_VERSION: 8.1
   NC_VERSION: stable27
   APP_NAME: money
+  POSTGRES_PASSWORD: nextcloud
 
 jobs:
   build_and_sign:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     outputs:
       version: ${{ steps.release-it.outputs.version }}
     steps:
@@ -38,14 +51,20 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: gd, pdo_sqlite
+          extensions: gd, pdo_pgsql
           coverage: none
 
-      - name: Set up server without SQL
+      - name: Set up server with SQL
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
         with:
           cron: false
           version: ${{ env.NC_VERSION }}
+          database-type: pgsql
+          database-host: localhost
+          database-port: 5432
+          database-name: postgres
+          database-user: postgres
+          database-password: ${{ env.POSTGRES_PASSWORD }}
 
       - name: Configure server with app
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
