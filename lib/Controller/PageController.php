@@ -36,7 +36,6 @@ class PageController extends Controller {
 
     if($this->config->getSystemValue('debug')) {
       $csp = new ContentSecurityPolicy();
-      $csp->allowInlineScript(true);
       $csp->allowEvalScript(true);
       $response->setContentSecurityPolicy($csp);
     }
