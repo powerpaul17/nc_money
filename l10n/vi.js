@@ -10,6 +10,7 @@ OC.L10N.register(
     "Add account" : "Thêm tài khoản",
     "Value" : "Giá trị",
     "Date" : "Date",
+    "Space" : "Space",
     "Import" : "Nhập vào",
     "Comment" : "Bình luận",
     "Settings saved" : "Cấu hình đã được lưu"
