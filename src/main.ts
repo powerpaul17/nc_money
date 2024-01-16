@@ -17,6 +17,7 @@ import './chartjs';
 import router from './router';
 
 import App from './App.vue';
+import { useBookService } from './services/bookService';
 
 Vue.use(VueRouter);
 
@@ -39,3 +40,6 @@ void settingService.loadSettings();
 
 const accountService = useAccountService();
 void accountService.fetchAccounts();
+
+const bookService = useBookService();
+void bookService.fetchBooks();
