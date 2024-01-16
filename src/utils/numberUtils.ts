@@ -1,7 +1,6 @@
 import { ArrayUtils } from './arrayUtils';
 
 export class NumberUtils {
-
   public static formatNumber(
     value: number,
     options: {
@@ -52,12 +51,16 @@ export class NumberUtils {
     }`;
   }
 
-  public static parseNumber(numberString: string, decimalSeparator = '.'): number {
+  public static parseNumber(
+    numberString: string,
+    decimalSeparator = '.'
+  ): number {
     return Number(
       numberString
         .replace(decimalSeparator, '#')
         .replace(/[\s,.]+/, '')
-        .replace('#', '.'));
+        .replace('#', '.')
+    );
   }
 
   public static areEqual(num1: number, num2: number): boolean {
@@ -68,8 +71,12 @@ export class NumberUtils {
     return !this.areEqual(num1, num2);
   }
 
-  public static roundToPrecision(number: number, precision: number = 10): number {
-    return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
+  public static roundToPrecision(
+    number: number,
+    precision: number = 10
+  ): number {
+    return (
+      Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision)
+    );
   }
-
 }
