@@ -1,12 +1,5 @@
 <template>
-  <div
-    class="
-      flex
-      w-full
-      flex-col
-      overflow-scroll
-    "
-  >
+  <div class="flex w-full flex-col overflow-scroll">
     <DynamicScroller
       :items="items"
       :min-item-size="45"
@@ -29,13 +22,7 @@
         >
           <div
             v-if="item.type === 'headOfGroup'"
-            class="
-              mb-5
-              mt-8
-              border-b
-              border-solid border-border-dark pb-3
-              text-center text-xl text-border-dark
-            "
+            class="mb-5 mt-8 border-b border-solid border-border-dark pb-3 text-center text-xl text-border-dark"
           >
             {{ dayjs(item.transaction.date).format(groupByDateFormat) }}
           </div>
@@ -51,12 +38,7 @@
       <template #after>
         <div
           v-if="transactionStore.allTransactionsFetched.value"
-          class="
-            mb-10 mt-3
-            border-t border-solid border-border-dark
-            pt-5
-            text-center text-xl text-border-dark
-          "
+          class="mb-10 mt-3 border-t border-solid border-border-dark pt-5 text-center text-xl text-border-dark"
         >
           {{ t('money', 'End of transactions') }}
         </div>
@@ -66,10 +48,16 @@
 </template>
 
 <script setup lang="ts">
-
   import dayjs from 'dayjs';
 
-  import { ref, type PropType, computed, watch, onMounted, onUnmounted } from 'vue';
+  import {
+    ref,
+    type PropType,
+    computed,
+    watch,
+    onMounted,
+    onUnmounted
+  } from 'vue';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -99,7 +87,7 @@
   });
 
   const transactions = ref<Array<Transaction>>([]);
-  const transactionWatcher = ref <{ stop: () => void }|null>(null);
+  const transactionWatcher = ref<{ stop: () => void } | null>(null);
   const accountIsChanging = ref(false);
   const isLoadingTransactions = ref(false);
   const groupBy = ref('month');
@@ -109,18 +97,26 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.account.type);
+    return (
+      settingStore.useInvertedAccounts.value &&
+      AccountTypeUtils.isInvertedAccount(props.account.type)
+    );
   });
 
-  watch(() => props.account, async () => {
-    await changeAccount();
-  });
+  watch(
+    () => props.account,
+    async () => {
+      await changeAccount();
+    }
+  );
 
-  const items = computed<Array<{
-    id: number;
-    transaction: Transaction;
-    type: 'normal'|'headOfGroup'
-  }>>(() => {
+  const items = computed<
+    Array<{
+      id: number;
+      transaction: Transaction;
+      type: 'normal' | 'headOfGroup';
+    }>
+  >(() => {
     return transactions.value.map((t, index) => ({
       id: t.id,
       transaction: t,
@@ -132,7 +128,9 @@
     accountIsChanging.value = true;
 
     await transactionService.changeAccount(props.account.id);
-    transactions.value = await transactionStore.getByAccountId(props.account.id);
+    transactions.value = await transactionStore.getByAccountId(
+      props.account.id
+    );
 
     if (transactionWatcher.value) {
       transactionWatcher.value.stop();
@@ -149,7 +147,8 @@
       accountIsChanging.value ||
       isLoadingTransactions.value ||
       transactionStore.allTransactionsFetched.value
-    ) return;
+    )
+      return;
 
     isLoadingTransactions.value = true;
 
@@ -159,19 +158,27 @@
     isLoadingTransactions.value = false;
   }
 
-  async function onDynamicScrollerUpdate(_startIndex: number, endIndex: number): Promise<void> {
-    if(endIndex + 10 >= transactions.value.length) {
+  async function onDynamicScrollerUpdate(
+    _startIndex: number,
+    endIndex: number
+  ): Promise<void> {
+    if (endIndex + 10 >= transactions.value.length) {
       await loadMoreTransactions();
     }
   }
 
-  function transactionIsHeadOfGroup(transaction: Transaction, index: number): boolean {
-    return !!groupBy.value &&
-      (
-        !transactions.value[index - 1] ||
-        dayjs(transaction.date)
-          .isBefore(transactions.value[index - 1]?.date, groupBy.value)
-      );
+  function transactionIsHeadOfGroup(
+    transaction: Transaction,
+    index: number
+  ): boolean {
+    return (
+      !!groupBy.value &&
+      (!transactions.value[index - 1] ||
+        dayjs(transaction.date).isBefore(
+          transactions.value[index - 1]?.date,
+          groupBy.value
+        ))
+    );
   }
 
   onMounted(() => {
@@ -181,5 +188,4 @@
   onUnmounted(() => {
     transactionWatcher.value?.stop();
   });
-
 </script>
