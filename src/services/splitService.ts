@@ -1,12 +1,9 @@
-import {
-  useSplitApiService,
-  type SplitCreationData
-} from './splitApiService';
+import { useSplitApiService, type SplitCreationData } from './splitApiService';
 import { useAccountStore } from '../stores/accountStore';
 import { useSplitStore, type Split } from '../stores/splitStore';
 import { useTransactionStore } from '../stores/transactionStore';
 
-let splitService: SplitService|null = null;
+let splitService: SplitService | null = null;
 
 export const useSplitService = (): SplitService => {
   if (!splitService) splitService = new SplitService();
@@ -14,20 +11,24 @@ export const useSplitService = (): SplitService => {
 };
 
 class SplitService {
-
   private splitStore = useSplitStore();
   private splitApiService = useSplitApiService();
 
   private transactionStore = useTransactionStore();
   private accountStore = useAccountStore();
 
-  public async addSplit(split: SplitCreationData, addToStore = true): Promise<Split> {
+  public async addSplit(
+    split: SplitCreationData,
+    addToStore = true
+  ): Promise<Split> {
     const newSplit = await this.splitApiService.addSplit(split);
 
     if (addToStore) {
       await this.splitStore.insertSplit(newSplit);
 
-      const transaction = await this.transactionStore.getById(newSplit.transactionId);
+      const transaction = await this.transactionStore.getById(
+        newSplit.transactionId
+      );
 
       this.accountStore.addValue(
         split.destAccountId,
@@ -43,8 +44,14 @@ class SplitService {
     await this.splitApiService.deleteSplit(split.id);
     await this.splitStore.deleteSplit(split.id);
 
-    const transaction = await this.transactionStore.getById(split.transactionId);
-    this.accountStore.addValue(split.destAccountId, -split.value, transaction?.date);
+    this.accountStore.addValue(
+      split.destAccountId,
+      -split.value,
+      transaction?.date
+    );
+    const transaction = await this.transactionStore.getById(
+      split.transactionId
+    );
   }
 
   public async updateSplit(split: Split): Promise<void> {
@@ -52,5 +59,4 @@ class SplitService {
       await this.splitApiService.updateSplit(split)
     );
   }
-
 }
