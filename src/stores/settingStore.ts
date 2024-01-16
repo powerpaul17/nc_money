@@ -1,5 +1,7 @@
 import { computed, ref, watch, type WatchStopHandle } from 'vue';
 
+import type { FormatOptions } from '../utils/numberUtils';
+
 let settingStore: SettingStore | null = null;
 
 export const useSettingStore = (): SettingStore => {
@@ -57,6 +59,15 @@ class SettingStore {
       numberFormat_groupSeparator: this.numberFormat_groupSeparator.value
     };
   });
+
+  public readonly numberFormattingOptions = computed(
+    (): FormatOptions => ({
+      decimals: this.numberFormat_decimals.value,
+      decimalSeparator: this.numberFormat_decimalSeparator.value,
+      groupBy: this.numberFormat_groupBy.value,
+      groupSeparator: this.numberFormat_groupSeparator.value
+    })
+  );
 }
 
 export type Settings = {
