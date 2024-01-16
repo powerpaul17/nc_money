@@ -32,6 +32,13 @@
 
   const accountStore = useAccountStore();
 
+  const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    }
+  });
+
   const equityLineChartData = computed((): LineChartData => {
     const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
