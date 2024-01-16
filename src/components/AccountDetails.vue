@@ -1,13 +1,5 @@
 <template>
-  <div
-    class="
-      mx-auto
-      flex
-      h-[calc(100vh-50px)]
-      flex-col
-      lg:container
-    "
-  >
+  <div class="mx-auto flex h-[calc(100vh-50px)] flex-col lg:container">
     <AccountDetailsHeader :account="account" />
     <TransactionList
       :book-id="bookId"
@@ -34,5 +26,4 @@
       required: true
     }
   });
-
 </script>
