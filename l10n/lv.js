@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "Nauda",
     "Name" : "Vārds",
     "Description" : "Apraksts",
     "Delete account" : "Dzēst kontu",

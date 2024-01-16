@@ -9,6 +9,7 @@ OC.L10N.register(
     "Add account" : "계정 추가",
     "Value" : "값",
     "Date" : "날짜",
+    "Decimals" : "십진법",
     "Select File" : "파일 선택",
     "Import" : "가져오기",
     "Comment" : "설명",

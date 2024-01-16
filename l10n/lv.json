@@ -1,4 +1,5 @@
 { "translations": {
+    "Money" : "Nauda",
     "Name" : "Vārds",
     "Description" : "Apraksts",
     "Delete account" : "Dzēst kontu",
