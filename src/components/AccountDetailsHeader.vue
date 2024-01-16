@@ -65,7 +65,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { ref, type PropType } from 'vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
@@ -116,7 +115,10 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.account.type);
+    return (
+      settingStore.useInvertedAccounts.value &&
+      AccountTypeUtils.isInvertedAccount(props.account.type)
+    );
   });
 
   const lineChartData = computed((): Data => {
@@ -135,10 +137,10 @@
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
@@ -163,7 +165,9 @@
     await handleAccountModified();
   }
 
-  async function handleAccountDescriptionModified(newDescription: string): Promise<void> {
+  async function handleAccountDescriptionModified(
+    newDescription: string
+  ): Promise<void> {
     props.account.description = newDescription;
     await handleAccountModified();
   }
@@ -171,5 +175,4 @@
   async function handleAccountModified(): Promise<void> {
     await accountService.updateAccount(props.account);
   }
-
 </script>
