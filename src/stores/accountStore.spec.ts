@@ -1,12 +1,15 @@
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { useAccountStore, type AccountStore, type Account, resetAccountStore } from './accountStore';
+import {
+  useAccountStore,
+  type AccountStore,
+  type Account,
+  resetAccountStore
+} from './accountStore';
 import { AccountTypeType } from './accountTypeStore';
 
 describe('accountStore', () => {
-
   describe('getBalance', () => {
-
     it('should return the correct balance for a given year/month', () => {
       const { accountStore } = setupEnvironment();
       expect(accountStore.getBalance(1, 2023, 3)).to.equal(30);
@@ -41,11 +44,9 @@ describe('accountStore', () => {
       });
       expect(accountStore.getBalance(10)).to.equal(0);
     });
-
   });
 
   describe('getSummary', () => {
-
     it('should return the correct summary for a given year/month', () => {
       const { accountStore } = setupEnvironment();
       expect(accountStore.getSummary(1, 2023, 3)).to.equal(30);
@@ -58,11 +59,9 @@ describe('accountStore', () => {
       expect(accountStore.getSummary(1, 2023, 5)).to.equal(0);
       expect(accountStore.getSummary(1, 2030, 1)).to.equal(0);
     });
-
   });
 
   describe('addValue', () => {
-
     it('should add the value if it does not exist', () => {
       const { accountStore, account } = setupEnvironment();
 
@@ -106,7 +105,6 @@ describe('accountStore', () => {
         }
       });
     });
-
   });
 
   afterEach(() => {
@@ -149,10 +147,12 @@ describe('accountStore', () => {
     };
   }
 
-  function cloneRecursively(obj: Record<string, AnyType>): Record<string, AnyType> {
+  function cloneRecursively(
+    obj: Record<string, AnyType>
+  ): Record<string, AnyType> {
     const clone: Record<string, AnyType> = {};
 
-    for (const [ key, value ] of Object.entries(obj)) {
+    for (const [key, value] of Object.entries(obj)) {
       if (typeof value !== 'object') {
         clone[key] = value;
       } else {
@@ -161,7 +161,6 @@ describe('accountStore', () => {
     }
     return clone;
   }
-
 });
 
 type AnyType = string | number | RecordOfAnyType;
