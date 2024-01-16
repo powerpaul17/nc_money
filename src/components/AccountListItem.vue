@@ -15,6 +15,7 @@
     :to="{
       name: 'account',
       params: {
+        bookId: account.bookId,
         accountId: account.id
       }
     }"

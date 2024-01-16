@@ -4,6 +4,7 @@
     :to="{
       name: 'account-type',
       params: {
+        bookId: bookId,
         accountTypeType: accountType.type
       }
     }"
@@ -121,6 +122,7 @@
     await router.push({
       name: 'account',
       params: {
+        bookId: props.bookId,
         accountId: newAccount.id
       }
     });

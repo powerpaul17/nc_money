@@ -6,6 +6,7 @@
       :to="{
         name: 'account-type',
         params: {
+          bookId: bookId,
           accountTypeType: accountType
         }
       }"
