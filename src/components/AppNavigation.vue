@@ -15,84 +15,57 @@
 
       <NcAppNavigationSpacer class="order-none" />
 
-      <AccountTypeListItem
-        v-for="accountType in accountTypes"
-        :key="accountType.type"
-        :account-type="accountType"
-        @show-details-changed="$event => emit('show-details-changed', $event)"
+      <BookNavigationItem
+        v-for="book in bookStore.books.value"
+        :key="book.id"
+        :book="book"
+        @show-details-changed="
+          (showDetails) => emit('show-details-changed', showDetails)
+        "
       />
-
-      <li class="border-t border-solid border-border-dark" />
-
-      <NcAppNavigationItem
-        :name="t('money', 'Unbalanced')"
-      >
-        <template #counter>
-          <CurrencyText
-            class="mr-2"
-            :value="unbalancedValue"
-            :animation="true"
-          />
-        </template>
-      </NcAppNavigationItem>
-
-      <NcAppNavigationItem
-        :name="t('money', 'Equity')"
-      >
-        <template #counter>
-          <CurrencyText
-            class="mr-2"
-            :value="equity"
-            :animation="true"
-          />
-        </template>
-      </NcAppNavigationItem>
     </template>
 
     <template #footer>
+      <NcAppNavigationNew
+        :text="t('money', 'New book')"
+        @click="handleAddBook"
+      >
+        <template #icon>
+          <Plus />
+        </template>
+      </NcAppNavigationNew>
+
       <AppSettings />
     </template>
   </NcAppNavigation>
 </template>
 
 <script setup lang="ts">
-
-  import { computed } from 'vue';
-
   import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
   import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer';
+  import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew';
 
   import Finance from 'vue-material-design-icons/Finance.vue';
+  import Plus from 'vue-material-design-icons/Plus.vue';
 
-  import AccountTypeListItem from './AccountTypeListItem.vue';
-  import CurrencyText from './CurrencyText.vue';
   import AppSettings from './AppSettings.vue';
+  import BookNavigationItem from './BookNavigationItem.vue';
 
-  import { useAccountStore } from '../stores/accountStore';
-  import { useAccountService } from '../services/accountService';
-  import { useAccountTypeStore } from '../stores/accountTypeStore';
+  import { useBookStore } from '../stores/bookStore';
+  import { useBookService } from '../services/bookService';
 
-  const accountStore = useAccountStore();
-  const accountService = useAccountService();
-  const accountTypeStore = useAccountTypeStore();
+  const bookStore = useBookStore();
+  const bookService = useBookService();
 
   const emit = defineEmits<{
-    (event: 'show-details-changed', showDetails: boolean): void
+    (event: 'show-details-changed', showDetails: boolean): void;
   }>();
 
-  const accountTypes = computed(() => {
-    return accountTypeStore.accountTypes;
-  });
-
-  const equity = computed(() => {
-    return (
-      accountStore.assetsBalance.value + accountStore.liabilitiesBalance.value
-    );
-  });
-
-  const unbalancedValue = computed(() => {
-    return accountStore.unbalancedValue.value;
-  });
-
+  async function handleAddBook(): Promise<void> {
+    await bookService.addBook({
+      name: '',
+      description: ''
+    });
+  }
 </script>
