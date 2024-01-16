@@ -1,6 +1,6 @@
 import { computed, ref, watch, type WatchStopHandle } from 'vue';
 
-let settingStore: SettingStore|null = null;
+let settingStore: SettingStore | null = null;
 
 export const useSettingStore = (): SettingStore => {
   if (!settingStore) settingStore = new SettingStore();
@@ -12,7 +12,6 @@ export function resetSettingStore(): void {
 }
 
 class SettingStore {
-
   public readonly useInvertedAccounts = ref(true);
   public readonly numberFormat_decimals = ref(2);
   public readonly numberFormat_decimalSeparator = ref('.');
@@ -22,28 +21,31 @@ class SettingStore {
   private subscribers: Array<() => void> = [];
 
   constructor() {
-    watch([
-      this.useInvertedAccounts,
-      this.numberFormat_decimals,
-      this.numberFormat_decimalSeparator,
-      this.numberFormat_groupBy,
-      this.numberFormat_groupSeparator
-    ], () => {
-      this.notifySubscribers();
-    });
+    watch(
+      [
+        this.useInvertedAccounts,
+        this.numberFormat_decimals,
+        this.numberFormat_decimalSeparator,
+        this.numberFormat_groupBy,
+        this.numberFormat_groupSeparator
+      ],
+      () => {
+        this.notifySubscribers();
+      }
+    );
   }
 
   public subscribe(callback: () => void): WatchStopHandle {
     this.subscribers.push(callback);
 
     return () => {
-      const index = this.subscribers.findIndex(cb => callback === cb);
+      const index = this.subscribers.findIndex((cb) => callback === cb);
       this.subscribers.splice(index, 1);
     };
   }
 
   private notifySubscribers(): void {
-    this.subscribers.forEach(cb => cb());
+    this.subscribers.forEach((cb) => cb());
   }
 
   public readonly state = computed((): Settings => {
@@ -55,7 +57,6 @@ class SettingStore {
       numberFormat_groupSeparator: this.numberFormat_groupSeparator.value
     };
   });
-
 }
 
 export type Settings = {
@@ -65,4 +66,4 @@ export type Settings = {
   numberFormat_decimalSeparator: string;
   numberFormat_groupBy: number;
   numberFormat_groupSeparator: string;
-}
+};
