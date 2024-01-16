@@ -23,8 +23,7 @@
           :title="book.name"
           :details="
             NumberUtils.formatNumber(
-              accountStore.getAssetsBalanceForBookId(book.id).value -
-                accountStore.getLiabilitiesBalanceForBookId(book.id).value,
+              accountStore.getEquityForBookId(book.id).value,
               { ...settingStore.numberFormattingOptions.value }
             )
           "

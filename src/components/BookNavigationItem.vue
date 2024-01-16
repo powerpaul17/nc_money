@@ -165,10 +165,7 @@
   });
 
   const equity = computed(() => {
-    return (
-      accountStore.getAssetsBalanceForBookId(props.book.id).value +
-      accountStore.getLiabilitiesBalanceForBookId(props.book.id).value
-    );
+    return accountStore.getEquityForBookId(props.book.id).value;
   });
 
   const unbalancedValue = computed(() => {

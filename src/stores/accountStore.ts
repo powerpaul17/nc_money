@@ -60,6 +60,15 @@ class AccountStore {
     });
   }
 
+  public getEquityForBookId(bookId: number): ComputedRef<number> {
+    return computed(() => {
+      return (
+        this.getAssetsBalanceForBookId(bookId).value +
+        this.getLiabilitiesBalanceForBookId(bookId).value
+      );
+    });
+  }
+
   public getUnbalancedValueForBookId(bookId: number): ComputedRef<number> {
     return computed(() => {
       return this.calculateBalance({ accounts: this.getByBookId(bookId) });
