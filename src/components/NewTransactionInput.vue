@@ -19,7 +19,7 @@
     <template #account>
       <AccountSelect
         :account-id="destAccountId"
-        :excluded-account-ids="[ accountId ]"
+        :excluded-account-ids="[accountId]"
         @account-changed="(accountId) => (destAccountId = accountId)"
       />
     </template>
@@ -48,7 +48,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { ref, computed } from 'vue';
 
   import { NumberUtils } from '../utils/numberUtils';
@@ -109,5 +108,4 @@
     description.value = '';
     value.value = 0.0;
   }
-
 </script>
