@@ -57,7 +57,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { computed, ref, type PropType, watch } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
@@ -91,15 +90,16 @@
     }
   });
 
-  const emit = defineEmits([
-    'item-clicked'
-  ]);
+  const emit = defineEmits(['item-clicked']);
 
   const filterString = ref('');
 
-  watch(() => props.accountType, () => {
-    filterString.value = '';
-  });
+  watch(
+    () => props.accountType,
+    () => {
+      filterString.value = '';
+    }
+  );
 
   const sortMode = ref(loadSortMode());
   const sortDirection = ref(loadSortDirection());
@@ -109,7 +109,10 @@
       .getByType({ bookId: props.bookId, accountType: props.accountType })
       .value.filter((a) => {
         if (filterString.value.length <= 1) return true;
-        return [ a.name, a.description ].join(' ').toLocaleLowerCase().includes(filterString.value.toLocaleLowerCase());
+        return [a.name, a.description]
+          .join(' ')
+          .toLocaleLowerCase()
+          .includes(filterString.value.toLocaleLowerCase());
       })
       .sort((a1, a2) => {
         switch (sortMode.value) {
@@ -160,18 +163,23 @@
     else return SortMode.BY_NAME;
   }
 
-  function loadSortDirection():boolean {
+  function loadSortDirection(): boolean {
     return localStorage.getItem('money.accountListSortDirection') === 'true';
   }
 
-  function saveSortingSettings(sortMode: SortMode, sortDirection: boolean): void {
+  function saveSortingSettings(
+    sortMode: SortMode,
+    sortDirection: boolean
+  ): void {
     localStorage.setItem('money.accountListSortMode', sortMode);
-    localStorage.setItem('money.accountListSortDirection', sortDirection.toString());
+    localStorage.setItem(
+      'money.accountListSortDirection',
+      sortDirection.toString()
+    );
   }
 
   enum SortMode {
     BY_NAME = 'by_name',
     BY_VALUE = 'by_value'
   }
-
 </script>
