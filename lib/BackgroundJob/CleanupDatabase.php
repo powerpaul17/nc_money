@@ -21,10 +21,18 @@ class CleanupDatabase extends TimedJob {
 
   /**
 	 * Makes the background job do its work
+   *
+   * TODO: use query builder if possible
 	 *
 	 * @param array $argument unused argument
 	 */
   public function run($argument) {
+    // Remove orphaned accounts (without a book)
+
+    $sql = 'DELETE FROM *PREFIX*money_accounts WHERE (SELECT id from *PREFIX*money_books b WHERE b.id = book_id) IS NULL';
+    $deletedEntries = $this->connection->executeStatement($sql);
+    $this->logger->info("$deletedEntries account(s) without a book deleted", ['app' => 'money']);
+
     // Remove splits with value = 0
 
     $sql = 'DELETE FROM *PREFIX*money_splits WHERE value = 0;';
