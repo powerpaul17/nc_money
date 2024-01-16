@@ -10,6 +10,10 @@ use OCP\IDBConnection;
 
 class CleanupDatabase extends TimedJob {
 
+  private IDBConnection $connection;
+
+  private LoggerInterface $logger;
+
   public function __construct(ITimeFactory $time, IDBConnection $connection, LoggerInterface $logger) {
     parent::__construct($time);
 
