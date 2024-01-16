@@ -1,4 +1,13 @@
-import { createTable, watch, insert, remove, clear, many, first, update } from 'blinkdb';
+import {
+  createTable,
+  watch,
+  insert,
+  remove,
+  clear,
+  many,
+  first,
+  update
+} from 'blinkdb';
 import type { Query } from 'blinkdb/dist/query/types';
 
 import { useAccountStore } from './accountStore';
@@ -6,7 +15,7 @@ import { useTransactionStore } from './transactionStore';
 import { useBlinkDB } from './blinkdb';
 import { NumberUtils } from '../utils/numberUtils';
 
-let splitStore: SplitStore|null = null;
+let splitStore: SplitStore | null = null;
 
 export const useSplitStore = (): SplitStore => {
   if (!splitStore) splitStore = new SplitStore();
@@ -18,7 +27,6 @@ export function resetSplitStore(): void {
 }
 
 class SplitStore {
-
   private db = useBlinkDB();
   private splitsTable = createTable<Split>(this.db, 'splits')();
 
@@ -26,7 +34,7 @@ class SplitStore {
     await clear(this.splitsTable);
   }
 
-  public getById(splitId: number): Promise<Split|null> {
+  public getById(splitId: number): Promise<Split | null> {
     return first(this.splitsTable, {
       where: {
         id: splitId
@@ -40,18 +48,24 @@ class SplitStore {
   ): Promise<{
     stop: () => void;
   }> {
-    return watch(this.splitsTable, {
-      where: {
-        transactionId: transactionId
-      }
-    }, callback);
+    return watch(
+      this.splitsTable,
+      {
+        where: {
+          transactionId: transactionId
+        }
+      },
+      callback
+    );
   }
 
   public async query(query: Query<Split, 'id'>): Promise<Array<Split>> {
     return many(this.splitsTable, query);
   }
 
-  public async getByTransactionId(transactionId: number): Promise<Array<Split>> {
+  public async getByTransactionId(
+    transactionId: number
+  ): Promise<Array<Split>> {
     return many(this.splitsTable, {
       where: {
         transactionId: transactionId
@@ -71,14 +85,14 @@ class SplitStore {
     const accountStore = useAccountStore();
     const transactionStore = useTransactionStore();
 
-    const splitProxy = new Proxy(
-      split,
-      {
-        set(target, p, value): boolean {
-          const oldValue = target.value;
-          const oldDestAccountId = target.destAccountId;
+    const splitProxy = new Proxy(split, {
+      set(target, p, value): boolean {
+        const oldValue = target.value;
+        const oldDestAccountId = target.destAccountId;
 
-          void transactionStore.getById(target.transactionId).then((transaction) => {
+        void transactionStore
+          .getById(target.transactionId)
+          .then((transaction) => {
             if (p === 'value') {
               if (NumberUtils.areEqual(value, oldValue)) return;
 
@@ -98,12 +112,11 @@ class SplitStore {
             }
           });
 
-          target[p] = value;
+        target[p] = value;
 
-          return true;
-        }
+        return true;
       }
-    );
+    });
 
     if (await first(this.splitsTable, { where: { id: splitProxy.id } })) {
       await update(this.splitsTable, splitProxy);
@@ -121,7 +134,6 @@ class SplitStore {
   public async deleteSplit(splitId: number): Promise<void> {
     await remove(this.splitsTable, { id: splitId });
   }
-
 }
 
 export type Split = {
