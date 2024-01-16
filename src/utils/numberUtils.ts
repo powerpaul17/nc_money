@@ -1,16 +1,7 @@
 import { ArrayUtils } from './arrayUtils';
 
 export class NumberUtils {
-  public static formatNumber(
-    value: number,
-    options: {
-      decimals?: number;
-      decimalSeparator?: string;
-      groupBy?: number;
-      groupSeparator?: string;
-      invertedValue?: boolean;
-    }
-  ): string {
+  public static formatNumber(value: number, options: Options): string {
     const {
       decimals,
       decimalSeparator,
@@ -80,3 +71,11 @@ export class NumberUtils {
     );
   }
 }
+
+export type Options = {
+  decimals?: number;
+  decimalSeparator?: string;
+  groupBy?: number;
+  groupSeparator?: string;
+  invertedValue?: boolean;
+};
