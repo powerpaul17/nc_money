@@ -2,9 +2,13 @@ import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import type { AxiosResponse } from 'axios';
 
-import type { Account, ExtraData, MonthlyAccountStats } from '../stores/accountStore';
+import type {
+  Account,
+  ExtraData,
+  MonthlyAccountStats
+} from '../stores/accountStore';
 
-let accountApiService: AccountApiService|null = null;
+let accountApiService: AccountApiService | null = null;
 
 export const useAccountApiService = (): AccountApiService => {
   if (!accountApiService) accountApiService = new AccountApiService();
@@ -12,8 +16,8 @@ export const useAccountApiService = (): AccountApiService => {
 };
 
 class AccountApiService {
-
-  private boundTransformApiResponseDataToAccount = this.transformApiResponseDataToAccount.bind(this);
+  private boundTransformApiResponseDataToAccount =
+    this.transformApiResponseDataToAccount.bind(this);
 
   public async getAccount(accountId: number): Promise<Account> {
     const response = await axios.get<AccountApiResponseData>(
@@ -60,7 +64,9 @@ class AccountApiService {
     return this.transformApiResponseDataToAccount(response.data);
   }
 
-  private transformApiResponseDataToAccount(data: AccountApiResponseData): Account {
+  private transformApiResponseDataToAccount(
+    data: AccountApiResponseData
+  ): Account {
     return {
       id: data.id,
       name: data.name,
@@ -68,12 +74,16 @@ class AccountApiService {
       currency: data.currency,
       type: data.type,
       stats: data.stats,
-      extraData: data.extraData ? JSON.parse(data.extraData) as ExtraData : {},
+      extraData: data.extraData
+        ? (JSON.parse(data.extraData) as ExtraData)
+        : {},
       bookId: data.bookId
     };
   }
 
-  private transformAccounToApiSendData(data: Account|AccountCreationData): AccountApiSendData {
+  private transformAccounToApiSendData(
+    data: Account | AccountCreationData
+  ): AccountApiSendData {
     return {
       id: 'id' in data ? data.id : undefined,
       name: data.name,
@@ -84,7 +94,6 @@ class AccountApiService {
       bookId: data.bookId
     };
   }
-
 }
 
 export type AccountCreationData = Omit<Account, 'id' | 'stats'>;
@@ -103,6 +112,6 @@ type AccountApiCommonData = {
   description: string;
   currency: string;
   type: number;
-  extraData: string|null;
+  extraData: string | null;
   bookId: number;
 };
