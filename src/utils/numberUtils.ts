@@ -1,7 +1,7 @@
 import { ArrayUtils } from './arrayUtils';
 
 export class NumberUtils {
-  public static formatNumber(value: number, options: Options): string {
+  public static formatNumber(value: number, options: FormatOptions): string {
     const {
       decimals,
       decimalSeparator,
@@ -72,7 +72,7 @@ export class NumberUtils {
   }
 }
 
-export type Options = {
+export type FormatOptions = {
   decimals?: number;
   decimalSeparator?: string;
   groupBy?: number;
