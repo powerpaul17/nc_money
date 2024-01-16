@@ -5,6 +5,7 @@
   >
     <template #list>
       <AccountList
+        :book-id="bookId"
         :account-type="accountTypeType"
         @item-clicked="emit('show-details-changed', true)"
       />
@@ -51,6 +52,10 @@
   const settingStore = useSettingStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountTypeType: {
       type: Number,
       required: true
@@ -84,6 +89,7 @@
       callback: (date) => {
         return (
           accountStore.getBalanceByType({
+            bookId: props.bookId,
             accountType: props.accountTypeType,
             year: date.year(),
             month: date.month() + 1
@@ -106,6 +112,7 @@
     return GraphDataUtils.createBarGraphData({
       callback: (date) => {
         const summary = accountStore.getSummaryByType({
+          bookId: props.bookId,
           accountType: props.accountTypeType,
           year: date.year(),
           month: date.month() + 1

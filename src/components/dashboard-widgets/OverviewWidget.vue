@@ -49,11 +49,13 @@
       callback: (date) => {
         return (
           accountStore.getBalanceByType({
+            bookId,
             accountType: AccountTypeType.ASSET,
             year: date.year(),
             month: date.month() + 1
           }).value +
           accountStore.getBalanceByType({
+            bookId,
             accountType: AccountTypeType.LIABILITY,
             year: date.year(),
             month: date.month() + 1
@@ -77,6 +79,7 @@
       numberOfMonths: 6,
       callback: (date) => {
         return accountStore.getBalanceByType({
+          bookId,
           accountType: AccountTypeType.ASSET,
           year: date.year(),
           month: date.month() + 1
@@ -100,6 +103,7 @@
       numberOfMonths: 6,
       callback: (date) => {
         return accountStore.getBalanceByType({
+          bookId,
           accountType: AccountTypeType.LIABILITY,
           year: date.year(),
           month: date.month() + 1

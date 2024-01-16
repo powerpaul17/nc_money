@@ -44,11 +44,13 @@
       callback: (date) => {
         return (
           accountStore.getBalanceByType({
+            bookId: props.bookId,
             accountType: AccountTypeType.ASSET,
             year: date.year(),
             month: date.month() + 1
           }).value +
           accountStore.getBalanceByType({
+            bookId: props.bookId,
             accountType: AccountTypeType.LIABILITY,
             year: date.year(),
             month: date.month() + 1
@@ -71,6 +73,7 @@
     const assetsData = GraphDataUtils.createBarGraphData({
       callback: (date) => {
         return accountStore.getBalanceByType({
+          bookId: props.bookId,
           accountType: AccountTypeType.ASSET,
           year: date.year(),
           month: date.month() + 1
@@ -81,6 +84,7 @@
     const liabilitiesData = GraphDataUtils.createBarGraphData({
       callback: (date) => {
         return accountStore.getBalanceByType({
+          bookId: props.bookId,
           accountType: AccountTypeType.LIABILITY,
           year: date.year(),
           month: date.month() + 1

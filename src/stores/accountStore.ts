@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import Vue, { computed, ref, type Ref } from 'vue';
+import Vue, { computed, ref, type ComputedRef, type Ref } from 'vue';
 
 import { AccountTypeType } from './accountTypeStore';
 
@@ -18,35 +18,69 @@ export function resetAccountStore(): void {
 class AccountStore {
   public readonly accounts: Ref<Array<Account>> = ref([]);
 
-  public readonly assetsBalance = computed((): number => {
-    return this.calculateBalance(this.getByType(AccountTypeType.ASSET).value);
-  });
+  public getAssetsBalanceForBookId(bookId: number): ComputedRef<number> {
+    return computed(() => {
+      return this.calculateBalance({
+        accounts: this.getByType({ bookId, accountType: AccountTypeType.ASSET })
+          .value
+      });
+    });
+  }
 
-  public readonly liabilitiesBalance = computed((): number => {
-    return this.calculateBalance(
-      this.getByType(AccountTypeType.LIABILITY).value
-    );
-  });
+  public getLiabilitiesBalanceForBookId(bookId: number): ComputedRef<number> {
+    return computed(() => {
+      return this.calculateBalance({
+        accounts: this.getByType({
+          bookId,
+          accountType: AccountTypeType.LIABILITY
+        }).value
+      });
+    });
+  }
 
-  public readonly incomeBalance = computed((): number => {
-    return this.calculateBalance(this.getByType(AccountTypeType.INCOME).value);
-  });
+  public getIncomeBalanceForBookId(bookId: number): ComputedRef<number> {
+    return computed(() => {
+      return this.calculateBalance({
+        accounts: this.getByType({
+          bookId,
+          accountType: AccountTypeType.INCOME
+        }).value
+      });
+    });
+  }
 
-  public readonly expensesBalance = computed((): number => {
-    return this.calculateBalance(this.getByType(AccountTypeType.EXPENSE).value);
-  });
+  public getExpensesBalanceForBookId(bookId: number): ComputedRef<number> {
+    return computed(() => {
+      return this.calculateBalance({
+        accounts: this.getByType({
+          bookId,
+          accountType: AccountTypeType.EXPENSE
+        }).value
+      });
+    });
+  }
 
-  public readonly unbalancedValue = computed((): number => {
-    return this.calculateBalance(this.accounts.value);
-  });
+  public getUnbalancedValueForBookId(bookId: number): ComputedRef<number> {
+    return computed(() => {
+      return this.calculateBalance({ accounts: this.getByBookId(bookId) });
+    });
+  }
 
   public getById(accountId: number): Account | undefined {
     return this.accounts.value.find((a) => a.id === accountId);
   }
 
-  public getByType(accountType: AccountTypeType): Ref<Array<Account>> {
+  public getByType({
+    bookId,
+    accountType
+  }: {
+    bookId: number;
+    accountType: AccountTypeType;
+  }): Ref<Array<Account>> {
     return computed(() =>
-      this.accounts.value.filter((a) => a.type === accountType)
+      this.accounts.value.filter(
+        (a) => a.bookId === bookId && a.type === accountType
+      )
     );
   }
 
@@ -83,20 +117,22 @@ class AccountStore {
   }
 
   public getBalanceByType({
+    bookId,
     accountType,
     year,
     month
   }: {
+    bookId: number;
     accountType: AccountTypeType;
     year?: number;
     month?: number;
   }): Ref<number> {
     return computed(() => {
-      return this.calculateBalance(
-        this.getByType(accountType).value,
+      return this.calculateBalance({
+        accounts: this.getByType({ bookId, accountType }).value,
         year,
         month
-      );
+      });
     });
   }
 
@@ -117,17 +153,19 @@ class AccountStore {
   }
 
   public getSummaryByType({
+    bookId,
     accountType,
     year,
     month
   }: {
+    bookId: number;
     accountType: AccountTypeType;
     year?: number;
     month?: number;
   }): Ref<number> {
     return computed(() => {
       return this.calculateSummary(
-        this.getByType(accountType).value,
+        this.getByType({ bookId, accountType }).value,
         year,
         month
       );

@@ -81,6 +81,10 @@
   const accountStore = useAccountStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountType: {
       type: Number as PropType<AccountTypeType>,
       required: true
@@ -101,8 +105,9 @@
   const sortDirection = ref(loadSortDirection());
 
   const accounts = computed(() => {
-    const acc = accountStore.getByType(props.accountType).value
-      .filter((a) => {
+    const acc = accountStore
+      .getByType({ bookId: props.bookId, accountType: props.accountType })
+      .value.filter((a) => {
         if (filterString.value.length <= 1) return true;
         return [ a.name, a.description ].join(' ').toLocaleLowerCase().includes(filterString.value.toLocaleLowerCase());
       })

@@ -46,7 +46,7 @@
 
   import dayjs from 'dayjs';
 
-  import { ref, watch, type PropType } from 'vue';
+  import { type PropType, computed } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
 
   import { translate as t } from '@nextcloud/l10n';
@@ -74,38 +74,37 @@
   const settingStore = useSettingStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountType: {
       type: Object as PropType<AccountType>,
       required: true
     }
   });
 
-  const balance = ref(getAccountTypeBalance());
-
-  watch(() => props.accountType, () => {
-    balance.value = getAccountTypeBalance();
-  }, {
-    deep: true
-  });
-
-  function getAccountTypeBalance(): number {
+  const balance = computed(() => {
     if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
       const date = dayjs();
       return accountStore.getSummaryByType({
+        bookId: props.bookId,
         accountType: props.accountType.type,
         year: date.year(),
         month: date.month() + 1
       }).value;
     } else {
       return accountStore.getBalanceByType({
+        bookId: props.bookId,
         accountType: props.accountType.type
       }).value;
     }
-  }
+  });
 
   async function handleAddAccountClick(): Promise<void> {
     const newAccount = await accountService.addAccount({
       name: t('money', 'New Account'),
+      bookId: props.bookId,
       description: '',
       currency: '',
       type: props.accountType.type,

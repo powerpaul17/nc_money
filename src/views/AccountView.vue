@@ -7,6 +7,7 @@
     <template #list>
       <AccountList
         v-if="selectedAccount"
+        :book-id="selectedAccount.bookId"
         :account-type="selectedAccount.type"
         @item-clicked="emit('show-details-changed', true)"
       />
