@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Group accounts into books
+
 ## [0.24.0] - 2024-01-02
 
 ### Added
