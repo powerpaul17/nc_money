@@ -18,6 +18,7 @@
 
     <template #account>
       <AccountSelect
+        :book-id="bookId"
         :account-id="destAccountId"
         :excluded-account-ids="[accountId]"
         @account-changed="(accountId) => (destAccountId = accountId)"
@@ -65,6 +66,10 @@
   const transactionService = useTransactionService();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountId: {
       type: Number,
       required: true

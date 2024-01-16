@@ -70,6 +70,10 @@ class AccountStore {
     return this.accounts.value.find((a) => a.id === accountId);
   }
 
+  public getByBookId(bookId: number): Array<Account> {
+    return this.accounts.value.filter((a) => a.bookId === bookId);
+  }
+
   public getByType({
     bookId,
     accountType

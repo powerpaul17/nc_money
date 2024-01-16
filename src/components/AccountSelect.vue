@@ -125,6 +125,7 @@
 
   const props = withDefaults(
     defineProps<{
+      bookId: number;
       accountId?: number | null;
       editable?: boolean;
       excludedAccountIds?: Array<number>;
@@ -151,7 +152,8 @@
   });
 
   const accounts = computed((): Array<Account> => {
-    return accountStore.accounts.value
+    return accountStore
+      .getByBookId(props.bookId)
       .filter((a) => !props.excludedAccountIds?.includes(a.id))
       .sort((a1, a2) => {
         if (a1.type === a2.type) {

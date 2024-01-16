@@ -15,6 +15,7 @@
 
     <AccountDetails
       v-if="selectedAccount"
+      :book-id="bookId"
       :account="selectedAccount"
     />
   </NcAppContent>
@@ -34,6 +35,10 @@
   const accountStore = useAccountStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountId: {
       type: Number,
       required: true

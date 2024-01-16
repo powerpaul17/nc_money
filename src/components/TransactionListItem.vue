@@ -40,6 +40,7 @@
         </span>
         <AccountSelect
           v-else
+          :book-id="bookId"
           :account-id="destinationAccountId"
           :editable="valueIsEditable"
           :excluded-account-ids="excludedAccountIds"
@@ -64,6 +65,7 @@
       <SplitListItem
         v-for="split in splits"
         :key="split.id"
+        :book-id="bookId"
         :split="split"
         :excluded-account-ids="
           excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
@@ -73,6 +75,7 @@
       />
       <NewSplitInput
         v-if="isUnbalanced"
+        :book-id="bookId"
         :transaction-id="transaction.id"
         :excluded-account-ids="excludedSplitAccountIds"
         :initial-value="-unbalancedValue"
@@ -117,6 +120,10 @@
   const splitService = useSplitService();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     transaction: {
       type: Object as PropType<Transaction>,
       required: true

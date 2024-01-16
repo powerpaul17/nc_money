@@ -10,6 +10,7 @@
 
     <template #account>
       <AccountSelect
+        :book-id="bookId"
         :account-id="split.destAccountId"
         :excluded-account-ids="excludedAccountIds"
         @account-changed="handleDestinationAccountChanged"
@@ -53,6 +54,10 @@
   const splitService = useSplitService();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     split: {
       type: Object as PropType<Split>,
       required: true

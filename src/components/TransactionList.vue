@@ -9,6 +9,7 @@
       <template #before>
         <NewTransactionInput
           class="mx-2"
+          :book-id="bookId"
           :account-id="account.id"
           :inverted-value="isInvertedAccount"
         />
@@ -28,6 +29,7 @@
           </div>
 
           <TransactionListItem
+            :book-id="bookId"
             :transaction="item.transaction"
             :account-id="account.id"
             :inverted-value="isInvertedAccount"
@@ -80,6 +82,10 @@
   const settingStore = useSettingStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     account: {
       type: Object as PropType<Account>,
       required: true

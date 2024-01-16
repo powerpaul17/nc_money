@@ -9,7 +9,10 @@
     "
   >
     <AccountDetailsHeader :account="account" />
-    <TransactionList :account="account" />
+    <TransactionList
+      :book-id="bookId"
+      :account="account"
+    />
   </div>
 </template>
 
@@ -22,6 +25,10 @@
   import TransactionList from './TransactionList.vue';
 
   defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     account: {
       type: Object as PropType<Account>,
       required: true
