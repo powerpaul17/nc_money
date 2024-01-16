@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { computed, nextTick, ref, watch } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
@@ -49,7 +48,7 @@
     }
   });
 
-  const emit = defineEmits([ 'show-details-changed' ]);
+  const emit = defineEmits(['show-details-changed']);
 
   const renderComponent = ref(true);
 
@@ -67,5 +66,4 @@
       renderComponent.value = true;
     });
   }
-
 </script>
