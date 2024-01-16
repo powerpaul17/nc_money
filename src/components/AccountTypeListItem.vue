@@ -1,7 +1,12 @@
 <template>
   <NcAppNavigationItem
     :name="accountType.name"
-    :to="`/accountType/${accountType.type}`"
+    :to="{
+      name: 'account-type',
+      params: {
+        accountTypeType: accountType.type
+      }
+    }"
     :exact="true"
     :allow-collapse="false"
     icon="icon-folder"
@@ -113,6 +118,11 @@
       extraData: {}
     });
 
-    await router.push(`/account/${newAccount.id}`);
+    await router.push({
+      name: 'account',
+      params: {
+        accountId: newAccount.id
+      }
+    });
   }
 </script>

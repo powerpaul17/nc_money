@@ -3,7 +3,9 @@
     <template #list>
       <NcAppNavigationItem
         :name="t('money', 'Overview')"
-        :to="'/'"
+        :to="{
+          name: 'dashboard'
+        }"
         :exact="true"
       >
         <template #icon>

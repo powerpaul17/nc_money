@@ -3,7 +3,12 @@
     <NcAppNavigationItem
       class="mb-6 mt-2 px-2"
       :name="`${accountTypeName} - ${t('money', 'Overview')}`"
-      :to="`/accountType/${accountType}`"
+      :to="{
+        name: 'account-type',
+        params: {
+          accountTypeType: accountType
+        }
+      }"
       @click="emit('item-clicked')"
     />
 

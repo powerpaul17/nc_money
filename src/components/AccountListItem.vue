@@ -12,7 +12,12 @@
     :editable="deleteAccountTimeout == null"
     :edit-label="t('money', 'Rename account')"
     :edit-placeholder="t('money', 'Account name')"
-    :to="`/account/${account.id}`"
+    :to="{
+      name: 'account',
+      params: {
+        accountId: account.id
+      }
+    }"
     :loading="isLoading"
     :undo="deleteAccountTimeout != null"
     @update:title="handleUpdateAccountName"
