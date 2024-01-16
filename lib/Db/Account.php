@@ -16,6 +16,7 @@ class Account extends Entity implements JsonSerializable {
   protected $archived;
   protected $icon;
   protected $userId;
+  protected $bookId;
   protected $extraData;
 
   public function __construct() {
@@ -32,7 +33,8 @@ class Account extends Entity implements JsonSerializable {
       'hidden' => $this->hidden,
       'archived' => $this->archived,
       'icon' => $this->icon,
-      'extraData' => $this->extraData
+      'extraData' => $this->extraData,
+      'bookId' => $this->bookId
     ];
   }
 

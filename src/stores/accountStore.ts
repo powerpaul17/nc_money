@@ -296,6 +296,7 @@ export type Account = {
   description: string;
   stats: Record<number, Record<number, MonthlyAccountStats>>;
   extraData: Partial<ExtraData>;
+  bookId: number;
 };
 
 export type MonthlyAccountStats = {

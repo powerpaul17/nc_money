@@ -45,7 +45,8 @@ class AccountService {
     $currency,
     $description,
     $extraData,
-    $userId
+    $userId,
+    $bookId
   ) {
     $account = new Account();
     $account->setName($name);
@@ -55,6 +56,8 @@ class AccountService {
     $account->setExtraData($extraData);
 
     $account->setUserId($userId);
+    $account->setBookId($bookId);
+
     return $this->mapper->insert($account);
   }
 
@@ -65,10 +68,14 @@ class AccountService {
     $currency,
     $description,
     $extraData,
-    $userId
+    $userId,
+    $bookId
   ) {
     try {
       $account = $this->mapper->find($id, $userId);
+
+      $account->setBookId($bookId);
+
       $account->setName($name);
       $account->setType($type);
       $account->setCurrency($currency);

@@ -31,6 +31,7 @@ describe('accountStore', () => {
       const { accountStore } = setupEnvironment();
       accountStore.insertAccount({
         id: 10,
+        bookId: 0,
         name: '',
         description: '',
         currency: '',
@@ -122,6 +123,7 @@ describe('accountStore', () => {
       currency: '',
       description: '',
       id: 1,
+      bookId: 0,
       name: 'TestAccount',
       type: AccountTypeType.ASSET,
       extraData: {},

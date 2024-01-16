@@ -68,7 +68,8 @@ class AccountApiService {
       currency: data.currency,
       type: data.type,
       stats: data.stats,
-      extraData: data.extraData ? JSON.parse(data.extraData) as ExtraData : {}
+      extraData: data.extraData ? JSON.parse(data.extraData) as ExtraData : {},
+      bookId: data.bookId
     };
   }
 
@@ -79,7 +80,8 @@ class AccountApiService {
       description: data.description,
       currency: data.currency,
       type: data.type,
-      extraData: JSON.stringify(data.extraData)
+      extraData: JSON.stringify(data.extraData),
+      bookId: data.bookId
     };
   }
 
@@ -102,4 +104,5 @@ type AccountApiCommonData = {
   currency: string;
   type: number;
   extraData: string|null;
+  bookId: number;
 };
