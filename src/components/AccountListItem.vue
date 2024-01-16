@@ -1,12 +1,13 @@
 <template>
   <NcAppNavigationItem
     :class="{
-      'animate-pulse rounded-full bg-[var(--color-warning)] [&>.app-navigation-entry.active]:bg-inherit': deleteAccountTimeout != null
+      'animate-pulse rounded-full bg-[var(--color-warning)] [&>.app-navigation-entry.active]:bg-inherit':
+        deleteAccountTimeout != null
     }"
     :name="
-      deleteAccountTimeout != null ?
-        t('money', '\'{accountName}\' deleted', { accountName: account.name }) :
-        account.name
+      deleteAccountTimeout != null
+        ? t('money', '\'{accountName}\' deleted', { accountName: account.name })
+        : account.name
     "
     :editable="deleteAccountTimeout == null"
     :edit-label="t('money', 'Rename account')"
@@ -26,7 +27,10 @@
         class="mr-2"
         :value="balance"
         :animation="true"
-        :inverted-value="settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(account.type)"
+        :inverted-value="
+          settingStore.useInvertedAccounts.value &&
+          AccountTypeUtils.isInvertedAccount(account.type)
+        "
       >
         <template
           #suffix
@@ -41,7 +45,7 @@
       #actions
       v-if="deleteAccountTimeout == null"
     >
-      <NcActionButton @click="(showDeleteConfirmationDialog = true)">
+      <NcActionButton @click="showDeleteConfirmationDialog = true">
         <template #icon>
           <Delete :size="20" />
         </template>
@@ -59,7 +63,11 @@
         <div class="p-8">
           <div class="mb-8">
             <h2>{{ t('money', 'Are you sure?') }}</h2>
-            <p>{{ t('money', 'All transactions of this account will be deleted!') }}</p>
+            <p>
+              {{
+                t('money', 'All transactions of this account will be deleted!')
+              }}
+            </p>
           </div>
           <div class="flex justify-evenly">
             <NcButton
@@ -87,7 +95,6 @@
 </template>
 
 <script setup lang="ts">
-
   import dayjs from 'dayjs';
 
   import { ref, watch, type PropType, type Ref } from 'vue';
@@ -122,7 +129,7 @@
   const balance = ref(getAccountBalance());
   const isLoading = ref(false);
   const showDeleteConfirmationDialog = ref(false);
-  const deleteAccountTimeout: Ref<null|number> = ref(null);
+  const deleteAccountTimeout: Ref<null | number> = ref(null);
 
   const props = defineProps({
     account: {
@@ -131,11 +138,15 @@
     }
   });
 
-  watch(props.account, () => {
-    balance.value = getAccountBalance();
-  }, {
-    deep: true
-  });
+  watch(
+    props.account,
+    () => {
+      balance.value = getAccountBalance();
+    },
+    {
+      deep: true
+    }
+  );
 
   function getAccountBalance(): number {
     const accountStats = accountStore.getStats(props.account.id);
@@ -174,5 +185,4 @@
       deleteAccountTimeout.value = null;
     }
   }
-
 </script>
