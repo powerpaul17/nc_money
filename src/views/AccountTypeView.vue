@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { computed } from 'vue';
 
   import { useAccountTypeStore } from '../stores/accountTypeStore';
@@ -40,7 +39,9 @@
   import AccountList from '../components/AccountList.vue';
 
   import Chart from '../components/dashboard/ChartComponent.vue';
-  import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
+  import LineChart, {
+    type Data as LineChartData
+  } from '../components/charts/LineChart.vue';
   import BarChart from '../components/charts/BarChart.vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
@@ -67,7 +68,7 @@
   });
 
   const emit = defineEmits<{
-    (event: 'show-details-changed', showDetails: boolean): void
+    (event: 'show-details-changed', showDetails: boolean): void;
   }>();
 
   const accountType = computed(() => {
@@ -79,7 +80,10 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.accountTypeType);
+    return (
+      settingStore.useInvertedAccounts.value &&
+      AccountTypeUtils.isInvertedAccount(props.accountTypeType)
+    );
   });
 
   const lineChartData = computed((): LineChartData => {
@@ -99,10 +103,10 @@
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
@@ -122,5 +126,4 @@
       }
     });
   });
-
 </script>
