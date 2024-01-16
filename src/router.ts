@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import AccountView from './views/AccountView.vue';
 import BookView from './views/BookView.vue';
 import AccountTypeView from './views/AccountTypeView.vue';
+import DashboardView from './views/DashboardView.vue';
 import Sidebar from './components/SidebarComponent.vue';
 
 export default new VueRouter({
@@ -10,8 +11,8 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'dashboard'
-      // component: DashboardView
+      name: 'dashboard',
+      component: DashboardView
     },
     {
       path: '/book/:bookId',
