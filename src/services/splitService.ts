@@ -30,11 +30,11 @@ class SplitService {
         newSplit.transactionId
       );
 
-      this.accountStore.addValue(
-        split.destAccountId,
-        split.value,
-        transaction?.date
-      );
+      this.accountStore.addValue({
+        accountId: split.destAccountId,
+        value: split.value,
+        date: transaction?.date
+      });
     }
 
     return newSplit;
@@ -44,14 +44,14 @@ class SplitService {
     await this.splitApiService.deleteSplit(split.id);
     await this.splitStore.deleteSplit(split.id);
 
-    this.accountStore.addValue(
-      split.destAccountId,
-      -split.value,
-      transaction?.date
-    );
     const transaction = await this.transactionStore.getById(
       split.transactionId
     );
+    this.accountStore.addValue({
+      accountId: split.destAccountId,
+      value: -split.value,
+      date: transaction?.date
+    });
   }
 
   public async updateSplit(split: Split): Promise<void> {

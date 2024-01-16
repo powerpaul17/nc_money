@@ -12,22 +12,30 @@ describe('accountStore', () => {
   describe('getBalance', () => {
     it('should return the correct balance for a given year/month', () => {
       const { accountStore } = setupEnvironment();
-      expect(accountStore.getBalance(1, 2023, 3)).to.equal(30);
+      expect(
+        accountStore.getBalance({ accountId: 1, year: 2023, month: 3 })
+      ).to.equal(30);
     });
 
     it('should return the last balance for dates in the future', () => {
       const { accountStore } = setupEnvironment();
-      expect(accountStore.getBalance(1, 2035, 1)).to.equal(110);
+      expect(
+        accountStore.getBalance({ accountId: 1, year: 2035, month: 1 })
+      ).to.equal(110);
     });
 
     it('should return 0 as the balance before the first transaction', () => {
       const { accountStore } = setupEnvironment();
-      expect(accountStore.getBalance(1, 2000, 1)).to.equal(0);
+      expect(
+        accountStore.getBalance({ accountId: 1, year: 2000, month: 1 })
+      ).to.equal(0);
     });
 
     it('should return the correct interpolated balance for a month which has no transaction', () => {
       const { accountStore } = setupEnvironment();
-      expect(accountStore.getBalance(1, 2023, 6)).to.equal(30);
+      expect(
+        accountStore.getBalance({ accountId: 1, year: 2023, month: 6 })
+      ).to.equal(30);
     });
 
     it('should return 0 as the balance if account is empty', () => {
@@ -42,22 +50,30 @@ describe('accountStore', () => {
         type: AccountTypeType.ASSET,
         extraData: {}
       });
-      expect(accountStore.getBalance(10)).to.equal(0);
+      expect(accountStore.getBalance({ accountId: 10 })).to.equal(0);
     });
   });
 
   describe('getSummary', () => {
     it('should return the correct summary for a given year/month', () => {
       const { accountStore } = setupEnvironment();
-      expect(accountStore.getSummary(1, 2023, 3)).to.equal(30);
+      expect(
+        accountStore.getSummary({ accountId: 1, year: 2023, month: 3 })
+      ).to.equal(30);
     });
 
     it('should not return a summary if there are no transactions in a given month', () => {
       const { accountStore } = setupEnvironment();
 
-      expect(accountStore.getSummary(1, 2000, 1)).to.equal(0);
-      expect(accountStore.getSummary(1, 2023, 5)).to.equal(0);
-      expect(accountStore.getSummary(1, 2030, 1)).to.equal(0);
+      expect(
+        accountStore.getSummary({ accountId: 1, year: 2000, month: 1 })
+      ).to.equal(0);
+      expect(
+        accountStore.getSummary({ accountId: 1, year: 2023, month: 5 })
+      ).to.equal(0);
+      expect(
+        accountStore.getSummary({ accountId: 1, year: 2030, month: 1 })
+      ).to.equal(0);
     });
   });
 
@@ -66,7 +82,7 @@ describe('accountStore', () => {
       const { accountStore, account } = setupEnvironment();
 
       const date = new Date('2023-06-30');
-      accountStore.addValue(1, 123.4, date);
+      accountStore.addValue({ accountId: 1, value: 123.4, date });
 
       expect(cloneRecursively(account.stats)).to.deep.equal({
         2023: {
@@ -90,7 +106,7 @@ describe('accountStore', () => {
       const { accountStore, account } = setupEnvironment();
 
       const date = new Date('2023-08-30');
-      accountStore.addValue(1, 123.4, date);
+      accountStore.addValue({ accountId: 1, value: 123.4, date });
 
       expect(cloneRecursively(account.stats)).to.deep.equal({
         2023: {

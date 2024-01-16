@@ -82,11 +82,13 @@
 
     const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return  accountStore.getBalanceByType(
-          props.accountTypeType,
-          date.year(),
-          date.month() + 1
-        ).value * inversionFactor;
+        return (
+          accountStore.getBalanceByType({
+            accountType: props.accountTypeType,
+            year: date.year(),
+            month: date.month() + 1
+          }).value * inversionFactor
+        );
       }
     });
 
@@ -103,11 +105,11 @@
   const barChartData = computed(() => {
     return GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        const summary = accountStore.getSummaryByType(
-          props.accountTypeType,
-          date.year(),
-          date.month() + 1
-        ).value;
+        const summary = accountStore.getSummaryByType({
+          accountType: props.accountTypeType,
+          year: date.year(),
+          month: date.month() + 1
+        }).value;
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }

@@ -116,8 +116,16 @@ class TransactionStore {
         if (p === 'date') {
           void splitStore.getByTransactionId(target.id).then((splits) => {
             for (const split of splits) {
-              accountStore.addValue(split.destAccountId, -split.value, oldDate);
-              accountStore.addValue(split.destAccountId, split.value, value);
+              accountStore.addValue({
+                accountId: split.destAccountId,
+                value: -split.value,
+                date: oldDate
+              });
+              accountStore.addValue({
+                accountId: split.destAccountId,
+                value: split.value,
+                date: value
+              });
             }
           });
         }

@@ -50,31 +50,47 @@ class AccountStore {
     );
   }
 
-  public getStats(
-    accountId: number,
-    year?: number,
-    month?: number
-  ): MonthlyAccountStats {
+  public getStats({
+    accountId,
+    year,
+    month
+  }: {
+    accountId: number;
+    year?: number;
+    month?: number;
+  }): MonthlyAccountStats {
     const date = dayjs();
     const y = year ?? date.year();
     const m = month ?? date.month() + 1;
 
-    return this.getStatsOfAccount(accountId, y, m);
+    return this.getStatsOfAccount({ accountId, year: y, month: m });
   }
 
-  public getBalance(accountId: number, year?: number, month?: number): number {
+  public getBalance({
+    accountId,
+    year,
+    month
+  }: {
+    accountId: number;
+    year?: number;
+    month?: number;
+  }): number {
     const date = dayjs();
     const y = year ?? date.year();
     const m = month ?? date.month() + 1;
 
-    return this.getStatsOfAccount(accountId, y, m).balance;
+    return this.getStatsOfAccount({ accountId, year: y, month: m }).balance;
   }
 
-  public getBalanceByType(
-    accountType: AccountTypeType,
-    year?: number,
-    month?: number
-  ): Ref<number> {
+  public getBalanceByType({
+    accountType,
+    year,
+    month
+  }: {
+    accountType: AccountTypeType;
+    year?: number;
+    month?: number;
+  }): Ref<number> {
     return computed(() => {
       return this.calculateBalance(
         this.getByType(accountType).value,
@@ -84,19 +100,31 @@ class AccountStore {
     });
   }
 
-  public getSummary(accountId: number, year?: number, month?: number): number {
+  public getSummary({
+    accountId,
+    year,
+    month
+  }: {
+    accountId: number;
+    year?: number;
+    month?: number;
+  }): number {
     const date = dayjs();
     const y = year ?? date.year();
     const m = month ?? date.month() + 1;
 
-    return this.getStatsOfAccount(accountId, y, m).value;
+    return this.getStatsOfAccount({ accountId, year: y, month: m }).value;
   }
 
-  public getSummaryByType(
-    accountType: AccountTypeType,
-    year?: number,
-    month?: number
-  ): Ref<number> {
+  public getSummaryByType({
+    accountType,
+    year,
+    month
+  }: {
+    accountType: AccountTypeType;
+    year?: number;
+    month?: number;
+  }): Ref<number> {
     return computed(() => {
       return this.calculateSummary(
         this.getByType(accountType).value,
@@ -122,17 +150,30 @@ class AccountStore {
     }
   }
 
-  public addValue(accountId: number, value: number, date?: Date): void {
+  public addValue({
+    accountId,
+    value,
+    date
+  }: {
+    accountId: number;
+    value: number;
+    date?: Date;
+  }): void {
     const year = date?.getFullYear() ?? dayjs().year();
     const month = (date?.getMonth() ?? dayjs().month()) + 1;
 
     const account = this.getById(accountId);
     if (!account) throw new Error('account not available');
 
-    const stats = this.getStatsOfAccount(accountId, year, month);
-    this.setStatsOfAccount(accountId, year, month, {
-      value: stats.value + value,
-      balance: stats.balance + value
+    const stats = this.getStatsOfAccount({ accountId, year, month });
+    this.setStatsOfAccount({
+      accountId,
+      year,
+      month,
+      stats: {
+        value: stats.value + value,
+        balance: stats.balance + value
+      }
     });
 
     this.updateStats({
@@ -168,9 +209,14 @@ class AccountStore {
       while (m <= 12) {
         const stats = account.stats[y]?.[m];
         if (stats) {
-          this.setStatsOfAccount(account.id, y, m, {
-            value: stats.value,
-            balance: stats.balance + value
+          this.setStatsOfAccount({
+            accountId: account.id,
+            year: y,
+            month: m,
+            stats: {
+              value: stats.value,
+              balance: stats.balance + value
+            }
           });
         }
 
@@ -182,17 +228,25 @@ class AccountStore {
     }
   }
 
-  private calculateBalance(
-    accounts: Array<Account>,
-    year?: number,
-    month?: number
-  ): number {
+  private calculateBalance({
+    accounts,
+    year,
+    month
+  }: {
+    accounts: Array<Account>;
+    year?: number;
+    month?: number;
+  }): number {
     const date = dayjs();
     const y = year ?? date.year();
     const m = month ?? date.month() + 1;
 
     return accounts.reduce<number>((balance, account) => {
-      return (balance += this.getStatsOfAccount(account.id, y, m).balance);
+      return (balance += this.getStatsOfAccount({
+        accountId: account.id,
+        year: y,
+        month: m
+      }).balance);
     }, 0.0);
   }
 
@@ -206,21 +260,29 @@ class AccountStore {
     const m = month ?? date.month() + 1;
 
     return accounts.reduce<number>((summary, account) => {
-      return (summary += this.getStatsOfAccount(account.id, y, m).value);
+      return (summary += this.getStatsOfAccount({
+        accountId: account.id,
+        year: y,
+        month: m
+      }).value);
     }, 0.0);
   }
 
-  private getStatsOfAccount(
-    accountId: number,
-    year: number,
-    month: number
-  ): MonthlyAccountStats {
+  private getStatsOfAccount({
+    accountId,
+    year,
+    month
+  }: {
+    accountId: number;
+    year: number;
+    month: number;
+  }): MonthlyAccountStats {
     const account = this.getById(accountId);
 
     if (!account) throw new Error('cannot get stats of non-existing account');
 
     const value = account.stats[year]?.[month]?.value ?? 0.0;
-    const balance = this.getBalanceOfAccount(account, year, month);
+    const balance = this.getBalanceOfAccount({ account, year, month });
 
     return {
       value,
@@ -228,11 +290,15 @@ class AccountStore {
     };
   }
 
-  private getBalanceOfAccount(
-    account: Account,
-    year: number,
-    month: number
-  ): number {
+  private getBalanceOfAccount({
+    account,
+    year,
+    month
+  }: {
+    account: Account;
+    year: number;
+    month: number;
+  }): number {
     const years = Object.keys(account.stats).map(Number);
     if (!years.length) {
       return 0.0;
@@ -289,12 +355,17 @@ class AccountStore {
     throw new Error('monthly stats not found');
   }
 
-  private setStatsOfAccount(
-    accountId: number,
-    year: number,
-    month: number,
-    stats: MonthlyAccountStats
-  ): void {
+  private setStatsOfAccount({
+    accountId,
+    year,
+    month,
+    stats
+  }: {
+    accountId: number;
+    year: number;
+    month: number;
+    stats: MonthlyAccountStats;
+  }): void {
     const account = this.getById(accountId);
 
     if (!account) throw new Error('cannot set stats of non-existing account');

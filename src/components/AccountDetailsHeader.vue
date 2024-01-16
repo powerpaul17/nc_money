@@ -102,7 +102,7 @@
   const showImportTransactionsDialog = ref(false);
 
   const balance = computed(() => {
-    const accountStats = accountStore.getStats(props.account.id);
+    const accountStats = accountStore.getStats({ accountId: props.account.id });
 
     if (isMonthlyAccount.value) {
       return accountStats?.value ?? 0.0;
@@ -124,11 +124,13 @@
 
     const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getBalance(
-          props.account.id,
-          date.year(),
-          date.month() + 1
-        ) * inversionFactor;
+        return (
+          accountStore.getBalance({
+            accountId: props.account.id,
+            year: date.year(),
+            month: date.month() + 1
+          }) * inversionFactor
+        );
       }
     });
 
@@ -145,11 +147,11 @@
   const barChartData = computed((): Array<DataItem> => {
     return GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        const summary = accountStore.getSummary(
-          props.account.id,
-          date.year(),
-          date.month() + 1
-        );
+        const summary = accountStore.getSummary({
+          accountId: props.account.id,
+          year: date.year(),
+          month: date.month() + 1
+        });
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }

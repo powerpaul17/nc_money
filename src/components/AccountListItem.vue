@@ -149,7 +149,7 @@
   );
 
   function getAccountBalance(): number {
-    const accountStats = accountStore.getStats(props.account.id);
+    const accountStats = accountStore.getStats({ accountId: props.account.id });
 
     if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
       return accountStats?.value ?? 0.0;

@@ -114,10 +114,16 @@
 
           case SortMode.BY_VALUE:
             if (AccountTypeUtils.isMonthlyAccount(props.accountType)) {
-              return accountStore.getSummary(a1.id) - accountStore.getSummary(a2.id);
+              return (
+                accountStore.getSummary({ accountId: a1.id }) -
+                accountStore.getSummary({ accountId: a2.id })
+              );
             }
 
-            return accountStore.getBalance(a1.id) - accountStore.getBalance(a2.id);
+            return (
+              accountStore.getBalance({ accountId: a1.id }) -
+              accountStore.getBalance({ accountId: a2.id })
+            );
         }
       });
 

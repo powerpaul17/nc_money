@@ -91,13 +91,15 @@
   function getAccountTypeBalance(): number {
     if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
       const date = dayjs();
-      return accountStore.getSummaryByType(
-        props.accountType.type,
-        date.year(),
-        date.month() + 1
-      ).value;
+      return accountStore.getSummaryByType({
+        accountType: props.accountType.type,
+        year: date.year(),
+        month: date.month() + 1
+      }).value;
     } else {
-      return props.accountType.balance.value;
+      return accountStore.getBalanceByType({
+        accountType: props.accountType.type
+      }).value;
     }
   }
 

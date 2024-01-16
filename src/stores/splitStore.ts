@@ -97,18 +97,22 @@ class SplitStore {
               if (NumberUtils.areEqual(value, oldValue)) return;
 
               const diff = value - oldValue;
-              accountStore.addValue(
-                target.destAccountId,
-                diff,
-                transaction?.date
-              );
+              accountStore.addValue({
+                accountId: target.destAccountId,
+                value: diff,
+                date: transaction?.date
+              });
             } else if (p === 'destAccountId' && value !== oldDestAccountId) {
-              accountStore.addValue(
-                oldDestAccountId,
-                -oldValue,
-                transaction?.date
-              );
-              accountStore.addValue(value, oldValue, transaction?.date);
+              accountStore.addValue({
+                accountId: oldDestAccountId,
+                value: -oldValue,
+                date: transaction?.date
+              });
+              accountStore.addValue({
+                accountId: value,
+                value: oldValue,
+                date: transaction?.date
+              });
             }
           });
 
