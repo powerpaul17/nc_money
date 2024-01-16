@@ -43,7 +43,7 @@ class AccountController extends MoneyController {
   public function getAccount($id) {
     $qb = $this->createQueryBuilderForAccount();
 
-    $qb->where('a.id = :id')
+    $qb->andWhere('a.id = :id')
       ->setParameter('user_id', $this->userId)
       ->setParameter('id', $id);
 
