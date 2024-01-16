@@ -4,7 +4,7 @@ import { computed, type Ref } from 'vue';
 
 import { useAccountStore } from './accountStore';
 
-let accountTypeStore: AccountTypeStore|null = null;
+let accountTypeStore: AccountTypeStore | null = null;
 
 export const useAccountTypeStore = (): AccountTypeStore => {
   if (!accountTypeStore) accountTypeStore = new AccountTypeStore();
@@ -16,7 +16,6 @@ export function resetAccountTypeStore(): void {
 }
 
 class AccountTypeStore {
-
   private accountStore = useAccountStore();
 
   public readonly accountTypes: Array<AccountType> = [
@@ -42,10 +41,9 @@ class AccountTypeStore {
     }
   ];
 
-  public getByType(accountType: AccountTypeType): AccountType|undefined {
-    return this.accountTypes.find(aT => aT.type === accountType);
+  public getByType(accountType: AccountTypeType): AccountType | undefined {
+    return this.accountTypes.find((aT) => aT.type === accountType);
   }
-
 }
 
 export enum AccountTypeType {
