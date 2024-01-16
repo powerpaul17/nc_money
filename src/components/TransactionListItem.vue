@@ -1,18 +1,6 @@
 <template>
   <div
-    class="
-      overflow-hidden
-      rounded-md
-      transition-all
-
-      focus-within:bg-background-hover
-      focus-within:shadow-md
-
-      hover:bg-background-hover
-      hover:shadow-md
-
-      dark:bg-background-dark
-    "
+    class="overflow-hidden rounded-md transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
   >
     <TransactionListItemTemplate
       :item-class="{
@@ -21,9 +9,7 @@
     >
       <template #actionFirst>
         <div @click="toggleSplits">
-          <NcLoadingIcon
-            v-if="isLoading"
-          />
+          <NcLoadingIcon v-if="isLoading" />
           <ChevronDown v-else-if="transaction.showSplits" />
           <ChevronRight v-else />
         </div>
@@ -73,11 +59,7 @@
     </TransactionListItemTemplate>
     <div
       v-if="transaction.showSplits"
-      class="
-        bg-gray-100
-        shadow-inner
-        dark:bg-background-darker
-      "
+      class="bg-gray-100 shadow-inner dark:bg-background-darker"
     >
       <SplitListItem
         v-for="split in splits"
@@ -101,8 +83,14 @@
 </template>
 
 <script setup lang="ts">
-
-  import { ref, type PropType, watch, computed, onMounted, onUnmounted } from 'vue';
+  import {
+    ref,
+    type PropType,
+    watch,
+    computed,
+    onMounted,
+    onUnmounted
+  } from 'vue';
 
   import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
   import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
@@ -144,13 +132,16 @@
   });
 
   const splits = ref<Array<Split>>([]);
-  const transactionIdWatcher = ref<{ stop: () => void }|null>(null);
+  const transactionIdWatcher = ref<{ stop: () => void } | null>(null);
   const isLoading = ref(false);
 
-  watch(() => props.transaction, async () => {
-    removeTransactionIdWatcher();
-    await setTransactionIdWatcher();
-  });
+  watch(
+    () => props.transaction,
+    async () => {
+      removeTransactionIdWatcher();
+      await setTransactionIdWatcher();
+    }
+  );
 
   const value = computed(() => {
     return splitsOfAccount.value.reduce((v, split) => {
@@ -202,7 +193,7 @@
 
   const excludedAccountIds = computed((): Array<number> => {
     if (props.accountId) {
-      return [ props.accountId ];
+      return [props.accountId];
     } else {
       return [];
     }
@@ -253,7 +244,9 @@
     }
   }
 
-  async function handleDestinationAccountChanged(accountId?: number): Promise<void> {
+  async function handleDestinationAccountChanged(
+    accountId?: number
+  ): Promise<void> {
     if (hasMultipleDestinationSplits.value)
       throw new Error(
         'cannot change destination account of multi-split-transaction'
@@ -296,9 +289,12 @@
   async function setTransactionIdWatcher(): Promise<void> {
     const transactionId = props.transaction.id;
 
-    const watcher = await splitStore.watchForTransactionId(transactionId, (s) => {
-      splits.value = s;
-    });
+    const watcher = await splitStore.watchForTransactionId(
+      transactionId,
+      (s) => {
+        splits.value = s;
+      }
+    );
 
     if (transactionId !== props.transaction.id) {
       watcher.stop();
@@ -314,5 +310,4 @@
   onUnmounted(() => {
     removeTransactionIdWatcher();
   });
-
 </script>
