@@ -10,6 +10,7 @@ import '@nextcloud/dialogs/styles/toast.scss';
 import 'vue-select/dist/vue-select.css';
 
 import { useSettingService } from './services/settingService';
+import { useAccountService } from './services/accountService';
 
 import './chartjs';
 
@@ -35,3 +36,6 @@ if (
 
 const settingService = useSettingService();
 void settingService.loadSettings();
+
+const accountService = useAccountService();
+void accountService.fetchAccounts();

@@ -93,7 +93,4 @@
     return accountStore.unbalancedValue.value;
   });
 
-  // TODO: initialize accounts at some other point
-  void accountService.fetchAccounts();
-
 </script>
