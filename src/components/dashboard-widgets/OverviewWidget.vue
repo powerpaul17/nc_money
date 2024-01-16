@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-
   import colors from 'tailwindcss/colors';
 
   import { computed, onBeforeMount } from 'vue';
@@ -34,7 +33,9 @@
 
   import { GraphDataUtils } from '../../utils/graphDataUtils';
 
-  import LineChart, { type Data as LineChartData } from '../charts/LineChart.vue';
+  import LineChart, {
+    type Data as LineChartData
+  } from '../charts/LineChart.vue';
 
   const accountStore = useAccountStore();
   const accountService = useAccountService();
@@ -65,10 +66,10 @@
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
@@ -88,11 +89,11 @@
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
           color: colors.lime[500],
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
@@ -112,14 +113,13 @@
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
           color: colors.orange[500],
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
   });
-
 </script>
