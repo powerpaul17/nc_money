@@ -3,7 +3,13 @@
     <NcAppNavigationItem
       class="mb-6 mt-2 px-2"
       :name="`${accountTypeName} - ${t('money', 'Overview')}`"
-      :to="`/accountType/${accountType}`"
+      :to="{
+        name: 'account-type',
+        params: {
+          bookId: bookId,
+          accountTypeType: accountType
+        }
+      }"
       @click="emit('item-clicked')"
     />
 
@@ -57,7 +63,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { computed, ref, type PropType, watch } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
@@ -81,30 +86,39 @@
   const accountStore = useAccountStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountType: {
       type: Number as PropType<AccountTypeType>,
       required: true
     }
   });
 
-  const emit = defineEmits([
-    'item-clicked'
-  ]);
+  const emit = defineEmits(['item-clicked']);
 
   const filterString = ref('');
 
-  watch(() => props.accountType, () => {
-    filterString.value = '';
-  });
+  watch(
+    () => props.accountType,
+    () => {
+      filterString.value = '';
+    }
+  );
 
   const sortMode = ref(loadSortMode());
   const sortDirection = ref(loadSortDirection());
 
   const accounts = computed(() => {
-    const acc = accountStore.getByType(props.accountType).value
-      .filter((a) => {
+    const acc = accountStore
+      .getByType({ bookId: props.bookId, accountType: props.accountType })
+      .value.filter((a) => {
         if (filterString.value.length <= 1) return true;
-        return [ a.name, a.description ].join(' ').toLocaleLowerCase().includes(filterString.value.toLocaleLowerCase());
+        return [a.name, a.description]
+          .join(' ')
+          .toLocaleLowerCase()
+          .includes(filterString.value.toLocaleLowerCase());
       })
       .sort((a1, a2) => {
         switch (sortMode.value) {
@@ -114,10 +128,16 @@
 
           case SortMode.BY_VALUE:
             if (AccountTypeUtils.isMonthlyAccount(props.accountType)) {
-              return accountStore.getSummary(a1.id) - accountStore.getSummary(a2.id);
+              return (
+                accountStore.getSummary({ accountId: a1.id }) -
+                accountStore.getSummary({ accountId: a2.id })
+              );
             }
 
-            return accountStore.getBalance(a1.id) - accountStore.getBalance(a2.id);
+            return (
+              accountStore.getBalance({ accountId: a1.id }) -
+              accountStore.getBalance({ accountId: a2.id })
+            );
         }
       });
 
@@ -149,18 +169,23 @@
     else return SortMode.BY_NAME;
   }
 
-  function loadSortDirection():boolean {
+  function loadSortDirection(): boolean {
     return localStorage.getItem('money.accountListSortDirection') === 'true';
   }
 
-  function saveSortingSettings(sortMode: SortMode, sortDirection: boolean): void {
+  function saveSortingSettings(
+    sortMode: SortMode,
+    sortDirection: boolean
+  ): void {
     localStorage.setItem('money.accountListSortMode', sortMode);
-    localStorage.setItem('money.accountListSortDirection', sortDirection.toString());
+    localStorage.setItem(
+      'money.accountListSortDirection',
+      sortDirection.toString()
+    );
   }
 
   enum SortMode {
     BY_NAME = 'by_name',
     BY_VALUE = 'by_value'
   }
-
 </script>

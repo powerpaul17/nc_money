@@ -20,6 +20,12 @@ return [
     ['name' => 'settings#get_settings', 'url' => '/settings', 'verb' => 'GET'],
     ['name' => 'settings#update_settings', 'url' => '/settings', 'verb' => 'POST'],
 
+    ['name' => 'book#get_books', 'url' => '/books', 'verb' => 'GET'],
+    ['name' => 'book#get_book', 'url' => '/books/{id}', 'verb' => 'GET'],
+    ['name' => 'book#update_book', 'url' => '/books/{id}', 'verb' => 'PUT'],
+    ['name' => 'book#add_book', 'url' => '/books', 'verb' => 'POST'],
+    ['name' => 'book#delete_book', 'url' => '/books/{id}', 'verb' => 'DELETE'],
+
     ['name' => 'account#get_accounts', 'url' => '/accounts', 'verb' => 'GET'],
     ['name' => 'account#get_account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
     ['name' => 'account#update_account', 'url' => '/accounts/{id}', 'verb' => 'PUT'],

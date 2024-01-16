@@ -1,121 +1,71 @@
 <template>
-  <div>
-    <div>
-      <LineChart
-        :data="equityChartData"
-        :title="t('money', 'Equity')"
-      />
-    </div>
-    <div>
-      <LineChart
-        :data="assetsChartData"
-        :title="t('money', 'Assets')"
-      />
-    </div>
-    <div>
-      <LineChart
-        :data="liabilitiesChartData"
-        :title="t('money', 'Liabilities')"
-      />
-    </div>
+  <div class="h-full overflow-scroll">
+    <a
+      :href="linkTo('money', `books/${book.id}`)"
+      class="grid h-12 grid-cols-2 items-center rounded-full px-2 hover:bg-background-hover"
+      v-for="book of bookStore.books.value"
+      :key="book.id"
+    >
+      <div class="truncate font-semibold">{{ book.name }}</div>
+      <div class="justify-self-end">
+        <div>
+          <CurrencyText
+            :value="accountStore.getEquityForBookId(book.id).value"
+          />
+        </div>
+        <div class="flex text-xs">
+          <CurrencyText
+            class="mr-1 text-green-500"
+            :value="
+              accountStore.getSummaryByType({
+                bookId: book.id,
+                accountType: AccountTypeType.INCOME
+              }).value
+            "
+          >
+            <template #prefix>▴</template>
+          </CurrencyText>
+
+          <CurrencyText
+            class="text-red-500"
+            :value="
+              accountStore.getSummaryByType({
+                bookId: book.id,
+                accountType: AccountTypeType.EXPENSE
+              }).value
+            "
+          >
+            <template #prefix>▾</template>
+          </CurrencyText>
+        </div>
+      </div>
+    </a>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { onBeforeMount } from 'vue';
+  import { linkTo } from '@nextcloud/router';
 
-  import colors from 'tailwindcss/colors';
+  import CurrencyText from '../CurrencyText.vue';
 
-  import { computed, onBeforeMount } from 'vue';
+  import { useSettingService } from '../../services/settingService';
 
   import { useAccountStore } from '../../stores/accountStore';
-  import { AccountTypeType } from '../../stores/accountTypeStore';
+
+  import { useBookStore } from '../../stores/bookStore';
 
   import { useAccountService } from '../../services/accountService';
+  import { useBookService } from '../../services/bookService';
 
-  import { GraphDataUtils } from '../../utils/graphDataUtils';
-
-  import LineChart, { type Data as LineChartData } from '../charts/LineChart.vue';
+  import { AccountTypeType } from '../../stores/accountTypeStore';
 
   const accountStore = useAccountStore();
-  const accountService = useAccountService();
+  const bookStore = useBookStore();
 
   onBeforeMount(() => {
-    void accountService.fetchAccounts();
+    void useSettingService().loadSettings();
+    void useAccountService().fetchAccounts();
+    void useBookService().fetchBooks();
   });
-
-  const equityChartData = computed((): LineChartData => {
-    const data = GraphDataUtils.createBarGraphData({
-      numberOfMonths: 6,
-      callback: (date) => {
-        return (
-          accountStore.getBalanceByType(
-            AccountTypeType.ASSET,
-            date.year(),
-            date.month() + 1
-          ).value +
-          accountStore.getBalanceByType(
-            AccountTypeType.LIABILITY,
-            date.year(),
-            date.month() + 1
-          ).value
-        );
-      }
-    });
-
-    return {
-      labels: data.map(d => d.label),
-      datasets: [
-        {
-          values: data.map(d => d.value)
-        }
-      ]
-    };
-  });
-
-  const assetsChartData = computed((): LineChartData => {
-    const data = GraphDataUtils.createBarGraphData({
-      numberOfMonths: 6,
-      callback: (date) => {
-        return accountStore.getBalanceByType(
-          AccountTypeType.ASSET,
-          date.year(),
-          date.month() + 1
-        ).value;
-      }
-    });
-
-    return {
-      labels: data.map(d => d.label),
-      datasets: [
-        {
-          color: colors.lime[500],
-          values: data.map(d => d.value)
-        }
-      ]
-    };
-  });
-
-  const liabilitiesChartData = computed((): LineChartData => {
-    const data = GraphDataUtils.createBarGraphData({
-      numberOfMonths: 6,
-      callback: (date) => {
-        return accountStore.getBalanceByType(
-          AccountTypeType.LIABILITY,
-          date.year(),
-          date.month() + 1
-        ).value;
-      }
-    });
-
-    return {
-      labels: data.map(d => d.label),
-      datasets: [
-        {
-          color: colors.orange[500],
-          values: data.map(d => d.value)
-        }
-      ]
-    };
-  });
-
 </script>

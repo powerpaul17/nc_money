@@ -7,14 +7,14 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use OCA\Money\Db\Account;
-use OCA\Money\Db\AccountMapper;
+use OCA\Money\Db\Book;
+use OCA\Money\Db\BookMapper;
 
-class AccountService {
+class BookService {
 
   private $mapper;
 
-  public function __construct(AccountMapper $mapper) {
+  public function __construct(BookMapper $mapper) {
     $this->mapper = $mapper;
   }
 
@@ -41,48 +41,29 @@ class AccountService {
 
   public function create(
     $name,
-    $type,
-    $currency,
     $description,
-    $extraData,
-    $userId,
-    $bookId
+    $userId
   ) {
-    $account = new Account();
-    $account->setName($name);
-    $account->setType($type);
-    $account->setCurrency($currency);
-    $account->setDescription($description);
-    $account->setExtraData($extraData);
+    $book = new Book();
+    $book->setName($name);
+    $book->setDescription($description);
 
-    $account->setUserId($userId);
-    $account->setBookId($bookId);
-
-    return $this->mapper->insert($account);
+    $book->setUserId($userId);
+    return $this->mapper->insert($book);
   }
 
   public function update(
     $id,
     $name,
-    $type,
-    $currency,
     $description,
-    $extraData,
-    $userId,
-    $bookId
+    $userId
   ) {
     try {
-      $account = $this->mapper->find($id, $userId);
+      $book = $this->mapper->find($id, $userId);
+      $book->setName($name);
+      $book->setDescription($description);
 
-      $account->setBookId($bookId);
-
-      $account->setName($name);
-      $account->setType($type);
-      $account->setCurrency($currency);
-      $account->setDescription($description);
-      $account->setExtraData($extraData);
-
-      return $this->mapper->update($account);
+      return $this->mapper->update($book);
     } catch(Exception $e) {
       $this->handleException($e);
     }
@@ -90,9 +71,9 @@ class AccountService {
 
   public function delete($id, $userId) {
     try {
-      $account = $this->mapper->find($id, $userId);
-      $this->mapper->delete($account);
-      return $account;
+      $book = $this->mapper->find($id, $userId);
+      $this->mapper->delete($book);
+      return $book;
     } catch(Exception $e) {
       $this->handleException($e);
     }

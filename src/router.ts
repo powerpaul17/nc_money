@@ -1,8 +1,9 @@
 import VueRouter from 'vue-router';
 
 import AccountView from './views/AccountView.vue';
-import DashboardView from './views/DashboardView.vue';
+import BookView from './views/BookView.vue';
 import AccountTypeView from './views/AccountTypeView.vue';
+import DashboardView from './views/DashboardView.vue';
 import Sidebar from './components/SidebarComponent.vue';
 
 export default new VueRouter({
@@ -14,24 +15,39 @@ export default new VueRouter({
       component: DashboardView
     },
     {
-      path: '/account/:accountId',
+      path: '/book/:bookId',
+      name: 'book',
+      components: {
+        default: BookView
+      },
+      props: {
+        default: (route): { bookId: number } => ({
+          bookId: Number(route.params.bookId)
+        })
+      }
+    },
+    {
+      path: '/book/:bookId/account/:accountId',
+      name: 'account',
       components: {
         default: AccountView,
         sidebar: Sidebar
       },
       props: {
-        default: (route): { accountId: number } => {
+        default: (route): { bookId: number; accountId: number } => {
           return {
+            bookId: Number(route.params.bookId),
             accountId: Number(route.params.accountId)
           };
         }
       }
     },
     {
-      path: '/accountType/:accountTypeType',
-      name: 'account-type-view',
+      path: '/book/:bookId/accountType/:accountTypeType',
+      name: 'account-type',
       component: AccountTypeView,
-      props: (route): { accountTypeType: number } => ({
+      props: (route): { bookId: number; accountTypeType: number } => ({
+        bookId: Number(route.params.bookId),
         accountTypeType: Number(route.params.accountTypeType)
       })
     }

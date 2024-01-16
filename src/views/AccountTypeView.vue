@@ -5,6 +5,7 @@
   >
     <template #list>
       <AccountList
+        :book-id="bookId"
         :account-type="accountTypeType"
         @item-clicked="emit('show-details-changed', true)"
       />
@@ -26,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { computed } from 'vue';
 
   import { useAccountTypeStore } from '../stores/accountTypeStore';
@@ -39,7 +39,9 @@
   import AccountList from '../components/AccountList.vue';
 
   import Chart from '../components/dashboard/ChartComponent.vue';
-  import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
+  import LineChart, {
+    type Data as LineChartData
+  } from '../components/charts/LineChart.vue';
   import BarChart from '../components/charts/BarChart.vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
@@ -51,6 +53,10 @@
   const settingStore = useSettingStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountTypeType: {
       type: Number,
       required: true
@@ -62,7 +68,7 @@
   });
 
   const emit = defineEmits<{
-    (event: 'show-details-changed', showDetails: boolean): void
+    (event: 'show-details-changed', showDetails: boolean): void;
   }>();
 
   const accountType = computed(() => {
@@ -74,7 +80,10 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.accountTypeType);
+    return (
+      settingStore.useInvertedAccounts.value &&
+      AccountTypeUtils.isInvertedAccount(props.accountTypeType)
+    );
   });
 
   const lineChartData = computed((): LineChartData => {
@@ -82,19 +91,22 @@
 
     const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return  accountStore.getBalanceByType(
-          props.accountTypeType,
-          date.year(),
-          date.month() + 1
-        ).value * inversionFactor;
+        return (
+          accountStore.getBalanceByType({
+            bookId: props.bookId,
+            accountType: props.accountTypeType,
+            year: date.year(),
+            month: date.month() + 1
+          }).value * inversionFactor
+        );
       }
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
@@ -103,15 +115,15 @@
   const barChartData = computed(() => {
     return GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        const summary = accountStore.getSummaryByType(
-          props.accountTypeType,
-          date.year(),
-          date.month() + 1
-        ).value;
+        const summary = accountStore.getSummaryByType({
+          bookId: props.bookId,
+          accountType: props.accountTypeType,
+          year: date.year(),
+          month: date.month() + 1
+        }).value;
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }
     });
   });
-
 </script>

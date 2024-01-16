@@ -43,7 +43,7 @@ class AccountController extends MoneyController {
   public function getAccount($id) {
     $qb = $this->createQueryBuilderForAccount();
 
-    $qb->where('a.id = :id')
+    $qb->andWhere('a.id = :id')
       ->setParameter('user_id', $this->userId)
       ->setParameter('id', $id);
 
@@ -86,7 +86,8 @@ class AccountController extends MoneyController {
     $type,
     $currency,
     $description,
-    $extraData
+    $extraData,
+    $bookId
   ) {
     $this->accountService->update(
       $id,
@@ -95,7 +96,8 @@ class AccountController extends MoneyController {
       $currency,
       $description,
       $extraData,
-      $this->userId
+      $this->userId,
+      $bookId
     );
     return $this->getAccount($id);
   }
@@ -110,7 +112,8 @@ class AccountController extends MoneyController {
     $type,
     $currency,
     $description,
-    $extraData
+    $extraData,
+    $bookId
   ) {
     $response = $this->accountService->create(
       $name,
@@ -118,7 +121,8 @@ class AccountController extends MoneyController {
       $currency,
       $description,
       $extraData,
-      $this->userId
+      $this->userId,
+      $bookId
     );
     return $this->getAccount($response->id);
   }
@@ -153,7 +157,8 @@ class AccountController extends MoneyController {
           'icon' => $row['icon'],
           'currency' => $row['currency'],
           'stats' => new ArrayObject(),
-          'extraData' => $row['extra_data']
+          'extraData' => $row['extra_data'],
+          'bookId' => $row['book_id']
         ];
       }
 

@@ -1,10 +1,6 @@
 import { translate as t } from '@nextcloud/l10n';
 
-import { computed, type Ref } from 'vue';
-
-import { useAccountStore } from './accountStore';
-
-let accountTypeStore: AccountTypeStore|null = null;
+let accountTypeStore: AccountTypeStore | null = null;
 
 export const useAccountTypeStore = (): AccountTypeStore => {
   if (!accountTypeStore) accountTypeStore = new AccountTypeStore();
@@ -16,36 +12,28 @@ export function resetAccountTypeStore(): void {
 }
 
 class AccountTypeStore {
-
-  private accountStore = useAccountStore();
-
   public readonly accountTypes: Array<AccountType> = [
     {
       type: AccountTypeType.ASSET,
-      name: t('money', 'Assets'),
-      balance: this.accountStore.assetsBalance
+      name: t('money', 'Assets')
     },
     {
       type: AccountTypeType.LIABILITY,
-      name: t('money', 'Liabilities'),
-      balance: this.accountStore.liabilitiesBalance
+      name: t('money', 'Liabilities')
     },
     {
       type: AccountTypeType.INCOME,
-      name: t('money', 'Income'),
-      balance: this.accountStore.incomeBalance
+      name: t('money', 'Income')
     },
     {
       type: AccountTypeType.EXPENSE,
-      name: t('money', 'Expenses'),
-      balance: this.accountStore.expensesBalance
+      name: t('money', 'Expenses')
     }
   ];
 
-  public getByType(accountType: AccountTypeType): AccountType|undefined {
-    return this.accountTypes.find(aT => aT.type === accountType);
+  public getByType(accountType: AccountTypeType): AccountType | undefined {
+    return this.accountTypes.find((aT) => aT.type === accountType);
   }
-
 }
 
 export enum AccountTypeType {
@@ -58,5 +46,4 @@ export enum AccountTypeType {
 export type AccountType = {
   type: AccountTypeType;
   name: string;
-  balance: Ref<number>;
 };

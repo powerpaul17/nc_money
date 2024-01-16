@@ -1,12 +1,21 @@
 import { ref, type Ref } from 'vue';
 
-import { clear, createTable, first, insert, many, remove, update, watch } from 'blinkdb';
+import {
+  clear,
+  createTable,
+  first,
+  insert,
+  many,
+  remove,
+  update,
+  watch
+} from 'blinkdb';
 
 import { useSplitStore } from './splitStore';
 import { useAccountStore } from './accountStore';
 import { useBlinkDB } from './blinkdb';
 
-let transactionStore: TransactionStore|null = null;
+let transactionStore: TransactionStore | null = null;
 
 export const useTransactionStore = (): TransactionStore => {
   if (!transactionStore) transactionStore = new TransactionStore();
@@ -18,14 +27,16 @@ export function resetTransactionStore(): void {
 }
 
 class TransactionStore {
-
   private splitStore = useSplitStore();
   private accountStore = useAccountStore();
 
   private db = useBlinkDB();
-  private transactionsTable = createTable<Transaction>(this.db, 'transactions')();
+  private transactionsTable = createTable<Transaction>(
+    this.db,
+    'transactions'
+  )();
 
-  public readonly currentAccountId: Ref<number|null> = ref(null);
+  public readonly currentAccountId: Ref<number | null> = ref(null);
   public readonly allTransactionsFetched = ref(false);
 
   public async reset(): Promise<void> {
@@ -36,7 +47,7 @@ class TransactionStore {
     await this.splitStore.reset();
   }
 
-  public async getById(transactionId: number): Promise<Transaction|null> {
+  public async getById(transactionId: number): Promise<Transaction | null> {
     return await first(this.transactionsTable, {
       where: {
         id: transactionId
@@ -54,7 +65,7 @@ class TransactionStore {
     return many(this.transactionsTable, {
       where: {
         id: {
-          in: splits.map(s => s.transactionId)
+          in: splits.map((s) => s.transactionId)
         }
       }
     });
@@ -69,18 +80,26 @@ class TransactionStore {
     });
   }
 
-  public watchAll(callback: (transactions: Array<Transaction>) => void): Promise<{
+  public watchAll(
+    callback: (transactions: Array<Transaction>) => void
+  ): Promise<{
     stop: () => void;
   }> {
-    return watch(this.transactionsTable, {
-      sort: {
-        key: 'date',
-        order: 'desc'
-      }
-    }, callback);
+    return watch(
+      this.transactionsTable,
+      {
+        sort: {
+          key: 'date',
+          order: 'desc'
+        }
+      },
+      callback
+    );
   }
 
-  public async insertTransactions(transactions: Array<Transaction>): Promise<void> {
+  public async insertTransactions(
+    transactions: Array<Transaction>
+  ): Promise<void> {
     for (const transaction of transactions) {
       await this.insertTransaction(transaction);
     }
@@ -90,37 +109,38 @@ class TransactionStore {
     const splitStore = this.splitStore;
     const accountStore = this.accountStore;
 
-    const transactionProxy = new Proxy(
-      transaction,
-      {
-        set(target, p, value): boolean {
-          const oldDate = target.date;
+    const transactionProxy = new Proxy(transaction, {
+      set(target, p, value): boolean {
+        const oldDate = target.date;
 
-          if (p === 'date') {
-            void splitStore.getByTransactionId(target.id).then((splits) => {
-              for (const split of splits) {
-                accountStore.addValue(
-                  split.destAccountId,
-                  -split.value,
-                  oldDate
-                );
-                accountStore.addValue(
-                  split.destAccountId,
-                  split.value,
-                  value
-                );
-              }
-            });
-          }
-
-          target[p] = value;
-
-          return true;
+        if (p === 'date') {
+          void splitStore.getByTransactionId(target.id).then((splits) => {
+            for (const split of splits) {
+              accountStore.addValue({
+                accountId: split.destAccountId,
+                value: -split.value,
+                date: oldDate
+              });
+              accountStore.addValue({
+                accountId: split.destAccountId,
+                value: split.value,
+                date: value
+              });
+            }
+          });
         }
-      }
-    );
 
-    if(await first(this.transactionsTable, { where: { id: transactionProxy.id } })) {
+        target[p] = value;
+
+        return true;
+      }
+    });
+
+    if (
+      await first(this.transactionsTable, {
+        where: { id: transactionProxy.id }
+      })
+    ) {
       await update(this.transactionsTable, transactionProxy);
     } else {
       await insert(this.transactionsTable, transactionProxy);
@@ -130,7 +150,6 @@ class TransactionStore {
   public async deleteTransaction(transactionId: number): Promise<void> {
     await remove(this.transactionsTable, { id: transactionId });
   }
-
 }
 
 export type Transaction = {

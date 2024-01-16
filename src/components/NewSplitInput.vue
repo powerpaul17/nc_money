@@ -10,6 +10,7 @@
 
     <template #account>
       <AccountSelect
+        :book-id="bookId"
         :account-id="destAccountId"
         :excluded-account-ids="excludedAccountIds"
         @account-changed="(accountId) => (destAccountId = accountId)"
@@ -40,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { ref, type PropType, watch, computed } from 'vue';
 
   import { NumberUtils } from '../utils/numberUtils';
@@ -58,6 +58,10 @@
   const splitService = useSplitService();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     transactionId: {
       type: Number,
       required: true
@@ -81,12 +85,17 @@
   const value = ref(0.0);
   const isLoading = ref(false);
 
-  watch(() => props.initialValue, () => {
-    value.value = props.initialValue;
-  });
+  watch(
+    () => props.initialValue,
+    () => {
+      value.value = props.initialValue;
+    }
+  );
 
   const isValid = computed(() => {
-    return destAccountId.value != null && NumberUtils.areNotEqual(value.value, 0.0);
+    return (
+      destAccountId.value != null && NumberUtils.areNotEqual(value.value, 0.0)
+    );
   });
 
   async function handleSubmitSplitClick(): Promise<void> {
@@ -120,5 +129,4 @@
   onMounted(() => {
     value.value = props.initialValue;
   });
-
 </script>

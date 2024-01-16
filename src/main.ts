@@ -10,12 +10,14 @@ import '@nextcloud/dialogs/styles/toast.scss';
 import 'vue-select/dist/vue-select.css';
 
 import { useSettingService } from './services/settingService';
+import { useAccountService } from './services/accountService';
 
 import './chartjs';
 
 import router from './router';
 
 import App from './App.vue';
+import { useBookService } from './services/bookService';
 
 Vue.use(VueRouter);
 
@@ -35,3 +37,9 @@ if (
 
 const settingService = useSettingService();
 void settingService.loadSettings();
+
+const accountService = useAccountService();
+void accountService.fetchAccounts();
+
+const bookService = useBookService();
+void bookService.fetchBooks();

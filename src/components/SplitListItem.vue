@@ -10,6 +10,7 @@
 
     <template #account>
       <AccountSelect
+        :book-id="bookId"
         :account-id="split.destAccountId"
         :excluded-account-ids="excludedAccountIds"
         @account-changed="handleDestinationAccountChanged"
@@ -40,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { ref, type PropType, watch, onMounted } from 'vue';
 
   import type { Split } from '../stores/splitStore';
@@ -54,6 +54,10 @@
   const splitService = useSplitService();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     split: {
       type: Object as PropType<Split>,
       required: true
@@ -72,13 +76,16 @@
     }
   });
 
-  const emit = defineEmits([ 'split-deleted' ]);
+  const emit = defineEmits(['split-deleted']);
 
   const showLoadingIcon = ref(false);
 
-  watch(() => props.isLoading, () => {
-    showLoadingIcon.value = props.isLoading;
-  });
+  watch(
+    () => props.isLoading,
+    () => {
+      showLoadingIcon.value = props.isLoading;
+    }
+  );
 
   async function handleValueChanged(value: number): Promise<void> {
     props.split.value = value;
@@ -95,8 +102,10 @@
     await handleSplitChanged();
   }
 
-  async function handleDestinationAccountChanged(accountId: number|null): Promise<void> {
-    if(accountId) {
+  async function handleDestinationAccountChanged(
+    accountId: number | null
+  ): Promise<void> {
+    if (accountId) {
       props.split.destAccountId = accountId;
       await handleSplitChanged();
     } else {
@@ -113,5 +122,4 @@
   onMounted(() => {
     showLoadingIcon.value = props.isLoading;
   });
-
 </script>

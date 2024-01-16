@@ -1,18 +1,6 @@
 <template>
   <div
-    class="
-      overflow-hidden
-      rounded-md
-      transition-all
-
-      focus-within:bg-background-hover
-      focus-within:shadow-md
-
-      hover:bg-background-hover
-      hover:shadow-md
-
-      dark:bg-background-dark
-    "
+    class="overflow-hidden rounded-md transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
   >
     <TransactionListItemTemplate
       :item-class="{
@@ -21,9 +9,7 @@
     >
       <template #actionFirst>
         <div @click="toggleSplits">
-          <NcLoadingIcon
-            v-if="isLoading"
-          />
+          <NcLoadingIcon v-if="isLoading" />
           <ChevronDown v-else-if="transaction.showSplits" />
           <ChevronRight v-else />
         </div>
@@ -54,6 +40,7 @@
         </span>
         <AccountSelect
           v-else
+          :book-id="bookId"
           :account-id="destinationAccountId"
           :editable="valueIsEditable"
           :excluded-account-ids="excludedAccountIds"
@@ -73,15 +60,12 @@
     </TransactionListItemTemplate>
     <div
       v-if="transaction.showSplits"
-      class="
-        bg-gray-100
-        shadow-inner
-        dark:bg-background-darker
-      "
+      class="bg-gray-100 shadow-inner dark:bg-background-darker"
     >
       <SplitListItem
         v-for="split in splits"
         :key="split.id"
+        :book-id="bookId"
         :split="split"
         :excluded-account-ids="
           excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
@@ -91,6 +75,7 @@
       />
       <NewSplitInput
         v-if="isUnbalanced"
+        :book-id="bookId"
         :transaction-id="transaction.id"
         :excluded-account-ids="excludedSplitAccountIds"
         :initial-value="-unbalancedValue"
@@ -101,8 +86,14 @@
 </template>
 
 <script setup lang="ts">
-
-  import { ref, type PropType, watch, computed, onMounted, onUnmounted } from 'vue';
+  import {
+    ref,
+    type PropType,
+    watch,
+    computed,
+    onMounted,
+    onUnmounted
+  } from 'vue';
 
   import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
   import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
@@ -129,6 +120,10 @@
   const splitService = useSplitService();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     transaction: {
       type: Object as PropType<Transaction>,
       required: true
@@ -144,13 +139,16 @@
   });
 
   const splits = ref<Array<Split>>([]);
-  const transactionIdWatcher = ref<{ stop: () => void }|null>(null);
+  const transactionIdWatcher = ref<{ stop: () => void } | null>(null);
   const isLoading = ref(false);
 
-  watch(() => props.transaction, async () => {
-    removeTransactionIdWatcher();
-    await setTransactionIdWatcher();
-  });
+  watch(
+    () => props.transaction,
+    async () => {
+      removeTransactionIdWatcher();
+      await setTransactionIdWatcher();
+    }
+  );
 
   const value = computed(() => {
     return splitsOfAccount.value.reduce((v, split) => {
@@ -202,7 +200,7 @@
 
   const excludedAccountIds = computed((): Array<number> => {
     if (props.accountId) {
-      return [ props.accountId ];
+      return [props.accountId];
     } else {
       return [];
     }
@@ -253,7 +251,9 @@
     }
   }
 
-  async function handleDestinationAccountChanged(accountId?: number): Promise<void> {
+  async function handleDestinationAccountChanged(
+    accountId?: number
+  ): Promise<void> {
     if (hasMultipleDestinationSplits.value)
       throw new Error(
         'cannot change destination account of multi-split-transaction'
@@ -296,9 +296,12 @@
   async function setTransactionIdWatcher(): Promise<void> {
     const transactionId = props.transaction.id;
 
-    const watcher = await splitStore.watchForTransactionId(transactionId, (s) => {
-      splits.value = s;
-    });
+    const watcher = await splitStore.watchForTransactionId(
+      transactionId,
+      (s) => {
+        splits.value = s;
+      }
+    );
 
     if (transactionId !== props.transaction.id) {
       watcher.stop();
@@ -314,5 +317,4 @@
   onUnmounted(() => {
     removeTransactionIdWatcher();
   });
-
 </script>

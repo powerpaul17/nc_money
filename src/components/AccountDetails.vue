@@ -1,15 +1,10 @@
 <template>
-  <div
-    class="
-      mx-auto
-      flex
-      h-[calc(100vh-50px)]
-      flex-col
-      lg:container
-    "
-  >
+  <div class="mx-auto flex h-[calc(100vh-50px)] flex-col lg:container">
     <AccountDetailsHeader :account="account" />
-    <TransactionList :account="account" />
+    <TransactionList
+      :book-id="bookId"
+      :account="account"
+    />
   </div>
 </template>
 
@@ -22,10 +17,13 @@
   import TransactionList from './TransactionList.vue';
 
   defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     account: {
       type: Object as PropType<Account>,
       required: true
     }
   });
-
 </script>

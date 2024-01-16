@@ -7,6 +7,7 @@
     <template #list>
       <AccountList
         v-if="selectedAccount"
+        :book-id="selectedAccount.bookId"
         :account-type="selectedAccount.type"
         @item-clicked="emit('show-details-changed', true)"
       />
@@ -14,13 +15,13 @@
 
     <AccountDetails
       v-if="selectedAccount"
+      :book-id="bookId"
       :account="selectedAccount"
     />
   </NcAppContent>
 </template>
 
 <script setup lang="ts">
-
   import { computed, nextTick, ref, watch } from 'vue';
 
   import { useAccountStore } from '../stores/accountStore';
@@ -33,6 +34,10 @@
   const accountStore = useAccountStore();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     accountId: {
       type: Number,
       required: true
@@ -43,7 +48,7 @@
     }
   });
 
-  const emit = defineEmits([ 'show-details-changed' ]);
+  const emit = defineEmits(['show-details-changed']);
 
   const renderComponent = ref(true);
 
@@ -61,5 +66,4 @@
       renderComponent.value = true;
     });
   }
-
 </script>

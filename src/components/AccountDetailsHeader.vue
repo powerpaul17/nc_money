@@ -65,7 +65,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { ref, type PropType } from 'vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
@@ -102,7 +101,7 @@
   const showImportTransactionsDialog = ref(false);
 
   const balance = computed(() => {
-    const accountStats = accountStore.getStats(props.account.id);
+    const accountStats = accountStore.getStats({ accountId: props.account.id });
 
     if (isMonthlyAccount.value) {
       return accountStats?.value ?? 0.0;
@@ -116,7 +115,10 @@
   });
 
   const isInvertedAccount = computed(() => {
-    return settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(props.account.type);
+    return (
+      settingStore.useInvertedAccounts.value &&
+      AccountTypeUtils.isInvertedAccount(props.account.type)
+    );
   });
 
   const lineChartData = computed((): Data => {
@@ -124,19 +126,21 @@
 
     const data = GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        return accountStore.getBalance(
-          props.account.id,
-          date.year(),
-          date.month() + 1
-        ) * inversionFactor;
+        return (
+          accountStore.getBalance({
+            accountId: props.account.id,
+            year: date.year(),
+            month: date.month() + 1
+          }) * inversionFactor
+        );
       }
     });
 
     return {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [
         {
-          values: data.map(d => d.value)
+          values: data.map((d) => d.value)
         }
       ]
     };
@@ -145,11 +149,11 @@
   const barChartData = computed((): Array<DataItem> => {
     return GraphDataUtils.createBarGraphData({
       callback: (date) => {
-        const summary = accountStore.getSummary(
-          props.account.id,
-          date.year(),
-          date.month() + 1
-        );
+        const summary = accountStore.getSummary({
+          accountId: props.account.id,
+          year: date.year(),
+          month: date.month() + 1
+        });
 
         return isInvertedAccount.value ? summary * -1 : summary;
       }
@@ -161,7 +165,9 @@
     await handleAccountModified();
   }
 
-  async function handleAccountDescriptionModified(newDescription: string): Promise<void> {
+  async function handleAccountDescriptionModified(
+    newDescription: string
+  ): Promise<void> {
     props.account.description = newDescription;
     await handleAccountModified();
   }
@@ -169,5 +175,4 @@
   async function handleAccountModified(): Promise<void> {
     await accountService.updateAccount(props.account);
   }
-
 </script>

@@ -1,95 +1,68 @@
 <template>
   <NcAppContent>
-    <div class="m-8">
-      <Chart :title="t('money', 'Equity')">
-        <LineChart :data="equityLineChartData" />
-      </Chart>
+    <NcEmptyContent
+      v-if="!bookStore.books.value.length"
+      :title="t('money', 'No books available')"
+      :description="t('money', 'Go ahead and create one...')"
+    >
+      <template #icon>
+        <NotebookOutline />
+      </template>
+    </NcEmptyContent>
 
-      <Chart :title="`${t('money', 'Assets')}/${t('money', 'Liabilities')}`">
-        <LineChart :data="assetsLiabilitiesLineChartData" />
-      </Chart>
+    <div
+      v-else
+      class="mx-auto flex max-w-5xl flex-col justify-around"
+    >
+      <h1 class="mt-4 mb-8 text-xl font-semibold">{{ t('money', 'Books') }}</h1>
+
+      <ul class="list-none">
+        <NcListItem
+          v-for="book of bookStore.books.value"
+          :key="book.id"
+          :title="book.name"
+          :details="
+            NumberUtils.formatNumber(
+              accountStore.getEquityForBookId(book.id).value,
+              { ...settingStore.numberFormattingOptions.value }
+            )
+          "
+          :to="{
+            name: 'book',
+            params: {
+              bookId: book.id
+            }
+          }"
+        >
+          <template #subtitle>
+            {{ book.description }}
+          </template>
+
+          <template #icon>
+            <NotebookOutline />
+          </template>
+        </NcListItem>
+      </ul>
     </div>
   </NcAppContent>
 </template>
 
 <script setup lang="ts">
-
-  import colors from 'tailwindcss/colors';
-
-  import { computed } from 'vue';
-
-  import { useAccountStore } from '../stores/accountStore';
-  import { AccountTypeType } from '../stores/accountTypeStore';
-
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
+  import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent';
+  import NcListItem from '@nextcloud/vue/dist/Components/NcListItem';
 
-  import LineChart, { type Data as LineChartData } from '../components/charts/LineChart.vue';
+  import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
 
-  import Chart from '../components/dashboard/ChartComponent.vue';
+  import { useSettingStore } from '../stores/settingStore';
 
-  import { GraphDataUtils } from '../utils/graphDataUtils';
+  import { useBookStore } from '../stores/bookStore';
+  import { useAccountStore } from '../stores/accountStore';
 
+  import { NumberUtils } from '../utils/numberUtils';
+
+  const settingStore = useSettingStore();
+
+  const bookStore = useBookStore();
   const accountStore = useAccountStore();
-
-  const equityLineChartData = computed((): LineChartData => {
-    const data = GraphDataUtils.createBarGraphData({
-      callback: (date) => {
-        return accountStore.getBalanceByType(
-          AccountTypeType.ASSET,
-          date.year(),
-          date.month() + 1
-        ).value + accountStore.getBalanceByType(
-          AccountTypeType.LIABILITY,
-          date.year(),
-          date.month() + 1
-        ).value;
-      }
-    });
-
-    return {
-      labels: data.map(d => d.label),
-      datasets: [
-        {
-          values: data.map(d => d.value)
-        }
-      ]
-    };
-  });
-
-  const assetsLiabilitiesLineChartData = computed((): LineChartData => {
-    const assetsData = GraphDataUtils.createBarGraphData({
-      callback: (date) => {
-        return accountStore.getBalanceByType(
-          AccountTypeType.ASSET,
-          date.year(),
-          date.month() + 1
-        ).value;
-      }
-    });
-
-    const liabilitiesData = GraphDataUtils.createBarGraphData({
-      callback: (date) => {
-        return accountStore.getBalanceByType(
-          AccountTypeType.LIABILITY,
-          date.year(),
-          date.month() + 1
-        ).value;
-      }
-    });
-
-    return {
-      labels: assetsData.map(d => d.label),
-      datasets: [
-        {
-          values: assetsData.map(d => d.value),
-          color: colors.lime[500]
-        },
-        {
-          values: liabilitiesData.map(d => d.value),
-          color: colors.orange[500]
-        }
-      ]
-    };
-  });
-
 </script>
