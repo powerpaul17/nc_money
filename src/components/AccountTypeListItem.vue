@@ -12,7 +12,10 @@
         class="mr-2"
         :value="balance"
         :animation="true"
-        :inverted-value="settingStore.useInvertedAccounts.value && AccountTypeUtils.isInvertedAccount(accountType.type)"
+        :inverted-value="
+          settingStore.useInvertedAccounts.value &&
+          AccountTypeUtils.isInvertedAccount(accountType.type)
+        "
       >
         <template
           #suffix
@@ -43,7 +46,6 @@
 </template>
 
 <script setup lang="ts">
-
   import dayjs from 'dayjs';
 
   import { type PropType, computed } from 'vue';
@@ -113,5 +115,4 @@
 
     await router.push(`/account/${newAccount.id}`);
   }
-
 </script>
