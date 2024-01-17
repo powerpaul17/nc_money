@@ -16,9 +16,10 @@
     "Yes, delete account" : "Ja, radera konto",
     "Add account" : "Lägg till konto",
     "New Account" : "Nytt konto",
+    "Show inverted income/liabilities account balances" : "Visa inverterade inkomster/skulder kontosaldon",
+    "No name" : "Inget namn",
     "Unbalanced" : "Obalanserad",
     "Equity" : "Värdeökning",
-    "Show inverted income/liabilities account balances" : "Visa inverterade inkomster/skulder kontosaldon",
     "Value" : "Värde",
     "Date" : "Datum",
     "Various settings for the money app" : "Olika inställningar för pengar-appen",
@@ -44,8 +45,8 @@
     "End of transactions" : "Slut på transaktioner",
     "Multiple Accounts" : "Flera konton",
     "Assets" : "Tillgångar",
-    "Liabilities" : "Skulder",
     "Settings saved" : "Inställningar sparade",
+    "Liabilities" : "Skulder",
     "Income" : "Inkomster",
     "Expenses" : "Utgifter"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -21,9 +21,9 @@
     "No account available..." : "Няма наличен профил ...",
     "Add account" : "Добавяне на регистрация",
     "New Account" : "Нов профил",
+    "Show inverted income/liabilities account balances" : "Показване на обърнато салдо по сметките за приходите/пасивите",
     "Unbalanced" : "Небалансиран",
     "Equity" : "Собствен капитал",
-    "Show inverted income/liabilities account balances" : "Показване на обърнато салдо по сметките за приходите/пасивите",
     "Value" : "Стойност",
     "Date" : "Дата",
     "Various settings for the money app" : "Различни настройки на приложението за пари",
@@ -49,8 +49,8 @@
     "End of transactions" : "Край на операциите",
     "Multiple Accounts" : "Множество сметки",
     "Assets" : "Активи",
-    "Liabilities" : "Пасиви",
     "Settings saved" : "Настройките са запазени",
+    "Liabilities" : "Пасиви",
     "Income" : "Приходи",
     "Expenses" : "Разходи"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

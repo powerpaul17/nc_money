@@ -22,9 +22,9 @@
     "No account available..." : "Není k dispozici žádný účet…",
     "Add account" : "Přidat účet",
     "New Account" : "Nový účet",
+    "Show inverted income/liabilities account balances" : "Zobrazit stavy účtu příjem/závazky invertovaně",
     "Unbalanced" : "Nezaúčtováno",
     "Equity" : "Akcie",
-    "Show inverted income/liabilities account balances" : "Zobrazit stavy účtu příjem/závazky invertovaně",
     "Value" : "Hodnota",
     "Date" : "Datum",
     "Various settings for the money app" : "Různá nastavení pro aplikaci Peníze",
@@ -50,8 +50,9 @@
     "End of transactions" : "Konec transakcí",
     "Multiple Accounts" : "Vícero účtů",
     "Assets" : "Majetek",
-    "Liabilities" : "Závazky",
+    "Books" : "Knihy",
     "Settings saved" : "Nastavení uložena",
+    "Liabilities" : "Závazky",
     "Income" : "Příjem",
     "Expenses" : "Výdaje"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"

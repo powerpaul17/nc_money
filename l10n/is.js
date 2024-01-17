@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Yfirlit",
     "Delete account" : "Eyða notandaaðgangi",
     "Add account" : "Bæta við notandaaðgangi",
+    "No name" : "Ekkert heiti",
     "Value" : "Gildi",
     "Date" : "Dagsetning",
     "Select File" : "Veldu skrá",

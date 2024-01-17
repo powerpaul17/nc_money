@@ -21,9 +21,10 @@
     "No account available..." : "No account available...",
     "Add account" : "افزودن حساب",
     "New Account" : "New Account",
+    "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",
+    "No name" : "بدون نام",
     "Unbalanced" : "ناتراز",
     "Equity" : "قاعده انصاف",
-    "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",
     "Value" : "مقدار",
     "Date" : "تاریخ",
     "Various settings for the money app" : "Various settings for the money app",
@@ -49,8 +50,8 @@
     "End of transactions" : "End of transactions",
     "Multiple Accounts" : "حساب‌های چندگانه",
     "Assets" : "دارایی‌ها",
-    "Liabilities" : "بدهی‌ها",
     "Settings saved" : "تنظیمات ذخیره شد",
+    "Liabilities" : "بدهی‌ها",
     "Income" : "درآمد",
     "Expenses" : "هزینه‌ها"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"

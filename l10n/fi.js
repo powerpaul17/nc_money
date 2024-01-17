@@ -17,6 +17,7 @@ OC.L10N.register(
     "Yes, delete account" : "Kyllä, poista tili",
     "Add account" : "Lisää tili",
     "New Account" : "Uusi tili",
+    "No name" : "Ei nimeä",
     "Equity" : "Pääoma",
     "Value" : "Arvo",
     "Date" : "Päivä",
@@ -34,8 +35,8 @@ OC.L10N.register(
     "Comment" : "Kommentti",
     "Multiple Accounts" : "Useita tilejä",
     "Assets" : "Varallisuus",
-    "Liabilities" : "Velat",
     "Settings saved" : "Asetukset tallennettu",
+    "Liabilities" : "Velat",
     "Income" : "Tulot",
     "Expenses" : "Menot"
 },

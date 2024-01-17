@@ -22,9 +22,10 @@
     "No account available..." : "Kullanılabilecek bir hesap yok...",
     "Add account" : "Hesap ekle",
     "New Account" : "Hesap ekle",
+    "Show inverted income/liabilities account balances" : "Tersine çevrilmiş gelir/borç hesap bakiyeleri görüntülensin",
+    "No name" : "Adsız",
     "Unbalanced" : "Dengesiz",
     "Equity" : "Eşitlik",
-    "Show inverted income/liabilities account balances" : "Tersine çevrilmiş gelir/borç hesap bakiyeleri görüntülensin",
     "Value" : "Değer",
     "Date" : "Tarih",
     "Various settings for the money app" : "Money uygulamasının ayarları",
@@ -50,8 +51,9 @@
     "End of transactions" : "Hesap hareketlerinin sonu",
     "Multiple Accounts" : "Birkaç hesap",
     "Assets" : "Varlıklar",
-    "Liabilities" : "Sorumluluklar",
+    "Books" : "Kitaplar",
     "Settings saved" : "Ayarlar kaydedildi",
+    "Liabilities" : "Sorumluluklar",
     "Income" : "Gelirler",
     "Expenses" : "Giderler"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"

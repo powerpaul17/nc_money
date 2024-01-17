@@ -11,6 +11,7 @@ OC.L10N.register(
     "Delete account" : "Slett konto",
     "Are you sure?" : "Er du sikker?",
     "Add account" : "Legg til en konto",
+    "No name" : "Ingen navn",
     "Unbalanced" : "Ubalansert",
     "Equity" : "Egenkapital",
     "Value" : "Verdi",
@@ -28,8 +29,8 @@ OC.L10N.register(
     "Comment" : "Kommentar",
     "Multiple Accounts" : "Flere kontoer",
     "Assets" : "Ressurser",
-    "Liabilities" : "Forpliktelser",
     "Settings saved" : "Innstillinger lagret",
+    "Liabilities" : "Forpliktelser",
     "Income" : "Inntekt",
     "Expenses" : "Utgifter"
 },

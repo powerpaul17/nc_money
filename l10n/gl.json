@@ -22,9 +22,10 @@
     "No account available..." : "Non hai ningunha conta dispoñíbel…",
     "Add account" : "Engadir unha conta",
     "New Account" : "Nova conta",
+    "Show inverted income/liabilities account balances" : "Amosar os balances de contas de ingresos/pasivos invertidos",
+    "No name" : "Sen nome",
     "Unbalanced" : "Desequilibrado",
     "Equity" : "Patrimonio (neto)",
-    "Show inverted income/liabilities account balances" : "Amosar os balances de contas de ingresos/pasivos invertidos",
     "Value" : "Valor",
     "Date" : "Data",
     "Various settings for the money app" : "Axustes varios para a aplicación de finanzas",
@@ -50,8 +51,9 @@
     "End of transactions" : "Fin das transaccións",
     "Multiple Accounts" : "Contas múltiples",
     "Assets" : "Activos",
-    "Liabilities" : "Pasivos",
+    "Books" : "Libros",
     "Settings saved" : "Axustes gardados",
+    "Liabilities" : "Pasivos",
     "Income" : "Ingresos",
     "Expenses" : "Gastos"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

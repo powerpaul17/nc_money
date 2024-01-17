@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Overview",
     "Delete account" : "Delete account",
     "Add account" : "Add account",
+    "No name" : "No name",
     "Value" : "Value",
     "Date" : "Date",
     "Space" : "Space",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "Delete account" : "Elimina account",
     "Are you sure?" : "Sei sicuro?",
     "Add account" : "Aggiungi account",
+    "No name" : "Nessun nome",
     "Unbalanced" : "Squilibrato",
     "Equity" : "Equità",
     "Value" : "Valore",
@@ -21,8 +22,8 @@ OC.L10N.register(
     "Credit" : "Credito",
     "Debit" : "Addebito",
     "Assets" : "Risorse",
-    "Liabilities" : "Passività",
     "Settings saved" : "Impostazioni salvate",
+    "Liabilities" : "Passività",
     "Income" : "Reddito",
     "Expenses" : "Spese"
 },

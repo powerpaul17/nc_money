@@ -22,9 +22,9 @@
     "No account available..." : "لا يوجد حساب متاح ...",
     "Add account" : "أضف حساباً",
     "New Account" : "حساب جديد",
+    "Show inverted income/liabilities account balances" : "عرض أرصدة الدخل/ حسابات الخصوم المقلوبة",
     "Unbalanced" : "غير مُتّزِن Unbalanced",
     "Equity" : "حقوق المِلكِيّة",
-    "Show inverted income/liabilities account balances" : "عرض أرصدة الدخل/ حسابات الخصوم المقلوبة",
     "Value" : "القيمة",
     "Date" : "التاريخ ",
     "Various settings for the money app" : "إعدادات مختلفة لتطبيق money",
@@ -50,8 +50,8 @@
     "End of transactions" : "نهاية المُعامَلات transactions",
     "Multiple Accounts" : "حسابات متعدِّدة",
     "Assets" : "الأصول",
-    "Liabilities" : "الخصوم",
     "Settings saved" : "تم حفظ الإعدادات",
+    "Liabilities" : "الخصوم",
     "Income" : "الدَّخْل",
     "Expenses" : "المصروفات"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"

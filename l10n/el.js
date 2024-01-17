@@ -11,6 +11,7 @@ OC.L10N.register(
     "Delete account" : "Διαγραφή λογαριασμού",
     "Are you sure?" : "Είστε σίγουροι;",
     "Add account" : "Προσθήκη λογαριασμού",
+    "No name" : "Ανώνυμο",
     "Unbalanced" : "Μη ισορροπημένα",
     "Equity" : "Μετοχικά κεφάλαια",
     "Value" : "Τιμή",
@@ -27,8 +28,8 @@ OC.L10N.register(
     "Comment" : "Σχόλιο",
     "Multiple Accounts" : "Πολλαπλοί Λογαριασμοί",
     "Assets" : "Περουσιακά στοιχεία",
-    "Liabilities" : "Υποχρεώσεις",
     "Settings saved" : "Οι ρυθμίσεις αποθηκεύτηκαν",
+    "Liabilities" : "Υποχρεώσεις",
     "Income" : "Εισοδήματα",
     "Expenses" : "Έξοδα"
 },

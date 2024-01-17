@@ -9,6 +9,7 @@ OC.L10N.register(
     "Delete account" : "Account verwijderen",
     "Are you sure?" : "Weet je het zeker?",
     "Add account" : "Toevoegen account ",
+    "No name" : "Geen naam",
     "Value" : "Waarden",
     "Date" : "Datum",
     "Decimals" : "Decimalen",
@@ -16,8 +17,8 @@ OC.L10N.register(
     "Import" : "Import",
     "Comment" : "Notitie",
     "Assets" : "Activa",
-    "Liabilities" : "Schulden",
     "Settings saved" : "Instellingen opgeslagen",
+    "Liabilities" : "Schulden",
     "Income" : "Inkomen",
     "Expenses" : "Uitgaven"
 },

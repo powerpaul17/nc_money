@@ -8,6 +8,7 @@ OC.L10N.register(
     "Delete account" : "Usuń konto",
     "Are you sure?" : "Jesteś pewny?",
     "Add account" : "Dodaj konto",
+    "No name" : "Bez nazwy",
     "Value" : "Wartość",
     "Date" : "Data",
     "Decimals" : "Ułamki dziesiętne",

@@ -22,9 +22,10 @@
     "No account available..." : "No account available...",
     "Add account" : "Add account",
     "New Account" : "New Account",
+    "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",
+    "No name" : "No name",
     "Unbalanced" : "Unbalanced",
     "Equity" : "Equity",
-    "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",
     "Value" : "Value",
     "Date" : "Date",
     "Various settings for the money app" : "Various settings for the money app",
@@ -50,8 +51,9 @@
     "End of transactions" : "End of transactions",
     "Multiple Accounts" : "Multiple Accounts",
     "Assets" : "Assets",
-    "Liabilities" : "Liabilities",
+    "Books" : "Books",
     "Settings saved" : "Settings saved",
+    "Liabilities" : "Liabilities",
     "Income" : "Income",
     "Expenses" : "Expenses"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

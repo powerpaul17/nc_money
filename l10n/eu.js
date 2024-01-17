@@ -19,6 +19,7 @@ OC.L10N.register(
     "No account available..." : "Ez dago konturik eskuragarri...",
     "Add account" : "Gehitu kontua",
     "New Account" : "Kontu berria",
+    "No name" : "Izenik ez",
     "Unbalanced" : "Desorekatua",
     "Equity" : "Ekitatea",
     "Value" : "Balioa",
@@ -42,8 +43,8 @@ OC.L10N.register(
     "End of transactions" : "Transakzioen bukaera",
     "Multiple Accounts" : "Hainbat kontu",
     "Assets" : "Aktiboak",
-    "Liabilities" : "Pasiboak",
     "Settings saved" : "Ezarpenak gordeta",
+    "Liabilities" : "Pasiboak",
     "Income" : "Sarrerak",
     "Expenses" : "Gastuak"
 },

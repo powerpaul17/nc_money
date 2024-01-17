@@ -22,9 +22,10 @@
     "No account available..." : "沒有可用的賬戶 ...",
     "Add account" : "新增賬戶",
     "New Account" : "新賬戶",
+    "Show inverted income/liabilities account balances" : "顯示倒置的收入/負債賬戶餘額",
+    "No name" : "無名稱",
     "Unbalanced" : "不平衡",
     "Equity" : "股票",
-    "Show inverted income/liabilities account balances" : "顯示倒置的收入/負債賬戶餘額",
     "Value" : "值",
     "Date" : "日期",
     "Various settings for the money app" : "Money 應用程式的各種設置",
@@ -50,8 +51,9 @@
     "End of transactions" : "交易結束",
     "Multiple Accounts" : "多個賬戶",
     "Assets" : "資產",
-    "Liabilities" : "債務",
+    "Books" : "書本",
     "Settings saved" : "設定已保存",
+    "Liabilities" : "債務",
     "Income" : "收入",
     "Expenses" : "支出"
 },"pluralForm" :"nplurals=1; plural=0;"

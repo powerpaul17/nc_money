@@ -7,6 +7,7 @@ OC.L10N.register(
     "Delete account" : "מחיקת חשבון",
     "Are you sure?" : "האם הינך בטוח?",
     "Add account" : "הוספת חשבון",
+    "No name" : "אין שם",
     "Value" : "ערך",
     "Date" : "תאריך",
     "Select File" : "בחירת קובץ",

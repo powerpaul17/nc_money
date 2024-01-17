@@ -22,9 +22,10 @@
     "No account available..." : "Није доступан ниједан налог...",
     "Add account" : "Додај рачун",
     "New Account" : "Нови рачун",
+    "Show inverted income/liabilities account balances" : "Прикажи инвертована стања прихода/расхода рачуна",
+    "No name" : "Без имена",
     "Unbalanced" : "Не сравњено",
     "Equity" : "Салдо",
-    "Show inverted income/liabilities account balances" : "Прикажи инвертована стања прихода/расхода рачуна",
     "Value" : "Вредност",
     "Date" : "Датум",
     "Various settings for the money app" : "Разна подешавања апликације Новац",
@@ -50,8 +51,9 @@
     "End of transactions" : "Крај трансакција",
     "Multiple Accounts" : "Више налога",
     "Assets" : "Имовина",
-    "Liabilities" : "Дугови",
+    "Books" : "Књиге",
     "Settings saved" : "Поставке сачуване",
+    "Liabilities" : "Дугови",
     "Income" : "Приход",
     "Expenses" : "Трошкови"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"

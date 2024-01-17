@@ -8,6 +8,7 @@ OC.L10N.register(
     "Delete account" : "アカウントの削除",
     "Are you sure?" : "本当に？",
     "Add account" : "アカウントを追加",
+    "No name" : "名前なし",
     "Value" : "値",
     "Date" : "日付",
     "Select File" : "ファイル選択",

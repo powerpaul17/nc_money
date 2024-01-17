@@ -12,12 +12,14 @@ OC.L10N.register(
     "No account available..." : "Ni razpoložljivega računa ...",
     "Add account" : "Dodaj račun",
     "New Account" : "Nov račun",
+    "No name" : "Brez imena",
     "Value" : "Vrednost",
     "Date" : "Datum",
     "Decimals" : "Decimalna mesta",
     "Select File" : "Izbor datoteke",
     "Import" : "Uvozi",
     "Comment" : "Opomba",
+    "Books" : "Knjige",
     "Settings saved" : "Nastavitve so shranjene"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

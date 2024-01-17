@@ -22,9 +22,10 @@
     "No account available..." : "Nincs elérhető fiók…",
     "Add account" : "Fiók hozzáadása",
     "New Account" : "Új fiók",
+    "Show inverted income/liabilities account balances" : "Bevétel/kötelezettség mérleg fordított megjelenítése",
+    "No name" : "Nincs név",
     "Unbalanced" : "Kiegyenlítetlen",
     "Equity" : "Saját tőke",
-    "Show inverted income/liabilities account balances" : "Bevétel/kötelezettség mérleg fordított megjelenítése",
     "Value" : "Érték",
     "Date" : "Dátum",
     "Various settings for the money app" : "Különböző beállítások a Pénz alkalmazáshoz",
@@ -50,8 +51,9 @@
     "End of transactions" : "Tranzakciók vége",
     "Multiple Accounts" : "Több fiók",
     "Assets" : "Pénzeszközök",
-    "Liabilities" : "Kötelezettségek",
+    "Books" : "Könyvek",
     "Settings saved" : "Beállítások mentve",
+    "Liabilities" : "Kötelezettségek",
     "Income" : "Bevétel",
     "Expenses" : "Kiadás"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

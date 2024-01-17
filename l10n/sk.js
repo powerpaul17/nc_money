@@ -12,6 +12,7 @@ OC.L10N.register(
     "Are you sure?" : "Ste si istý?",
     "Add account" : "Pridať účet",
     "New Account" : "Nový účet",
+    "No name" : "Bez názvu",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",
     "Value" : "Hodnota",
@@ -31,8 +32,8 @@ OC.L10N.register(
     "End of transactions" : "Koniec transakcií",
     "Multiple Accounts" : "Viacero účtov",
     "Assets" : "Majetok",
-    "Liabilities" : "Záväzky",
     "Settings saved" : "Nastavenia uložené",
+    "Liabilities" : "Záväzky",
     "Income" : "Príjmy",
     "Expenses" : "Výdaje"
 },

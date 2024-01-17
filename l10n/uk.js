@@ -11,6 +11,7 @@ OC.L10N.register(
     "Delete account" : "Вилучити обліковий запис",
     "Are you sure?" : "Ви впевнені?",
     "Add account" : "Додати обліковий запис",
+    "No name" : "Відсутнє ім'я",
     "Unbalanced" : "Неврівноважений",
     "Equity" : "Власний капітал",
     "Value" : "Значення",
@@ -32,8 +33,8 @@ OC.L10N.register(
     "End of transactions" : "Кінець транзакції",
     "Multiple Accounts" : "Кілька облікових записів",
     "Assets" : "Активи",
-    "Liabilities" : "Зобов'язання",
     "Settings saved" : "Налаштування збережено",
+    "Liabilities" : "Зобов'язання",
     "Income" : "Дохід",
     "Expenses" : "Витрати"
 },

@@ -17,9 +17,9 @@
     "Yes, delete account" : "Si, eliminar cuenta",
     "Add account" : "Agregar cuenta",
     "New Account" : "Nueva cuenta",
+    "Show inverted income/liabilities account balances" : "Mostrar los balances de cuentas de ingresos/deudas invertidos",
     "Unbalanced" : "Sin conciliar",
     "Equity" : "Patrimonio Neto",
-    "Show inverted income/liabilities account balances" : "Mostrar los balances de cuentas de ingresos/deudas invertidos",
     "Value" : "Valor",
     "Date" : "Fecha",
     "Various settings for the money app" : "Configuraciones varias para la app de dinero",
@@ -45,8 +45,8 @@
     "End of transactions" : "Fin de transacciones",
     "Multiple Accounts" : "Múltiples cuentas",
     "Assets" : "Activos",
-    "Liabilities" : "Deudas",
     "Settings saved" : "Se han guardado las configuraciones ",
+    "Liabilities" : "Deudas",
     "Income" : "Ingreso",
     "Expenses" : "Gastos"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
