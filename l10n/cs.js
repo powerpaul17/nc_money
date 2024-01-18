@@ -25,6 +25,7 @@ OC.L10N.register(
     "Add account" : "Přidat účet",
     "New Account" : "Nový účet",
     "Show inverted income/liabilities account balances" : "Zobrazit stavy účtu příjem/závazky invertovaně",
+    "No name" : "Bez názvu",
     "Unbalanced" : "Nezaúčtováno",
     "Equity" : "Akcie",
     "Value" : "Hodnota",

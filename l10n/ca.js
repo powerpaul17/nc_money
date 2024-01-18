@@ -9,6 +9,7 @@ OC.L10N.register(
     "Delete account" : "Suprimeix el compte",
     "Are you sure?" : "Estas segur?",
     "Add account" : "Afegeix un compte",
+    "No name" : "Sense nom",
     "Value" : "Valor",
     "Date" : "Data",
     "Decimals" : "Decimals",
