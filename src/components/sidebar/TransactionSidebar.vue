@@ -46,6 +46,7 @@
               <AccountSelect
                 :account-id="split.destAccountId"
                 :editable="editable"
+                :excluded-account-ids="excludedAccountIds.filter(accountId => accountId !== split.destAccountId)"
                 @account-changed="handleSplitAccountChanged(split, $event)"
               />
             </div>
@@ -74,6 +75,7 @@
               <AccountSelect
                 :account-id="split.destAccountId"
                 :editable="editable"
+                :excluded-account-ids="excludedAccountIds.filter(accountId => accountId !== split.destAccountId)"
                 @account-changed="handleSplitAccountChanged(split, $event)"
               />
             </div>
@@ -175,6 +177,10 @@ h2 {
 
   const splitsOfDestinationAccounts = computed(() => {
     return splits.value.filter(s => s.destAccountId !== props.accountId);
+  });
+
+  const excludedAccountIds = computed(() => {
+    return splits.value.map(s => s.destAccountId);
   });
 
   async function handleCloseSidebar(): Promise<void> {
