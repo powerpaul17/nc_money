@@ -91,6 +91,30 @@
             </div>
           </div>
         </div>
+
+        <div
+          v-if="isUnbalanced && editable"
+          class="
+            grid grid-cols-2
+          "
+        >
+          <div>
+            <AccountSelect
+              :account-id="newSplitDestAccountId"
+              :excluded-account-ids="excludedAccountIds"
+              @account-changed="handleNewSplitDestinationAccountIdChanged"
+            />
+          </div>
+          <div>
+            <CurrencyInput
+              :value="-unbalancedValue"
+              :editable="false"
+              :placeholder="t('money', 'Value')"
+              :inverted-value="isInvertedAccount"
+              @value-changed="handleNewSplitValueChanged"
+            />
+          </div>
+        </div>
       </div>
     </NcAppSidebarTab>
   </NcAppSidebar>
@@ -118,6 +142,8 @@ h2 {
   import AccountSelect from '../AccountSelect.vue';
   import CurrencyInput from '../CurrencyInput.vue';
   import SeamlessInput from '../SeamlessInput.vue';
+
+  import { NumberUtils } from '../../utils/numberUtils';
 
   import { useSettingStore } from '../../stores/settingStore';
 
@@ -183,6 +209,9 @@ h2 {
 
   const splits: Ref<Array<Split>> = ref([]);
 
+  const newSplitValue: Ref<number> = ref(0.0);
+  const newSplitDestAccountId: Ref<number|null> = ref(null);
+
   const splitsOfAccount = computed(() => {
     return splits.value.filter(s => s.destAccountId === props.accountId);
   });
@@ -203,6 +232,18 @@ h2 {
     return !!account.value &&
       settingStore.useInvertedAccounts.value &&
       AccountTypeUtils.isInvertedAccount(account.value.type);
+  });
+
+  const unbalancedValue = computed(() => {
+    return splits.value.reduce((v, s) => (v += s.value), 0.0);
+  });
+
+  const isUnbalanced = computed(() => {
+    return NumberUtils.areNotEqual(unbalancedValue.value, 0.0);
+  });
+
+  watch(unbalancedValue, () => {
+    newSplitValue.value = -unbalancedValue.value;
   });
 
   async function handleCloseSidebar(): Promise<void> {
@@ -231,6 +272,31 @@ h2 {
   async function handleSplitValueChanged(split: Split, value: number): Promise<void> {
     split.value = value;
     await handleSplitChanged(split);
+  }
+
+  async function handleNewSplitDestinationAccountIdChanged(accountId?: number): Promise<void> {
+    newSplitDestAccountId.value = accountId ?? null;
+    await createNewSplitIfPossible();
+  }
+
+  async function handleNewSplitValueChanged(value: number): Promise<void> {
+    newSplitValue.value = value;
+    await createNewSplitIfPossible();
+  }
+
+  async function createNewSplitIfPossible(): Promise<void> {
+    if (!newSplitValue.value || !newSplitDestAccountId.value) return;
+
+    await splitService.addSplit({
+      transactionId: transaction.value!.id,
+      destAccountId: newSplitDestAccountId.value,
+      value: newSplitValue.value,
+      convertRate: 1.0,
+      description: ''
+    });
+
+    newSplitValue.value = 0.0;
+    newSplitDestAccountId.value = null;
   }
 
   async function handleSplitChanged(split: Split): Promise<void> {
