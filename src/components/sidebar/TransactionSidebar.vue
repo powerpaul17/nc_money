@@ -139,7 +139,7 @@ h2 {
     },
     accountId: {
       type: Number,
-      required: true
+      default: undefined
     },
     editable: {
       type: Boolean,
