@@ -44,6 +44,7 @@
           <div class="grid grid-cols-2">
             <div>
               <AccountSelect
+                :book-id="bookId"
                 :account-id="split.destAccountId"
                 :editable="editable"
                 :excluded-account-ids="
@@ -78,6 +79,7 @@
           <div class="grid grid-cols-2">
             <div>
               <AccountSelect
+                :book-id="bookId"
                 :account-id="split.destAccountId"
                 :editable="editable"
                 :excluded-account-ids="
@@ -110,6 +112,7 @@
         >
           <div>
             <AccountSelect
+              :book-id="bookId"
               :account-id="newSplitDestAccountId"
               :excluded-account-ids="excludedAccountIds"
               @account-changed="handleNewSplitDestinationAccountIdChanged"
@@ -183,6 +186,10 @@
   const router = useRouter();
 
   const props = defineProps({
+    bookId: {
+      type: Number,
+      required: true
+    },
     transactionId: {
       type: Number,
       required: true
