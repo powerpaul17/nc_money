@@ -18,6 +18,7 @@
             :value="transaction.description"
             :placeholder="t('money', 'Description')"
             :label="t('money', 'Description')"
+            :disabled="!editable"
             @value-changed="handleDescriptionChanged"
           />
         </div>
@@ -27,6 +28,7 @@
             :date="transaction.date"
             :placeholder="t('money', 'Date')"
             :label="t('money', 'Date')"
+            :editable="editable"
             @date-changed="handleDateChanged"
           />
         </div>
@@ -43,12 +45,14 @@
             <div>
               <AccountSelect
                 :account-id="split.destAccountId"
+                :editable="editable"
                 @account-changed="handleSplitAccountChanged(split, $event)"
               />
             </div>
             <div>
               <CurrencyInput
                 :value="split.value"
+                :editable="editable"
                 :placeholder="t('money', 'Value')"
                 @value-changed="handleSplitValueChanged(split, $event)"
               />
@@ -69,12 +73,14 @@
             <div>
               <AccountSelect
                 :account-id="split.destAccountId"
+                :editable="editable"
                 @account-changed="handleSplitAccountChanged(split, $event)"
               />
             </div>
             <div>
               <CurrencyInput
                 :value="split.value"
+                :editable="editable"
                 :placeholder="t('money', 'Value')"
                 @value-changed="handleSplitValueChanged(split, $event)"
               />
@@ -134,6 +140,10 @@ h2 {
     accountId: {
       type: Number,
       required: true
+    },
+    editable: {
+      type: Boolean,
+      default: true
     }
   });
 
