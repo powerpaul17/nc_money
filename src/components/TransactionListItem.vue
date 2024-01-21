@@ -246,7 +246,7 @@
 
   async function handleCloseSidebar(): Promise<void> {
     await router.push({
-      name: 'account-view'
+      name: 'account'
     });
   }
 
