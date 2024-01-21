@@ -188,7 +188,7 @@
     await router.push({
       name: 'transaction-details',
       params: {
-        transactionId: props.transaction.id
+        transactionId: props.transaction.id.toString()
       }
     });
   }
