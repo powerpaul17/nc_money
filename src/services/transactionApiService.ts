@@ -131,8 +131,7 @@ class TransactionApiService {
       id: data.id,
       description: data.description,
       date: new Date(data.date),
-      timestampAdded: new Date(data.timestampAdded).valueOf(),
-      showSplits: false
+      timestampAdded: new Date(data.timestampAdded).valueOf()
     };
   }
 
@@ -140,7 +139,7 @@ class TransactionApiService {
 
 export type TransactionCreationData = Omit<
   Transaction,
-  'id' | 'timestampAdded' | 'showSplits'
+  'id' | 'timestampAdded'
 >;
 
 export type TransactionWithSplitsCreationData = TransactionCreationData & {

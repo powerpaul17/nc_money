@@ -8,10 +8,8 @@
       }"
     >
       <template #actionFirst>
-        <div @click="toggleSplits">
+        <div>
           <NcLoadingIcon v-if="isLoading" />
-          <ChevronDown v-else-if="transaction.showSplits" />
-          <ChevronRight v-else />
         </div>
       </template>
 
@@ -62,30 +60,6 @@
         <DotsHorizontal @click="handleOpenSidebar" />
       </template>
     </TransactionListItemTemplate>
-    <div
-      v-if="transaction.showSplits"
-      class="bg-gray-100 shadow-inner dark:bg-background-darker"
-    >
-      <SplitListItem
-        v-for="split in splits"
-        :key="split.id"
-        :book-id="bookId"
-        :split="split"
-        :excluded-account-ids="
-          excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
-        "
-        :inverted-value="invertedValue"
-        @split-deleted="handleSplitDeleted"
-      />
-      <NewSplitInput
-        v-if="isUnbalanced"
-        :book-id="bookId"
-        :transaction-id="transaction.id"
-        :excluded-account-ids="excludedSplitAccountIds"
-        :initial-value="-unbalancedValue"
-        :inverted-value="invertedValue"
-      />
-    </div>
   </div>
 </template>
 
@@ -100,8 +74,6 @@
   } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
 
-  import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
-  import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
   import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
@@ -114,10 +86,8 @@
   import { useSplitService } from '../services/splitService';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
-  import SplitListItem from './SplitListItem.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
-  import NewSplitInput from './NewSplitInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
 
@@ -195,7 +165,7 @@
   });
 
   const valueIsEditable = computed(() => {
-    return !props.transaction.showSplits && !hasMultipleDestinationSplits.value;
+    return !hasMultipleDestinationSplits.value;
   });
 
   const unbalancedValue = computed(() => {
@@ -213,14 +183,6 @@
       return [];
     }
   });
-
-  const excludedSplitAccountIds = computed(() => {
-    return splits.value.map((s) => s.destAccountId);
-  });
-
-  function toggleSplits(): void {
-    props.transaction.showSplits = !props.transaction.showSplits;
-  }
 
   async function handleOpenSidebar(): Promise<void> {
     await router.push({
