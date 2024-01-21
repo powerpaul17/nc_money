@@ -2,7 +2,7 @@
   <router-view
     v-if="sidebarVisible"
     name="sidebar"
-    class="min-w-[400px]"
+    class="absolute min-w-[400px]"
   />
 </template>
 
