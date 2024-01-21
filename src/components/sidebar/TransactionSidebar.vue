@@ -13,7 +13,36 @@
       <div>
         <h2>{{ t('money', 'Splits') }}</h2>
 
-        <div v-for="split of sortedSplits">
+        <div
+          v-for="split of splitsOfAccount"
+          :key="split.id"
+        >
+          <div class="grid grid-cols-2">
+            <div>
+              <AccountSelect
+                :account-id="split.destAccountId"
+                @account-changed="handleSplitAccountChanged(split, $event)"
+              />
+            </div>
+            <div>
+              <CurrencyInput
+                :value="split.value"
+                :placeholder="t('money', 'Value')"
+                @value-changed="handleSplitValueChanged(split, $event)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <ArrowDownBold
+          :size="36"
+          class="my-4 text-background-darker"
+        />
+
+        <div
+          v-for="split of splitsOfDestinationAccounts"
+          :key="split.id"
+        >
           <div class="grid grid-cols-2">
             <div>
               <AccountSelect
@@ -47,6 +76,8 @@ h2 {
 
   import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
+
+  import ArrowDownBold from 'vue-material-design-icons/ArrowDownBold.vue';
 
   import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar';
   import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab';
@@ -101,17 +132,12 @@ h2 {
 
   const splits: Ref<Array<Split>> = ref([]);
 
-  const sortedSplits = computed(() => {
-    return splits.value.sort((s1, s2) => {
-      const s1compareValue = s1.destAccountId === props.accountId ? Number.MIN_SAFE_INTEGER : s1.id;
-      const s2compareValue = s2.destAccountId === props.accountId ? Number.MIN_SAFE_INTEGER : s2.id;
+  const splitsOfAccount = computed(() => {
+    return splits.value.filter(s => s.destAccountId === props.accountId);
+  });
 
-      if (s1compareValue === s2compareValue) {
-        return s1.id - s2.id;
-      }
-
-      return s1compareValue - s2compareValue;
-    });
+  const splitsOfDestinationAccounts = computed(() => {
+    return splits.value.filter(s => s.destAccountId !== props.accountId);
   });
 
   function handleCloseSidebar() {
