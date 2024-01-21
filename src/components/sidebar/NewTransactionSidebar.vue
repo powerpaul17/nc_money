@@ -53,11 +53,6 @@
           </div>
         </div>
 
-        <ArrowDownBold
-          :size="36"
-          class="my-4 text-background-darker"
-        />
-
         <div class="grid grid-cols-2">
           <div>
             <AccountSelect
@@ -106,7 +101,6 @@
   import { computed, ref, type Ref } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
 
-  import ArrowDownBold from 'vue-material-design-icons/ArrowDownBold.vue';
   import Plus from 'vue-material-design-icons/Plus.vue';
 
   import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar';

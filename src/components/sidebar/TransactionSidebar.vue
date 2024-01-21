@@ -66,11 +66,6 @@
           </div>
         </div>
 
-        <ArrowDownBold
-          :size="36"
-          class="my-4 text-background-darker"
-        />
-
         <div
           v-for="split of splitsOfDestinationAccounts"
           :key="split.id"
@@ -141,8 +136,6 @@
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
-
-  import ArrowDownBold from 'vue-material-design-icons/ArrowDownBold.vue';
 
   import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar';
   import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab';
