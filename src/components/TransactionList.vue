@@ -8,7 +8,7 @@
     >
       <template #before>
         <NewTransactionInput
-          class="mx-2"
+          class="mx-2 hidden md:grid"
           :book-id="bookId"
           :account-id="account.id"
           :inverted-value="isInvertedAccount"
