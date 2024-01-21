@@ -324,10 +324,15 @@
   }
 
   async function createNewSplitIfPossible(): Promise<void> {
-    if (!newSplitValue.value || !newSplitDestAccountId.value) return;
+    if (
+      !transaction.value ||
+      !newSplitValue.value ||
+      !newSplitDestAccountId.value
+    )
+      return;
 
     await splitService.addSplit({
-      transactionId: transaction.value!.id,
+      transactionId: transaction.value.id,
       destAccountId: newSplitDestAccountId.value,
       value: newSplitValue.value,
       convertRate: 1.0,
@@ -343,7 +348,8 @@
   }
 
   async function handleTransactionChanged(): Promise<void> {
-    await transactionService.updateTransaction(transaction.value!);
+    if (transaction.value)
+      await transactionService.updateTransaction(transaction.value);
   }
 
   async function setSplitsOfTransactionIdWatcher(): Promise<void> {
