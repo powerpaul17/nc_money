@@ -5,6 +5,7 @@ import BookView from './views/BookView.vue';
 import AccountTypeView from './views/AccountTypeView.vue';
 import DashboardView from './views/DashboardView.vue';
 import Sidebar from './components/SidebarComponent.vue';
+import TransactionSidebar from './components/TransactionSidebar.vue';
 
 export default new VueRouter({
   linkActiveClass: 'active',
@@ -40,7 +41,26 @@ export default new VueRouter({
             accountId: Number(route.params.accountId)
           };
         }
-      }
+      },
+      children: [
+        {
+          path: 'transaction/:transactionId/details',
+          name: 'transaction-details',
+          meta: {
+            showSidebar: true
+          },
+          components: {
+            sidebar: TransactionSidebar
+          },
+          props: {
+            sidebar: (route) => {
+              return {
+                transactionId: Number(route.params.transactionId)
+              };
+            }
+          }
+        }
+      ]
     },
     {
       path: '/book/:bookId/accountType/:accountTypeType',
