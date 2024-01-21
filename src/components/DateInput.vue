@@ -1,12 +1,15 @@
 <template>
-  <NcDatetimePicker
-    class="date-input"
-    v-model="dateValue"
-    :append-to-body="true"
-    :placeholder="placeholder"
-    :formatter="formatter"
-    :disabled="!editable"
-  />
+  <label class="flex flex-col items-baseline">
+    {{ label }}
+    <NcDatetimePicker
+      class="date-input w-full"
+      v-model="dateValue"
+      :append-to-body="true"
+      :placeholder="placeholder"
+      :formatter="formatter"
+      :disabled="!editable"
+    />
+  </label>
 </template>
 
 <style>
@@ -38,6 +41,10 @@
       required: true
     },
     placeholder: {
+      type: String,
+      default: ''
+    },
+    label: {
       type: String,
       default: ''
     },
