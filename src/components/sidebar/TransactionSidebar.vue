@@ -147,7 +147,8 @@ h2 {
     }
   });
 
-  const transaction: Ref<Transaction|null> = ref(null);
+  const transaction: Ref<Transaction | null> = ref(null);
+
   watch(() => props.transactionId, async () => {
     removeTransactionIdWatcher();
     await setTransactionIdWatcher();
@@ -156,9 +157,9 @@ h2 {
     await setSplitsOfTransactionIdWatcher();
   });
 
-  onMounted(async () => {
-    await setTransactionIdWatcher();
-    await setSplitsOfTransactionIdWatcher();
+  onMounted(() => {
+    void setTransactionIdWatcher();
+    void setSplitsOfTransactionIdWatcher();
   });
 
   onUnmounted(() => {
@@ -176,8 +177,8 @@ h2 {
     return splits.value.filter(s => s.destAccountId !== props.accountId);
   });
 
-  function handleCloseSidebar() {
-    router.push({ name: 'account-view' });
+  async function handleCloseSidebar(): Promise<void> {
+    await router.push({ name: 'account-view' });
   }
 
   async function handleDescriptionChanged(description: string): Promise<void> {
@@ -190,7 +191,7 @@ h2 {
     await handleTransactionChanged();
   }
 
-  async function handleSplitAccountChanged(split: Split, accountId?: number) {
+  async function handleSplitAccountChanged(split: Split, accountId?: number): Promise<void> {
     if (accountId) {
       split.destAccountId = accountId;
       await handleSplitChanged(split);
@@ -199,12 +200,12 @@ h2 {
     }
   }
 
-  async function handleSplitValueChanged(split: Split, value: number) {
+  async function handleSplitValueChanged(split: Split, value: number): Promise<void> {
     split.value = value;
     await handleSplitChanged(split);
   }
 
-  async function handleSplitChanged(split: Split) {
+  async function handleSplitChanged(split: Split): Promise<void> {
     await splitService.updateSplit(split);
   }
 
@@ -212,7 +213,7 @@ h2 {
     await transactionService.updateTransaction(transaction.value!);
   }
 
-  async function setSplitsOfTransactionIdWatcher() {
+  async function setSplitsOfTransactionIdWatcher(): Promise<void> {
     splitsOfTransactionIdWatcher = await splitStore.watchForTransactionId(
       props.transactionId,
       (s) => {
@@ -221,12 +222,12 @@ h2 {
     );
   }
 
-  function removeSplitsOfTransactionIdWatcher() {
+  function removeSplitsOfTransactionIdWatcher(): void {
     splitsOfTransactionIdWatcher?.stop();
     splitsOfTransactionIdWatcher = null;
   }
 
-  async function setTransactionIdWatcher() {
+  async function setTransactionIdWatcher(): Promise<void> {
     transactionIdWatcher = await transactionStore.watchForId(
       props.transactionId,
       (t) => {
@@ -235,7 +236,7 @@ h2 {
     );
   }
 
-  function removeTransactionIdWatcher() {
+  function removeTransactionIdWatcher(): void {
     transactionIdWatcher?.stop();
     transactionIdWatcher = null;
   }
