@@ -57,6 +57,10 @@
           @value-changed="handleValueChanged"
         />
       </template>
+
+      <template #actionLast>
+        <DotsHorizontal @click="handleOpenSidebar" />
+      </template>
     </TransactionListItemTemplate>
     <div
       v-if="transaction.showSplits"
@@ -94,9 +98,11 @@
     onMounted,
     onUnmounted
   } from 'vue';
+  import { useRouter } from 'vue2-helpers/vue-router';
 
   import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
   import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
+  import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
 
@@ -114,6 +120,8 @@
   import NewSplitInput from './NewSplitInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
+
+  const router = useRouter();
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
@@ -212,6 +220,15 @@
 
   function toggleSplits(): void {
     props.transaction.showSplits = !props.transaction.showSplits;
+  }
+
+  async function handleOpenSidebar(): Promise<void> {
+    await router.push({
+      name: 'transaction-details',
+      params: {
+        transactionId: props.transaction.id
+      }
+    });
   }
 
   async function handleTransactionChanged(): Promise<void> {
