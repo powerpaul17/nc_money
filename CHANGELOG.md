@@ -9,6 +9,12 @@
 ### Added
 
 - Respect locale number settings when entering in a currency input
+- Add transaction sidebar
+- Add mobile view of transactions
+
+### Changed
+
+- Edit splits in transaction sidebar
 
 ### Changed
 
