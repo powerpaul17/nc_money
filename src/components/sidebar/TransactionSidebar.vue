@@ -97,6 +97,11 @@
           class="
             grid grid-cols-2
           "
+          :class="
+            {
+              'border-t border-solid border-border-dark': splitsOfDestinationAccounts.length > 0
+            }
+          "
         >
           <div>
             <AccountSelect
