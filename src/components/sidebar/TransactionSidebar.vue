@@ -276,7 +276,7 @@
   });
 
   async function handleCloseSidebar(): Promise<void> {
-    await router.push({ name: 'account-view' });
+    await router.push({ name: 'account' });
   }
 
   async function handleDescriptionChanged(
