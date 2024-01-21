@@ -348,8 +348,12 @@
   }
 
   async function handleTransactionChanged(): Promise<void> {
-    if (transaction.value)
-      await transactionService.updateTransaction(transaction.value);
+    if (!transaction.value) return;
+
+    transaction.value.description = description.value;
+    transaction.value.date = date.value;
+
+    await transactionService.updateTransaction(transaction.value);
   }
 
   async function setSplitsOfTransactionIdWatcher(): Promise<void> {
