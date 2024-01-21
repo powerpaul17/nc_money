@@ -4,8 +4,8 @@ import AccountView from './views/AccountView.vue';
 import BookView from './views/BookView.vue';
 import AccountTypeView from './views/AccountTypeView.vue';
 import DashboardView from './views/DashboardView.vue';
-import Sidebar from './components/SidebarComponent.vue';
-import TransactionSidebar from './components/TransactionSidebar.vue';
+import Sidebar from './components/sidebar/SidebarComponent.vue';
+import TransactionSidebar from './components/sidebar/TransactionSidebar.vue';
 
 export default new VueRouter({
   linkActiveClass: 'active',
