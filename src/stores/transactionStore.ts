@@ -97,6 +97,26 @@ class TransactionStore {
     );
   }
 
+  public watchForId(
+    transactionId: number,
+    callback: (transaction: Transaction) => void
+  ): Promise<{
+    stop: () => void;
+  }> {
+    return watch(
+      this.transactionsTable,
+      {
+        where: {
+          id: transactionId
+        }
+      },
+      (transactions) => {
+        const transaction = transactions[0];
+        if (transaction) callback(transaction);
+      }
+    );
+  }
+
   public async insertTransactions(
     transactions: Array<Transaction>
   ): Promise<void> {
