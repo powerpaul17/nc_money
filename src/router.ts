@@ -53,8 +53,15 @@ export default new VueRouter({
             sidebar: TransactionSidebar
           },
           props: {
-            sidebar: (route) => {
+            sidebar: (
+              route
+            ): {
+              bookId: number;
+              transactionId: number;
+              accountId?: number;
+            } => {
               return {
+                bookId: Number(route.params.bookId),
                 transactionId: Number(route.params.transactionId),
                 accountId: Number(route.params.accountId)
               };
