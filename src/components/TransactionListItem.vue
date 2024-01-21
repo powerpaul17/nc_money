@@ -1,6 +1,9 @@
 <template>
   <div
-    class="overflow-hidden rounded-md transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
+    class="overflow-hidden rounded-md border-2 border-solid border-transparent transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
+    :class="{
+      'border-primary-element': isOpenInSidebar
+    }"
   >
     <TransactionListItemTemplate
       class="hidden md:grid"
