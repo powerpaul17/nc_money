@@ -3,6 +3,7 @@
     class="overflow-hidden rounded-md transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
   >
     <TransactionListItemTemplate
+      class="hidden md:grid"
       :item-class="{
         'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
       }"
@@ -67,10 +68,40 @@
         />
       </template>
     </TransactionListItemTemplate>
+
+    <MobileTransactionListItemTemplate
+      class="md:hidden"
+      :item-class="{
+        'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
+      }"
+      @click="handleToggleSidebar"
+    >
+      <template #content>
+        <div
+          class="flex flex-col items-start overflow-hidden whitespace-nowrap"
+        >
+          <div class="w-full overflow-hidden text-ellipsis">
+            {{ transaction.description }}
+          </div>
+          <div class="text-xs">
+            {{ dayjs(transaction.date).format('L') }}
+          </div>
+        </div>
+      </template>
+
+      <template #amount>
+        <CurrencyText
+          :value="value"
+          :inverted-value="invertedValue"
+        />
+      </template>
+    </MobileTransactionListItemTemplate>
   </div>
 </template>
 
 <script setup lang="ts">
+  import dayjs from 'dayjs';
+
   import {
     ref,
     type PropType,
@@ -94,10 +125,12 @@
   import { useSplitService } from '../services/splitService';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
+  import MobileTransactionListItemTemplate from './MobileTransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
+  import CurrencyText from './CurrencyText.vue';
 
   const router = useRouter();
   const route = useRoute();
@@ -212,6 +245,14 @@
     await router.push({
       name: 'account-view'
     });
+  }
+
+  async function handleToggleSidebar(): Promise<void> {
+    if (isOpenInSidebar.value) {
+      await handleCloseSidebar();
+    } else {
+      await handleOpenSidebar();
+    }
   }
 
   async function handleTransactionChanged(): Promise<void> {
