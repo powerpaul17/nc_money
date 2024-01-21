@@ -46,7 +46,11 @@
               <AccountSelect
                 :account-id="split.destAccountId"
                 :editable="editable"
-                :excluded-account-ids="excludedAccountIds.filter(accountId => accountId !== split.destAccountId)"
+                :excluded-account-ids="
+                  excludedAccountIds.filter(
+                    (accountId) => accountId !== split.destAccountId
+                  )
+                "
                 @account-changed="handleSplitAccountChanged(split, $event)"
               />
             </div>
@@ -76,7 +80,11 @@
               <AccountSelect
                 :account-id="split.destAccountId"
                 :editable="editable"
-                :excluded-account-ids="excludedAccountIds.filter(accountId => accountId !== split.destAccountId)"
+                :excluded-account-ids="
+                  excludedAccountIds.filter(
+                    (accountId) => accountId !== split.destAccountId
+                  )
+                "
                 @account-changed="handleSplitAccountChanged(split, $event)"
               />
             </div>
@@ -94,14 +102,11 @@
 
         <div
           v-if="isUnbalanced && editable"
-          class="
-            grid grid-cols-2
-          "
-          :class="
-            {
-              'border-t border-solid border-border-dark': splitsOfDestinationAccounts.length > 0
-            }
-          "
+          class="grid grid-cols-2"
+          :class="{
+            'border-t border-solid border-border-dark':
+              splitsOfDestinationAccounts.length > 0
+          }"
         >
           <div>
             <AccountSelect
@@ -126,15 +131,12 @@
 </template>
 
 <style scoped>
-
-h2 {
-  @apply border-b border-solid border-border-dark text-center pb-2;
-}
-
+  h2 {
+    @apply border-b border-solid border-border-dark text-center pb-2;
+  }
 </style>
 
 <script setup lang="ts">
-
   import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
 
@@ -154,7 +156,10 @@ h2 {
 
   import { useAccountStore } from '../../stores/accountStore';
 
-  import { useTransactionStore, type Transaction } from '../../stores/transactionStore';
+  import {
+    useTransactionStore,
+    type Transaction
+  } from '../../stores/transactionStore';
   import { useTransactionService } from '../../services/transactionService';
 
   import { useSplitStore, type Split } from '../../stores/splitStore';
@@ -162,8 +167,8 @@ h2 {
 
   import { AccountTypeUtils } from '../../utils/accountTypeUtils';
 
-  let splitsOfTransactionIdWatcher: { stop: () => void }|null = null;
-  let transactionIdWatcher: { stop: () => void }|null = null;
+  let splitsOfTransactionIdWatcher: { stop: () => void } | null = null;
+  let transactionIdWatcher: { stop: () => void } | null = null;
 
   const settingStore = useSettingStore();
 
@@ -194,13 +199,16 @@ h2 {
 
   const transaction: Ref<Transaction | null> = ref(null);
 
-  watch(() => props.transactionId, async () => {
-    removeTransactionIdWatcher();
-    await setTransactionIdWatcher();
+  watch(
+    () => props.transactionId,
+    async () => {
+      removeTransactionIdWatcher();
+      await setTransactionIdWatcher();
 
-    removeSplitsOfTransactionIdWatcher();
-    await setSplitsOfTransactionIdWatcher();
-  });
+      removeSplitsOfTransactionIdWatcher();
+      await setSplitsOfTransactionIdWatcher();
+    }
+  );
 
   onMounted(() => {
     void setTransactionIdWatcher();
@@ -215,18 +223,18 @@ h2 {
   const splits: Ref<Array<Split>> = ref([]);
 
   const newSplitValue: Ref<number> = ref(0.0);
-  const newSplitDestAccountId: Ref<number|null> = ref(null);
+  const newSplitDestAccountId: Ref<number | null> = ref(null);
 
   const splitsOfAccount = computed(() => {
-    return splits.value.filter(s => s.destAccountId === props.accountId);
+    return splits.value.filter((s) => s.destAccountId === props.accountId);
   });
 
   const splitsOfDestinationAccounts = computed(() => {
-    return splits.value.filter(s => s.destAccountId !== props.accountId);
+    return splits.value.filter((s) => s.destAccountId !== props.accountId);
   });
 
   const excludedAccountIds = computed(() => {
-    return splits.value.map(s => s.destAccountId);
+    return splits.value.map((s) => s.destAccountId);
   });
 
   const account = computed(() => {
@@ -234,9 +242,11 @@ h2 {
   });
 
   const isInvertedAccount = computed(() => {
-    return !!account.value &&
+    return (
+      !!account.value &&
       settingStore.useInvertedAccounts.value &&
-      AccountTypeUtils.isInvertedAccount(account.value.type);
+      AccountTypeUtils.isInvertedAccount(account.value.type)
+    );
   });
 
   const unbalancedValue = computed(() => {
@@ -265,7 +275,10 @@ h2 {
     await handleTransactionChanged();
   }
 
-  async function handleSplitAccountChanged(split: Split, accountId?: number): Promise<void> {
+  async function handleSplitAccountChanged(
+    split: Split,
+    accountId?: number
+  ): Promise<void> {
     if (accountId) {
       split.destAccountId = accountId;
       await handleSplitChanged(split);
@@ -274,12 +287,17 @@ h2 {
     }
   }
 
-  async function handleSplitValueChanged(split: Split, value: number): Promise<void> {
+  async function handleSplitValueChanged(
+    split: Split,
+    value: number
+  ): Promise<void> {
     split.value = value;
     await handleSplitChanged(split);
   }
 
-  async function handleNewSplitDestinationAccountIdChanged(accountId?: number): Promise<void> {
+  async function handleNewSplitDestinationAccountIdChanged(
+    accountId?: number
+  ): Promise<void> {
     newSplitDestAccountId.value = accountId ?? null;
     await createNewSplitIfPossible();
   }
@@ -339,5 +357,4 @@ h2 {
     transactionIdWatcher?.stop();
     transactionIdWatcher = null;
   }
-
 </script>
