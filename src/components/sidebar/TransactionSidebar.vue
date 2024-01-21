@@ -1,7 +1,6 @@
 <template>
   <NcAppSidebar
-    v-if="!!transaction"
-    :title="transaction.description"
+    :title="description"
     @close="handleCloseSidebar"
   >
     <NcAppSidebarTab
@@ -15,7 +14,7 @@
 
         <div>
           <SeamlessInput
-            :value="transaction.description"
+            :value="description"
             :placeholder="t('money', 'Description')"
             :label="t('money', 'Description')"
             :disabled="!editable"
@@ -25,7 +24,7 @@
 
         <div>
           <DateInput
-            :date="transaction.date"
+            :date="date"
             :placeholder="t('money', 'Date')"
             :label="t('money', 'Date')"
             :editable="editable"
@@ -206,6 +205,9 @@
 
   const transaction: Ref<Transaction | null> = ref(null);
 
+  const description = ref('');
+  const date = ref(new Date());
+
   watch(
     () => props.transactionId,
     async () => {
@@ -216,6 +218,11 @@
       await setSplitsOfTransactionIdWatcher();
     }
   );
+
+  watch(transaction, () => {
+    description.value = transaction.value?.description ?? '';
+    date.value = transaction.value?.date ?? new Date();
+  });
 
   onMounted(() => {
     void setTransactionIdWatcher();
@@ -272,13 +279,15 @@
     await router.push({ name: 'account-view' });
   }
 
-  async function handleDescriptionChanged(description: string): Promise<void> {
-    transaction.value!.description = description;
+  async function handleDescriptionChanged(
+    newDescription: string
+  ): Promise<void> {
+    description.value = newDescription;
     await handleTransactionChanged();
   }
 
-  async function handleDateChanged(date: Date): Promise<void> {
-    transaction.value!.date = date;
+  async function handleDateChanged(newDate: Date): Promise<void> {
+    date.value = newDate;
     await handleTransactionChanged();
   }
 
