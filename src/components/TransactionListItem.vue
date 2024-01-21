@@ -57,7 +57,12 @@
       </template>
 
       <template #actionLast>
+        <Close
+          v-if="isOpenInSidebar"
+          @click="handleCloseSidebar"
+        />
         <MenuOpen
+          v-else
           @click="handleOpenSidebar"
         />
       </template>
@@ -74,9 +79,10 @@
     onMounted,
     onUnmounted
   } from 'vue';
-  import { useRouter } from 'vue2-helpers/vue-router';
+  import { useRouter, useRoute } from 'vue2-helpers/vue-router';
 
   import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
+  import Close from 'vue-material-design-icons/Close.vue';
 
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
 
@@ -94,6 +100,7 @@
   import DateInput from './DateInput.vue';
 
   const router = useRouter();
+  const route = useRoute();
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
@@ -186,12 +193,24 @@
     }
   });
 
+  const isOpenInSidebar = computed(() => {
+    return (
+      route.params.transactionId?.toString() === props.transaction.id.toString()
+    );
+  });
+
   async function handleOpenSidebar(): Promise<void> {
     await router.push({
       name: 'transaction-details',
       params: {
         transactionId: props.transaction.id.toString()
       }
+    });
+  }
+
+  async function handleCloseSidebar(): Promise<void> {
+    await router.push({
+      name: 'account-view'
     });
   }
 
