@@ -347,6 +347,11 @@
   }
 
   async function setSplitsOfTransactionIdWatcher(): Promise<void> {
+    if (!props.transactionId) {
+      splits.value = [];
+      return;
+    }
+
     splitsOfTransactionIdWatcher = await splitStore.watchForTransactionId(
       props.transactionId,
       (s) => {
@@ -361,6 +366,11 @@
   }
 
   async function setTransactionIdWatcher(): Promise<void> {
+    if (!props.transactionId) {
+      transaction.value = null;
+      return;
+    }
+
     transactionIdWatcher = await transactionStore.watchForId(
       props.transactionId,
       (t) => {
