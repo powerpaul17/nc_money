@@ -53,6 +53,10 @@ class SplitStore {
       {
         where: {
           transactionId: transactionId
+        },
+        sort: {
+          key: 'id',
+          order: 'asc'
         }
       },
       callback
