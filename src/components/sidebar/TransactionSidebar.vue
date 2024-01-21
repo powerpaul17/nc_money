@@ -89,7 +89,7 @@
                 :value="split.value"
                 :editable="editable"
                 :placeholder="t('money', 'Value')"
-                :inverted-value="!isInvertedAccount"
+                :inverted-value="isInvertedAccount"
                 @value-changed="handleSplitValueChanged(split, $event)"
               />
             </div>
