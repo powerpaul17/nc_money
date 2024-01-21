@@ -57,7 +57,9 @@
       </template>
 
       <template #actionLast>
-        <DotsHorizontal @click="handleOpenSidebar" />
+        <MenuOpen
+          @click="handleOpenSidebar"
+        />
       </template>
     </TransactionListItemTemplate>
   </div>
@@ -74,7 +76,7 @@
   } from 'vue';
   import { useRouter } from 'vue2-helpers/vue-router';
 
-  import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
+  import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
 
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
 
