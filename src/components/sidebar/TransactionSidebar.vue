@@ -11,6 +11,28 @@
       :order="1"
     >
       <div>
+        <h2>{{ t('money', 'Properties') }}</h2>
+
+        <div>
+          <SeamlessInput
+            :value="transaction.description"
+            :placeholder="t('money', 'Description')"
+            :label="t('money', 'Description')"
+            @value-changed="handleDescriptionChanged"
+          />
+        </div>
+
+        <div>
+          <DateInput
+            :date="transaction.date"
+            :placeholder="t('money', 'Date')"
+            :label="t('money', 'Date')"
+            @date-changed="handleDateChanged"
+          />
+        </div>
+      </div>
+
+      <div>
         <h2>{{ t('money', 'Splits') }}</h2>
 
         <div
@@ -82,10 +104,13 @@ h2 {
   import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar';
   import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab';
 
+  import DateInput from '../DateInput.vue';
   import AccountSelect from '../AccountSelect.vue';
   import CurrencyInput from '../CurrencyInput.vue';
+  import SeamlessInput from '../SeamlessInput.vue';
 
   import { useTransactionStore, type Transaction } from '../../stores/transactionStore';
+  import { useTransactionService } from '../../services/transactionService';
 
   import { useSplitStore, type Split } from '../../stores/splitStore';
   import { useSplitService } from '../../services/splitService';
@@ -94,6 +119,7 @@ h2 {
   let transactionIdWatcher: { stop: () => void }|null = null;
 
   const transactionStore = useTransactionStore();
+  const transactionService = useTransactionService();
 
   const splitStore = useSplitStore();
   const splitService = useSplitService();
@@ -144,6 +170,16 @@ h2 {
     router.push({ name: 'account-view' });
   }
 
+  async function handleDescriptionChanged(description: string): Promise<void> {
+    transaction.value!.description = description;
+    await handleTransactionChanged();
+  }
+
+  async function handleDateChanged(date: Date): Promise<void> {
+    transaction.value!.date = date;
+    await handleTransactionChanged();
+  }
+
   async function handleSplitAccountChanged(split: Split, accountId?: number) {
     if (accountId) {
       split.destAccountId = accountId;
@@ -160,6 +196,10 @@ h2 {
 
   async function handleSplitChanged(split: Split) {
     await splitService.updateSplit(split);
+  }
+
+  async function handleTransactionChanged(): Promise<void> {
+    await transactionService.updateTransaction(transaction.value!);
   }
 
   async function setSplitsOfTransactionIdWatcher() {
