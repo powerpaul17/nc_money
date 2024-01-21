@@ -55,6 +55,7 @@
                 :value="split.value"
                 :editable="editable"
                 :placeholder="t('money', 'Value')"
+                :inverted-value="isInvertedAccount"
                 @value-changed="handleSplitValueChanged(split, $event)"
               />
             </div>
@@ -84,6 +85,7 @@
                 :value="split.value"
                 :editable="editable"
                 :placeholder="t('money', 'Value')"
+                :inverted-value="!isInvertedAccount"
                 @value-changed="handleSplitValueChanged(split, $event)"
               />
             </div>
@@ -117,14 +119,24 @@ h2 {
   import CurrencyInput from '../CurrencyInput.vue';
   import SeamlessInput from '../SeamlessInput.vue';
 
+  import { useSettingStore } from '../../stores/settingStore';
+
+  import { useAccountStore } from '../../stores/accountStore';
+
   import { useTransactionStore, type Transaction } from '../../stores/transactionStore';
   import { useTransactionService } from '../../services/transactionService';
 
   import { useSplitStore, type Split } from '../../stores/splitStore';
   import { useSplitService } from '../../services/splitService';
 
+  import { AccountTypeUtils } from '../../utils/accountTypeUtils';
+
   let splitsOfTransactionIdWatcher: { stop: () => void }|null = null;
   let transactionIdWatcher: { stop: () => void }|null = null;
+
+  const settingStore = useSettingStore();
+
+  const accountStore = useAccountStore();
 
   const transactionStore = useTransactionStore();
   const transactionService = useTransactionService();
@@ -181,6 +193,16 @@ h2 {
 
   const excludedAccountIds = computed(() => {
     return splits.value.map(s => s.destAccountId);
+  });
+
+  const account = computed(() => {
+    return accountStore.getById(props.accountId);
+  });
+
+  const isInvertedAccount = computed(() => {
+    return !!account.value &&
+      settingStore.useInvertedAccounts.value &&
+      AccountTypeUtils.isInvertedAccount(account.value.type);
   });
 
   async function handleCloseSidebar(): Promise<void> {
