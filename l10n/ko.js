@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Money" : "돈",
     "Name" : "이름",
     "Description" : "설명",
     "Overview" : "개요",
