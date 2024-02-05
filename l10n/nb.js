@@ -29,6 +29,7 @@ OC.L10N.register(
     "Comment" : "Kommentar",
     "Multiple Accounts" : "Flere kontoer",
     "Assets" : "Ressurser",
+    "Books" : "Bøker",
     "Settings saved" : "Innstillinger lagret",
     "Liabilities" : "Forpliktelser",
     "Income" : "Inntekt",
