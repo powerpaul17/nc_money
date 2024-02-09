@@ -1,5 +1,5 @@
 <template>
-  <label class="flex flex-col items-baseline">
+  <label class="flex flex-auto flex-col items-baseline">
     {{ label }}
     <input
       class="w-full overflow-hidden text-ellipsis border-transparent bg-inherit hover:border-primary-element focus:border-primary-element disabled:text-text-maxcontrast disabled:hover:border-transparent"
