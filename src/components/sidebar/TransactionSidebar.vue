@@ -72,6 +72,13 @@
               :inverted-value="isInvertedAccount"
               @value-changed="handleNewSplitValueChanged"
             />
+            <div class="col-span-2">
+              <SeamlessInput
+                :value="newSplitDescription"
+                :placeholder="t('money', 'Description')"
+                @value-changed="handleNewSplitDescriptionChanged"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -184,6 +191,7 @@
 
   const newSplitValue: Ref<number> = ref(0.0);
   const newSplitDestAccountId: Ref<number | null> = ref(null);
+  const newSplitDescription: Ref<string> = ref('');
 
   const splitsOfAccount = computed(() => {
     return splits.value.filter((s) => s.destAccountId === props.accountId);
@@ -237,6 +245,13 @@
     await handleTransactionChanged();
   }
 
+  async function handleNewSplitDescriptionChanged(
+    description: string
+  ): Promise<void> {
+    newSplitDescription.value = description;
+    await createNewSplitIfPossible();
+  }
+
   async function handleNewSplitDestinationAccountIdChanged(
     accountId?: number
   ): Promise<void> {
@@ -262,11 +277,12 @@
       destAccountId: newSplitDestAccountId.value,
       value: newSplitValue.value,
       convertRate: 1.0,
-      description: ''
+      description: newSplitDescription.value
     });
 
     newSplitValue.value = 0.0;
     newSplitDestAccountId.value = null;
+    newSplitDescription.value = '';
   }
 
   async function handleTransactionChanged(): Promise<void> {

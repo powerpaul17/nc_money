@@ -18,6 +18,13 @@
       :inverted-value="invertedValue"
       @value-changed="handleSplitValueChanged(split, $event)"
     />
+    <div class="col-span-2">
+      <SeamlessInput
+        :value="split.description"
+        :placeholder="t('money', 'Description')"
+        @value-changed="handleSplitDescriptionChanged(split, $event)"
+      />
+    </div>
   </div>
 </template>
 
@@ -26,6 +33,7 @@
 
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
+  import SeamlessInput from './SeamlessInput.vue';
 
   import type { Split } from '../stores/splitStore';
   import { useSplitService } from '../services/splitService';
@@ -72,6 +80,14 @@
     value: number
   ): Promise<void> {
     split.value = value;
+    await handleSplitChanged(split);
+  }
+
+  async function handleSplitDescriptionChanged(
+    split: Split,
+    description: string
+  ): Promise<void> {
+    split.description = description;
     await handleSplitChanged(split);
   }
 

@@ -43,6 +43,13 @@
             :inverted-value="isInvertedAccount"
             @value-changed="handleValueChanged"
           />
+          <div class="col-span-2">
+            <SeamlessInput
+              :value="sourceSplitDescription"
+              :placeholder="t('money', 'Description')"
+              @value-changed="handleSourceSplitDescriptionChanged"
+            />
+          </div>
         </div>
 
         <div class="grid grid-cols-2 border-t border-solid border-border-dark">
@@ -58,6 +65,13 @@
             :inverted-value="isInvertedAccount"
             @value-changed="handleDestinationValueChanged"
           />
+          <div class="col-span-2">
+            <SeamlessInput
+              :value="destSplitDescription"
+              :placeholder="t('money', 'Description')"
+              @value-changed="handleDestSplitDescriptionChanged"
+            />
+          </div>
         </div>
       </div>
 
@@ -136,6 +150,9 @@
 
   const newDestAccountId: Ref<number | null> = ref(null);
 
+  const sourceSplitDescription = ref('');
+  const destSplitDescription = ref('');
+
   const account = computed(() => {
     return accountStore.getById(props.accountId);
   });
@@ -172,6 +189,14 @@
     value.value = -newValue;
   }
 
+  function handleSourceSplitDescriptionChanged(description: string): void {
+    sourceSplitDescription.value = description;
+  }
+
+  function handleDestSplitDescriptionChanged(description: string): void {
+    destSplitDescription.value = description;
+  }
+
   async function handleCreateTransaction(): Promise<void> {
     const result = await transactionService.addTransactionWithSplits({
       description: description.value,
@@ -179,11 +204,15 @@
       convertRate: 1.0,
       srcAccountId: props.accountId,
       destAccountId: newDestAccountId.value,
-      value: -value.value
+      value: -value.value,
+      srcSplitComment: sourceSplitDescription.value,
+      destSplitComment: destSplitDescription.value
     });
 
     value.value = 0.0;
     description.value = '';
+    sourceSplitDescription.value = '';
+    destSplitDescription.value = '';
 
     await router.push({
       name: 'transaction-details',
