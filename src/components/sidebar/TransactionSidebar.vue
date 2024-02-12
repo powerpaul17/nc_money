@@ -35,7 +35,7 @@
         <div>
           <SplitInput
             v-for="split of splitsOfAccount"
-            class="border-t border-solid border-border-dark first:border-t-0"
+            class="my-2 border-t border-solid border-border-dark first:border-t-0"
             :key="split.id"
             :book-id="bookId"
             :split="split"
@@ -46,7 +46,7 @@
 
           <SplitInput
             v-for="split of splitsOfDestinationAccounts"
-            class="border-t border-solid border-border-dark first:border-t-0"
+            class="my-2 border-t border-solid border-border-dark first:border-t-0"
             :key="split.id"
             :book-id="bookId"
             :split="split"
