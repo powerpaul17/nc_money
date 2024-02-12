@@ -32,79 +32,37 @@
       <div>
         <h2>{{ t('money', 'Splits') }}</h2>
 
-        <div
-          v-for="split of splitsOfAccount"
-          :key="split.id"
-        >
-          <div class="grid grid-cols-2">
-            <div>
-              <AccountSelect
-                :book-id="bookId"
-                :account-id="split.destAccountId"
-                :editable="editable"
-                :excluded-account-ids="
-                  excludedAccountIds.filter(
-                    (accountId) => accountId !== split.destAccountId
-                  )
-                "
-                @account-changed="handleSplitAccountChanged(split, $event)"
-              />
-            </div>
-            <div>
-              <CurrencyInput
-                :value="split.value"
-                :editable="editable"
-                :placeholder="t('money', 'Value')"
-                :inverted-value="isInvertedAccount"
-                @value-changed="handleSplitValueChanged(split, $event)"
-              />
-            </div>
-          </div>
-        </div>
+        <div>
+          <SplitInput
+            v-for="split of splitsOfAccount"
+            :key="split.id"
+            :book-id="bookId"
+            :split="split"
+            :excluded-account-ids="excludedAccountIds"
+            :editable="editable"
+            :inverted-value="isInvertedAccount"
+          />
 
-        <div
-          v-for="split of splitsOfDestinationAccounts"
-          :key="split.id"
-        >
-          <div class="grid grid-cols-2">
-            <div>
-              <AccountSelect
-                :book-id="bookId"
-                :account-id="split.destAccountId"
-                :editable="editable"
-                :excluded-account-ids="
-                  excludedAccountIds.filter(
-                    (accountId) => accountId !== split.destAccountId
-                  )
-                "
-                @account-changed="handleSplitAccountChanged(split, $event)"
-              />
-            </div>
-            <div>
-              <CurrencyInput
-                :value="split.value"
-                :editable="editable"
-                :placeholder="t('money', 'Value')"
-                :inverted-value="isInvertedAccount"
-                @value-changed="handleSplitValueChanged(split, $event)"
-              />
-            </div>
-          </div>
-        </div>
+          <SplitInput
+            v-for="split of splitsOfDestinationAccounts"
+            :key="split.id"
+            :book-id="bookId"
+            :split="split"
+            :excluded-account-ids="excludedAccountIds"
+            :editable="editable"
+            :inverted-value="isInvertedAccount"
+          />
 
-        <div
-          v-if="isUnbalanced && editable"
-          class="grid grid-cols-2"
-        >
-          <div>
+          <div
+            v-if="isUnbalanced && editable"
+            class="grid grid-cols-2"
+          >
             <AccountSelect
               :book-id="bookId"
               :account-id="newSplitDestAccountId"
               :excluded-account-ids="excludedAccountIds"
               @account-changed="handleNewSplitDestinationAccountIdChanged"
             />
-          </div>
-          <div>
             <CurrencyInput
               :value="-unbalancedValue"
               :editable="false"
@@ -136,6 +94,7 @@
   import AccountSelect from '../AccountSelect.vue';
   import CurrencyInput from '../CurrencyInput.vue';
   import SeamlessInput from '../SeamlessInput.vue';
+  import SplitInput from '../SplitInput.vue';
 
   import { NumberUtils } from '../../utils/numberUtils';
 
@@ -276,26 +235,6 @@
     await handleTransactionChanged();
   }
 
-  async function handleSplitAccountChanged(
-    split: Split,
-    accountId?: number
-  ): Promise<void> {
-    if (accountId) {
-      split.destAccountId = accountId;
-      await handleSplitChanged(split);
-    } else {
-      await splitService.deleteSplit(split);
-    }
-  }
-
-  async function handleSplitValueChanged(
-    split: Split,
-    value: number
-  ): Promise<void> {
-    split.value = value;
-    await handleSplitChanged(split);
-  }
-
   async function handleNewSplitDestinationAccountIdChanged(
     accountId?: number
   ): Promise<void> {
@@ -326,10 +265,6 @@
 
     newSplitValue.value = 0.0;
     newSplitDestAccountId.value = null;
-  }
-
-  async function handleSplitChanged(split: Split): Promise<void> {
-    await splitService.updateSplit(split);
   }
 
   async function handleTransactionChanged(): Promise<void> {
