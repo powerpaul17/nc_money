@@ -13,63 +13,51 @@
       <div>
         <h2>{{ t('money', 'Properties') }}</h2>
 
-        <div>
-          <SeamlessInput
-            :value="description"
-            :placeholder="t('money', 'Description')"
-            :label="t('money', 'Description')"
-            @value-changed="handleDescriptionChanged"
-          />
-        </div>
+        <SeamlessInput
+          :value="description"
+          :placeholder="t('money', 'Description')"
+          :label="t('money', 'Description')"
+          @value-changed="handleDescriptionChanged"
+        />
 
-        <div>
-          <DateInput
-            :date="date"
-            :placeholder="t('money', 'Date')"
-            :label="t('money', 'Date')"
-            @date-changed="handleDateChanged"
-          />
-        </div>
+        <DateInput
+          :date="date"
+          :placeholder="t('money', 'Date')"
+          :label="t('money', 'Date')"
+          @date-changed="handleDateChanged"
+        />
       </div>
 
       <div>
         <h2>{{ t('money', 'Splits') }}</h2>
 
         <div class="grid grid-cols-2">
-          <div>
-            <AccountSelect
-              :book-id="bookId"
-              :account-id="accountId"
-              :editable="false"
-            />
-          </div>
-          <div>
-            <CurrencyInput
-              :value="value"
-              :placeholder="t('money', 'Value')"
-              :inverted-value="isInvertedAccount"
-              @value-changed="handleValueChanged"
-            />
-          </div>
+          <AccountSelect
+            :book-id="bookId"
+            :account-id="accountId"
+            :editable="false"
+          />
+          <CurrencyInput
+            :value="value"
+            :placeholder="t('money', 'Value')"
+            :inverted-value="isInvertedAccount"
+            @value-changed="handleValueChanged"
+          />
         </div>
 
         <div class="grid grid-cols-2">
-          <div>
-            <AccountSelect
-              :book-id="bookId"
-              :account-id="newDestAccountId"
-              :excluded-account-ids="[accountId]"
-              @account-changed="handleDestinationAccountIdChanged"
-            />
-          </div>
-          <div>
-            <CurrencyInput
-              :value="-value"
-              :placeholder="t('money', 'Value')"
-              :inverted-value="isInvertedAccount"
-              @value-changed="handleDestinationValueChanged"
-            />
-          </div>
+          <AccountSelect
+            :book-id="bookId"
+            :account-id="newDestAccountId"
+            :excluded-account-ids="[accountId]"
+            @account-changed="handleDestinationAccountIdChanged"
+          />
+          <CurrencyInput
+            :value="-value"
+            :placeholder="t('money', 'Value')"
+            :inverted-value="isInvertedAccount"
+            @value-changed="handleDestinationValueChanged"
+          />
         </div>
       </div>
 

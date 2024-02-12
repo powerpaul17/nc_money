@@ -12,25 +12,21 @@
       <div>
         <h2>{{ t('money', 'Properties') }}</h2>
 
-        <div>
-          <SeamlessInput
-            :value="description"
-            :placeholder="t('money', 'Description')"
-            :label="t('money', 'Description')"
-            :disabled="!editable"
-            @value-changed="handleDescriptionChanged"
-          />
-        </div>
+        <SeamlessInput
+          :value="description"
+          :placeholder="t('money', 'Description')"
+          :label="t('money', 'Description')"
+          :disabled="!editable"
+          @value-changed="handleDescriptionChanged"
+        />
 
-        <div>
-          <DateInput
-            :date="date"
-            :placeholder="t('money', 'Date')"
-            :label="t('money', 'Date')"
-            :editable="editable"
-            @date-changed="handleDateChanged"
-          />
-        </div>
+        <DateInput
+          :date="date"
+          :placeholder="t('money', 'Date')"
+          :label="t('money', 'Date')"
+          :editable="editable"
+          @date-changed="handleDateChanged"
+        />
       </div>
 
       <div>
