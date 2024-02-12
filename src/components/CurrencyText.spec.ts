@@ -6,7 +6,6 @@ import { resetSettingStore, useSettingStore } from '../stores/settingStore';
 import CurrencyText from './CurrencyText.vue';
 
 describe('CurrencyText', () => {
-
   it('should render correct amount of decimals', async () => {
     const { container, updateProps } = setupEnvironment({
       props: {
@@ -116,8 +115,8 @@ describe('CurrencyText', () => {
   });
 
   function setupEnvironment(renderOptions: RenderOptions<CurrencyText>): {
-    container: Element,
-    updateProps: (props: Object) => Promise<void>
+    container: Element;
+    updateProps: (props: Object) => Promise<void>;
   } {
     const renderResult = render(CurrencyText, renderOptions);
 
@@ -126,5 +125,4 @@ describe('CurrencyText', () => {
       updateProps: renderResult.updateProps.bind(undefined)
     };
   }
-
 });
