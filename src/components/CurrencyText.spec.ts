@@ -13,19 +13,19 @@ describe('CurrencyText', () => {
       }
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('0.12');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('0.12');
 
     await updateProps({
       value: 0.1
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('0.10');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('0.10');
 
     await updateProps({
       value: 0.195
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('0.20');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('0.20');
   });
 
   it('should use correct decimal separator', () => {
@@ -38,7 +38,7 @@ describe('CurrencyText', () => {
       }
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('0,12');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('0,12');
   });
 
   it('should group digits correctly', async () => {
@@ -50,19 +50,21 @@ describe('CurrencyText', () => {
       }
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('1 234.00');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('1 234.00');
 
     await updateProps({
       value: 123456
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('123 456.00');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('123 456.00');
 
     await updateProps({
       value: -123456
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('-123 456.00');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal(
+      '-123 456.00'
+    );
 
     settingStore.numberFormat_groupBy.value = 2;
 
@@ -70,7 +72,9 @@ describe('CurrencyText', () => {
       value: 123456
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('12 34 56.00');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal(
+      '12 34 56.00'
+    );
   });
 
   it('should use correct group separator', () => {
@@ -84,7 +88,7 @@ describe('CurrencyText', () => {
       }
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('1.234,00');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('1.234,00');
   });
 
   it('should show inverted values if enabled', async () => {
@@ -95,19 +99,19 @@ describe('CurrencyText', () => {
       }
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('123.46');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('123.46');
 
     await updateProps({
       value: 123.456
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('-123.46');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('-123.46');
 
     await updateProps({
       value: 0.0
     });
 
-    expect(container.firstChild?.textContent).to.be.equal('0.00');
+    expect(container.firstChild?.textContent?.trim()).to.be.equal('0.00');
   });
 
   afterEach(() => {
