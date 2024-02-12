@@ -45,7 +45,7 @@
           />
         </div>
 
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 border-t border-solid border-border-dark">
           <AccountSelect
             :book-id="bookId"
             :account-id="newDestAccountId"

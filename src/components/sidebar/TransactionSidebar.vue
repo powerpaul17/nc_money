@@ -35,6 +35,7 @@
         <div>
           <SplitInput
             v-for="split of splitsOfAccount"
+            class="border-t border-solid border-border-dark first:border-t-0"
             :key="split.id"
             :book-id="bookId"
             :split="split"
@@ -45,6 +46,7 @@
 
           <SplitInput
             v-for="split of splitsOfDestinationAccounts"
+            class="border-t border-solid border-border-dark first:border-t-0"
             :key="split.id"
             :book-id="bookId"
             :split="split"
@@ -55,7 +57,7 @@
 
           <div
             v-if="isUnbalanced && editable"
-            class="grid grid-cols-2"
+            class="grid grid-cols-2 border-t border-solid border-border-dark first:border-t-0"
           >
             <AccountSelect
               :book-id="bookId"
