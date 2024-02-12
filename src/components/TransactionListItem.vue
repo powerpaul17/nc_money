@@ -1,17 +1,19 @@
 <template>
   <div
-    class="overflow-hidden rounded-md transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
+    class="overflow-hidden rounded-md border-2 border-solid border-transparent transition-all focus-within:bg-background-hover focus-within:shadow-md hover:bg-background-hover hover:shadow-md dark:bg-background-dark"
+    :class="{
+      'border-primary-element': isOpenInSidebar
+    }"
   >
     <TransactionListItemTemplate
+      class="hidden md:grid"
       :item-class="{
         'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
       }"
     >
       <template #actionFirst>
-        <div @click="toggleSplits">
+        <div>
           <NcLoadingIcon v-if="isLoading" />
-          <ChevronDown v-else-if="transaction.showSplits" />
-          <ChevronRight v-else />
         </div>
       </template>
 
@@ -57,35 +59,52 @@
           @value-changed="handleValueChanged"
         />
       </template>
+
+      <template #actionLast>
+        <Close
+          v-if="isOpenInSidebar"
+          @click="handleCloseSidebar"
+        />
+        <MenuOpen
+          v-else
+          @click="handleOpenSidebar"
+        />
+      </template>
     </TransactionListItemTemplate>
-    <div
-      v-if="transaction.showSplits"
-      class="bg-gray-100 shadow-inner dark:bg-background-darker"
+
+    <MobileTransactionListItemTemplate
+      class="md:hidden"
+      :item-class="{
+        'bg-unbalanced dark:bg-unbalanced-dark': isUnbalanced
+      }"
+      @click="handleToggleSidebar"
     >
-      <SplitListItem
-        v-for="split in splits"
-        :key="split.id"
-        :book-id="bookId"
-        :split="split"
-        :excluded-account-ids="
-          excludedSplitAccountIds.filter((aId) => aId !== split.destAccountId)
-        "
-        :inverted-value="invertedValue"
-        @split-deleted="handleSplitDeleted"
-      />
-      <NewSplitInput
-        v-if="isUnbalanced"
-        :book-id="bookId"
-        :transaction-id="transaction.id"
-        :excluded-account-ids="excludedSplitAccountIds"
-        :initial-value="-unbalancedValue"
-        :inverted-value="invertedValue"
-      />
-    </div>
+      <template #content>
+        <div
+          class="flex flex-col items-start overflow-hidden whitespace-nowrap"
+        >
+          <div class="w-full overflow-hidden text-ellipsis">
+            {{ transaction.description }}
+          </div>
+          <div class="text-xs">
+            {{ dayjs(transaction.date).format('L') }}
+          </div>
+        </div>
+      </template>
+
+      <template #amount>
+        <CurrencyText
+          :value="value"
+          :inverted-value="invertedValue"
+        />
+      </template>
+    </MobileTransactionListItemTemplate>
   </div>
 </template>
 
 <script setup lang="ts">
+  import dayjs from 'dayjs';
+
   import {
     ref,
     type PropType,
@@ -94,9 +113,10 @@
     onMounted,
     onUnmounted
   } from 'vue';
+  import { useRouter, useRoute } from 'vue2-helpers/vue-router';
 
-  import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
-  import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
+  import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
+  import Close from 'vue-material-design-icons/Close.vue';
 
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
 
@@ -108,12 +128,15 @@
   import { useSplitService } from '../services/splitService';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
-  import SplitListItem from './SplitListItem.vue';
+  import MobileTransactionListItemTemplate from './MobileTransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
-  import NewSplitInput from './NewSplitInput.vue';
   import SeamlessInput from './SeamlessInput.vue';
   import DateInput from './DateInput.vue';
+  import CurrencyText from './CurrencyText.vue';
+
+  const router = useRouter();
+  const route = useRoute();
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
@@ -187,7 +210,7 @@
   });
 
   const valueIsEditable = computed(() => {
-    return !props.transaction.showSplits && !hasMultipleDestinationSplits.value;
+    return !hasMultipleDestinationSplits.value;
   });
 
   const unbalancedValue = computed(() => {
@@ -206,12 +229,33 @@
     }
   });
 
-  const excludedSplitAccountIds = computed(() => {
-    return splits.value.map((s) => s.destAccountId);
+  const isOpenInSidebar = computed(() => {
+    return (
+      route.params.transactionId?.toString() === props.transaction.id.toString()
+    );
   });
 
-  function toggleSplits(): void {
-    props.transaction.showSplits = !props.transaction.showSplits;
+  async function handleOpenSidebar(): Promise<void> {
+    await router.push({
+      name: 'transaction-details',
+      params: {
+        transactionId: props.transaction.id.toString()
+      }
+    });
+  }
+
+  async function handleCloseSidebar(): Promise<void> {
+    await router.push({
+      name: 'account'
+    });
+  }
+
+  async function handleToggleSidebar(): Promise<void> {
+    if (isOpenInSidebar.value) {
+      await handleCloseSidebar();
+    } else {
+      await handleOpenSidebar();
+    }
   }
 
   async function handleTransactionChanged(): Promise<void> {

@@ -32,7 +32,7 @@
           </template>
         </CurrencyText>
       </div>
-      <div class="grow-0">
+      <div class="flex grow-0">
         <NcActions>
           <NcActionButton @click="() => (showImportTransactionsDialog = true)">
             <template #icon>
@@ -41,6 +41,16 @@
             {{ t('money', 'Import transactions') }}
           </NcActionButton>
         </NcActions>
+
+        <NcButton
+          class="ml-2 md:hidden"
+          type="primary"
+          :to="{ name: 'new-transaction' }"
+        >
+          <template #icon>
+            <Plus :size="20" />
+          </template>
+        </NcButton>
       </div>
     </div>
 
@@ -65,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, type PropType } from 'vue';
+  import { ref, type PropType, computed } from 'vue';
 
   import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
@@ -83,9 +93,10 @@
 
   import NcActions from '@nextcloud/vue/dist/Components/NcActions';
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
+  import NcButton from '@nextcloud/vue/dist/Components/NcButton';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
-  import { computed } from 'vue';
+  import Plus from 'vue-material-design-icons/Plus.vue';
 
   const accountStore = useAccountStore();
   const accountService = useAccountService();
