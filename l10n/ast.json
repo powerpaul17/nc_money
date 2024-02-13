@@ -1,8 +1,8 @@
 { "translations": {
     "Name" : "Nome",
     "Description" : "Descripción",
-    "Value" : "Valor",
     "Date" : "Data",
+    "Value" : "Valor",
     "Comment" : "Comentariu"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

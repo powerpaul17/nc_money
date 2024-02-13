@@ -7,8 +7,8 @@ OC.L10N.register(
     "Overview" : "Oversyn",
     "Delete account" : "Delete account",
     "Add account" : "Legg til konto",
-    "Value" : "Verdi",
     "Date" : "Dato",
+    "Value" : "Verdi",
     "Import" : "Importer",
     "Comment" : "Kommentér"
 },

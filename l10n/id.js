@@ -7,8 +7,8 @@ OC.L10N.register(
     "Delete account" : "Delete account",
     "Are you sure?" : "Apakah Anda yakin?",
     "Add account" : "Tambah akun",
-    "Value" : "Nilari",
     "Date" : "Date",
+    "Value" : "Nilari",
     "Import" : "Impor",
     "Comment" : "Komentar",
     "Settings saved" : "Setelan tersimpan"

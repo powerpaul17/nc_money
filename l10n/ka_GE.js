@@ -6,8 +6,8 @@ OC.L10N.register(
     "Overview" : "ზოგადი მიმოხილვა",
     "Delete account" : "ანგარიშის გაუქმება",
     "Add account" : "ანგარიშის დამატება",
-    "Value" : "მნიშვნელობა",
     "Date" : "თარიღი",
+    "Value" : "მნიშვნელობა",
     "Import" : "იმპორტი",
     "Comment" : "კომენტარი",
     "Settings saved" : "პარამეტრები შენახულია"

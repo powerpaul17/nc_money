@@ -6,8 +6,8 @@ OC.L10N.register(
     "Overview" : "Generalidades",
     "Delete account" : "Borrar cuenta",
     "Add account" : "Agregar cuenta",
-    "Value" : "Valor",
     "Date" : "Fecha",
+    "Value" : "Valor",
     "Import" : "Importar",
     "Comment" : "Comentario",
     "Settings saved" : "Se han guardado las configuraciones "

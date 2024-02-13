@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Name" : "Nome",
     "Description" : "Descripción",
-    "Value" : "Valor",
     "Date" : "Data",
+    "Value" : "Valor",
     "Comment" : "Comentariu"
 },
 "nplurals=2; plural=(n != 1);");

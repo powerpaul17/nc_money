@@ -5,8 +5,8 @@ OC.L10N.register(
     "Description" : "Përshkrim",
     "Delete account" : "Fshij llogarinë",
     "Add account" : "Shtoni llogari",
-    "Value" : "Vlerë",
     "Date" : "Data",
+    "Value" : "Vlerë",
     "Import" : "Import",
     "Comment" : "Koment",
     "Settings saved" : "Opsjonet u Ruajtën."

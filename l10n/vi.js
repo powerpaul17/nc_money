@@ -8,11 +8,12 @@ OC.L10N.register(
     "Delete account" : "Xóa tài khoản",
     "Are you sure?" : "Bạn chắc chắn?",
     "Add account" : "Thêm tài khoản",
-    "Value" : "Giá trị",
     "Date" : "Date",
+    "Value" : "Giá trị",
     "Space" : "Space",
     "Import" : "Nhập vào",
     "Comment" : "Bình luận",
+    "Info" : "Thông tin",
     "Settings saved" : "Cấu hình đã được lưu"
 },
 "nplurals=1; plural=0;");

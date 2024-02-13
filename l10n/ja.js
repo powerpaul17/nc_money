@@ -9,11 +9,12 @@ OC.L10N.register(
     "Are you sure?" : "本当に？",
     "Add account" : "アカウントを追加",
     "No name" : "名前なし",
-    "Value" : "値",
     "Date" : "日付",
+    "Value" : "値",
     "Select File" : "ファイル選択",
     "Import" : "インポート",
     "Comment" : "コメント",
+    "Info" : "情報",
     "Settings saved" : "設定が保存されました"
 },
 "nplurals=1; plural=0;");

@@ -8,11 +8,12 @@ OC.L10N.register(
     "Delete account" : "Delete account",
     "Add account" : "Add account",
     "No name" : "No name",
-    "Value" : "Value",
     "Date" : "Date",
+    "Value" : "Value",
     "Space" : "Space",
     "Import" : "Import",
     "Comment" : "Comment",
+    "Info" : "Info",
     "Settings saved" : "Settings saved"
 },
 "nplurals=2; plural=(n!=1);");

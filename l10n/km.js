@@ -5,8 +5,8 @@ OC.L10N.register(
     "Description" : "ការ​អធិប្បាយ",
     "Delete account" : "Delete account",
     "Are you sure?" : "តើអ្នកប្រាកដឬទេ?",
-    "Value" : "តម្លៃ",
     "Date" : "កាលបរិច្ឆេទ",
+    "Value" : "តម្លៃ",
     "Import" : "នាំយកចូល",
     "Comment" : "មតិ"
 },

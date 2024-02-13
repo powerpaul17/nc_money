@@ -6,8 +6,8 @@ OC.L10N.register(
     "Description" : "Apraksts",
     "Delete account" : "Dzēst kontu",
     "Add account" : "Pievienot kontu",
-    "Value" : "Vērtība",
     "Date" : "Datums",
+    "Value" : "Vērtība",
     "Import" : "Importēt",
     "Comment" : "Komentārs",
     "Settings saved" : "Iestatījumi saglabāti"

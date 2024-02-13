@@ -5,8 +5,8 @@ OC.L10N.register(
     "Description" : "Beskrywing",
     "Delete account" : "Skrap rekening",
     "Add account" : "Voeg rekening toe",
-    "Value" : "Waarde",
     "Date" : "Datum",
+    "Value" : "Waarde",
     "Import" : "Voer In",
     "Comment" : "Kommentaar",
     "Settings saved" : "Instellings gestoor"

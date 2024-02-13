@@ -9,8 +9,8 @@ OC.L10N.register(
     "Are you sure?" : "Jesteś pewny?",
     "Add account" : "Dodaj konto",
     "No name" : "Bez nazwy",
-    "Value" : "Wartość",
     "Date" : "Data",
+    "Value" : "Wartość",
     "Decimals" : "Ułamki dziesiętne",
     "Decimal Separator" : "Separator dziesiętny",
     "Select File" : "Wybierz plik",
@@ -18,6 +18,7 @@ OC.L10N.register(
     "Date Format" : "Format daty",
     "Import" : "Importuj",
     "Comment" : "Komentarz",
+    "Info" : "Informacje",
     "Settings saved" : "Ustawienia zapisane",
     "Income" : "Dochód"
 },

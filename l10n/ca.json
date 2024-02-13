@@ -8,8 +8,8 @@
     "Are you sure?" : "Estas segur?",
     "Add account" : "Afegeix un compte",
     "No name" : "Sense nom",
-    "Value" : "Valor",
     "Date" : "Data",
+    "Value" : "Valor",
     "Decimals" : "Decimals",
     "Space" : "Espai",
     "Select File" : "Selecciona un fitxer",
@@ -17,6 +17,7 @@
     "Comment" : "Comentari",
     "Credit" : "Crèdit",
     "Debit" : "Dèbit",
+    "Info" : "Informació",
     "Settings saved" : "S'han desat els paràmetres",
     "Expenses" : "Despeses"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

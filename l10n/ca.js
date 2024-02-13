@@ -10,8 +10,8 @@ OC.L10N.register(
     "Are you sure?" : "Estas segur?",
     "Add account" : "Afegeix un compte",
     "No name" : "Sense nom",
-    "Value" : "Valor",
     "Date" : "Data",
+    "Value" : "Valor",
     "Decimals" : "Decimals",
     "Space" : "Espai",
     "Select File" : "Selecciona un fitxer",
@@ -19,6 +19,7 @@ OC.L10N.register(
     "Comment" : "Comentari",
     "Credit" : "Crèdit",
     "Debit" : "Dèbit",
+    "Info" : "Informació",
     "Settings saved" : "S'han desat els paràmetres",
     "Expenses" : "Despeses"
 },
