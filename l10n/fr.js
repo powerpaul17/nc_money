@@ -61,6 +61,7 @@ OC.L10N.register(
     "Multiple Accounts" : "Comptes multiples",
     "Info" : "Info",
     "Properties" : "Propriétés",
+    "Add transaction" : "Ajouter une transaction",
     "Assets" : "Actif",
     "No books available" : "Aucun libre disponible",
     "Go ahead and create one..." : "Poursuivre et en créer un...",

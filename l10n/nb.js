@@ -17,6 +17,7 @@ OC.L10N.register(
     "Date" : "Dato",
     "Value" : "Verdi",
     "Decimals" : "Desimaler",
+    "Space" : "Mellomrom",
     "Import Transactions" : "Importer transaksjoner",
     "Select File" : "Velg fil",
     "Click or drop CSV file" : "Klikk eller slipp en CSV-fil",
