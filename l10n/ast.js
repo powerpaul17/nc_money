@@ -5,6 +5,8 @@ OC.L10N.register(
     "Description" : "Descripción",
     "Date" : "Data",
     "Value" : "Valor",
-    "Comment" : "Comentariu"
+    "Comment" : "Comentariu",
+    "Info" : "Información",
+    "Settings saved" : "Guardóse la configuración"
 },
 "nplurals=2; plural=(n != 1);");

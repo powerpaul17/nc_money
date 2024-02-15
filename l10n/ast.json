@@ -3,6 +3,8 @@
     "Description" : "Descripción",
     "Date" : "Data",
     "Value" : "Valor",
-    "Comment" : "Comentariu"
+    "Comment" : "Comentariu",
+    "Info" : "Información",
+    "Settings saved" : "Guardóse la configuración"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
