@@ -61,6 +61,7 @@ OC.L10N.register(
     "Multiple Accounts" : "Mehrere Konten",
     "Info" : "Info",
     "Properties" : "Eigenschaften",
+    "Splits" : "Aufteilungen",
     "Add transaction" : "Transaktion hinzufügen",
     "Assets" : "Vermögenswerte",
     "No books available" : "Keine Bücher verfügbar",

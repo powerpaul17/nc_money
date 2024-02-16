@@ -61,6 +61,8 @@ OC.L10N.register(
     "Multiple Accounts" : "多重帳號",
     "Info" : "Info",
     "Properties" : "屬性",
+    "Splits" : "分割",
+    "Add transaction" : "新增轉錄",
     "Assets" : "資產",
     "No books available" : "無可用書籍",
     "Go ahead and create one..." : "繼續建立……",
