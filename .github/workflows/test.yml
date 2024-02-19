@@ -52,11 +52,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: git config
-        run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-
       - name: Setup PHP for MariaDB
         uses: shivammathur/setup-php@v2
         if: ${{ matrix.db == 'mysql' }}
