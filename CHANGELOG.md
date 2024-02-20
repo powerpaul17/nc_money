@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.25.1] - 2024-02-20
+
 ### Added
 
 - Migration tests for adding books table
