@@ -1,0 +1,108 @@
+name: Run tests
+
+on:
+  pull_request:
+
+env:
+  PHP_VERSION: 8.2
+  NC_VERSION: stable27
+  APP_NAME: money
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    container: shivammathur/node:latest
+    strategy:
+      matrix:
+        db:
+          - mysql
+          - pgsql
+
+    name: Integration tests using ${{matrix.db}}
+
+    services:
+      mariadb:
+        image: ghcr.io/nextcloud/continuous-integration-mariadb-10.11:latest
+        env:
+          MYSQL_ROOT_PASSWORD: my-secret-pw
+          MYSQL_DATABASE: nextcloud
+          MYSQL_USER: nextcloud
+          MYSQL_PASSWORD: nextcloud
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+      pgsql:
+        image: ghcr.io/nextcloud/continuous-integration-postgres-15:latest
+        env:
+          POSTGRES_USER: nextcloud
+          POSTGRES_DB: nextcloud
+          POSTGRES_PASSWORD: nextcloud
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP for MariaDB
+        uses: shivammathur/setup-php@v2
+        if: ${{ matrix.db == 'mysql' }}
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: gd, pdo_mysql
+          coverage: none
+
+      - name: Setup PHP for PostgreSQL
+        uses: shivammathur/setup-php@v2
+        if: ${{ matrix.db == 'pgsql' }}
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: gd, pdo_pgsql
+          coverage: none
+
+      - name: Set up server with MariaDB
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        if: ${{ matrix.db == 'mysql' }}
+        with:
+          cron: false
+          version: ${{ env.NC_VERSION }}
+          database-type: mysql
+          database-host: mariadb
+          database-port: 3306
+          database-name: nextcloud
+          database-user: nextcloud
+          database-password: nextcloud
+
+      - name: Set up server with PostgreSQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        if: ${{ matrix.db == 'pgsql' }}
+        with:
+          cron: false
+          version: ${{ env.NC_VERSION }}
+          database-type: pgsql
+          database-host: pgsql
+          database-port: 5432
+          database-name: nextcloud
+          database-user: nextcloud
+          database-password: nextcloud
+
+      - name: Setup app
+        run: |
+          mkdir -p ../server/apps/${{ env.APP_NAME }} && \
+          cp -R ./ ../server/apps/${{ env.APP_NAME }}
+
+      - name: Install dependencies
+        run: composer install
+        working-directory: ../server/apps/${{ env.APP_NAME }}
+
+      - name: Run integration tests
+        run: composer run test:integration
+        working-directory: ../server/apps/${{ env.APP_NAME }}

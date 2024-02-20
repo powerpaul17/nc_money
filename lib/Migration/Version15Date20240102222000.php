@@ -63,7 +63,9 @@ class Version15Date20240102222000 extends SimpleMigrationStep {
 
     if (!$accountsTable->hasColumn('book_id')) {
       $accountsTable->addColumn('book_id', Types::BIGINT, [
-        'notnull' => true,
+        // TODO: set this to true
+        'notnull' => false,
+
         'length' => 8,
         'unsigned' => true
       ]);
@@ -83,7 +85,7 @@ class Version15Date20240102222000 extends SimpleMigrationStep {
 
     $qb->select('user_id')
       ->from('money_accounts')
-      ->where('book_id = \'\'')
+      ->where('book_id is null')
       ->groupBy('user_id');
 
     $result = $qb->executeQuery();
@@ -102,7 +104,7 @@ class Version15Date20240102222000 extends SimpleMigrationStep {
       $qb->update('money_accounts')
         ->set('book_id', $qb->createNamedParameter($id))
         ->where('user_id = :user_id')
-        ->andWhere('book_id = \'\'')
+        ->andWhere('book_id is null')
         ->setParameter('user_id', $userId);
 
       $qb->executeStatement();

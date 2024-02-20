@@ -71,7 +71,12 @@ jobs:
         with:
           app: ${{ env.APP_NAME }}
 
-      - run: npm i
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-dev
+        working-directory: ../server/apps/${{ env.APP_NAME }}
+
+      - name: Install NPM packages
+        run: npm i
         working-directory: ../server/apps/${{ env.APP_NAME }}
 
       - run: npx release-it ${{ inputs.increment }}
