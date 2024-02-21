@@ -1,7 +1,7 @@
 <template>
   <div class="h-full overflow-scroll">
     <a
-      :href="linkTo('money', `books/${book.id}`)"
+      :href="linkTo('money', `#/books/${book.id}`)"
       class="grid h-12 grid-cols-2 items-center rounded-full px-2 hover:bg-background-hover"
       v-for="book of bookStore.books.value"
       :key="book.id"
