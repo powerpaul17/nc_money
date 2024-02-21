@@ -28,9 +28,12 @@
     <template #amount>
       <CurrencyInput
         :value="value"
+        :enable-convert-rate="enableConvertRate"
+        :convert-rate="convertRate"
         :placeholder="t('money', 'Value')"
         :inverted-value="invertedValue"
         @value-changed="(newValue) => (value = newValue)"
+        @convert-rate-changed="(newConvertRate) => (convertRate = newConvertRate)"
       />
     </template>
 
@@ -55,6 +58,8 @@
 
   import { useTransactionService } from '../services/transactionService';
 
+  import { useAccountStore } from '../stores/accountStore';
+
   import Plus from 'vue-material-design-icons/Plus.vue';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
@@ -64,6 +69,8 @@
   import SeamlessInput from './SeamlessInput.vue';
 
   const transactionService = useTransactionService();
+
+  const accountStore = useAccountStore();
 
   const props = defineProps({
     bookId: {
@@ -84,7 +91,20 @@
   const description = ref('');
   const destAccountId = ref(null);
   const value = ref(0.0);
+  const convertRate = ref(1.0);
   const isLoading = ref(false);
+
+  const account = computed(() => {
+    return accountStore.getById(props.accountId);
+  });
+
+  const destAccount = computed(() => {
+    return destAccountId.value ? accountStore.getById(destAccountId.value) : null;
+  });
+
+  const enableConvertRate = computed(() => {
+    return !!account.value && !!destAccount.value && account.value.currency !== destAccount.value.currency;
+  });
 
   const isValid = computed(() => {
     return NumberUtils.areNotEqual(value.value, 0.0);
@@ -101,7 +121,7 @@
       date: date.value,
       description: description.value,
       value: -value.value,
-      convertRate: 1.0,
+      convertRate: 1 / convertRate.value,
       srcAccountId: props.accountId,
       destAccountId: destAccountId.value
     });
