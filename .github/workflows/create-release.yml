@@ -20,7 +20,16 @@ env:
   POSTGRES_PASSWORD: nextcloud
 
 jobs:
+  integration-tests:
+    uses: ./.github/workflows/test.yml
+
+  frontend-tests:
+    uses: ./.github/workflows/pull-request.yml
+
   build_and_sign:
+    needs:
+      - integration-tests
+      - frontend-tests
     runs-on: ubuntu-latest
     services:
       postgres:
