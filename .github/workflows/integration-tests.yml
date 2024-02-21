@@ -5,8 +5,6 @@ on:
   workflow_call:
 
 env:
-  PHP_VERSION: 8.2
-  NC_VERSION: stable27
   APP_NAME: money
 
 jobs:
@@ -15,11 +13,15 @@ jobs:
     container: shivammathur/node:latest
     strategy:
       matrix:
+        php_version:
+          - '8.2'
+        nextcloud_version:
+          - stable27
         db:
           - mysql
           - pgsql
 
-    name: Integration tests using ${{matrix.db}}
+    name: Integration tests using ${{ matrix.nextcloud_version }} with ${{matrix.db}} and ${{ matrix.php_version }}
 
     services:
       mariadb:
@@ -57,7 +59,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         if: ${{ matrix.db == 'mysql' }}
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: ${{ matrix.php_version }}
           extensions: gd, pdo_mysql
           coverage: none
 
@@ -65,7 +67,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         if: ${{ matrix.db == 'pgsql' }}
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: ${{ matrix.php_version }}
           extensions: gd, pdo_pgsql
           coverage: none
 
@@ -74,7 +76,7 @@ jobs:
         if: ${{ matrix.db == 'mysql' }}
         with:
           cron: false
-          version: ${{ env.NC_VERSION }}
+          version: ${{ matrix.nextcloud_version }}
           database-type: mysql
           database-host: mariadb
           database-port: 3306
@@ -87,7 +89,7 @@ jobs:
         if: ${{ matrix.db == 'pgsql' }}
         with:
           cron: false
-          version: ${{ env.NC_VERSION }}
+          version: ${{ matrix.nextcloud_version }}
           database-type: pgsql
           database-host: pgsql
           database-port: 5432
