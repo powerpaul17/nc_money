@@ -6,7 +6,9 @@
       v-for="book of bookStore.books.value"
       :key="book.id"
     >
-      <div class="truncate font-semibold">{{ book.name }}</div>
+      <div class="truncate font-semibold">
+        {{ book.name || `(${t('money', 'No name')})` }}
+      </div>
       <div class="justify-self-end">
         <div>
           <CurrencyText
