@@ -103,7 +103,8 @@
   });
 
   const enableConvertRate = computed(() => {
-    return !!account.value && !!destAccount.value && account.value.currency !== destAccount.value.currency;
+    return NumberUtils.areNotEqual(convertRate.value, 1.0) ||
+      !!account.value && !!destAccount.value && account.value.currency !== destAccount.value.currency;
   });
 
   const isValid = computed(() => {
