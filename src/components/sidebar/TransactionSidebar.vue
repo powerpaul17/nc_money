@@ -42,6 +42,8 @@
             :excluded-account-ids="excludedAccountIds"
             :editable="editable"
             :inverted-value="isInvertedAccount"
+            :source-account-id="accountId"
+            :convert-rate="splitsOfAccount[0]?.convertRate"
           />
 
           <SplitInput
@@ -53,6 +55,8 @@
             :excluded-account-ids="excludedAccountIds"
             :editable="editable"
             :inverted-value="isInvertedAccount"
+            :source-account-id="accountId"
+            :convert-rate="splitsOfAccount[0]?.convertRate"
           />
 
           <div
