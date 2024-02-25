@@ -14,6 +14,6 @@ OC.L10N.register(
     "Import" : "Importa",
     "Comment" : "Cummentu",
     "Info" : "Informatziones",
-    "Settings saved" : "Impostatziones sarvadas"
+    "Settings saved" : "Cunfiguratzione sarvada"
 },
 "nplurals=2; plural=(n != 1);");

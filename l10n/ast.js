@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nome",
     "Description" : "Descripción",
+    "Delete account" : "Dersaniciar la cuenta",
     "Date" : "Data",
     "Value" : "Valor",
     "Comment" : "Comentariu",
