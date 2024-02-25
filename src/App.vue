@@ -15,7 +15,7 @@
 
   import { ref } from 'vue';
 
-  import NcContent from '@nextcloud/vue/dist/Components/NcContent';
+  import NcContent from '@nextcloud/vue/dist/Components/NcContent.js';
 
   import AppNavigation from './components/AppNavigation.vue';
 

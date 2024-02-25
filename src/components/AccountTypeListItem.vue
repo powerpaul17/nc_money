@@ -55,7 +55,7 @@
   import dayjs from 'dayjs';
 
   import { type PropType, computed } from 'vue';
-  import { useRouter } from 'vue2-helpers/vue-router';
+  import { useRouter } from 'vue-router';
 
   import { translate as t } from '@nextcloud/l10n';
 
@@ -67,8 +67,8 @@
 
   import { useSettingStore } from '../stores/settingStore';
 
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
+  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 

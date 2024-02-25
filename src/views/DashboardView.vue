@@ -48,9 +48,9 @@
 </template>
 
 <script setup lang="ts">
-  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
-  import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent';
-  import NcListItem from '@nextcloud/vue/dist/Components/NcListItem';
+  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
+  import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js';
+  import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js';
 
   import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
 

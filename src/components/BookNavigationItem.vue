@@ -22,7 +22,8 @@
     :edit-placeholder="t('money', 'Book name')"
     :loading="isLoading"
     :undo="isDeleting"
-    :open.sync="isOpen"
+    :open="isOpen"
+    @update:open="(open) => (isOpen = open)"
     @update:title="handleUpdateBookName"
     @undo="handleUndo"
   >
@@ -43,7 +44,7 @@
       </NcActionButton>
     </template>
 
-    <template>
+    <template #default>
       <AccountTypeListItem
         class="first:mt-1"
         v-for="accountType in accountTypes"
@@ -121,12 +122,12 @@
 
 <script setup lang="ts">
   import { computed, ref, type PropType, type Ref } from 'vue';
-  import { useRoute, useRouter } from 'vue2-helpers/vue-router';
+  import { useRoute, useRouter } from 'vue-router';
 
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
-  import NcModal from '@nextcloud/vue/dist/Components/NcModal';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton';
+  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
+  import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';
+  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
 
   import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
   import Delete from 'vue-material-design-icons/Delete.vue';

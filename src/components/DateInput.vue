@@ -1,7 +1,7 @@
 <template>
   <label class="flex flex-col items-baseline">
     {{ label }}
-    <NcDatetimePicker
+    <NcDateTimePicker
       class="date-input w-full"
       v-model="dateValue"
       :append-to-body="true"
@@ -33,7 +33,7 @@
 
   import { computed } from 'vue';
 
-  import NcDatetimePicker from '@nextcloud/vue/dist/Components/NcDatetimePicker';
+  import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js';
 
   const props = defineProps({
     date: {

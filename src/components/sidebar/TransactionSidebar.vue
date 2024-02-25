@@ -94,10 +94,10 @@
 
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
-  import { useRouter } from 'vue2-helpers/vue-router';
+  import { useRouter } from 'vue-router';
 
-  import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar';
-  import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab';
+  import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js';
+  import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js';
 
   import DateInput from '../DateInput.vue';
   import AccountSelect from '../AccountSelect.vue';

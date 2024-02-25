@@ -1,4 +1,4 @@
-import VueRouter from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import AccountView from './views/AccountView.vue';
 import BookView from './views/BookView.vue';
@@ -8,7 +8,8 @@ import Sidebar from './components/sidebar/SidebarComponent.vue';
 import TransactionSidebar from './components/sidebar/TransactionSidebar.vue';
 import NewTransactionSidebar from './components/sidebar/NewTransactionSidebar.vue';
 
-export default new VueRouter({
+export default createRouter({
+  history: createWebHashHistory(),
   linkActiveClass: 'active',
   routes: [
     {

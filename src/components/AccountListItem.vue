@@ -105,7 +105,7 @@
 
   import { ref, watch, type PropType, type Ref } from 'vue';
 
-  import { useRoute, useRouter } from 'vue2-helpers/vue-router';
+  import { useRoute, useRouter } from 'vue-router';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
@@ -114,10 +114,10 @@
 
   import { useSettingStore } from '../stores/settingStore';
 
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton';
-  import NcModal from '@nextcloud/vue/dist/Components/NcModal';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton';
+  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
+  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
+  import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';
+  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
 
   import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
   import Delete from 'vue-material-design-icons/Delete.vue';

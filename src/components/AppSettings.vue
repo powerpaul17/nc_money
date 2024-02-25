@@ -1,6 +1,6 @@
 <template>
   <NcAppNavigationSettings>
-    <NcCheckboxRadioSwitch :checked.sync="settingStore.useInvertedAccounts.value">
+    <NcCheckboxRadioSwitch v-model="settingStore.useInvertedAccounts.value">
       {{ t('money', 'Show inverted income/liabilities account balances') }}
     </NcCheckboxRadioSwitch>
   </NcAppNavigationSettings>
@@ -10,8 +10,8 @@
 
   import { useSettingStore } from '../stores/settingStore';
 
-  import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings';
-  import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch';
+  import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings.js';
+  import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js';
 
   const settingStore = useSettingStore();
 

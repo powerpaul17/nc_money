@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 
-  import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection';
+  import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js';
 
   import { useSettingStore } from '../stores/settingStore';
 

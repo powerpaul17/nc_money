@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import Vue, { computed, ref, type ComputedRef, type Ref } from 'vue';
+import { computed, ref, type ComputedRef, type Ref } from 'vue';
 
 import { AccountTypeType } from './accountTypeStore';
 
@@ -423,11 +423,11 @@ class AccountStore {
 
     const yearStats = account.stats[year];
     if (!yearStats) {
-      Vue.set(account.stats, year, {
+      account.stats[year] = {
         [month]: stats
-      });
+      };
     } else {
-      Vue.set(yearStats, month, stats);
+      yearStats[month] = stats;
     }
   }
 

@@ -1,7 +1,6 @@
-import Vue, { type VNode } from 'vue';
-import VueRouter from 'vue-router';
+import { createApp } from 'vue';
 
-import './l10n';
+import { addL10N } from './l10n';
 
 import './css/main.css';
 
@@ -19,13 +18,12 @@ import router from './router';
 import App from './App.vue';
 import { useBookService } from './services/bookService';
 
-Vue.use(VueRouter);
+const app = createApp(App);
 
-new Vue({
-  el: '#content',
-  render: (h): VNode => h(App),
-  router
-});
+app.use(router);
+addL10N(app);
+
+app.mount('#content');
 
 if (
   document.body.attributes.getNamedItem('data-theme-default') &&

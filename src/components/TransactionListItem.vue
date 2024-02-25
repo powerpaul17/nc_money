@@ -113,12 +113,12 @@
     onMounted,
     onUnmounted
   } from 'vue';
-  import { useRouter, useRoute } from 'vue2-helpers/vue-router';
+  import { useRouter, useRoute } from 'vue-router';
 
   import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
   import Close from 'vue-material-design-icons/Close.vue';
 
-  import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon';
+  import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js';
 
   import { NumberUtils } from '../utils/numberUtils';
 

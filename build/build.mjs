@@ -2,7 +2,7 @@ import { dirname, resolve } from 'path';
 
 import { build } from 'vite';
 
-import vue2 from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -53,7 +53,7 @@ bundles.forEach(async (bundle) => {
       ]
     },
     plugins: [
-      vue2()
+      vue()
     ],
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode)

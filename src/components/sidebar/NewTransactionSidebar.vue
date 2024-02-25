@@ -101,13 +101,13 @@
 
 <script setup lang="ts">
   import { computed, ref, type Ref } from 'vue';
-  import { useRouter } from 'vue2-helpers/vue-router';
+  import { useRouter } from 'vue-router';
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 
-  import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar';
-  import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton';
+  import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js';
+  import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js';
+  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
 
   import DateInput from '../DateInput.vue';
   import AccountSelect from '../AccountSelect.vue';

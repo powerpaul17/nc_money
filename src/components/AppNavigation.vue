@@ -41,10 +41,10 @@
 </template>
 
 <script setup lang="ts">
-  import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation';
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem';
-  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer';
-  import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew';
+  import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js';
+  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
+  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer.js';
+  import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js';
 
   import Finance from 'vue-material-design-icons/Finance.vue';
   import Plus from 'vue-material-design-icons/Plus.vue';

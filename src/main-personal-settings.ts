@@ -1,6 +1,6 @@
-import Vue, { type VNode } from 'vue';
+import { createApp } from 'vue';
 
-import './l10n';
+import { addL10N } from './l10n';
 
 import './css/main.css';
 
@@ -10,10 +10,9 @@ import { useSettingService } from './services/settingService';
 
 import PersonalSettings from './components/PersonalSettings.vue';
 
-new Vue({
-  el: '#settings-personal-money',
-  render: (h): VNode => h(PersonalSettings)
-});
+const app = createApp(PersonalSettings);
+addL10N(app);
+app.mount('#settings-personal-money');
 
 const settingService = useSettingService();
 void settingService.loadSettings();
