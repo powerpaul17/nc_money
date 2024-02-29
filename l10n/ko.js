@@ -5,6 +5,8 @@ OC.L10N.register(
     "Name" : "이름",
     "Description" : "설명",
     "Overview" : "개요",
+    "'{accountName}' deleted" : "계정 '{accountName}'이(가) 삭제됨",
+    "Account name" : "계정 아이디",
     "Delete account" : "계정 삭제",
     "Are you sure?" : "확실합니까?",
     "Add account" : "계정 추가",
