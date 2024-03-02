@@ -6,6 +6,7 @@ OC.L10N.register(
     "Delete account" : "Dersaniciar la cuenta",
     "Date" : "Data",
     "Value" : "Valor",
+    "Import" : "Importar",
     "Comment" : "Comentariu",
     "Info" : "Información",
     "Settings saved" : "Guardóse la configuración"
