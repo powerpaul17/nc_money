@@ -9,6 +9,8 @@ OC.L10N.register(
     "Import" : "Importar",
     "Comment" : "Comentariu",
     "Info" : "Información",
+    "Properties" : "Propiedaes",
+    "Books" : "Llibres",
     "Settings saved" : "Guardóse la configuración"
 },
 "nplurals=2; plural=(n != 1);");
