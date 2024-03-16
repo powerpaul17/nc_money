@@ -6,6 +6,7 @@ OC.L10N.register(
     "Description" : "Description",
     "Overview" : "Overview",
     "Delete account" : "Delete account",
+    "Are you sure?" : "დარწმუნებული ხართ?",
     "Add account" : "Add account",
     "No name" : "No name",
     "Date" : "Date",
