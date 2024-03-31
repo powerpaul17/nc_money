@@ -17,6 +17,7 @@ OC.L10N.register(
     "Date" : "Ημερομηνία",
     "Value" : "Τιμή",
     "Decimals" : "Δεκαδικά ψηφία",
+    "Space" : "Space",
     "Import Transactions" : "Εισαγωγή Συναλλαγών",
     "Select File" : "Επιλέξτε Αρχείο",
     "Click or drop CSV file" : "Κάντε κλικ ή σύρετε ένα CSV αρχείο",

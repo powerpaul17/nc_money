@@ -7,6 +7,7 @@ OC.L10N.register(
     "Add account" : "Amestar una cuenta",
     "Date" : "Data",
     "Value" : "Valor",
+    "Decimals" : "Decimales",
     "Import" : "Importar",
     "Comment" : "Comentariu",
     "Info" : "Información",
