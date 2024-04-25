@@ -6,6 +6,7 @@ OC.L10N.register(
     "Overview" : "Vista xeneral",
     "Delete account" : "Dersaniciar la cuenta",
     "Add account" : "Amestar una cuenta",
+    "No name" : "Ensin nome",
     "Date" : "Data",
     "Value" : "Valor",
     "Decimals" : "Decimales",

@@ -16,6 +16,7 @@ OC.L10N.register(
     "Equity" : "Собственный капитал",
     "Date" : "Дата",
     "Value" : "Значение",
+    "Space" : "Пробел",
     "Import Transactions" : "Импортировать транзакции",
     "Select File" : "Выбрать файл",
     "Click or drop CSV file" : "Нажмите или перетащите файл CSV",
