@@ -20,6 +20,7 @@ OC.L10N.register(
     "Decimals" : "Desatinné",
     "Values will be rounded to the selected number of decimals." : "Hodnoty budú zaokrúhlené na zadaný počet desatinných miest.",
     "Decimal Separator" : "Oddelovač desatinných miest",
+    "Space" : "Medzerník",
     "Import Transactions" : "Importovať Transakcie",
     "Select File" : "Vybrať súbor",
     "Click or drop CSV file" : "Kliknite alebo sem pretiahnite CSV súbor",
