@@ -28,6 +28,7 @@ OC.L10N.register(
     "Decimal Separator" : "Dezimal banatzailea",
     "Group By" : "Taldekatu honen arabera",
     "Group Separator" : "Talde banatzailea",
+    "Space" : "Espazioa",
     "Import Transactions" : "Inportatu transakzioak",
     "Select File" : "Hautatu fitxategia",
     "Click or drop CSV file" : "Egin klik edo jaregin CSV fitxategia",
