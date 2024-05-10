@@ -19,6 +19,6 @@ export function addL10N(app: App): void {
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    t: (appName: 'money', text: string) => string
+    t: (appName: 'money', text: string) => string;
   }
 }

@@ -5,9 +5,7 @@
     :can-close="!isImporting"
   >
     <div class="p-8 [&>*]:my-6">
-      <h1
-        class="text-center text-2xl"
-      >
+      <h1 class="text-center text-2xl">
         {{ t('money', 'Import Transactions') }}
       </h1>
       <div>
@@ -30,16 +28,14 @@
         </h2>
         <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
           <div>
-            <label>
-              {{ t('money', 'Column Separator') }}:
-            </label>
+            <label> {{ t('money', 'Column Separator') }}: </label>
             <select
               class="w-full"
               v-model="columnSeparator"
               @change="handleColumnSeparatorChanged"
             >
               <option
-                v-for="separator in [ ',', ';', '\t' ]"
+                v-for="separator in [',', ';', '\t']"
                 :key="separator"
                 :value="separator"
               >
@@ -48,16 +44,14 @@
             </select>
           </div>
           <div>
-            <label>
-              {{ t('money', 'Decimal Separator') }}:
-            </label>
+            <label> {{ t('money', 'Decimal Separator') }}: </label>
             <select
               class="w-full"
               v-model="decimalSeparator"
               @change="handleDecimalSeparatorChanged"
             >
               <option
-                v-for="separator in [ '.', ',' ]"
+                v-for="separator in ['.', ',']"
                 :key="separator"
                 :value="separator"
               >
@@ -66,14 +60,12 @@
             </select>
           </div>
           <div>
-            <label>
-              {{ t('money', 'Date Format') }}:
-            </label>
+            <label> {{ t('money', 'Date Format') }}: </label>
             <input
               class="w-full"
               v-model="dateFormat"
               @change="handleDateFormatChanged"
-            >
+            />
           </div>
         </div>
       </div>
@@ -145,7 +137,8 @@
         />
 
         <span class="ml-3 whitespace-nowrap">
-          {{ numberOfImportedTransactions }} / {{ numberOfTransactionsToImport }}
+          {{ numberOfImportedTransactions }} /
+          {{ numberOfTransactionsToImport }}
         </span>
       </div>
     </div>
@@ -153,7 +146,6 @@
 </template>
 
 <script setup lang="ts">
-
   import { parse } from 'csv-parse/browser/esm/sync';
   import dayjs from 'dayjs';
 
@@ -187,7 +179,7 @@
     }
   });
 
-  const emit = defineEmits([ 'close', 'transactions-imported' ]);
+  const emit = defineEmits(['close', 'transactions-imported']);
 
   const isImporting = ref(false);
 
@@ -247,18 +239,25 @@
     return accountStore.getById(props.accountId);
   });
 
-  const columnSeparator = ref(account.value?.extraData.csvImport?.columnSeparator ?? ',');
-  const decimalSeparator = ref(account.value?.extraData.csvImport?.decimalSeparator ?? '.');
-  const dateFormat = ref(account.value?.extraData.csvImport?.dateFormat ?? 'DD.MM.YYYY');
+  const columnSeparator = ref(
+    account.value?.extraData.csvImport?.columnSeparator ?? ','
+  );
+  const decimalSeparator = ref(
+    account.value?.extraData.csvImport?.decimalSeparator ?? '.'
+  );
+  const dateFormat = ref(
+    account.value?.extraData.csvImport?.dateFormat ?? 'DD.MM.YYYY'
+  );
 
   const isValid = computed(() => {
     return Object.values(columns).every((column) => columnIsValid(column));
   });
 
   function columnIsValid(column: Column<any>): boolean {
-    const required = typeof (column.required) === 'function' ?
-      column.required(columns) :
-      column.required;
+    const required =
+      typeof column.required === 'function'
+        ? column.required(columns)
+        : column.required;
 
     if (!required) {
       return !column.selectedColumn || column.isValid;
@@ -267,9 +266,8 @@
     }
   }
 
-  async function handleFileChanged(file: File|null): Promise<void> {
-    if (!file)
-      throw new Error('cannot import transactions without a csv file');
+  async function handleFileChanged(file: File | null): Promise<void> {
+    if (!file) throw new Error('cannot import transactions without a csv file');
 
     await readFile(file);
   }
@@ -318,14 +316,15 @@
       const debit = columns.debit.parsedData[index] ?? 0.0;
 
       const value =
-        - (!Number.isNaN(credit) ? credit : 0.0) +
+        -(!Number.isNaN(credit) ? credit : 0.0) +
         (!Number.isNaN(debit) ? debit : 0.0);
 
       const date = columns.date.parsedData[index];
       if (!date) throw new Error('cannot import transaction without a date');
 
       const description = columns.description.parsedData[index];
-      if (description === undefined) throw new Error('cannot import transaction without a description');
+      if (description === undefined)
+        throw new Error('cannot import transaction without a description');
 
       const transactionToCreate = {
         date,
@@ -345,8 +344,7 @@
     for (const transaction of transactionsToImport) {
       if (!startDate || startDate > transaction.date)
         startDate = transaction.date;
-      if (!endDate || endDate < transaction.date)
-        endDate = transaction.date;
+      if (!endDate || endDate < transaction.date) endDate = transaction.date;
     }
 
     if (!startDate || !endDate)
@@ -384,11 +382,8 @@
     numberOfTransactionsToImport.value = transactionsToCreate.length;
     numberOfImportedTransactions.value = 0;
 
-    for(const transaction of transactionsToCreate)  {
-      await transactionService.addTransactionWithSplits(
-        transaction,
-        false
-      );
+    for (const transaction of transactionsToCreate) {
+      await transactionService.addTransactionWithSplits(transaction, false);
       numberOfImportedTransactions.value++;
     }
 
@@ -440,9 +435,10 @@
   }
 
   function selectMatchingColumns(): void {
-    const savedColumnMapping = account.value?.extraData.csvImport?.columnMapping;
+    const savedColumnMapping =
+      account.value?.extraData.csvImport?.columnMapping;
 
-    for (const [ columnName, columnInfo ] of Object.entries(columns)) {
+    for (const [columnName, columnInfo] of Object.entries(columns)) {
       const selectedColumn = columnInfo.selectedColumn;
       if (selectedColumn) continue;
 
@@ -464,7 +460,9 @@
       if (!selectedColumn) {
         column.parsedData = [];
       } else {
-        column.parsedData = parsedData.value.map((line) => column.parser(line[selectedColumn]));
+        column.parsedData = parsedData.value.map((line) =>
+          column.parser(line[selectedColumn])
+        );
       }
     }
   }
@@ -478,12 +476,14 @@
   }
 
   async function saveAccountSettings(): Promise<void> {
-    if (!account.value) throw new Error('cannot save column mapping without account');
+    if (!account.value)
+      throw new Error('cannot save column mapping without account');
 
     const newColumnMapping: Record<string, string> = {};
 
-    for(const [ columnName, columnInfo ] of Object.entries(columns)) {
-      if(columnInfo.selectedColumn) newColumnMapping[columnName] = columnInfo.selectedColumn;
+    for (const [columnName, columnInfo] of Object.entries(columns)) {
+      if (columnInfo.selectedColumn)
+        newColumnMapping[columnName] = columnInfo.selectedColumn;
     }
 
     await accountService.updateAccount({
@@ -505,14 +505,14 @@
     date: Column<Date>;
     description: Column<string>;
     comment: Column<string>;
-    credit: Column<number>
-    debit: Column<number>
+    credit: Column<number>;
+    debit: Column<number>;
   };
 
   type Column<T> = {
     name: string;
     selectedColumn: string | null;
-    required?: boolean|((columns: Columns) => boolean);
+    required?: boolean | ((columns: Columns) => boolean);
     parsedData: Array<T>;
     isValid: boolean;
     validator?: (parsedData: T) => boolean;

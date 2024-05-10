@@ -13,22 +13,19 @@
 </template>
 
 <style>
+  .date-input.mx-datepicker .mx-input-wrapper .mx-input {
+    background: transparent !important;
+    border: 2px solid transparent !important;
+    box-shadow: none;
+  }
 
-.date-input.mx-datepicker .mx-input-wrapper .mx-input {
-  background: transparent !important;
-  border: 2px solid transparent !important;
-  box-shadow: none;
-}
-
-.date-input.mx-datepicker:not(.disabled) .mx-input-wrapper .mx-input:hover,
-.date-input.mx-datepicker .mx-input-wrapper .mx-input:focus {
-  border-color: var(--color-primary-element) !important;
-}
-
+  .date-input.mx-datepicker:not(.disabled) .mx-input-wrapper .mx-input:hover,
+  .date-input.mx-datepicker .mx-input-wrapper .mx-input:focus {
+    border-color: var(--color-primary-element) !important;
+  }
 </style>
 
 <script setup lang="ts">
-
   import dayjs from 'dayjs';
 
   import { computed } from 'vue';
@@ -54,7 +51,7 @@
     }
   });
 
-  const emit = defineEmits([ 'date-changed' ]);
+  const emit = defineEmits(['date-changed']);
 
   const dateValue = computed({
     get() {
@@ -72,8 +69,9 @@
   };
 
   function getDateFromValue(value: string): Date {
-    const date = [ 'L', 'D', 'DD' ].map(f => dayjs(value, f)).find(djs => djs.isValid());
+    const date = ['L', 'D', 'DD']
+      .map((f) => dayjs(value, f))
+      .find((djs) => djs.isValid());
     return (date ?? dayjs()).toDate();
   }
-
 </script>

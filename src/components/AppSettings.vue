@@ -7,12 +7,10 @@
 </template>
 
 <script setup lang="ts">
-
   import { useSettingStore } from '../stores/settingStore';
 
   import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings.js';
   import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js';
 
   const settingStore = useSettingStore();
-
 </script>
