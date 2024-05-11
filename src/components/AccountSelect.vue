@@ -43,9 +43,9 @@
       <div class="truncate">
         {{
           search
-            ? t('money', 'No account found...')
-            : t('money', 'No account available...')
-        }}
+            ? t('money', 'No account found')
+            : t('money', 'No account available')
+        }}...
       </div>
     </template>
   </VueSelect>
