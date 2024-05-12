@@ -10,6 +10,7 @@ OC.L10N.register(
     "Overview" : "Огляд",
     "Delete account" : "Вилучити обліковий запис",
     "Are you sure?" : "Ви впевнені?",
+    "No account found" : "Не знайдено облікового запису",
     "Add account" : "Додати обліковий запис",
     "No name" : "Відсутнє ім'я",
     "Unbalanced" : "Неврівноважений",

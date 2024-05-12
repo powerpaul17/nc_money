@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Przegląd",
     "Delete account" : "Usuń konto",
     "Are you sure?" : "Jesteś pewny?",
+    "No account found" : "Nie znaleziono konta",
     "Add account" : "Dodaj konto",
     "No name" : "Bez nazwy",
     "Date" : "Data",

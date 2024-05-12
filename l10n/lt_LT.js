@@ -10,6 +10,7 @@ OC.L10N.register(
     "Account name" : "Paskyros pavadinimas",
     "Delete account" : "Ištrinti paskyrą",
     "Are you sure?" : "Ar esate tikri?",
+    "No account found" : "Paskyrų nerasta",
     "Add account" : "Pridėti paskyrą",
     "Date" : "Data",
     "Value" : "Reikšmė",

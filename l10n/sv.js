@@ -16,6 +16,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Alla transaktioner på detta konto kommer att raderas!",
     "No, go back" : "Nej, gå tillbaka",
     "Yes, delete account" : "Ja, radera konto",
+    "No account found" : "Hittade inget konto",
     "Add account" : "Lägg till konto",
     "New Account" : "Nytt konto",
     "Show inverted income/liabilities account balances" : "Visa inverterade inkomster/skulder kontosaldon",

@@ -8,6 +8,7 @@ OC.L10N.register(
     "Overview" : "Overzicht",
     "Delete account" : "Account verwijderen",
     "Are you sure?" : "Weet je het zeker?",
+    "No account found" : "Geen account gevonden",
     "Add account" : "Toevoegen account ",
     "No name" : "Geen naam",
     "Date" : "Datum",

@@ -10,6 +10,7 @@ OC.L10N.register(
     "Overview" : "Prehľad",
     "Delete account" : "Zmazať účet",
     "Are you sure?" : "Ste si istý?",
+    "No account found" : "Účet sa nenašiel",
     "Add account" : "Pridať účet",
     "New Account" : "Nový účet",
     "No name" : "Bez názvu",

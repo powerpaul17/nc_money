@@ -10,6 +10,7 @@ OC.L10N.register(
     "Overview" : "Επισκόπηση",
     "Delete account" : "Διαγραφή λογαριασμού",
     "Are you sure?" : "Είστε σίγουροι;",
+    "No account found" : "Δεν βρέθηκε λογαριασμός",
     "Add account" : "Προσθήκη λογαριασμού",
     "No name" : "Ανώνυμο",
     "Unbalanced" : "Μη ισορροπημένα",

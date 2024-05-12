@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "აღწერილობა",
     "Overview" : "ზოგადი მიმოხილვა",
     "Delete account" : "ანგარიშის გაუქმება",
+    "No account found" : "ანგარიში ვერ მოიძებნა",
     "Add account" : "ანგარიშის დამატება",
     "Date" : "თარიღი",
     "Value" : "მნიშვნელობა",

@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nomine",
     "Description" : "Description",
     "Delete account" : "Delete account",
+    "No account found" : "Nulle contos trovate",
     "Date" : "Date",
     "Import" : "Importar",
     "Comment" : "Commentario",

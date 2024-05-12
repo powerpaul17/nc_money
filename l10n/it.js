@@ -11,6 +11,7 @@ OC.L10N.register(
     "Account name" : "Nome account",
     "Delete account" : "Elimina account",
     "Are you sure?" : "Sei sicuro?",
+    "No account found" : "Nessun account trovato",
     "Add account" : "Aggiungi account",
     "No name" : "Nessun nome",
     "Unbalanced" : "Sbilanciato",

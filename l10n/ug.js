@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "ئاتى",
     "Description" : "چۈشەندۈرۈش",
     "Delete account" : "Delete account",
+    "No account found" : "ھېسابات تېپىلمىدى",
     "Date" : "Date",
     "Import" : "ئەكىر"
 },

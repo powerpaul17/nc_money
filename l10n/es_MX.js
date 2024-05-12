@@ -17,6 +17,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "¡Todas las transacciones de esta cuenta serán eliminadas!",
     "No, go back" : "No, regresar",
     "Yes, delete account" : "Si, eliminar cuenta",
+    "No account found" : "No se encontró la cuenta",
     "Add account" : "Agregar cuenta",
     "New Account" : "Nueva cuenta",
     "Show inverted income/liabilities account balances" : "Mostrar los balances de cuentas de ingresos/deudas invertidos",

@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "নাম",
     "Description" : "বিবরণ",
     "Delete account" : "Delete account",
+    "No account found" : "কোন একাউন্ট খুঁজে পাওয়া গেল না",
     "Add account" : "একাউন্ট যোগ কর",
     "Date" : "Date",
     "Import" : "আমদানি",

@@ -10,6 +10,7 @@ OC.L10N.register(
     "Overview" : "Overblik",
     "Delete account" : "Slet konto",
     "Are you sure?" : "Er du sikker?",
+    "No account found" : "Ingen konto fundet",
     "Add account" : "Tilføj konto",
     "Unbalanced" : "Ikke afstemt",
     "Equity" : "Egenkapital",

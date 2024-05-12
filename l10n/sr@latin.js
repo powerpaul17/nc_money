@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Ime",
     "Description" : "Opis",
     "Delete account" : "Delete account",
+    "No account found" : "Nije pronađen nalog",
     "Add account" : "Dodajte nalog",
     "Date" : "Date",
     "Import" : "Uvezi",

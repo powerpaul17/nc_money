@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nama",
     "Description" : "Keterangan",
     "Delete account" : "Delete account",
+    "No account found" : "Tiada akaun dijumpai",
     "Date" : "Date",
     "Import" : "Import"
 },

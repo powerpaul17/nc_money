@@ -19,8 +19,6 @@ OC.L10N.register(
     "No, go back" : "Не, връщане назад",
     "Yes, delete account" : "Да, изтриване на профил",
     "No Account" : "Без Профил",
-    "No account found..." : "Не е открит профил ...",
-    "No account available..." : "Няма наличен профил ...",
     "Add account" : "Добавяне на регистрация",
     "New Account" : "Нов профил",
     "Show inverted income/liabilities account balances" : "Показване на обърнато салдо по сметките за приходите/пасивите",

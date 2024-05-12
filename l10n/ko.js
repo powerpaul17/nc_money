@@ -9,6 +9,7 @@ OC.L10N.register(
     "Account name" : "계정 아이디",
     "Delete account" : "계정 삭제",
     "Are you sure?" : "확실합니까?",
+    "No account found" : "계정 없음",
     "Add account" : "계정 추가",
     "No name" : "이름 없음",
     "Date" : "날짜",

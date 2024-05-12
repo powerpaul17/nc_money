@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "Enw",
     "Description" : "Disgrifiad",
     "Delete account" : "Delete account",
+    "No account found" : "Heb ganfod cyfrif",
     "Date" : "Date",
     "Import" : "Mewnforio",
     "Comment" : "Sylw"

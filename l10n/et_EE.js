@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Kirjeldus",
     "Overview" : "Ülevaade",
     "Delete account" : "Kustuta konto",
+    "No account found" : "Kontot ei leitud",
     "Add account" : "Lisa konto",
     "Date" : "Kuupäev",
     "Import" : "Impordi",

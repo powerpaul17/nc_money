@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "Vārds",
     "Description" : "Apraksts",
     "Delete account" : "Dzēst kontu",
+    "No account found" : "Nav atrastu kontu",
     "Add account" : "Pievienot kontu",
     "Date" : "Datums",
     "Value" : "Vērtība",

@@ -10,6 +10,7 @@ OC.L10N.register(
     "Overview" : "Общие сведения",
     "Delete account" : "Удалить учётную запись",
     "Are you sure?" : "Вы уверены?",
+    "No account found" : "Аккаунт не найден",
     "Add account" : "Добавить счёт",
     "No name" : "Без имени",
     "Unbalanced" : "Расхождение",

@@ -6,6 +6,7 @@ OC.L10N.register(
     "Description" : "Lýsing",
     "Overview" : "Yfirlit",
     "Delete account" : "Eyða notandaaðgangi",
+    "No account found" : "Enginn notandaaðgangur fannst",
     "Add account" : "Bæta við notandaaðgangi",
     "No name" : "Ekkert heiti",
     "Date" : "Dagsetning",

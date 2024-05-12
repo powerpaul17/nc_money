@@ -15,6 +15,7 @@ OC.L10N.register(
     "All transactions of this account will be deleted!" : "Kaikki tämän tilin tapahtumat poistetaan!",
     "No, go back" : "Ei, palaa takaisin",
     "Yes, delete account" : "Kyllä, poista tili",
+    "No account found" : "Tiliä ei löytynyt",
     "Add account" : "Lisää tili",
     "New Account" : "Uusi tili",
     "No name" : "Ei nimeä",

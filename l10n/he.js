@@ -6,6 +6,7 @@ OC.L10N.register(
     "Overview" : "סקירה",
     "Delete account" : "מחיקת חשבון",
     "Are you sure?" : "האם הינך בטוח?",
+    "No account found" : "לא נמצא חשבון",
     "Add account" : "הוספת חשבון",
     "No name" : "אין שם",
     "Date" : "תאריך",

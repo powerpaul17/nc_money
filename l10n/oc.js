@@ -8,6 +8,7 @@ OC.L10N.register(
     "Rename account" : "Renomenar lo compte",
     "Delete account" : "Delete account",
     "Are you sure?" : "Ne sètz segur ?",
+    "No account found" : "Cap de compte es pas estat trobat",
     "Add account" : "Apondre compte",
     "Date" : "Data",
     "Value" : "Valor",

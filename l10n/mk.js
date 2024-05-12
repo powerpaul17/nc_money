@@ -10,6 +10,7 @@ OC.L10N.register(
     "Import transactions" : "Увези трансакција",
     "Overview" : "Преглед",
     "Delete account" : "Избриши сметка",
+    "No account found" : "Не е пронајдена сметка",
     "Add account" : "Додади сметка",
     "No name" : "Нема име",
     "Unbalanced" : "Небалансирано",

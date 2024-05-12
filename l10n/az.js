@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Açıqlanma",
     "Overview" : "İcmal",
     "Delete account" : "Delete account",
+    "No account found" : "Hesab tapılmadı",
     "Add account" : "Hesab əlavə et",
     "Date" : "Date",
     "Import" : "Əlavə et",

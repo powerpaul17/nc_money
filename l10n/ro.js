@@ -6,6 +6,7 @@ OC.L10N.register(
     "Description" : "Descriere",
     "Overview" : "Prezentare generală",
     "Delete account" : "Delete account",
+    "No account found" : "Nici un cont găsit",
     "Add account" : "Adaugă cont",
     "Date" : "Date",
     "Value" : "Valoare",

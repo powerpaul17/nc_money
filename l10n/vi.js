@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Tổng quan",
     "Delete account" : "Xóa tài khoản",
     "Are you sure?" : "Bạn chắc chắn?",
+    "No account found" : "Không tìm thấy tài khoản",
     "Add account" : "Thêm tài khoản",
     "Date" : "Date",
     "Value" : "Giá trị",

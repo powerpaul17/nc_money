@@ -6,6 +6,7 @@ OC.L10N.register(
     "Description" : "Priskribo",
     "Overview" : "Superrigardo",
     "Delete account" : "Forigi konton",
+    "No account found" : "Neniu konto troviĝis",
     "Add account" : "Aldoni konton",
     "Date" : "Date",
     "Import" : "Importi",
