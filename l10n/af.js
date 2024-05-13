@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Naam",
     "Description" : "Beskrywing",
     "Delete account" : "Skrap rekening",
+    "No account found" : "Geen rekening gevind nie",
     "Add account" : "Voeg rekening toe",
     "Date" : "Datum",
     "Value" : "Waarde",

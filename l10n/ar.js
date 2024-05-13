@@ -21,6 +21,7 @@ OC.L10N.register(
     "Yes, delete account" : "نعم، احذف الحساب",
     "No Account" : "لا يوجد حساب",
     "No account found" : "لم يتم العثور على أي حساب",
+    "No account available" : "لا يوجد أي حسابٍ متاحٍ",
     "Add account" : "أضف حساباً",
     "New Account" : "حساب جديد",
     "New book" : "دفتر جديد",
