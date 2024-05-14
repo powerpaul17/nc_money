@@ -21,6 +21,7 @@ OC.L10N.register(
     "Yes, delete account" : "Да, обриши рачун",
     "No Account" : "Нема рачуна",
     "No account found" : "Није пронађен налог",
+    "No account available" : "Није доступан ниједан налог",
     "Add account" : "Додај рачун",
     "New Account" : "Нови рачун",
     "New book" : "Нова књига",
