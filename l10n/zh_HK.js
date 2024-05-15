@@ -21,6 +21,7 @@ OC.L10N.register(
     "Yes, delete account" : "是，刪除帳戶",
     "No Account" : "沒有帳戶",
     "No account found" : "找不到帳戶",
+    "No account available" : "沒有可用的帳戶",
     "Add account" : "新增帳戶",
     "New Account" : "新帳戶",
     "New book" : "新書籍",
