@@ -21,6 +21,7 @@ OC.L10N.register(
     "Yes, delete account" : "Evet, hesabı sil",
     "No Account" : "Herhangi bir hesap yok",
     "No account found" : "Herhangi bir hesap bulunamadı",
+    "No account available" : "Kullanılabilecek bir hesap yok",
     "Add account" : "Hesap ekle",
     "New Account" : "Hesap ekle",
     "New book" : "Yeni kitap",
