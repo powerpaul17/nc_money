@@ -1,7 +1,7 @@
 <template>
   <div class="h-full overflow-scroll">
     <a
-      :href="linkTo('money', `#/books/${book.id}`)"
+      :href="`${generateUrl('apps/money')}/#/book/${book.id}`"
       class="grid h-12 grid-cols-2 items-center rounded-full px-2 hover:bg-background-hover"
       v-for="book of bookStore.books.value"
       :key="book.id"
@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
   import { onBeforeMount } from 'vue';
-  import { linkTo } from '@nextcloud/router';
+  import { generateUrl } from '@nextcloud/router';
 
   import CurrencyText from '../CurrencyText.vue';
 
