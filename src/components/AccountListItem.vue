@@ -103,7 +103,13 @@
 <script setup lang="ts">
   import dayjs from 'dayjs';
 
-  import { ref, watch, type PropType, type Ref } from 'vue';
+  import {
+    onMounted,
+    ref,
+    watch,
+    type PropType,
+    type Ref
+  } from 'vue';
 
   import { useRoute, useRouter } from 'vue-router';
 
@@ -132,7 +138,7 @@
   const accountService = useAccountService();
   // AccountTypeUtils
 
-  const balance = ref(getAccountBalance());
+  const balance = ref(0.0);
   const isLoading = ref(false);
   const showDeleteConfirmationDialog = ref(false);
   const deleteAccountTimeout: Ref<null | number> = ref(null);
@@ -153,6 +159,10 @@
       deep: true
     }
   );
+
+  onMounted(() => {
+    balance.value = getAccountBalance();
+  });
 
   function getAccountBalance(): number {
     const accountStats = accountStore.getStats({ accountId: props.account.id });
