@@ -24,7 +24,7 @@
     :undo="isDeleting"
     :open="isOpen"
     @update:open="(open) => (isOpen = open)"
-    @update:title="handleUpdateBookName"
+    @update:name="handleUpdateBookName"
     @undo="handleUndo"
   >
     <template #icon>

@@ -21,7 +21,7 @@
     }"
     :loading="isLoading"
     :undo="deleteAccountTimeout != null"
-    @update:title="handleUpdateAccountName"
+    @update:name="handleUpdateAccountName"
     @undo="handleUndo"
     @click="$emit('click')"
   >
