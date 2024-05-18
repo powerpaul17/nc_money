@@ -15,6 +15,7 @@ OC.L10N.register(
     "Date" : "Datum",
     "Value" : "Vrednost",
     "Decimals" : "Decimalna mesta",
+    "Space" : "Presledek",
     "Select File" : "Izbor datoteke",
     "Import" : "Uvozi",
     "Comment" : "Opomba",
