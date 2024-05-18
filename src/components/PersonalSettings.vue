@@ -1,6 +1,6 @@
 <template>
   <NcSettingsSection
-    :title="t('money', 'Money')"
+    :name="t('money', 'Money')"
     :description="t('money', 'Various settings for the money app')"
   >
     <div class="[&>*]:mt-7">

@@ -81,7 +81,7 @@
       <NcModal
         v-if="showDeleteConfirmationDialog"
         @close="() => (showDeleteConfirmationDialog = false)"
-        :title="t('money', 'Delete book')"
+        :name="t('money', 'Delete book')"
       >
         <div class="p-8">
           <div class="mb-8">

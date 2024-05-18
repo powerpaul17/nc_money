@@ -1,6 +1,6 @@
 <template>
   <NcAppSidebar
-    :title="description"
+    :name="description"
     @close="handleCloseSidebar"
   >
     <NcAppSidebarTab

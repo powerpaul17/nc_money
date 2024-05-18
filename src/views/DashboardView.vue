@@ -2,7 +2,7 @@
   <NcAppContent>
     <NcEmptyContent
       v-if="!bookStore.books.value.length"
-      :title="t('money', 'No books available')"
+      :name="t('money', 'No books available')"
       :description="t('money', 'Go ahead and create one...')"
     >
       <template #icon>
@@ -20,7 +20,7 @@
         <NcListItem
           v-for="book of bookStore.books.value"
           :key="book.id"
-          :title="book.name"
+          :name="book.name"
           :details="
             NumberUtils.formatNumber(
               accountStore.getEquityForBookId(book.id).value,
