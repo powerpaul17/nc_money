@@ -32,7 +32,7 @@
       <CurrencyText
         class="mr-2"
         :value="balance"
-        :animation="true"
+        :animation="animationEnabled"
         :inverted-value="
           settingStore.useInvertedAccounts.value &&
           AccountTypeUtils.isInvertedAccount(account.type)
@@ -104,6 +104,7 @@
   import dayjs from 'dayjs';
 
   import {
+    nextTick,
     onMounted,
     ref,
     watch,
@@ -143,6 +144,8 @@
   const showDeleteConfirmationDialog = ref(false);
   const deleteAccountTimeout: Ref<null | number> = ref(null);
 
+  const animationEnabled = ref(true);
+
   const props = defineProps({
     account: {
       type: Object as PropType<Account>,
@@ -161,7 +164,12 @@
   );
 
   onMounted(() => {
+    animationEnabled.value = false;
     balance.value = getAccountBalance();
+
+    void nextTick(() => {
+      animationEnabled.value = true;
+    });
   });
 
   function getAccountBalance(): number {
