@@ -1,8 +1,10 @@
 <template>
-  <label class="flex flex-auto flex-col items-baseline">
-    {{ label }}
+  <label
+    class="flex h-[36px] w-full items-center rounded-large border-2 border-solid border-transparent hover:border-primary-element focus:border-primary-element disabled:text-text-maxcontrast disabled:hover:border-transparent"
+  >
+    <slot name="pre"></slot>
     <input
-      class="w-full overflow-hidden text-ellipsis border-transparent bg-inherit hover:border-primary-element focus:border-primary-element disabled:text-text-maxcontrast disabled:hover:border-transparent"
+      class="my-0 w-full grow overflow-hidden text-ellipsis border-0 border-none bg-inherit"
       type="text"
       :placeholder="placeholder + '...'"
       :disabled="disabled"
@@ -10,6 +12,7 @@
       @change="handleValueChange"
       @focus="$event.target.select()"
     />
+    <slot name="post"></slot>
   </label>
 </template>
 
