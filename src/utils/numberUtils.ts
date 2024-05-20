@@ -64,7 +64,7 @@ export class NumberUtils {
 
   public static roundToPrecision(
     number: number,
-    precision: number = 10
+    precision: number = 8
   ): number {
     return (
       Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision)

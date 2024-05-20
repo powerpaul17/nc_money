@@ -83,13 +83,13 @@ describe('NumberUtils', () => {
     });
 
     it('should return false if numbers are not equal', () => {
-      expect(NumberUtils.areEqual(0.3000000005, 0.3)).to.be.false;
+      expect(NumberUtils.areEqual(0.300000005, 0.3)).to.be.false;
     });
   });
 
   describe('areNotEqual', () => {
     it('should return true if numbers are not equal', () => {
-      expect(NumberUtils.areNotEqual(0.3000000005, 0.3)).to.be.true;
+      expect(NumberUtils.areNotEqual(0.300000005, 0.3)).to.be.true;
     });
 
     it('should return false if numbers are equal', () => {
