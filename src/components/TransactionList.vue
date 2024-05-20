@@ -19,7 +19,7 @@
         <DynamicScrollerItem
           :item="item"
           :active="active"
-          class="p-2"
+          class="p-1"
         >
           <div
             v-if="item.type === 'headOfGroup'"
