@@ -81,11 +81,20 @@
         class="self-end"
         type="primary"
         :wide="true"
-        :disabled="!newDestAccountId || NumberUtils.areEqual(value, 0.0)"
+        :disabled="
+          isLoading || !newDestAccountId || NumberUtils.areEqual(value, 0.0)
+        "
         @click="handleCreateTransaction()"
       >
         <template #icon>
-          <Plus :size="20" />
+          <div
+            v-if="isLoading"
+            class="icon-loading-small"
+          />
+          <Plus
+            v-else
+            :size="20"
+          />
         </template>
         {{ t('money', 'Add transaction') }}
       </NcButton>
@@ -153,6 +162,8 @@
   const sourceSplitDescription = ref('');
   const destSplitDescription = ref('');
 
+  const isLoading = ref(false);
+
   const account = computed(() => {
     return accountStore.getById(props.accountId);
   });
@@ -198,6 +209,8 @@
   }
 
   async function handleCreateTransaction(): Promise<void> {
+    isLoading.value = true;
+
     const result = await transactionService.addTransactionWithSplits({
       description: description.value,
       date: date.value,
@@ -222,5 +235,7 @@
         accountId: props.accountId
       }
     });
+
+    isLoading.value = false;
   }
 </script>
