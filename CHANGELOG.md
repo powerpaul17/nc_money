@@ -3,6 +3,7 @@
 ### Changed
 
 - Fix wrong link to book in dashboard widget
+- Allow creating a new transaction without a destination account
 
 ## [0.25.1] - 2024-02-20
 

@@ -81,9 +81,7 @@
         class="self-end"
         type="primary"
         :wide="true"
-        :disabled="
-          isLoading || !newDestAccountId || NumberUtils.areEqual(value, 0.0)
-        "
+        :disabled="isLoading || NumberUtils.areEqual(value, 0.0)"
         @click="handleCreateTransaction()"
       >
         <template #icon>
