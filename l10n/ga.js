@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Ainm",
     "Are you sure?" : "An bhfuil tú cinnte?",
+    "Date" : "Dáta",
     "Select File" : "Roghnaigh Comhad",
     "Comment" : "Trácht"
 },
