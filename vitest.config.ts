@@ -8,7 +8,9 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     coverage: {
-      provider: 'istanbul'
+      provider: 'istanbul',
+      include: ['src/**/*'],
+      enabled: true
     },
     exclude: [...configDefaults.exclude, 'src/vendor'],
     alias: [
