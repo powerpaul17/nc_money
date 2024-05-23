@@ -12,13 +12,11 @@ export default defineConfig({
       include: ['src/**/*'],
       enabled: true
     },
-    exclude: [...configDefaults.exclude, 'src/vendor'],
-    alias: [
-      // remove this when migration to vue 3 is complete
-      {
-        find: 'vue',
-        replacement: 'vue/dist/vue.runtime.mjs'
+    exclude: [...configDefaults.exclude],
+    server: {
+      deps: {
+        inline: ['@nextcloud/vue']
       }
-    ]
+    }
   }
 });
