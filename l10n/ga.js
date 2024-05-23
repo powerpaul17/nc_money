@@ -2,6 +2,7 @@ OC.L10N.register(
     "money",
     {
     "Name" : "Ainm",
+    "Description" : "Cur síos",
     "Overview" : "Forbhreathnú",
     "Are you sure?" : "An bhfuil tú cinnte?",
     "Date" : "Dáta",
