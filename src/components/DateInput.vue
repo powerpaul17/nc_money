@@ -64,7 +64,7 @@
   });
 
   const formatter = {
-    stringify: (date: Date): string => dayjs(date).format('L'),
+    stringify: (date: Date): string => dayjs(date).utc().format('L'),
     parse: (value: string): Date => getDateFromValue(value)
   };
 
