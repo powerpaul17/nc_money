@@ -9,8 +9,7 @@ export default defineConfig({
     globals: true,
     coverage: {
       provider: 'istanbul',
-      include: ['src/**/*'],
-      enabled: true
+      include: ['src/**/*']
     },
     exclude: [...configDefaults.exclude],
     server: {
