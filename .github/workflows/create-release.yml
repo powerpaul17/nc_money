@@ -21,7 +21,7 @@ env:
 
 jobs:
   integration-tests:
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/integration-tests.yml
 
   frontend-tests:
     uses: ./.github/workflows/pull-request.yml
