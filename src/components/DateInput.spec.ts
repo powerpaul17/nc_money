@@ -8,6 +8,7 @@ import {
 
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
 
 import DateInput from './DateInput.vue';
 
@@ -74,6 +75,7 @@ describe('DateInput', () => {
     emitted: () => void;
   } {
     dayjs.extend(localizedFormat);
+    dayjs.extend(utc);
 
     if (options?.locale) {
       import.meta.glob('../../node_modules/dayjs/locale/*.js', { eager: true });
