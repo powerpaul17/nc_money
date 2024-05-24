@@ -6,6 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "check": "vue-tsc --noEmit",
+    "check:format": "npx prettier -c .",
     "lint": "eslint .",
     "test": "vitest",
     "coverage": "vitest run --coverage",
