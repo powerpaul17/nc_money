@@ -14,9 +14,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.vue"
-      ],
+      "files": ["*.vue"],
       "rules": {
         "@typescript-eslint/indent": "off",
         "indent": "off"
@@ -32,24 +30,12 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "extraFileExtensions": [
-      ".vue"
-    ]
+    "extraFileExtensions": [".vue"]
   },
-  "plugins": [
-    "vue",
-    "@typescript-eslint",
-    "tailwindcss"
-  ],
+  "plugins": ["vue", "@typescript-eslint", "tailwindcss"],
   "rules": {
-    "max-len": [
-      "warn",
-      120
-    ],
-    "one-var": [
-      "error",
-      "never"
-    ],
+    "max-len": ["warn", 120],
+    "one-var": ["error", "never"],
     "no-unused-vars": "off",
     "@typescript-eslint/explicit-function-return-type": "error",
     "vue/block-lang": [

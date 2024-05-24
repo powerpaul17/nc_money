@@ -7,7 +7,7 @@ import { showSuccess } from '@nextcloud/dialogs';
 import { useSettingStore } from '../stores/settingStore';
 import { useSettingApiService } from './settingApiService';
 
-let settingService: SettingService|null = null;
+let settingService: SettingService | null = null;
 
 export const useSettingService = (): SettingService => {
   if (!settingService) settingService = new SettingService();
@@ -15,11 +15,10 @@ export const useSettingService = (): SettingService => {
 };
 
 class SettingService {
-
   private settingStore = useSettingStore();
   private settingApiService = useSettingApiService();
 
-  private watcher: WatchStopHandle|null = null;
+  private watcher: WatchStopHandle | null = null;
 
   private setupWatcher(): void {
     this.watcher = this.settingStore.subscribe(() => {
@@ -38,12 +37,17 @@ class SettingService {
 
     const newSettings = await this.settingApiService.loadSettings();
 
-    this.settingStore.useInvertedAccounts.value = newSettings.useInvertedAccounts ?? true;
+    this.settingStore.useInvertedAccounts.value =
+      newSettings.useInvertedAccounts ?? true;
 
-    this.settingStore.numberFormat_decimals.value = newSettings.numberFormat_decimals ?? 2;
-    this.settingStore.numberFormat_decimalSeparator.value = newSettings.numberFormat_decimalSeparator ?? '.';
-    this.settingStore.numberFormat_groupBy.value = newSettings.numberFormat_groupBy ?? 3;
-    this.settingStore.numberFormat_groupSeparator.value = newSettings.numberFormat_groupSeparator ?? ' ';
+    this.settingStore.numberFormat_decimals.value =
+      newSettings.numberFormat_decimals ?? 2;
+    this.settingStore.numberFormat_decimalSeparator.value =
+      newSettings.numberFormat_decimalSeparator ?? '.';
+    this.settingStore.numberFormat_groupBy.value =
+      newSettings.numberFormat_groupBy ?? 3;
+    this.settingStore.numberFormat_groupSeparator.value =
+      newSettings.numberFormat_groupSeparator ?? ' ';
 
     this.setupWatcher();
   }
@@ -51,5 +55,4 @@ class SettingService {
   public async saveSettings(): Promise<void> {
     await this.settingApiService.saveSettings(this.settingStore.state.value);
   }
-
 }

@@ -32,7 +32,7 @@ bundles.forEach(async (bundle) => {
     build: {
       lib: {
         ...bundle,
-        formats: [ 'iife' ]
+        formats: ['iife']
       },
       outDir: './js',
       minify: mode === 'development' ? false : 'esbuild',
@@ -52,9 +52,7 @@ bundles.forEach(async (bundle) => {
         }
       ]
     },
-    plugins: [
-      vue()
-    ],
+    plugins: [vue()],
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode)
     }

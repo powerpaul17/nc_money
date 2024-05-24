@@ -1,18 +1,6 @@
 <template>
   <div
-    class="
-        grid
-        h-[45px]
-        grid-cols-transactionListItem
-        items-center
-
-        [&>*:first-child]:justify-center
-        [&>*:last-child]:justify-center
-        [&>*:not(:first-child):not(:last-child)]:mx-2
-        [&>*]:flex
-        [&>*]:h-full
-        [&>*]:items-center
-      "
+    class="grid h-[45px] grid-cols-transactionListItem items-center [&>*:first-child]:justify-center [&>*:last-child]:justify-center [&>*:not(:first-child):not(:last-child)]:mx-2 [&>*]:flex [&>*]:h-full [&>*]:items-center"
     :class="itemClass"
   >
     <div>
@@ -71,6 +59,6 @@
 
 <style>
   .tombstone {
-    @apply w-full h-4 rounded-full bg-background-dark animate-pulse
+    @apply w-full h-4 rounded-full bg-background-dark animate-pulse;
   }
 </style>

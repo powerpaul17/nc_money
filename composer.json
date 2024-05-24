@@ -1,8 +1,8 @@
 {
-    "scripts": {
-        "test:integration": "phpunit --configuration tests/phpunit.integration.xml"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.0"
-    }
+  "scripts": {
+    "test:integration": "phpunit --configuration tests/phpunit.integration.xml"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  }
 }

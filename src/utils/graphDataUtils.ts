@@ -3,7 +3,6 @@ import dayjs, { Dayjs } from 'dayjs';
 import { ArrayUtils } from './arrayUtils';
 
 export class GraphDataUtils {
-
   public static createBarGraphData({
     startDate = dayjs(),
     numberOfMonths = 12,
@@ -24,7 +23,6 @@ export class GraphDataUtils {
       })
       .reverse();
   }
-
 }
 
 type GraphData = {

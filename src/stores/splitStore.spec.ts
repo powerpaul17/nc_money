@@ -4,7 +4,6 @@ import { resetSplitStore, useSplitStore } from './splitStore';
 import { resetAccountStore, useAccountStore } from './accountStore';
 
 describe('splitStore', () => {
-
   it('should insert a new split', async () => {
     const splitStore = useSplitStore();
 
@@ -19,7 +18,7 @@ describe('splitStore', () => {
 
     await splitStore.insertSplit(split);
 
-    expect(await splitStore.getByTransactionId(0)).to.deep.equal([ split ]);
+    expect(await splitStore.getByTransactionId(0)).to.deep.equal([split]);
   });
 
   it('should not insert the same split twice', async () => {
@@ -47,7 +46,7 @@ describe('splitStore', () => {
     await splitStore.insertSplit(split);
     await splitStore.insertSplit(split);
 
-    expect(await splitStore.getByTransactionId(0)).to.deep.equal([ split ]);
+    expect(await splitStore.getByTransactionId(0)).to.deep.equal([split]);
   });
 
   it('should return a split by id', async () => {
@@ -70,7 +69,7 @@ describe('splitStore', () => {
       destAccountId: 1
     };
 
-    await splitStore.insertSplits([ split1, split2 ]);
+    await splitStore.insertSplits([split1, split2]);
 
     expect(await splitStore.getById(0)).to.deep.equal(split1);
   });
@@ -95,9 +94,9 @@ describe('splitStore', () => {
       destAccountId: 1
     };
 
-    await splitStore.insertSplits([ split1, split2 ]);
+    await splitStore.insertSplits([split1, split2]);
 
-    expect(await splitStore.getByAccountId(0)).to.deep.equal([ split1 ]);
+    expect(await splitStore.getByAccountId(0)).to.deep.equal([split1]);
   });
 
   it('should return splits by transaction id', async () => {
@@ -120,9 +119,9 @@ describe('splitStore', () => {
       destAccountId: 0
     };
 
-    await splitStore.insertSplits([ split1, split2 ]);
+    await splitStore.insertSplits([split1, split2]);
 
-    expect(await splitStore.getByTransactionId(0)).to.deep.equal([ split1 ]);
+    expect(await splitStore.getByTransactionId(0)).to.deep.equal([split1]);
   });
 
   it('should delete a split', async () => {
@@ -145,15 +144,14 @@ describe('splitStore', () => {
       destAccountId: 0
     };
 
-    await splitStore.insertSplits([ split1, split2 ]);
+    await splitStore.insertSplits([split1, split2]);
     await splitStore.deleteSplit(split1.id);
 
-    expect(await splitStore.getByTransactionId(0)).to.deep.equal([ split2 ]);
+    expect(await splitStore.getByTransactionId(0)).to.deep.equal([split2]);
   });
 
   afterEach(() => {
     resetSplitStore();
     resetAccountStore();
   });
-
 });

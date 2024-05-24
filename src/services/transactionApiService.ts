@@ -8,16 +8,17 @@ import { useSplitStore } from '../stores/splitStore';
 import { useSplitApiService, type SplitApiData } from './splitApiService';
 import type { AxiosResponse } from 'axios';
 
-let transactionApiService: TransactionApiService|null = null;
+let transactionApiService: TransactionApiService | null = null;
 
 export const useTransactionApiService = (): TransactionApiService => {
-  if (!transactionApiService) transactionApiService = new TransactionApiService();
+  if (!transactionApiService)
+    transactionApiService = new TransactionApiService();
   return transactionApiService;
 };
 
 class TransactionApiService {
-
-  private boundCreateTransactionFromResponseData = this.createTransactionFromResponseData.bind(this);
+  private boundCreateTransactionFromResponseData =
+    this.createTransactionFromResponseData.bind(this);
 
   public async getTransactionsOfAccount(
     accountId: number,
@@ -35,7 +36,9 @@ class TransactionApiService {
       }
     );
 
-    return await Promise.all(response.data.map(this.boundCreateTransactionFromResponseData));
+    return await Promise.all(
+      response.data.map(this.boundCreateTransactionFromResponseData)
+    );
   }
 
   public async getTransactionsOfAccountByDate(
@@ -54,7 +57,9 @@ class TransactionApiService {
       }
     );
 
-    return await Promise.all(response.data.map(this.boundCreateTransactionFromResponseData));
+    return await Promise.all(
+      response.data.map(this.boundCreateTransactionFromResponseData)
+    );
   }
 
   public async getUnbalancedTransactions(
@@ -71,7 +76,9 @@ class TransactionApiService {
       }
     );
 
-    return await Promise.all(response.data.map(this.boundCreateTransactionFromResponseData));
+    return await Promise.all(
+      response.data.map(this.boundCreateTransactionFromResponseData)
+    );
   }
 
   public async addTransaction(
@@ -83,13 +90,10 @@ class TransactionApiService {
     };
 
     const response = await axios.post<
-    TransactionApiData,
-    AxiosResponse<TransactionApiData>,
-    TransactionApiCreationData
-    >(
-      generateUrl('apps/money/transactions'),
-      data
-    );
+      TransactionApiData,
+      AxiosResponse<TransactionApiData>,
+      TransactionApiCreationData
+    >(generateUrl('apps/money/transactions'), data);
 
     return await this.createTransactionFromResponseData(response.data);
   }
@@ -103,19 +107,16 @@ class TransactionApiService {
     };
 
     const response = await axios.put<
-    TransactionApiData,
-    AxiosResponse<TransactionApiData>,
-    TransactionApiData
-    >(
-      generateUrl(`apps/money/transactions/${transaction.id}`),
-      data
-    );
+      TransactionApiData,
+      AxiosResponse<TransactionApiData>,
+      TransactionApiData
+    >(generateUrl(`apps/money/transactions/${transaction.id}`), data);
 
     return await this.createTransactionFromResponseData(response.data);
   }
 
   private async createTransactionFromResponseData(
-    data: TransactionApiData|TransactionApiDataWithSplits
+    data: TransactionApiData | TransactionApiDataWithSplits
   ): Promise<Transaction> {
     const splitApiService = useSplitApiService();
     const splitStore = useSplitStore();
@@ -134,7 +135,6 @@ class TransactionApiService {
       timestampAdded: new Date(data.timestampAdded).valueOf()
     };
   }
-
 }
 
 export type TransactionCreationData = Omit<

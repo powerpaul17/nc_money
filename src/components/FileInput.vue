@@ -10,12 +10,11 @@
       :disabled="disabled"
       @change="handleFileChanged"
       ref="fileInput"
-    >
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-
   import { ref } from 'vue';
 
   defineProps({
@@ -29,9 +28,9 @@
     }
   });
 
-  const emit = defineEmits([ 'file-changed' ]);
+  const emit = defineEmits(['file-changed']);
 
-  const fileInput = ref<HTMLInputElement|null>(null);
+  const fileInput = ref<HTMLInputElement | null>(null);
 
   function handleFileChanged(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -44,5 +43,4 @@
     if (!fileInput.value) throw new Error('file input does not exist');
     fileInput.value.value = '';
   }
-
 </script>

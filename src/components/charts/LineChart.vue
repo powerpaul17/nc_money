@@ -2,61 +2,62 @@
   <ChartJSLineChart
     class="relative h-full w-full"
     :data="chartData"
-    :options="
-      {
-        responsive: true,
-        maintainAspectRatio: false,
-        resizeDelay: 100,
-        pointHoverRadius: 5,
-        layout: {
-          padding: 30
-        },
-        scales: {
-          x: {
-            display: false,
-            grid: {
-              display: false
-            }
-          },
-          y: {
+    :options="{
+      responsive: true,
+      maintainAspectRatio: false,
+      resizeDelay: 100,
+      pointHoverRadius: 5,
+      layout: {
+        padding: 30
+      },
+      scales: {
+        x: {
+          display: false,
+          grid: {
             display: false
           }
         },
-        interaction: {
-          intersect: false
+        y: {
+          display: false
+        }
+      },
+      interaction: {
+        intersect: false
+      },
+      plugins: {
+        title: {
+          display: !!props.title,
+          text: props.title,
+          color: textColor
         },
-        plugins: {
-          title: {
-            display: !!props.title,
-            text: props.title,
-            color: textColor
+        tooltip: {
+          enabled: false
+        },
+        datalabels: {
+          display: (context) =>
+            context.active ||
+            context.dataIndex === context.dataset.data.length - 1,
+          color: (context) => context.dataset.borderColor,
+          font: {
+            weight: 'bold'
           },
-          tooltip: {
-            enabled: false
-          },
-          datalabels: {
-            display: (context) => context.active || context.dataIndex === context.dataset.data.length - 1,
-            color: (context) => context.dataset.borderColor,
-            font: {
-              weight: 'bold'
+          labels: {
+            key: {
+              anchor: 'start',
+              align: 'start',
+              display: (context) => context.active,
+              formatter: (value, context) =>
+                context.dataset.labels[context.dataIndex]
             },
-            labels: {
-              key: {
-                anchor: 'start',
-                align: 'start',
-                display: (context) => context.active,
-                formatter: (value, context) => context.dataset.labels[context.dataIndex]
-              },
-              value: {
-                anchor: 'end',
-                align: 'end',
-                formatter: (value) => NumberUtils.formatNumber(value, {})
-              }
+            value: {
+              anchor: 'end',
+              align: 'end',
+              formatter: (value) => NumberUtils.formatNumber(value, {})
             }
           }
         }
       }
-    "
+    }"
   />
 </template>
 
@@ -95,11 +96,12 @@
 
   const chartData = computed<ChartData<'line'>>(() => ({
     labels: props.data.labels,
-    datasets: props.data.datasets.map(dataset => {
-      const color = dataset.color ?? Utils.getValueOfCSSVar('--color-primary-element');
+    datasets: props.data.datasets.map((dataset) => {
+      const color =
+        dataset.color ?? Utils.getValueOfCSSVar('--color-primary-element');
 
       return {
-        data: dataset.values.map(v => NumberUtils.roundToPrecision(v)),
+        data: dataset.values.map((v) => NumberUtils.roundToPrecision(v)),
         labels: props.data.labels,
 
         borderColor: color,

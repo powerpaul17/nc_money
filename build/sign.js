@@ -23,9 +23,15 @@ try {
   const occSign = spawnSync('php', [
     '../../occ',
     'integrity:sign-app',
-    '--path', path.join(process.env.NC_APP_DIRECTORY ?? 'custom_apps', '/money/build/dist'),
-    '--privateKey', keyFilePath,
-    '--certificate', certFilePath
+    '--path',
+    path.join(
+      process.env.NC_APP_DIRECTORY ?? 'custom_apps',
+      '/money/build/dist'
+    ),
+    '--privateKey',
+    keyFilePath,
+    '--certificate',
+    certFilePath
   ]);
 
   const output = occSign.stdout.toString();

@@ -4,7 +4,7 @@ import type { AxiosResponse } from 'axios';
 
 import type { Split } from '../stores/splitStore';
 
-let splitApiService: SplitApiService|null = null;
+let splitApiService: SplitApiService | null = null;
 
 export const useSplitApiService = (): SplitApiService => {
   if (!splitApiService) splitApiService = new SplitApiService();
@@ -12,7 +12,6 @@ export const useSplitApiService = (): SplitApiService => {
 };
 
 class SplitApiService {
-
   public async addSplit(split: SplitCreationData): Promise<Split> {
     const response = await axios.post<
       SplitApiData,
@@ -46,7 +45,6 @@ class SplitApiService {
       convertRate: data.convertRate
     };
   }
-
 }
 
 export type SplitCreationData = Omit<Split, 'id'>;

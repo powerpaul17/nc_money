@@ -1,11 +1,6 @@
 <template>
   <div
-    class="
-      flex
-      h-14
-      items-center
-      [&>*]:flex
-    "
+    class="flex h-14 items-center [&>*]:flex"
     :class="itemClass"
     @click="emit('click')"
   >
@@ -24,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-
   defineProps({
     itemClass: {
       type: Object,
@@ -32,6 +26,5 @@
     }
   });
 
-  const emit = defineEmits([ 'click' ]);
-
+  const emit = defineEmits(['click']);
 </script>

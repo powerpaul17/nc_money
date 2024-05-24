@@ -1,7 +1,7 @@
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 
-let settingApiService: SettingApiService|null = null;
+let settingApiService: SettingApiService | null = null;
 
 export const useSettingApiService = (): SettingApiService => {
   if (!settingApiService) settingApiService = new SettingApiService();
@@ -9,19 +9,16 @@ export const useSettingApiService = (): SettingApiService => {
 };
 
 class SettingApiService {
-
   public async loadSettings(): Promise<SettingsApiData> {
-    const response = await axios.get<SettingsApiData>(generateUrl('apps/money/settings'));
+    const response = await axios.get<SettingsApiData>(
+      generateUrl('apps/money/settings')
+    );
     return response.data;
   }
 
   public async saveSettings(settings: SettingsApiData): Promise<void> {
-    await axios.post(
-      generateUrl('apps/money/settings'),
-      settings
-    );
+    await axios.post(generateUrl('apps/money/settings'), settings);
   }
-
 }
 
 export type SettingsApiData = {

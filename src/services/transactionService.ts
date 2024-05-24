@@ -7,10 +7,13 @@ import {
 } from './transactionApiService';
 import { useSplitService } from './splitService';
 import { useAccountService } from './accountService';
-import { useTransactionStore, type Transaction } from '../stores/transactionStore';
+import {
+  useTransactionStore,
+  type Transaction
+} from '../stores/transactionStore';
 import type { Split } from '../stores/splitStore';
 
-let transactionService: TransactionService|null = null;
+let transactionService: TransactionService | null = null;
 
 export const useTransactionService = (): TransactionService => {
   if (!transactionService) transactionService = new TransactionService();
@@ -18,7 +21,6 @@ export const useTransactionService = (): TransactionService => {
 };
 
 class TransactionService {
-
   private transactionStore = useTransactionStore();
   private transactionApiService = useTransactionApiService();
 
@@ -33,7 +35,7 @@ class TransactionService {
     await this.changeAccount(accountId);
   }
 
-  public async changeAccount(accountId?: number|null): Promise<void> {
+  public async changeAccount(accountId?: number | null): Promise<void> {
     await this.transactionStore.reset();
     this.transactionStore.currentAccountId.value = accountId ?? null;
     await this.fetchAndInsertTransactions();
@@ -63,11 +65,20 @@ class TransactionService {
     );
   }
 
-  public async fetchUnbalancedTransactions(offset = 0, limit = 100): Promise<Array<Transaction>> {
-    return await this.transactionApiService.getUnbalancedTransactions(offset, limit);
+  public async fetchUnbalancedTransactions(
+    offset = 0,
+    limit = 100
+  ): Promise<Array<Transaction>> {
+    return await this.transactionApiService.getUnbalancedTransactions(
+      offset,
+      limit
+    );
   }
 
-  public async fetchAndInsertTransactions(offset = 0, limit = 100): Promise<void> {
+  public async fetchAndInsertTransactions(
+    offset = 0,
+    limit = 100
+  ): Promise<void> {
     if (this.transactionStore.allTransactionsFetched.value) return;
 
     let transactions = [];
@@ -92,11 +103,11 @@ class TransactionService {
     transaction: TransactionCreationData,
     addToStore = true
   ): Promise<Transaction> {
-    const newTransaction = await this.transactionApiService.addTransaction(
-      transaction
-    );
+    const newTransaction =
+      await this.transactionApiService.addTransaction(transaction);
 
-    if (addToStore) await this.transactionStore.insertTransaction(newTransaction);
+    if (addToStore)
+      await this.transactionStore.insertTransaction(newTransaction);
 
     return newTransaction;
   }
@@ -159,11 +170,13 @@ class TransactionService {
   public async addTransactionsWithSplits(
     transactions: Array<TransactionWithSplitsCreationData>,
     addToStore = true
-  ): Promise<Array<{
-    transaction: Transaction;
-    srcSplit: Split;
-    destSplit?: Split;
-  }>> {
+  ): Promise<
+    Array<{
+      transaction: Transaction;
+      srcSplit: Split;
+      destSplit?: Split;
+    }>
+  > {
     const results = [];
 
     const chunkSize = 10;
@@ -171,11 +184,12 @@ class TransactionService {
 
     for (const chunk of chunks) {
       for (const transaction of chunk) {
-        results.push(await this.addTransactionWithSplits(transaction, addToStore));
+        results.push(
+          await this.addTransactionWithSplits(transaction, addToStore)
+        );
       }
     }
 
     return results;
   }
-
 }

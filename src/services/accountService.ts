@@ -4,14 +4,13 @@ import {
 } from './accountApiService';
 import { useAccountStore, type Account } from '../stores/accountStore';
 
-let accountService: AccountService|null = null;
+let accountService: AccountService | null = null;
 
 export const useAccountService = (): AccountService => {
   if (!accountService) accountService = new AccountService();
   return accountService;
 };
 class AccountService {
-
   private accountStore = useAccountStore();
   private accountApiService = useAccountApiService();
 
@@ -42,5 +41,4 @@ class AccountService {
     await this.accountApiService.deleteAccount(accountId);
     this.accountStore.deleteAccount(accountId);
   }
-
 }

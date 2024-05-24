@@ -2,9 +2,7 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/**/*.{vue,ts}'
-  ],
+  content: ['./src/**/*.{vue,ts}'],
   theme: {
     extend: {
       colors: {
@@ -17,11 +15,11 @@ module.exports = {
         'background-hover': 'var(--color-background-hover)',
         'primary-element': 'var(--color-primary-element)',
 
-        'unbalanced': colors.yellow[100],
+        unbalanced: colors.yellow[100],
         'unbalanced-dark': colors.yellow[700]
       },
       gridTemplateColumns: {
-        'transactionListItem': '44px 1fr minmax(0, 4fr) 2fr 1fr 44px'
+        transactionListItem: '44px 1fr minmax(0, 4fr) 2fr 1fr 44px'
       }
     }
   },
@@ -30,5 +28,5 @@ module.exports = {
   },
   plugins: [],
   important: true,
-  darkMode: [ 'class', '[data-theme-dark]' ]
+  darkMode: ['class', '[data-theme-dark]']
 };
