@@ -126,7 +126,7 @@ describe('CurrencyText', () => {
 
     return {
       container: renderResult.container,
-      updateProps: renderResult.updateProps.bind(undefined)
+      updateProps: (props) => renderResult.rerender(props)
     };
   }
 });
