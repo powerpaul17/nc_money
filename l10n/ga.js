@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Ainm",
     "Description" : "Cur síos",
     "Overview" : "Forbhreathnú",
+    "Delete account" : "Scrios cuntas",
     "Are you sure?" : "An bhfuil tú cinnte?",
     "Date" : "Dáta",
     "Select File" : "Roghnaigh Comhad",
