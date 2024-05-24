@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.26.0] - 2024-05-24
+
 ### Changed
 
 - Fix wrong link to book in dashboard widget
