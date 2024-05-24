@@ -97,7 +97,7 @@ jobs:
           APP_CERTIFICATE: ${{ secrets.NC_MONEY_CERTIFICATE}}
           NC_APP_DIRECTORY: apps
 
-  upload_to_store:
+  upload-to-store:
     runs-on: ubuntu-latest
     needs: build-and-sign
     steps:
