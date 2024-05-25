@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.26.1] - 2024-05-25
+
 ### Changed
 
 - fix transaction list not updating
