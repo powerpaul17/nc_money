@@ -71,19 +71,23 @@ describe('transactionStore', () => {
     const accountStore = useAccountStore();
     accountStore.insertAccount({
       id: 0,
+      bookId: 0,
       name: 'account0',
       description: '',
       currency: '',
       type: AccountTypeType.ASSET,
-      stats: {}
+      stats: {},
+      extraData: {}
     });
     accountStore.insertAccount({
       id: 1,
+      bookId: 0,
       name: 'account1',
       description: '',
       currency: '',
       type: AccountTypeType.ASSET,
-      stats: {}
+      stats: {},
+      extraData: {}
     });
 
     const transaction1 = {

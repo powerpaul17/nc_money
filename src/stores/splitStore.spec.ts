@@ -27,11 +27,13 @@ describe('splitStore', () => {
     const accountStore = useAccountStore();
     accountStore.insertAccount({
       id: 0,
+      bookId: 0,
       currency: '',
       description: '',
       name: '',
       stats: {},
-      type: 0
+      type: 0,
+      extraData: {}
     });
 
     const split = {
