@@ -1,4 +1,4 @@
-import type { WatchStopHandle } from 'vue';
+import { nextTick, type WatchStopHandle } from 'vue';
 
 import { translate as t } from '@nextcloud/l10n';
 
@@ -49,7 +49,9 @@ class SettingService {
     this.settingStore.numberFormat_groupSeparator.value =
       newSettings.numberFormat_groupSeparator ?? ' ';
 
-    this.setupWatcher();
+    void nextTick(() => {
+      this.setupWatcher();
+    });
   }
 
   public async saveSettings(): Promise<void> {
