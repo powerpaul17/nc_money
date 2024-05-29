@@ -6,6 +6,7 @@ OC.L10N.register(
     "Overview" : "Forbhreathnú",
     "Delete account" : "Scrios cuntas",
     "Are you sure?" : "An bhfuil tú cinnte?",
+    "No account found" : "Níor aimsíodh aon chuntas",
     "Add account" : "Cuir cuntas leis",
     "Date" : "Dáta",
     "Value" : "Luach",
