@@ -4,14 +4,14 @@
 
 ### Changed
 
-- fix transaction list not updating (again)
-- save transaction date as string to avoid time zone issues
+- Fix transaction list not updating (again)
+- Save transaction date as string to avoid time zone issues
 
 ## [0.26.1] - 2024-05-25
 
 ### Changed
 
-- fix transaction list not updating
+- Fix transaction list not updating
 
 ## [0.26.0] - 2024-05-24
 
