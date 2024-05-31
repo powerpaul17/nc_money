@@ -1,6 +1,8 @@
 ## [Unreleased]
 
-- revert fix for transaction list updates because it broke account values
+### Changed
+
+- fix transaction list not updating (again)
 
 ## [0.26.1] - 2024-05-25
 
