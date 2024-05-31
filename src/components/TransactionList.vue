@@ -142,7 +142,7 @@
       transactionWatcher.value.stop();
     }
     transactionWatcher.value = await transactionStore.watchAll((t) => {
-      transactions.value = t;
+      transactions.value = t.slice();
     });
 
     accountIsChanging.value = false;

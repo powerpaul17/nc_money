@@ -343,7 +343,7 @@
     const watcher = await splitStore.watchForTransactionId(
       transactionId,
       (s) => {
-        splits.value = s;
+        splits.value = s.slice();
       }
     );
 
