@@ -51,7 +51,9 @@
     }
   });
 
-  const emit = defineEmits(['date-changed']);
+  const emit = defineEmits<{
+    (event: 'date-changed', newDate: Date): void;
+  }>();
 
   const dateValue = computed({
     get() {
