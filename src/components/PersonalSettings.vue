@@ -87,9 +87,16 @@
 </template>
 
 <script setup lang="ts">
+  import { onBeforeMount } from 'vue';
+
   import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js';
 
   import { useSettingStore } from '../stores/settingStore';
+  import { useSettingService } from '../services/settingService';
 
   const settingStore = useSettingStore();
+
+  onBeforeMount(() => {
+    void useSettingService().loadSettings();
+  });
 </script>
