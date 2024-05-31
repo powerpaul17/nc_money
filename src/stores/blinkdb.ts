@@ -5,7 +5,7 @@ let database: Database | null = null;
 export function useBlinkDB(): Database {
   if (!database) {
     database = createDB({
-      clone: true
+      clone: false
     });
   }
 

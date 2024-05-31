@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- revert fix for transaction list updates because it broke account values
+
 ## [0.26.1] - 2024-05-25
 
 ### Changed
