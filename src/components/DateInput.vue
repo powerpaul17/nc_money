@@ -60,20 +60,21 @@
       return props.date;
     },
     set(newDateValue) {
-      const newDate = newDateValue ?? dayjs().toDate();
-      emit('date-changed', newDate);
+      emit('date-changed', newDateValue);
     }
   });
 
   const formatter = {
-    stringify: (date: Date): string => dayjs(date).utc().format('L'),
+    stringify: (date: Date): string => dayjs(date).format('L'),
     parse: (value: string): Date => getDateFromValue(value)
   };
 
   function getDateFromValue(value: string): Date {
-    const date = ['L', 'D', 'DD']
-      .map((f) => dayjs(value, f))
-      .find((djs) => djs.isValid());
-    return (date ?? dayjs()).toDate();
+    const date =
+      ['L', 'D', 'DD']
+        .map((f) => dayjs(value, f))
+        .find((djs) => djs.isValid()) ?? dayjs();
+
+    return date.toDate();
   }
 </script>

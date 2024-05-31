@@ -19,7 +19,7 @@
 
       <template #date>
         <DateInput
-          :date="transaction.date"
+          :date="dayjs(transaction.date).toDate()"
           :placeholder="t('money', 'Date')"
           @date-changed="handleDateChanged"
         />
@@ -265,7 +265,7 @@
   }
 
   async function handleDateChanged(date: Date): Promise<void> {
-    props.transaction.date = date;
+    props.transaction.date = dayjs(date).format('YYYY-MM-DD');
     await handleTransactionChanged();
   }
 

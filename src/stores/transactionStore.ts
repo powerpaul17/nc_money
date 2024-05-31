@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { ref, type Ref } from 'vue';
 
 import {
@@ -139,12 +141,12 @@ class TransactionStore {
               accountStore.addValue({
                 accountId: split.destAccountId,
                 value: -split.value,
-                date: oldDate
+                date: dayjs(oldDate).toDate()
               });
               accountStore.addValue({
                 accountId: split.destAccountId,
                 value: split.value,
-                date: value
+                date: dayjs(value).toDate()
               });
             }
           });
@@ -175,6 +177,9 @@ class TransactionStore {
 export type Transaction = {
   id: number;
   description: string;
-  date: Date;
+
+  /** YYYY-MM-DD */
+  date: string;
+
   timestampAdded: number;
 };

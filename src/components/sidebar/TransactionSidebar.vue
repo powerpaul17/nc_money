@@ -95,6 +95,7 @@
 <script setup lang="ts">
   import { computed, onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import dayjs from 'dayjs';
 
   import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js';
   import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js';
@@ -174,7 +175,7 @@
 
   watch(transaction, () => {
     description.value = transaction.value?.description ?? '';
-    date.value = transaction.value?.date ?? new Date();
+    date.value = dayjs(transaction.value?.date).toDate();
   });
 
   onMounted(() => {
@@ -289,7 +290,7 @@
     if (!transaction.value) return;
 
     transaction.value.description = description.value;
-    transaction.value.date = date.value;
+    transaction.value.date = dayjs(date.value).format('YYYY-MM-DD');
 
     await transactionService.updateTransaction(transaction.value);
   }

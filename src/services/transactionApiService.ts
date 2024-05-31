@@ -131,7 +131,7 @@ class TransactionApiService {
     return {
       id: data.id,
       description: data.description,
-      date: new Date(data.date),
+      date: data.date,
       timestampAdded: new Date(data.timestampAdded).valueOf()
     };
   }

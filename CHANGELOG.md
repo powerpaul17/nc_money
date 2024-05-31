@@ -5,6 +5,7 @@
 ### Changed
 
 - fix transaction list not updating (again)
+- save transaction date as string to avoid time zone issues
 
 ## [0.26.1] - 2024-05-25
 
