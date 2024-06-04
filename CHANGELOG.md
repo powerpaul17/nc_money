@@ -1,11 +1,14 @@
 ## [Unreleased]
 
+### Changed
+
+- Save transaction date as string to avoid time zone issues
+
 ## [0.26.2] - 2024-05-31
 
 ### Changed
 
 - Fix transaction list not updating (again)
-- Save transaction date as string to avoid time zone issues
 
 ## [0.26.1] - 2024-05-25
 
