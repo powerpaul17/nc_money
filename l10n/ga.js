@@ -10,7 +10,9 @@ OC.L10N.register(
     "Add account" : "Cuir cuntas leis",
     "Date" : "Dáta",
     "Value" : "Luach",
+    "Space" : "Spás",
     "Select File" : "Roghnaigh Comhad",
+    "Import" : "Iompórtáil",
     "Comment" : "Trácht",
     "Info" : "Eolas",
     "Settings saved" : "Socruithe sábháilte"
