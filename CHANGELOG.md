@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.26.3] - 2024-06-04
+
 ### Changed
 
 - Save transaction date as string to avoid time zone issues
