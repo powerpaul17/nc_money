@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "Beskrivelse",
     "Import transactions" : "Import af transaktioner",
     "Overview" : "Overblik",
+    "Account name" : "Kontonavn",
     "Delete account" : "Slet konto",
     "Are you sure?" : "Er du sikker?",
     "No account found" : "Ingen konto fundet",
