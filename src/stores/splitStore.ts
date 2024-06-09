@@ -97,6 +97,10 @@ class SplitStore {
         void transactionStore
           .getById(target.transactionId)
           .then((transaction) => {
+            const date = transaction?.date
+              ? dayjs(transaction.date).toDate()
+              : undefined;
+
             if (p === 'value') {
               if (NumberUtils.areEqual(value, oldValue)) return;
 
@@ -104,18 +108,18 @@ class SplitStore {
               accountStore.addValue({
                 accountId: target.destAccountId,
                 value: diff,
-                date: transaction?.date
+                date
               });
             } else if (p === 'destAccountId' && value !== oldDestAccountId) {
               accountStore.addValue({
                 accountId: oldDestAccountId,
                 value: -oldValue,
-                date: transaction?.date
+                date
               });
               accountStore.addValue({
                 accountId: value,
                 value: oldValue,
-                date: transaction?.date
+                date
               });
             }
           });

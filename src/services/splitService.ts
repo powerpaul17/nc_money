@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { useSplitApiService, type SplitCreationData } from './splitApiService';
 import { useAccountStore } from '../stores/accountStore';
 import { useSplitStore, type Split } from '../stores/splitStore';
@@ -33,7 +35,7 @@ class SplitService {
       this.accountStore.addValue({
         accountId: split.destAccountId,
         value: split.value,
-        date: transaction?.date
+        date: transaction?.date ? dayjs(transaction.date).toDate() : undefined
       });
     }
 
@@ -47,10 +49,11 @@ class SplitService {
     const transaction = await this.transactionStore.getById(
       split.transactionId
     );
+
     this.accountStore.addValue({
       accountId: split.destAccountId,
       value: -split.value,
-      date: transaction?.date
+      date: transaction?.date ? dayjs(transaction.date).toDate() : undefined
     });
   }
 
