@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.26.5] - 2024-06-09
+
 ### Changed
 
 - Add missing dayjs import
