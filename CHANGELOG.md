@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.26.4] - 2024-06-09
+
 ### Changed
 
 - Add missing date conversions in split store/service
