@@ -92,6 +92,32 @@ describe('DateInput', () => {
     ]);
   });
 
+  it('should expand a single or double digit day to the day of the current month', async () => {
+    const dateChangedSpy = vi.fn();
+
+    await setupEnvironment({
+      renderOptions: {
+        props: { date: new Date(), 'onDate-changed': dateChangedSpy }
+      }
+    });
+
+    const element = screen.getByRole('textbox');
+
+    await fireEvent.update(element, '2');
+    element.dispatchEvent(new Event('change'));
+
+    expect(dateChangedSpy.mock.calls[0]).toEqual([
+      new Date('1970-01-02T00:00:00.000Z')
+    ]);
+
+    await fireEvent.update(element, '04');
+    element.dispatchEvent(new Event('change'));
+
+    expect(dateChangedSpy.mock.calls[1]).toEqual([
+      new Date('1970-01-04T00:00:00.000Z')
+    ]);
+  });
+
   async function setupEnvironment({
     options,
     renderOptions
