@@ -14,7 +14,7 @@
       v-else
       class="mx-auto flex max-w-5xl flex-col justify-around"
     >
-      <h1 class="mt-4 mb-8 text-xl font-semibold">{{ t('money', 'Books') }}</h1>
+      <h1 class="mb-8 mt-4 text-xl font-semibold">{{ t('money', 'Books') }}</h1>
 
       <ul class="list-none">
         <NcListItem

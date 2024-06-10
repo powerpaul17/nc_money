@@ -4,7 +4,7 @@
       <slot>Click/Drop here!</slot>
     </div>
     <input
-      class="absolute left-0 top-0 h-full w-full cursor-pointer opacity-0"
+      class="absolute left-0 top-0 size-full cursor-pointer opacity-0"
       type="file"
       :accept="accept"
       :disabled="disabled"

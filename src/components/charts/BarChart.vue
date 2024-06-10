@@ -1,6 +1,6 @@
 <template>
   <ChartJSBarChart
-    class="relative h-full w-full"
+    class="relative size-full"
     :data="chartData"
     :options="{
       responsive: true,
