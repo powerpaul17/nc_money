@@ -191,7 +191,7 @@
       parsedData: [],
       isValid: false,
       validator: (parsedData) => dayjs(parsedData).isValid(),
-      parser: (line) => dayjs(line, dateFormat.value).toDate(),
+      parser: (line) => dayjs(line, dateFormat.value).format('YYYY-MM-DD'),
       printValue: (value) => dayjs(value).format('L')
     },
     description: {
@@ -355,8 +355,8 @@
     const existingTransactions =
       await transactionService.fetchTransactionsOfAccountByDate(
         props.accountId,
-        dayjs(startDate).toDate(),
-        dayjs(endDate).toDate()
+        startDate,
+        endDate
       );
 
     const transactionHashMap = new Set();
