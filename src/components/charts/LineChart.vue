@@ -52,7 +52,14 @@
             value: {
               anchor: 'end',
               align: 'end',
-              formatter: (value) => NumberUtils.formatNumber(value, {})
+              formatter: (value) =>
+                NumberUtils.formatNumber(value, {
+                  decimals: settingStore.numberFormat_decimals.value,
+                  decimalSeparator:
+                    settingStore.numberFormat_decimalSeparator.value,
+                  groupBy: settingStore.numberFormat_groupBy.value,
+                  groupSeparator: settingStore.numberFormat_groupSeparator.value
+                })
             }
           }
         }
@@ -72,6 +79,8 @@
   import { Utils } from '../../utils/utils';
   import { NumberUtils } from '../../utils/numberUtils';
 
+  import { useSettingStore } from '../../stores/settingStore';
+
   export type Data = {
     labels: Array<string>;
     datasets: Array<{
@@ -90,6 +99,8 @@
       default: ''
     }
   });
+
+  const settingStore = useSettingStore();
 
   const textColor = Utils.getValueOfCSSVar('--color-main-text');
   const backgroundColor = Utils.getValueOfCSSVar('--color-main-background');

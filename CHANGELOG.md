@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Use correct number format in charts
+
 ## [0.26.5] - 2024-06-09
 
 ### Changed
