@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Ainm",
     "Description" : "Cur síos",
     "Overview" : "Forbhreathnú",
+    "Account name" : "Ainm chuntais",
     "Delete account" : "Scrios cuntas",
     "Are you sure?" : "An bhfuil tú cinnte?",
     "No account found" : "Níor aimsíodh aon chuntas",
