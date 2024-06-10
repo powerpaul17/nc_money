@@ -8,6 +8,7 @@ import {
 import { nextTick } from 'vue';
 
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import utc from 'dayjs/plugin/utc';
 
@@ -71,6 +72,26 @@ describe('DateInput', () => {
     ]);
   });
 
+  it('should parse a localized date correctly', async () => {
+    const dateChangedSpy = vi.fn();
+
+    await setupEnvironment({
+      options: { locale: 'de' },
+      renderOptions: {
+        props: { date: new Date(), 'onDate-changed': dateChangedSpy }
+      }
+    });
+
+    const element = screen.getByRole('textbox');
+
+    await fireEvent.update(element, '02.04.2020');
+    element.dispatchEvent(new Event('change'));
+
+    expect(dateChangedSpy.mock.calls[0]).toEqual([
+      new Date('2020-04-02T00:00:00.000Z')
+    ]);
+  });
+
   async function setupEnvironment({
     options,
     renderOptions
@@ -84,6 +105,7 @@ describe('DateInput', () => {
   }> {
     vi.useFakeTimers({ now: 0 });
 
+    dayjs.extend(customParseFormat);
     dayjs.extend(localizedFormat);
     dayjs.extend(utc);
 
