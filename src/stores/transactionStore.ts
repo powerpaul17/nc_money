@@ -121,13 +121,19 @@ class TransactionStore {
 
   public async insertTransactions(
     transactions: Array<Transaction>
-  ): Promise<void> {
+  ): Promise<Array<Transaction>> {
+    const transactionProxies = [];
+
     for (const transaction of transactions) {
-      await this.insertTransaction(transaction);
+      transactionProxies.push(await this.insertTransaction(transaction));
     }
+
+    return transactionProxies;
   }
 
-  public async insertTransaction(transaction: Transaction): Promise<void> {
+  public async insertTransaction(
+    transaction: Transaction
+  ): Promise<Transaction> {
     const splitStore = this.splitStore;
     const accountStore = this.accountStore;
 
@@ -167,6 +173,8 @@ class TransactionStore {
     } else {
       await insert(this.transactionsTable, transactionProxy);
     }
+
+    return transactionProxy;
   }
 
   public async deleteTransaction(transactionId: number): Promise<void> {

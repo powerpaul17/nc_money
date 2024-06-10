@@ -87,7 +87,7 @@ class SplitStore {
     });
   }
 
-  public async insertSplit(split: Split): Promise<void> {
+  public async insertSplit(split: Split): Promise<Split> {
     const accountStore = useAccountStore();
     const transactionStore = useTransactionStore();
 
@@ -137,12 +137,18 @@ class SplitStore {
     } else {
       await insert(this.splitsTable, splitProxy);
     }
+
+    return splitProxy;
   }
 
-  public async insertSplits(splits: Array<Split>): Promise<void> {
+  public async insertSplits(splits: Array<Split>): Promise<Array<Split>> {
+    const splitProxies = [];
+
     for (const split of splits) {
-      await this.insertSplit(split);
+      splitProxies.push(await this.insertSplit(split));
     }
+
+    return splitProxies;
   }
 
   public async deleteSplit(splitId: number): Promise<void> {
