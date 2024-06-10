@@ -77,7 +77,6 @@ describe('DateInput', () => {
     options?: { locale?: string };
     renderOptions?: RenderOptions<typeof DateInput>;
   }): {
-    container: Element;
     updateProps: (props: Object) => Promise<void>;
   } {
     vi.useFakeTimers({ now: 0 });
@@ -93,7 +92,6 @@ describe('DateInput', () => {
     const renderResult = render(DateInput, renderOptions);
 
     return {
-      container: renderResult.container,
       updateProps: (props) => renderResult.rerender(props)
     };
   }
