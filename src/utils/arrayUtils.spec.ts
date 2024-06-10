@@ -46,4 +46,12 @@ describe('ArrayUtils', () => {
       ]);
     });
   });
+
+  describe('createNumberArray', () => {
+    it('should create an array with the specified number of increasing numbers', () => {
+      expect(ArrayUtils.createNumberArray(10)).to.deep.equal([
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+      ]);
+    });
+  });
 });
