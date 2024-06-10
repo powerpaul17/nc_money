@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Reset input when escape key is pressed
+
 ## [0.26.6] - 2024-06-10
 
 ### Changed

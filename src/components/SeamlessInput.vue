@@ -9,6 +9,7 @@
       v-model="inputValue"
       @change="handleValueChange"
       @focus="$event.target.select()"
+      @keyup.escape="inputValue = props.value"
     />
   </label>
 </template>
