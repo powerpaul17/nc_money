@@ -5,6 +5,7 @@ import {
   screen,
   type RenderOptions
 } from '@testing-library/vue';
+import { nextTick } from 'vue';
 
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -13,10 +14,10 @@ import utc from 'dayjs/plugin/utc';
 import DateInput from './DateInput.vue';
 
 describe('DateInput', () => {
-  it('should display the current date', () => {
+  it('should display the current date', async () => {
     const date = new Date('2024-11-10');
 
-    setupEnvironment({
+    await setupEnvironment({
       renderOptions: {
         props: {
           date
@@ -29,10 +30,10 @@ describe('DateInput', () => {
     expect(element.value).to.equal('11/10/2024');
   });
 
-  it('should format the date according to locale settings', () => {
+  it('should format the date according to locale settings', async () => {
     const date = new Date('2024-11-10');
 
-    setupEnvironment({
+    await setupEnvironment({
       options: {
         locale: 'de'
       },
@@ -51,7 +52,7 @@ describe('DateInput', () => {
   it('should send an event if date is changed', async () => {
     const dateChangedSpy = vi.fn();
 
-    setupEnvironment({
+    await setupEnvironment({
       renderOptions: {
         props: {
           date: new Date(),
@@ -70,15 +71,17 @@ describe('DateInput', () => {
     ]);
   });
 
-  function setupEnvironment({
+  async function setupEnvironment({
     options,
     renderOptions
   }: {
     options?: { locale?: string };
     renderOptions?: RenderOptions<typeof DateInput>;
-  }): {
-    updateProps: (props: Object) => Promise<void>;
-  } {
+  }): Promise<{
+    updateProps: (
+      props: NonNullable<RenderOptions<typeof DateInput>['props']>
+    ) => Promise<void>;
+  }> {
     vi.useFakeTimers({ now: 0 });
 
     dayjs.extend(localizedFormat);
@@ -90,6 +93,8 @@ describe('DateInput', () => {
     }
 
     const renderResult = render(DateInput, renderOptions);
+
+    await nextTick();
 
     return {
       updateProps: (props) => renderResult.rerender(props)
