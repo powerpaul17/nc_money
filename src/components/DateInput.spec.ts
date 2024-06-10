@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   fireEvent,
   render,
@@ -49,16 +49,23 @@ describe('DateInput', () => {
   });
 
   it('should send an event if date is changed', async () => {
-    const { emitted } = setupEnvironment({});
+    const dateChangedSpy = vi.fn();
+
+    setupEnvironment({
+      renderOptions: {
+        props: {
+          date: new Date(),
+          'onDate-changed': dateChangedSpy
+        }
+      }
+    });
 
     const element = screen.getByRole('textbox');
 
     await fireEvent.update(element, '12/12/2024');
     element.dispatchEvent(new Event('change'));
 
-    expect(emitted()).toHaveProperty('date-changed');
-    expect(emitted()['date-changed']).toHaveLength(1);
-    expect(emitted()['date-changed'][0]).toEqual([
+    expect(dateChangedSpy.mock.calls[0]).toEqual([
       new Date('2024-12-12T00:00:00.000Z')
     ]);
   });
@@ -72,8 +79,9 @@ describe('DateInput', () => {
   }): {
     container: Element;
     updateProps: (props: Object) => Promise<void>;
-    emitted: () => void;
   } {
+    vi.useFakeTimers({ now: 0 });
+
     dayjs.extend(localizedFormat);
     dayjs.extend(utc);
 
@@ -86,8 +94,7 @@ describe('DateInput', () => {
 
     return {
       container: renderResult.container,
-      updateProps: (props) => renderResult.rerender(props),
-      emitted: (eventName?: string) => renderResult.emitted(eventName)
+      updateProps: (props) => renderResult.rerender(props)
     };
   }
 });
