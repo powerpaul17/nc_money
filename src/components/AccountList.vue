@@ -65,6 +65,8 @@
 <script setup lang="ts">
   import { computed, ref, type PropType, watch } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { useAccountStore } from '../stores/accountStore';
   import type { AccountTypeType } from '../stores/accountTypeStore';
 

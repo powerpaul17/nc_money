@@ -124,6 +124,8 @@
   import { computed, ref, type PropType, type Ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
   import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';

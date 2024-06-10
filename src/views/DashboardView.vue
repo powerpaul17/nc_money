@@ -48,6 +48,8 @@
 </template>
 
 <script setup lang="ts">
+  import { translate as t } from '@nextcloud/l10n';
+
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
   import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js';
   import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js';

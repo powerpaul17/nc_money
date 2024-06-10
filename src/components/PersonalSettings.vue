@@ -89,6 +89,8 @@
 <script setup lang="ts">
   import { onBeforeMount } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js';
 
   import { useSettingStore } from '../stores/settingStore';

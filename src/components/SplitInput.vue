@@ -31,6 +31,8 @@
 <script setup lang="ts">
   import type { PropType } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import AccountSelect from './AccountSelect.vue';
   import CurrencyInput from './CurrencyInput.vue';
   import SeamlessInput from './SeamlessInput.vue';

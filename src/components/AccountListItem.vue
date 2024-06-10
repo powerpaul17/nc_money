@@ -112,6 +112,8 @@
 
   import { useRoute, useRouter } from 'vue-router';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
   import { useAccountStore, type Account } from '../stores/accountStore';

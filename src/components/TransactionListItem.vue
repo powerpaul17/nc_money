@@ -115,6 +115,8 @@
   } from 'vue';
   import { useRouter, useRoute } from 'vue-router';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
   import Close from 'vue-material-design-icons/Close.vue';
 

@@ -97,6 +97,8 @@
   import { useRouter } from 'vue-router';
   import dayjs from 'dayjs';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js';
   import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js';
 

@@ -41,6 +41,8 @@
 </template>
 
 <script setup lang="ts">
+  import { translate as t } from '@nextcloud/l10n';
+
   import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js';
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
   import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer.js';

@@ -7,6 +7,8 @@
 </template>
 
 <script setup lang="ts">
+  import { translate as t } from '@nextcloud/l10n';
+
   import { useSettingStore } from '../stores/settingStore';
 
   import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings.js';

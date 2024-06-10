@@ -17,6 +17,8 @@
 
   import { computed } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { useAccountStore } from '../stores/accountStore';
   import { AccountTypeType } from '../stores/accountTypeStore';
 

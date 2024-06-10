@@ -61,6 +61,8 @@
     onUnmounted
   } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
   import type { Account } from '../stores/accountStore';

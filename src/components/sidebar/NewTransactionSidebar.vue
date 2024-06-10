@@ -107,6 +107,8 @@
 </style>
 
 <script setup lang="ts">
+  import { translate as t } from '@nextcloud/l10n';
+
   import { computed, ref, type Ref } from 'vue';
   import { useRouter } from 'vue-router';
 

@@ -77,6 +77,8 @@
 <script setup lang="ts">
   import { ref, type PropType, computed } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 

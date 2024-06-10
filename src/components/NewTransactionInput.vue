@@ -51,6 +51,8 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { NumberUtils } from '../utils/numberUtils';
 
   import { useTransactionService } from '../services/transactionService';

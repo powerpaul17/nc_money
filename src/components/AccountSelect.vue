@@ -115,6 +115,8 @@
 <script setup lang="ts">
   import { computed } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { useAccountStore, type Account } from '../stores/accountStore';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
