@@ -2,13 +2,14 @@
   <label class="flex flex-auto flex-col items-baseline">
     {{ label }}
     <input
+      ref="inputRef"
       class="w-full overflow-hidden text-ellipsis border-transparent bg-inherit hover:border-primary-element focus:border-primary-element disabled:text-text-maxcontrast disabled:hover:border-transparent"
       type="text"
       :placeholder="placeholder + '...'"
       :disabled="disabled"
       v-model="inputValue"
       @change="handleValueChange"
-      @focus="$event.target.select()"
+      @focus="inputRef?.select()"
       @keyup.escape="inputValue = props.value"
     />
   </label>
@@ -39,6 +40,8 @@
   const emit = defineEmits<{
     (event: 'value-changed', value: string): void;
   }>();
+
+  const inputRef = ref<HTMLInputElement | null>(null);
 
   const inputValue = ref(props.value);
 
