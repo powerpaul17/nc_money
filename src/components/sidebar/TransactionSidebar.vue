@@ -209,6 +209,8 @@
   });
 
   const account = computed(() => {
+    if (!props.accountId) return null;
+
     return accountStore.getById(props.accountId);
   });
 

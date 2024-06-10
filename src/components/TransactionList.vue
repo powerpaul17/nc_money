@@ -98,7 +98,7 @@
   const transactionWatcher = ref<{ stop: () => void } | null>(null);
   const accountIsChanging = ref(false);
   const isLoadingTransactions = ref(false);
-  const groupBy = ref('month');
+  const groupBy = ref<'month'>('month');
 
   const groupByDateFormat = computed(() => {
     return 'MM.YYYY';

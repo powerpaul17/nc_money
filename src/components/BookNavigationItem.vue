@@ -23,7 +23,7 @@
     :loading="isLoading"
     :undo="isDeleting"
     :open="isOpen"
-    @update:open="(open) => (isOpen = open)"
+    @update:open="(open: boolean) => (isOpen = open)"
     @update:name="handleUpdateBookName"
     @undo="handleUndo"
   >

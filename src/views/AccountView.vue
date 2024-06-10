@@ -62,7 +62,8 @@
 
   function forceRerender(): void {
     renderComponent.value = false;
-    nextTick(() => {
+
+    void nextTick(() => {
       renderComponent.value = true;
     });
   }
