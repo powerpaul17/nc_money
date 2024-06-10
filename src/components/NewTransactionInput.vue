@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+  import dayjs from 'dayjs';
+
   import { ref, computed } from 'vue';
 
   import { translate as t } from '@nextcloud/l10n';
@@ -100,7 +102,7 @@
   async function createNewTransaction(): Promise<void> {
     isLoading.value = true;
     await transactionService.addTransactionWithSplits({
-      date: date.value,
+      date: dayjs(date.value).format('YYYY-MM-DD'),
       description: description.value,
       value: -value.value,
       convertRate: 1.0,
