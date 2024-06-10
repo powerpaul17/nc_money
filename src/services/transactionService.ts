@@ -55,8 +55,8 @@ class TransactionService {
 
   public async fetchTransactionsOfAccountByDate(
     accountId: number,
-    startDate: Date,
-    endDate: Date
+    startDate: string,
+    endDate: string
   ): Promise<Array<Transaction>> {
     return await this.transactionApiService.getTransactionsOfAccountByDate(
       accountId,

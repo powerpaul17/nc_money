@@ -107,6 +107,8 @@
 </style>
 
 <script setup lang="ts">
+  import dayjs from 'dayjs';
+
   import { translate as t } from '@nextcloud/l10n';
 
   import { computed, ref, type Ref } from 'vue';
@@ -213,7 +215,7 @@
 
     const result = await transactionService.addTransactionWithSplits({
       description: description.value,
-      date: date.value,
+      date: dayjs(date.value).format('YYYY-MM-DD'),
       convertRate: 1.0,
       srcAccountId: props.accountId,
       destAccountId: newDestAccountId.value,

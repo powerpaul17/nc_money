@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 
@@ -43,16 +41,16 @@ class TransactionApiService {
 
   public async getTransactionsOfAccountByDate(
     accountId: number,
-    startDate: Date,
-    endDate: Date
+    startDate: string,
+    endDate: string
   ): Promise<Array<Transaction>> {
     const response = await axios.get<Array<TransactionApiData>>(
       generateUrl('apps/money/transactions/for-account-by-date'),
       {
         params: {
           accountId: accountId,
-          startDate: dayjs(startDate).format('YYYY-MM-DD'),
-          endDate: dayjs(endDate).format('YYYY-MM-DD')
+          startDate,
+          endDate
         }
       }
     );
@@ -84,16 +82,11 @@ class TransactionApiService {
   public async addTransaction(
     transaction: TransactionCreationData
   ): Promise<Transaction> {
-    const data = {
-      ...transaction,
-      date: dayjs(transaction.date).format('YYYY-MM-DD')
-    };
-
     const response = await axios.post<
       TransactionApiData,
       AxiosResponse<TransactionApiData>,
       TransactionApiCreationData
-    >(generateUrl('apps/money/transactions'), data);
+    >(generateUrl('apps/money/transactions'), transaction);
 
     return await this.createTransactionFromResponseData(response.data);
   }
@@ -101,16 +94,11 @@ class TransactionApiService {
   public async updateTransaction(
     transaction: Transaction
   ): Promise<Transaction> {
-    const data = {
-      ...transaction,
-      date: dayjs(transaction.date).format('YYYY-MM-DD')
-    };
-
     const response = await axios.put<
       TransactionApiData,
       AxiosResponse<TransactionApiData>,
       TransactionApiData
-    >(generateUrl(`apps/money/transactions/${transaction.id}`), data);
+    >(generateUrl(`apps/money/transactions/${transaction.id}`), transaction);
 
     return await this.createTransactionFromResponseData(response.data);
   }

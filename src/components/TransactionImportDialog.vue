@@ -355,8 +355,8 @@
     const existingTransactions =
       await transactionService.fetchTransactionsOfAccountByDate(
         props.accountId,
-        startDate,
-        endDate
+        dayjs(startDate).toDate(),
+        dayjs(endDate).toDate()
       );
 
     const transactionHashMap = new Set();
@@ -468,11 +468,11 @@
   }
 
   function getHashOfTransaction(
-    date: Date,
+    date: string,
     description: string,
     value: number
   ): string {
-    return `${dayjs(date).format('YYYY-MM-DD')}-${description}-${value}`;
+    return `${date}-${description}-${value}`;
   }
 
   async function saveAccountSettings(): Promise<void> {
@@ -502,7 +502,7 @@
   }
 
   type Columns = {
-    date: Column<Date>;
+    date: Column<string>;
     description: Column<string>;
     comment: Column<string>;
     credit: Column<number>;
