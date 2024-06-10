@@ -56,6 +56,7 @@
   import { translate as t } from '@nextcloud/l10n';
 
   import { NumberUtils } from '../utils/numberUtils';
+  import { DateUtils } from '../utils/DateUtils';
 
   import { useTransactionService } from '../services/transactionService';
 
@@ -102,7 +103,7 @@
   async function createNewTransaction(): Promise<void> {
     isLoading.value = true;
     await transactionService.addTransactionWithSplits({
-      date: dayjs(date.value).format('YYYY-MM-DD'),
+      date: DateUtils.getDateStringForTransaction(date.value),
       description: description.value,
       value: -value.value,
       convertRate: 1.0,

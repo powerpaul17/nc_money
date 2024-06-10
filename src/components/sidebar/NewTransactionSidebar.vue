@@ -126,6 +126,7 @@
   import SeamlessInput from '../SeamlessInput.vue';
 
   import { NumberUtils } from '../../utils/numberUtils';
+  import { DateUtils } from '../../utils/DateUtils';
 
   import { useSettingStore } from '../../stores/settingStore';
 
@@ -215,7 +216,7 @@
 
     const result = await transactionService.addTransactionWithSplits({
       description: description.value,
-      date: dayjs(date.value).format('YYYY-MM-DD'),
+      date: DateUtils.getDateStringForTransaction(date.value),
       convertRate: 1.0,
       srcAccountId: props.accountId,
       destAccountId: newDestAccountId.value,

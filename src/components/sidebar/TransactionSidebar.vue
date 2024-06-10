@@ -109,6 +109,7 @@
   import SplitInput from '../SplitInput.vue';
 
   import { NumberUtils } from '../../utils/numberUtils';
+  import { DateUtils } from '../../utils/DateUtils';
 
   import { useSettingStore } from '../../stores/settingStore';
 
@@ -294,7 +295,7 @@
     if (!transaction.value) return;
 
     transaction.value.description = description.value;
-    transaction.value.date = dayjs(date.value).format('YYYY-MM-DD');
+    transaction.value.date = DateUtils.getDateStringForTransaction(date.value);
 
     await transactionService.updateTransaction(transaction.value);
   }

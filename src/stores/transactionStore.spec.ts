@@ -11,6 +11,8 @@ import { resetSplitStore, useSplitStore } from './splitStore';
 import { resetAccountStore, useAccountStore } from './accountStore';
 import { AccountTypeType } from './accountTypeStore';
 
+import { DateUtils } from '../utils/DateUtils';
+
 describe('transactionStore', () => {
   it('should insert a new transaction', async () => {
     const transactionStore = useTransactionStore();
@@ -140,13 +142,13 @@ describe('transactionStore', () => {
     const transaction1: Transaction = {
       id: 0,
       description: '',
-      date: date.format('YYYY-MM-DD'),
+      date: DateUtils.getDateStringForTransaction(date),
       timestampAdded: Date.now()
     };
     const transaction2: Transaction = {
       id: 1,
       description: '',
-      date: date.add(1, 'day').format('YYYY-MM-DD'),
+      date: DateUtils.getDateStringForTransaction(date.add(1, 'day')),
       timestampAdded: Date.now()
     };
 

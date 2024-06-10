@@ -165,7 +165,9 @@
   import FileInput from './FileInput.vue';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
+
   import { NumberUtils } from '../utils/numberUtils';
+  import { DateUtils } from '../utils/DateUtils';
 
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
@@ -191,7 +193,8 @@
       parsedData: [],
       isValid: false,
       validator: (parsedData) => dayjs(parsedData).isValid(),
-      parser: (line) => dayjs(line, dateFormat.value).format('YYYY-MM-DD'),
+      parser: (line) =>
+        DateUtils.getDateStringForTransaction(dayjs(line, dateFormat.value)),
       printValue: (value) => dayjs(value).format('L')
     },
     description: {

@@ -123,6 +123,7 @@
   import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js';
 
   import { NumberUtils } from '../utils/numberUtils';
+  import { DateUtils } from '../utils/DateUtils';
 
   import type { Transaction } from '../stores/transactionStore';
   import { useTransactionService } from '../services/transactionService';
@@ -267,7 +268,7 @@
   }
 
   async function handleDateChanged(date: Date): Promise<void> {
-    props.transaction.date = dayjs(date).format('YYYY-MM-DD');
+    props.transaction.date = DateUtils.getDateStringForTransaction(date);
     await handleTransactionChanged();
   }
 
