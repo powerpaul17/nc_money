@@ -2,7 +2,11 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import dayjs from 'dayjs';
 
-import { resetTransactionStore, useTransactionStore } from './transactionStore';
+import {
+  resetTransactionStore,
+  useTransactionStore,
+  type Transaction
+} from './transactionStore';
 import { resetSplitStore, useSplitStore } from './splitStore';
 import { resetAccountStore, useAccountStore } from './accountStore';
 import { AccountTypeType } from './accountTypeStore';
@@ -11,10 +15,10 @@ describe('transactionStore', () => {
   it('should insert a new transaction', async () => {
     const transactionStore = useTransactionStore();
 
-    const transaction = {
+    const transaction: Transaction = {
       id: 0,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
 
@@ -28,10 +32,10 @@ describe('transactionStore', () => {
   it('should not insert the same transaction twice', async () => {
     const transactionStore = useTransactionStore();
 
-    const transaction = {
+    const transaction: Transaction = {
       id: 0,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
 
@@ -46,16 +50,16 @@ describe('transactionStore', () => {
   it('should return a transaction by id', async () => {
     const transactionStore = useTransactionStore();
 
-    const transaction1 = {
+    const transaction1: Transaction = {
       id: 0,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
-    const transaction2 = {
+    const transaction2: Transaction = {
       id: 1,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
 
@@ -90,10 +94,10 @@ describe('transactionStore', () => {
       extraData: {}
     });
 
-    const transaction1 = {
+    const transaction1: Transaction = {
       id: 0,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
     const split1 = {
@@ -105,10 +109,10 @@ describe('transactionStore', () => {
       destAccountId: 0
     };
 
-    const transaction2 = {
+    const transaction2: Transaction = {
       id: 1,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
     const split2 = {
@@ -133,16 +137,16 @@ describe('transactionStore', () => {
 
     const date = dayjs();
 
-    const transaction1 = {
+    const transaction1: Transaction = {
       id: 0,
       description: '',
-      date: date.toDate(),
+      date: date.format('YYYY-MM-DD'),
       timestampAdded: Date.now()
     };
-    const transaction2 = {
+    const transaction2: Transaction = {
       id: 1,
       description: '',
-      date: date.add(1, 'day').toDate(),
+      date: date.add(1, 'day').format('YYYY-MM-DD'),
       timestampAdded: Date.now()
     };
 
@@ -157,16 +161,16 @@ describe('transactionStore', () => {
   it('should delete a transaction', async () => {
     const transactionStore = useTransactionStore();
 
-    const transaction1 = {
+    const transaction1: Transaction = {
       id: 0,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
-    const transaction2 = {
+    const transaction2: Transaction = {
       id: 1,
       description: '',
-      date: new Date(),
+      date: '2024-01-01',
       timestampAdded: Date.now()
     };
 
