@@ -12,8 +12,5 @@
     "rootDir": "."
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/**/*.js"],
-  "exclude": ["node_modules"],
-  "vueCompilerOptions": {
-    "target": 2.7
-  }
+  "exclude": ["node_modules"]
 }
