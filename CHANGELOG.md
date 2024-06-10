@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.26.6] - 2024-06-10
+
 ### Changed
 
 - Use correct number format in charts
