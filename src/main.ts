@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 
-import { addL10N } from './l10n';
+import './l10n';
 
 import './css/main.css';
 
@@ -17,7 +17,6 @@ import App from './App.vue';
 const app = createApp(App);
 
 app.use(router);
-addL10N(app);
 
 app.mount('#content');
 
