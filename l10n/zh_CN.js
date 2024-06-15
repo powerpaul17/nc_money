@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "描述",
     "Import transactions" : "导入交易",
     "Overview" : "概览",
+    "Account name" : "账户名称",
     "Delete account" : "删除账号",
     "Are you sure?" : "你确定吗？",
     "Add account" : "添加账目",
