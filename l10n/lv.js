@@ -4,6 +4,7 @@ OC.L10N.register(
     "Money" : "Nauda",
     "Name" : "Vārds",
     "Description" : "Apraksts",
+    "Account name" : "Konta nosaukums",
     "Delete account" : "Dzēst kontu",
     "No account found" : "Nav atrastu kontu",
     "Add account" : "Pievienot kontu",

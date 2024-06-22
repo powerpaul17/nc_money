@@ -19,6 +19,8 @@ OC.L10N.register(
     "Import" : "가져오기",
     "Comment" : "설명",
     "Multiple Accounts" : "다수의 계정",
+    "Properties" : "속성",
+    "Books" : "도서",
     "Settings saved" : "설정 저장됨"
 },
 "nplurals=1; plural=0;");
