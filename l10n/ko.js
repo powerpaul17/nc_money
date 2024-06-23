@@ -15,6 +15,7 @@ OC.L10N.register(
     "Date" : "날짜",
     "Value" : "값",
     "Decimals" : "십진법",
+    "Space" : "Space",
     "Select File" : "파일 선택",
     "Import" : "가져오기",
     "Comment" : "설명",
