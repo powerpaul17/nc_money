@@ -10,7 +10,11 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\Money\Db\Transaction;
 use OCA\Money\Db\TransactionMapper;
 
+use OCA\Money\AuditTrait;
+
 class TransactionService {
+
+  use AuditTrait;
 
   private $transactionMapper;
 
@@ -63,17 +67,27 @@ class TransactionService {
     $transaction->setDate($date);
     $transaction->setTimestampAdded(time());
 
-    return $this->transactionMapper->insert($transaction);
+
+    $insertedTransaction = $this->transactionMapper->insert($transaction);
+
+    $this->emitCreateAuditEvent($userId, 'transaction', $insertedTransaction);
+
+    return $insertedTransaction;
   }
 
   public function update($id, $description, $date, $userId) {
     try {
       $transaction = $this->transactionMapper->find($id, $userId);
+      $originalTransaction = clone $transaction;
 
       $transaction->setDescription($description);
       $transaction->setDate($date);
 
-      return $this->transactionMapper->update($transaction);
+      $updatedTransaction = $this->transactionMapper->update($transaction);
+
+      $this->emitUpdateAuditEvents($userId, 'transaction', $updatedTransaction, $originalTransaction);
+
+      return $updatedTransaction;
     } catch(Exception $e) {
       $this->handleException($e);
     }

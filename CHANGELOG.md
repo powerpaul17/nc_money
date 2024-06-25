@@ -3,6 +3,7 @@
 ### Added
 
 - Reset input when escape key is pressed
+- Implement audit logging
 
 ## [0.26.6] - 2024-06-10
 
