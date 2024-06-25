@@ -10,7 +10,11 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\Money\Db\Account;
 use OCA\Money\Db\AccountMapper;
 
+use OCA\Money\AuditTrait;
+
 class AccountService {
+
+  use AuditTrait;
 
   private $mapper;
 
@@ -58,7 +62,11 @@ class AccountService {
     $account->setUserId($userId);
     $account->setBookId($bookId);
 
-    return $this->mapper->insert($account);
+    $insertedAccount = $this->mapper->insert($account);
+
+    $this->emitCreateAuditEvent($userId, 'account', $insertedAccount);
+
+    return $insertedAccount;
   }
 
   public function update(
@@ -73,6 +81,7 @@ class AccountService {
   ) {
     try {
       $account = $this->mapper->find($id, $userId);
+      $originalAccount = clone $account;
 
       $account->setBookId($bookId);
 
@@ -82,7 +91,11 @@ class AccountService {
       $account->setDescription($description);
       $account->setExtraData($extraData);
 
-      return $this->mapper->update($account);
+      $updatedAccount = $this->mapper->update($account);
+
+      $this->emitUpdateAuditEvents($userId, 'account', $updatedAccount, $originalAccount);
+
+      return $updatedAccount;
     } catch(Exception $e) {
       $this->handleException($e);
     }
@@ -92,6 +105,9 @@ class AccountService {
     try {
       $account = $this->mapper->find($id, $userId);
       $this->mapper->delete($account);
+
+      $this->emitDeleteAuditEvent($userId, 'account', $account);
+
       return $account;
     } catch(Exception $e) {
       $this->handleException($e);

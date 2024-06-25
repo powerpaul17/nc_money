@@ -10,7 +10,11 @@ use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\Money\Db\Split;
 use OCA\Money\Db\SplitMapper;
 
+use OCA\Money\AuditTrait;
+
 class SplitService {
+
+  use AuditTrait;
 
   private $splitMapper;
 
@@ -57,12 +61,17 @@ class SplitService {
     $split->setConvertRate($convertRate);
     $split->setValue($value);
 
-    return $this->splitMapper->insert($split);
+    $insertedSplit = $this->splitMapper->insert($split);
+
+    $this->emitCreateAuditEvent($userId, 'split', $insertedSplit);
+
+    return $insertedSplit;
   }
 
   public function update($id, $transactionId, $destAccountId, $value, $convertRate, $description, $userId) {
     try {
       $split = $this->splitMapper->find($id, $userId);
+      $originalSplit = clone $split;
 
       $split->setDescription($description);
       $split->setTransactionId($transactionId);
@@ -70,7 +79,11 @@ class SplitService {
       $split->setConvertRate($convertRate);
       $split->setValue($value);
 
-      return $this->splitMapper->update($split);
+      $updatedSplit = $this->splitMapper->update($split);
+
+      $this->emitUpdateAuditEvents($userId, 'split', $updatedSplit, $originalSplit);
+
+      return $updatedSplit;
     } catch(Exception $e) {
       $this->handleException($e);
     }
@@ -80,6 +93,9 @@ class SplitService {
     try {
       $split = $this->splitMapper->find($id, $userId);
       $this->splitMapper->delete($split);
+
+      $this->emitDeleteAuditEvent($userId, 'split', $split);
+
       return $split;
     } catch(Exception $e) {
       $this->handleException($e);
