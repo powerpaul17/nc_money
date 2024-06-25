@@ -4,6 +4,7 @@
 
 - Reset input when escape key is pressed
 - Implement audit logging
+- Save collapsed state of book navigation items
 
 ## [0.26.6] - 2024-06-10
 

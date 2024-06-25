@@ -23,7 +23,7 @@
     :loading="isLoading"
     :undo="isDeleting"
     :open="isOpen"
-    @update:open="(open: boolean) => (isOpen = open)"
+    @update:open="handleUpdateOpenStatus"
     @update:name="handleUpdateBookName"
     @undo="handleUndo"
   >
@@ -121,7 +121,14 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, type PropType, type Ref } from 'vue';
+  import {
+    computed,
+    onMounted,
+    ref,
+    watch,
+    type PropType,
+    type Ref
+  } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
 
   import { translate as t } from '@nextcloud/l10n';
@@ -143,6 +150,8 @@
   import type { Book } from '../stores/bookStore';
 
   import { useBookService } from '../services/bookService';
+
+  import { useLocalForage } from '../utils/useLocalForage';
 
   const route = useRoute();
   const router = useRouter();
@@ -212,4 +221,32 @@
   });
 
   const isOpen = ref(false);
+
+  function handleUpdateOpenStatus(open: boolean): void {
+    isOpen.value = open;
+    void saveCollapsedStatus();
+  }
+
+  watch(
+    () => props.book,
+    async () => {
+      await loadCollapsedStatus();
+    }
+  );
+
+  onMounted(async () => {
+    await loadCollapsedStatus();
+  });
+
+  const { getItemInKey, setItemInKey } = useLocalForage<boolean>(
+    'bookCollapsedStatus'
+  );
+
+  async function loadCollapsedStatus(): Promise<void> {
+    isOpen.value = (await getItemInKey(props.book.id)) ?? false;
+  }
+
+  async function saveCollapsedStatus(): Promise<void> {
+    await setItemInKey(props.book.id, isOpen.value);
+  }
 </script>
