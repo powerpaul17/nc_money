@@ -107,8 +107,6 @@
 </style>
 
 <script setup lang="ts">
-  import dayjs from 'dayjs';
-
   import { translate as t } from '@nextcloud/l10n';
 
   import { computed, ref, type Ref } from 'vue';
