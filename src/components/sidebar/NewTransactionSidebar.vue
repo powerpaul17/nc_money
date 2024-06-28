@@ -9,6 +9,7 @@
       :name="t('money', 'Info')"
       id="info-tab"
       :order="1"
+      @keyup.enter="handleCreateTransaction()"
     >
       <div>
         <h2>{{ t('money', 'Properties') }}</h2>
@@ -212,6 +213,8 @@
   }
 
   async function handleCreateTransaction(): Promise<void> {
+    if (!isValid.value) return;
+
     isLoading.value = true;
 
     const result = await transactionService.addTransactionWithSplits({
