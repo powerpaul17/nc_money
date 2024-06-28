@@ -118,6 +118,43 @@ describe('AccountSelect', () => {
         getAllByRole(dropdown, 'option').map((e) => e.textContent)
       ).toEqual(['LiabilityAss. ']);
     });
+
+    it('should ignore diacritics and umlauts', async () => {
+      const { createAccount } = await setupEnvironment();
+
+      ['Without umlaut', 'Bankgebühren', 'Héllo', 'Baño nuevo'].forEach(
+        (name) => createAccount({ name })
+      );
+
+      const element = screen.getByPlaceholderText('-- No Account --');
+      await fireEvent.mouseDown(element);
+
+      const dropdown = screen.getByRole('listbox');
+
+      await fireEvent.input(element, {
+        target: { value: 'gebu' }
+      });
+
+      expect(
+        getAllByRole(dropdown, 'option').map((e) => e.textContent)
+      ).toEqual(['BankgebührenAss. ']);
+
+      await fireEvent.input(element, {
+        target: { value: 'bano' }
+      });
+
+      expect(
+        getAllByRole(dropdown, 'option').map((e) => e.textContent)
+      ).toEqual(['Baño nuevoAss. ']);
+
+      await fireEvent.input(element, {
+        target: { value: 'ell' }
+      });
+
+      expect(
+        getAllByRole(dropdown, 'option').map((e) => e.textContent)
+      ).toEqual(['HélloAss. ']);
+    });
   });
 
   afterEach(() => {
