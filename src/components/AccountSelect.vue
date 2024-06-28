@@ -7,12 +7,11 @@
     :disabled="!editable"
     :append-to-body="true"
     :filter-by="
-      (option, label, search) => {
+      (option: Account, label: string, search: string) => {
         return (
-          [label, option.description]
-            .join(' ')
-            .toLocaleLowerCase()
-            .indexOf(search.toLocaleLowerCase()) >= 0
+          normalizeSearchString([label, option.description].join(' ')).indexOf(
+            normalizeSearchString(search)
+          ) >= 0
         );
       }
     "
@@ -165,4 +164,11 @@
         return a1.type - a2.type;
       });
   });
+
+  function normalizeSearchString(str: string): string {
+    return str
+      .toLocaleLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
 </script>
