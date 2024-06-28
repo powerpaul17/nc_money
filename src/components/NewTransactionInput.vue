@@ -1,5 +1,5 @@
 <template>
-  <TransactionListItemTemplate>
+  <TransactionListItemTemplate @keyup.enter="handleSubmitTransactionClick()">
     <template #date>
       <DateInput
         :date="date"
@@ -96,12 +96,14 @@
   });
 
   async function handleSubmitTransactionClick(): Promise<void> {
-    // TODO validation
+    if (!isValid.value) return;
+
     await createNewTransaction();
   }
 
   async function createNewTransaction(): Promise<void> {
     isLoading.value = true;
+
     await transactionService.addTransactionWithSplits({
       date: DateUtils.getDateStringForTransaction(date.value),
       description: description.value,
@@ -110,7 +112,9 @@
       srcAccountId: props.accountId,
       destAccountId: destAccountId.value
     });
+
     isLoading.value = false;
+
     resetFields();
   }
 
