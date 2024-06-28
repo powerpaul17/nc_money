@@ -7,7 +7,7 @@
     :disabled="!editable"
     :append-to-body="true"
     :filter-by="
-      (option, label, search: string) => {
+      (option: Account, label: string, search: string) => {
         return (
           normalizeSearchString([label, option.description].join(' ')).indexOf(
             normalizeSearchString(search)
