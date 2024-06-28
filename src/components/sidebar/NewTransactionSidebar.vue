@@ -9,6 +9,7 @@
       :name="t('money', 'Info')"
       id="info-tab"
       :order="1"
+      @keyup.enter="handleCreateTransaction()"
     >
       <div>
         <h2>{{ t('money', 'Properties') }}</h2>
@@ -81,7 +82,7 @@
         class="self-end"
         type="primary"
         :wide="true"
-        :disabled="isLoading || NumberUtils.areEqual(value, 0.0)"
+        :disabled="isLoading || !isValid"
         @click="handleCreateTransaction()"
       >
         <template #icon>
@@ -107,8 +108,6 @@
 </style>
 
 <script setup lang="ts">
-  import dayjs from 'dayjs';
-
   import { translate as t } from '@nextcloud/l10n';
 
   import { computed, ref, type Ref } from 'vue';
@@ -179,6 +178,8 @@
     );
   });
 
+  const isValid = computed(() => NumberUtils.areNotEqual(value.value, 0.0));
+
   async function handleCloseSidebar(): Promise<void> {
     await router.push({ name: 'account' });
   }
@@ -212,6 +213,8 @@
   }
 
   async function handleCreateTransaction(): Promise<void> {
+    if (!isValid.value) return;
+
     isLoading.value = true;
 
     const result = await transactionService.addTransactionWithSplits({

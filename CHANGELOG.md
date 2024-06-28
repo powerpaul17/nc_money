@@ -5,6 +5,7 @@
 - Reset input when escape key is pressed
 - Implement audit logging
 - Save collapsed state of book navigation items
+- Enable creation of transactions by pressing enter
 
 ### Changed
 
