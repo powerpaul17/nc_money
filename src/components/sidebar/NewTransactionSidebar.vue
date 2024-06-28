@@ -81,7 +81,7 @@
         class="self-end"
         type="primary"
         :wide="true"
-        :disabled="isLoading || NumberUtils.areEqual(value, 0.0)"
+        :disabled="isLoading || !isValid"
         @click="handleCreateTransaction()"
       >
         <template #icon>
@@ -178,6 +178,8 @@
       AccountTypeUtils.isInvertedAccount(account.value.type)
     );
   });
+
+  const isValid = computed(() => NumberUtils.areNotEqual(value.value, 0.0));
 
   async function handleCloseSidebar(): Promise<void> {
     await router.push({ name: 'account' });
