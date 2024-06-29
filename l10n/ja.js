@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "名前",
     "Description" : "説明",
     "Overview" : "概要",
+    "Account name" : "アカウント名",
     "Delete account" : "アカウントの削除",
     "Are you sure?" : "本当に？",
     "No account found" : "アカウントが見つかりません",
