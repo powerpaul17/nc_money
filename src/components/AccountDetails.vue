@@ -7,6 +7,7 @@
     <TransactionList
       :book-id="bookId"
       :account="account"
+      @scroll-state-changed="($event) => (showShadow = !$event)"
     />
   </div>
 </template>

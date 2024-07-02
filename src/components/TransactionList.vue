@@ -1,6 +1,7 @@
 <template>
   <div class="flex w-full flex-col overflow-scroll">
     <DynamicScroller
+      ref="scrollContainer"
       :items="items"
       :min-item-size="45"
       :emit-update="true"
@@ -58,8 +59,11 @@
     computed,
     watch,
     onMounted,
-    onUnmounted
+    onUnmounted,
+    toRefs
   } from 'vue';
+
+  import { useScroll } from '@vueuse/core';
 
   import { translate as t } from '@nextcloud/l10n';
 
@@ -79,6 +83,13 @@
 
   import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 
+  const scrollContainer = ref();
+
+  const { arrivedState } = useScroll(scrollContainer);
+  const { top } = toRefs(arrivedState);
+
+  watch(top, (top) => emit('scroll-state-changed', top));
+
   const transactionStore = useTransactionStore();
   const transactionService = useTransactionService();
   const settingStore = useSettingStore();
@@ -93,6 +104,10 @@
       required: true
     }
   });
+
+  const emit = defineEmits<{
+    (event: 'scroll-state-changed', arrivedAtTop: boolean): void;
+  }>();
 
   const transactions = ref<Array<Transaction>>([]);
   const transactionWatcher = ref<{ stop: () => void } | null>(null);
