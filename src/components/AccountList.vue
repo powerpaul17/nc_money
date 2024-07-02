@@ -1,5 +1,5 @@
 <template>
-  <NcAppContentList class="pb-2">
+  <NcAppContentList class="pb-2 h-full">
     <NcAppNavigationItem
       class="mb-6 mt-2 px-2"
       :name="`${accountTypeName} - ${t('money', 'Overview')}`"
