@@ -5,7 +5,7 @@
       'shadow-md': showShadow
     }"
   >
-    <div class="-mr-3 flex items-center p-5 [&>*]:mr-3">
+    <div class="flex items-center p-5">
       <div class="flex flex-auto flex-col">
         <div>
           <SeamlessInput
