@@ -47,15 +47,16 @@
           </NcActionButton>
         </NcActions>
 
-        <NcButton
-          class="ml-2 md:hidden"
-          type="primary"
-          :to="{ name: 'new-transaction' }"
-        >
-          <template #icon>
-            <Plus :size="20" />
-          </template>
-        </NcButton>
+        <div class="ml-2 md:hidden">
+          <NcButton
+            type="primary"
+            :to="{ name: 'new-transaction' }"
+          >
+            <template #icon>
+              <Plus :size="20" />
+            </template>
+          </NcButton>
+        </div>
       </div>
     </div>
 
