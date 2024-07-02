@@ -1,6 +1,9 @@
 <template>
   <div class="mx-auto flex h-[calc(100vh-50px)] flex-col lg:container">
-    <AccountDetailsHeader :account="account" />
+    <AccountDetailsHeader
+      :account="account"
+      :show-shadow="showShadow"
+    />
     <TransactionList
       :book-id="bookId"
       :account="account"
@@ -9,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { PropType } from 'vue';
+  import { ref, type PropType } from 'vue';
 
   import type { Account } from '../stores/accountStore';
 
@@ -26,4 +29,6 @@
       required: true
     }
   });
+
+  const showShadow = ref(false);
 </script>

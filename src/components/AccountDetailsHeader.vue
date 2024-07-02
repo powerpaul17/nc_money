@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div
+    class="transition-shadow"
+    :class="{
+      'shadow-md': showShadow
+    }"
+  >
     <div class="-mr-3 flex items-center p-5 [&>*]:mr-3">
       <div class="flex flex-auto flex-col">
         <div>
@@ -108,6 +113,10 @@
     account: {
       type: Object as PropType<Account>,
       required: true
+    },
+    showShadow: {
+      type: Boolean,
+      default: false
     }
   });
 
