@@ -11,7 +11,6 @@
     :exact="true"
     :allow-collapse="false"
     icon="icon-folder"
-    @click="$emit('show-details-changed', false)"
   >
     <template #counter>
       <CurrencyText

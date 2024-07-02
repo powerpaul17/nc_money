@@ -10,7 +10,7 @@
           accountTypeType: accountType
         }
       }"
-      @click="emit('item-clicked')"
+      @click="emit('account-type-item-clicked', accountType)"
     />
 
     <div class="flex items-center justify-end gap-1 px-2">
@@ -57,7 +57,7 @@
       class="mt-2 px-2"
       :key="account.id"
       :account="account"
-      @click="emit('item-clicked')"
+      @click="emit('account-item-clicked', account)"
     />
   </NcAppContentList>
 </template>
@@ -67,7 +67,7 @@
 
   import { translate as t } from '@nextcloud/l10n';
 
-  import { useAccountStore } from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
   import type { AccountTypeType } from '../stores/accountTypeStore';
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
@@ -98,7 +98,10 @@
     }
   });
 
-  const emit = defineEmits(['item-clicked']);
+  const emit = defineEmits<{
+    (event: 'account-type-item-clicked', accountType: AccountTypeType): void;
+    (event: 'account-item-clicked', account: Account): void;
+  }>();
 
   const filterString = ref('');
 

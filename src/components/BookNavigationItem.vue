@@ -51,7 +51,6 @@
         :key="accountType.type"
         :book-id="book.id"
         :account-type="accountType"
-        @show-details-changed="($event) => emit('show-details-changed', $event)"
       />
 
       <li class="border-t border-solid border-main-text" />
@@ -167,10 +166,6 @@
       required: true
     }
   });
-
-  const emit = defineEmits<{
-    (event: 'show-details-changed', showDetails: boolean): void;
-  }>();
 
   const accountTypes = computed(() => {
     return accountTypeStore.accountTypes;

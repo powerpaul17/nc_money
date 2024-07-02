@@ -19,9 +19,6 @@
         v-for="book in bookStore.books.value"
         :key="book.id"
         :book="book"
-        @show-details-changed="
-          (showDetails) => emit('show-details-changed', showDetails)
-        "
       />
     </template>
 
@@ -59,10 +56,6 @@
 
   const bookStore = useBookStore();
   const bookService = useBookService();
-
-  const emit = defineEmits<{
-    (event: 'show-details-changed', showDetails: boolean): void;
-  }>();
 
   async function handleAddBook(): Promise<void> {
     await bookService.addBook({

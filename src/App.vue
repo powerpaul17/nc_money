@@ -1,18 +1,15 @@
 <template>
   <NcContent app-name="money">
-    <AppNavigation @show-details-changed="($event) => (showDetails = $event)" />
+    <AppNavigation />
 
-    <router-view
-      :show-details="showDetails"
-      @show-details-changed="($event) => (showDetails = $event)"
-    />
+    <router-view />
 
     <router-view name="sidebar" />
   </NcContent>
 </template>
 
 <script setup lang="ts">
-  import { onBeforeMount, ref } from 'vue';
+  import { onBeforeMount } from 'vue';
 
   import NcContent from '@nextcloud/vue/dist/Components/NcContent.js';
 
@@ -21,8 +18,6 @@
   import { useSettingService } from './services/settingService';
   import { useAccountService } from './services/accountService';
   import { useBookService } from './services/bookService';
-
-  const showDetails = ref(false);
 
   onBeforeMount(() => {
     void useSettingService().loadSettings();

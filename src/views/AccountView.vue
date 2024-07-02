@@ -2,14 +2,15 @@
   <NcAppContent
     v-if="renderComponent"
     :show-details="showDetails"
-    @update:showDetails="emit('show-details-changed', false)"
+    @update:showDetails="showDetails = false"
   >
     <template #list>
       <AccountList
         v-if="selectedAccount"
         :book-id="selectedAccount.bookId"
         :account-type="selectedAccount.type"
-        @item-clicked="emit('show-details-changed', true)"
+        @account-item-clicked="navigateToAccount($event)"
+        @account-type-item-clicked="navigateToAccountType()"
       />
     </template>
 
@@ -22,14 +23,17 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, nextTick, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
+  import { useRouter } from 'vue-router';
 
-  import { useAccountStore } from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
 
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
 
   import AccountList from '../components/AccountList.vue';
   import AccountDetails from '../components/AccountDetails.vue';
+
+  const router = useRouter();
 
   const accountStore = useAccountStore();
 
@@ -41,14 +45,8 @@
     accountId: {
       type: Number,
       required: true
-    },
-    showDetails: {
-      type: Boolean,
-      default: true
     }
   });
-
-  const emit = defineEmits(['show-details-changed']);
 
   const renderComponent = ref(true);
 
@@ -56,15 +54,27 @@
     return accountStore.getById(props.accountId);
   });
 
-  watch(selectedAccount, (newAccount, oldAccount) => {
-    if (newAccount?.id !== oldAccount?.id) forceRerender();
-  });
+  const showDetails = ref(true);
 
-  function forceRerender(): void {
-    renderComponent.value = false;
+  async function navigateToAccount(account: Account): Promise<void> {
+    showDetails.value = true;
 
-    void nextTick(() => {
-      renderComponent.value = true;
+    await router.push({
+      name: 'account',
+      params: {
+        bookId: props.bookId,
+        accountId: account.id
+      }
+    });
+  }
+
+  async function navigateToAccountType(): Promise<void> {
+    await router.push({
+      name: 'account-type',
+      params: {
+        bookId: props.bookId,
+        accountTypeType: selectedAccount.value.type
+      }
     });
   }
 </script>

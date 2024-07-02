@@ -1,13 +1,14 @@
 <template>
   <NcAppContent
     :show-details="showDetails"
-    @update:showDetails="emit('show-details-changed', false)"
+    @update:showDetails="showDetails = false"
   >
     <template #list>
       <AccountList
         :book-id="bookId"
         :account-type="accountTypeType"
-        @item-clicked="emit('show-details-changed', true)"
+        @account-item-clicked="navigateToAccount($event)"
+        @account-type-item-clicked="showDetails = true"
       />
     </template>
 
@@ -27,10 +28,11 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
+  import { useRouter } from 'vue-router';
 
   import { useAccountTypeStore } from '../stores/accountTypeStore';
-  import { useAccountStore } from '../stores/accountStore';
+  import { useAccountStore, type Account } from '../stores/accountStore';
 
   import { useSettingStore } from '../stores/settingStore';
 
@@ -47,6 +49,8 @@
   import { GraphDataUtils } from '../utils/graphDataUtils';
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
+  const router = useRouter();
+
   const accountTypeStore = useAccountTypeStore();
   const accountStore = useAccountStore();
 
@@ -60,16 +64,10 @@
     accountTypeType: {
       type: Number,
       required: true
-    },
-    showDetails: {
-      type: Boolean,
-      default: false
     }
   });
 
-  const emit = defineEmits<{
-    (event: 'show-details-changed', showDetails: boolean): void;
-  }>();
+  const showDetails = ref(true);
 
   const accountType = computed(() => {
     return accountTypeStore.getByType(props.accountTypeType);
@@ -126,4 +124,14 @@
       }
     });
   });
+
+  async function navigateToAccount(account: Account): Promise<void> {
+    await router.push({
+      name: 'account',
+      params: {
+        bookId: props.bookId,
+        accountId: account.id
+      }
+    });
+  }
 </script>
