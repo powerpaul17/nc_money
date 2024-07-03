@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Fixed
+
+- Mobile layout problems
+
 ### Changed
 
 - Use same book list item in app dashboard & dashboard widget
