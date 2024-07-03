@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Use same book list item in app dashboard & dashboard widget
+
 ## [0.27.0] - 2024-06-28
 
 ### Added

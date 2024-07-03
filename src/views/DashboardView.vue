@@ -16,33 +16,17 @@
     >
       <h1 class="mb-8 mt-4 text-xl font-semibold">{{ t('money', 'Books') }}</h1>
 
-      <ul class="list-none">
-        <NcListItem
-          v-for="book of bookStore.books.value"
-          :key="book.id"
-          :name="book.name"
-          :details="
-            NumberUtils.formatNumber(
-              accountStore.getEquityForBookId(book.id).value,
-              { ...settingStore.numberFormattingOptions.value }
-            )
-          "
-          :to="{
-            name: 'book',
-            params: {
-              bookId: book.id
-            }
-          }"
-        >
-          <template #subtitle>
-            {{ book.description }}
-          </template>
-
-          <template #icon>
-            <NotebookOutline />
-          </template>
-        </NcListItem>
-      </ul>
+      <BookListItem
+        v-for="book of bookStore.books.value"
+        :key="book.id"
+        :book="book"
+        :to="{
+          name: 'book',
+          params: {
+            bookId: book.id
+          }
+        }"
+      ></BookListItem>
     </div>
   </NcAppContent>
 </template>
@@ -52,19 +36,12 @@
 
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
   import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js';
-  import NcListItem from '@nextcloud/vue/dist/Components/NcListItem.js';
 
   import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
 
-  import { useSettingStore } from '../stores/settingStore';
+  import BookListItem from '../components/BookListItem.vue';
 
   import { useBookStore } from '../stores/bookStore';
-  import { useAccountStore } from '../stores/accountStore';
-
-  import { NumberUtils } from '../utils/numberUtils';
-
-  const settingStore = useSettingStore();
 
   const bookStore = useBookStore();
-  const accountStore = useAccountStore();
 </script>
