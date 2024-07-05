@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "Опис",
     "Import transactions" : "Імпорт транзакцій",
     "Overview" : "Огляд",
+    "Account name" : "Назва облікового запису",
     "Delete account" : "Вилучити обліковий запис",
     "Are you sure?" : "Ви впевнені?",
     "No account found" : "Не знайдено облікового запису",
