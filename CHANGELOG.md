@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.28.0] - 2024-07-05
+
 ### Fixed
 
 - Mobile layout problems
