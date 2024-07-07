@@ -9,6 +9,22 @@ import {
 import { AccountTypeType } from './accountTypeStore';
 
 describe('accountStore', () => {
+  describe('getValue', () => {
+    it('should return the correct value for a given year/month', () => {
+      const { accountStore } = setupEnvironment();
+      expect(
+        accountStore.getValue({ accountId: 1, year: 2023, month: 3 })
+      ).to.equal(30);
+    });
+
+    it('should return 0 if there is no value for a given year/month', () => {
+      const { accountStore } = setupEnvironment();
+      expect(
+        accountStore.getValue({ accountId: 1, year: 2023, month: 1 })
+      ).to.equal(0);
+    });
+  });
+
   describe('getBalance', () => {
     it('should return the correct balance for a given year/month', () => {
       const { accountStore } = setupEnvironment();

@@ -124,12 +124,10 @@
   const showImportTransactionsDialog = ref(false);
 
   const balance = computed(() => {
-    const accountStats = accountStore.getStats({ accountId: props.account.id });
-
     if (isMonthlyAccount.value) {
-      return accountStats?.value ?? 0.0;
+      return accountStore.getValue({ accountId: props.account.id });
     } else {
-      return accountStats?.balance ?? 0.0;
+      return accountStore.getBalance({ accountId: props.account.id });
     }
   });
 

@@ -173,12 +173,10 @@
   });
 
   function getAccountBalance(): number {
-    const accountStats = accountStore.getStats({ accountId: props.account.id });
-
     if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
-      return accountStats?.value ?? 0.0;
+      return accountStore.getValue({ accountId: props.account.id });
     } else {
-      return accountStats?.balance ?? 0.0;
+      return accountStore.getBalance({ accountId: props.account.id });
     }
   }
 

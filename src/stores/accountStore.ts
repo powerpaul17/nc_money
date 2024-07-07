@@ -97,7 +97,7 @@ class AccountStore {
     );
   }
 
-  public getStats({
+  public getValue({
     accountId,
     year,
     month
@@ -105,12 +105,12 @@ class AccountStore {
     accountId: number;
     year?: number;
     month?: number;
-  }): MonthlyAccountStats {
+  }): number {
     const date = dayjs();
     const y = year ?? date.year();
     const m = month ?? date.month() + 1;
 
-    return this.getStatsOfAccount({ accountId, year: y, month: m });
+    return this.getStatsOfAccount({ accountId, year: y, month: m }).value;
   }
 
   public getBalance({
