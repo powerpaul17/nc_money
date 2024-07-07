@@ -102,6 +102,7 @@
 
 <script setup lang="ts">
   import {
+    computed,
     nextTick,
     onMounted,
     ref,
@@ -139,7 +140,6 @@
   const accountService = useAccountService();
   // AccountTypeUtils
 
-  const balance = ref(0.0);
   const isLoading = ref(false);
   const showDeleteConfirmationDialog = ref(false);
   const deleteAccountTimeout: Ref<null | number> = ref(null);
@@ -153,32 +153,21 @@
     }
   });
 
-  watch(
-    props.account,
-    () => {
-      balance.value = getAccountBalance();
-    },
-    {
-      deep: true
-    }
-  );
-
   onMounted(() => {
     animationEnabled.value = false;
-    balance.value = getAccountBalance();
 
     void nextTick(() => {
       animationEnabled.value = true;
     });
   });
 
-  function getAccountBalance(): number {
+  const balance = computed(() => {
     if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
       return accountStore.getValue({ accountId: props.account.id });
     } else {
       return accountStore.getBalance({ accountId: props.account.id });
     }
-  }
+  });
 
   async function handleUpdateAccountName(accountName: string): Promise<void> {
     props.account.name = accountName;
