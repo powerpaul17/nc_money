@@ -23,6 +23,11 @@ describe('accountStore', () => {
         accountStore.getValue({ accountId: 1, year: 2023, month: 1 })
       ).to.equal(0);
     });
+
+    it('should return the sum of the year if month is not given', () => {
+      const { accountStore } = setupEnvironment();
+      expect(accountStore.getValue({ accountId: 1, year: 2023 })).to.equal(110);
+    });
   });
 
   describe('getBalance', () => {
@@ -68,6 +73,13 @@ describe('accountStore', () => {
       });
       expect(accountStore.getBalance({ accountId: 10 })).to.equal(0);
     });
+
+    it('should return the balance for the end of the year if no month is given', () => {
+      const { accountStore } = setupEnvironment();
+      expect(accountStore.getBalance({ accountId: 1, year: 2023 })).to.equal(
+        110
+      );
+    });
   });
 
   describe('getSummary', () => {
@@ -90,6 +102,13 @@ describe('accountStore', () => {
       expect(
         accountStore.getSummary({ accountId: 1, year: 2030, month: 1 })
       ).to.equal(0);
+    });
+
+    it('should return the summary of the whole year if no month is given', () => {
+      const { accountStore } = setupEnvironment();
+      expect(accountStore.getSummary({ accountId: 1, year: 2023 })).to.equal(
+        30 + 80
+      );
     });
   });
 
