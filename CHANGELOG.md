@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Allow switching to yearly account values
+
 ## [0.28.0] - 2024-07-05
 
 ### Fixed
