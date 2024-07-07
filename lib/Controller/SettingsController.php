@@ -32,6 +32,8 @@ class SettingsController extends Controller {
   public function getSettings() {
     $settings = [
       'useInvertedAccounts' => 'bool',
+      'incomeExpenseAccountsValueFormat' => 'string',
+
       'numberFormat_decimals' => 'int',
       'numberFormat_decimalSeparator' => 'string',
       'numberFormat_groupBy' => 'int',
@@ -67,6 +69,8 @@ class SettingsController extends Controller {
    */
   public function updateSettings(
     $useInvertedAccounts,
+    $incomeExpenseAccountsValueFormat,
+
     $numberFormat_decimals,
     $numberFormat_decimalSeparator,
     $numberFormat_groupBy,
@@ -74,6 +78,8 @@ class SettingsController extends Controller {
   ) {
     $settings = [
       'useInvertedAccounts' => $useInvertedAccounts,
+      'incomeExpenseAccountsValueFormat' => $incomeExpenseAccountsValueFormat,
+
       'numberFormat_decimals' => $numberFormat_decimals,
       'numberFormat_decimalSeparator' => $numberFormat_decimalSeparator,
       'numberFormat_groupBy' => $numberFormat_groupBy,
