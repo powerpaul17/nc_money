@@ -24,18 +24,11 @@
         </div>
       </div>
       <div class="flex shrink-0 grow-0 items-center text-right text-xl">
-        <CurrencyText
+        <AccountCurrencyText
           :value="balance"
-          :animation="true"
-          :inverted-value="isInvertedAccount"
+          :account-type="account.type"
         >
-          <template
-            #suffix
-            v-if="isMonthlyAccount"
-          >
-            / {{ t('money', 'mo') }}
-          </template>
-        </CurrencyText>
+        </AccountCurrencyText>
       </div>
       <div class="flex grow-0">
         <NcActions>
@@ -81,6 +74,8 @@
 </template>
 
 <script setup lang="ts">
+  import dayjs from 'dayjs';
+
   import { ref, type PropType, computed } from 'vue';
 
   import { translate as t } from '@nextcloud/l10n';
@@ -91,10 +86,13 @@
   import { type Account, useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
-  import { useSettingStore } from '../stores/settingStore';
+  import {
+    IncomeExpenseAccountsValueFormat,
+    useSettingStore
+  } from '../stores/settingStore';
 
   import SeamlessInput from './SeamlessInput.vue';
-  import CurrencyText from './CurrencyText.vue';
+  import AccountCurrencyText from './AccountCurrencyText.vue';
   import TransactionImportDialog from './TransactionImportDialog.vue';
   import LineChart, { type Data } from './charts/LineChart.vue';
   import BarChart, { type DataItem } from './charts/BarChart.vue';
@@ -124,10 +122,16 @@
   const showImportTransactionsDialog = ref(false);
 
   const balance = computed(() => {
+    const year =
+      settingStore.incomeExpenseAccountsValueFormat.value ===
+      IncomeExpenseAccountsValueFormat.YEARLY
+        ? dayjs().year()
+        : undefined;
+
     if (isMonthlyAccount.value) {
-      return accountStore.getValue({ accountId: props.account.id });
+      return accountStore.getValue({ accountId: props.account.id, year });
     } else {
-      return accountStore.getBalance({ accountId: props.account.id });
+      return accountStore.getBalance({ accountId: props.account.id, year });
     }
   });
 
