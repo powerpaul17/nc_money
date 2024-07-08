@@ -13,22 +13,12 @@
     icon="icon-folder"
   >
     <template #counter>
-      <CurrencyText
+      <AccountCurrencyText
         class="mr-2"
         :value="balance"
-        :animation="true"
-        :inverted-value="
-          settingStore.useInvertedAccounts.value &&
-          AccountTypeUtils.isInvertedAccount(accountType.type)
-        "
+        :account-type="accountType.type"
       >
-        <template
-          #suffix
-          v-if="AccountTypeUtils.isMonthlyAccount(accountType.type)"
-        >
-          / {{ t('money', 'mo') }}
-        </template>
-      </CurrencyText>
+      </AccountCurrencyText>
     </template>
 
     <template #actions>
@@ -64,14 +54,17 @@
   import { useAccountService } from '../services/accountService';
   import type { AccountType } from '../stores/accountTypeStore';
 
-  import { useSettingStore } from '../stores/settingStore';
+  import {
+    IncomeExpenseAccountsValueFormat,
+    useSettingStore
+  } from '../stores/settingStore';
 
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 
-  import CurrencyText from './CurrencyText.vue';
+  import AccountCurrencyText from './AccountCurrencyText.vue';
 
   const router = useRouter();
 
@@ -92,18 +85,26 @@
   });
 
   const balance = computed(() => {
+    const date = dayjs();
+    const month =
+      settingStore.incomeExpenseAccountsValueFormat.value ===
+      IncomeExpenseAccountsValueFormat.YEARLY
+        ? undefined
+        : date.month() + 1;
+
     if (AccountTypeUtils.isMonthlyAccount(props.accountType.type)) {
-      const date = dayjs();
       return accountStore.getSummaryByType({
         bookId: props.bookId,
         accountType: props.accountType.type,
         year: date.year(),
-        month: date.month() + 1
+        month
       }).value;
     } else {
       return accountStore.getBalanceByType({
         bookId: props.bookId,
-        accountType: props.accountType.type
+        accountType: props.accountType.type,
+        year: date.year(),
+        month
       }).value;
     }
   });

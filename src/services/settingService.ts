@@ -4,7 +4,10 @@ import { translate as t } from '@nextcloud/l10n';
 
 import { showSuccess } from '@nextcloud/dialogs';
 
-import { useSettingStore } from '../stores/settingStore';
+import {
+  IncomeExpenseAccountsValueFormat,
+  useSettingStore
+} from '../stores/settingStore';
 import { useSettingApiService } from './settingApiService';
 
 let settingService: SettingService | null = null;
@@ -39,6 +42,10 @@ class SettingService {
 
     this.settingStore.useInvertedAccounts.value =
       newSettings.useInvertedAccounts ?? true;
+
+    this.settingStore.incomeExpenseAccountsValueFormat.value =
+      newSettings.incomeExpenseAccountsValueFormat ??
+      IncomeExpenseAccountsValueFormat.MONTHLY;
 
     this.settingStore.numberFormat_decimals.value =
       newSettings.numberFormat_decimals ?? 2;

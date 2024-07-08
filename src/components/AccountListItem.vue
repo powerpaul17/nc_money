@@ -29,22 +29,13 @@
       #counter
       v-if="deleteAccountTimeout == null"
     >
-      <CurrencyText
+      <AccountCurrencyText
         class="mr-2"
         :value="balance"
         :animation="animationEnabled"
-        :inverted-value="
-          settingStore.useInvertedAccounts.value &&
-          AccountTypeUtils.isInvertedAccount(account.type)
-        "
+        :account-type="account.type"
       >
-        <template
-          #suffix
-          v-if="AccountTypeUtils.isMonthlyAccount(account.type)"
-        >
-          / {{ t('money', 'mo') }}
-        </template>
-      </CurrencyText>
+      </AccountCurrencyText>
     </template>
 
     <template
@@ -101,7 +92,10 @@
 </template>
 
 <script setup lang="ts">
+  import dayjs from 'dayjs';
+
   import {
+    computed,
     nextTick,
     onMounted,
     ref,
@@ -119,7 +113,10 @@
   import { useAccountStore, type Account } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
-  import { useSettingStore } from '../stores/settingStore';
+  import {
+    IncomeExpenseAccountsValueFormat,
+    useSettingStore
+  } from '../stores/settingStore';
 
   import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
   import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
@@ -129,17 +126,16 @@
   import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
   import Delete from 'vue-material-design-icons/Delete.vue';
 
-  import CurrencyText from './CurrencyText.vue';
+  import AccountCurrencyText from './AccountCurrencyText.vue';
 
   const route = useRoute();
   const router = useRouter();
 
   const settingStore = useSettingStore();
+
   const accountStore = useAccountStore();
   const accountService = useAccountService();
-  // AccountTypeUtils
 
-  const balance = ref(0.0);
   const isLoading = ref(false);
   const showDeleteConfirmationDialog = ref(false);
   const deleteAccountTimeout: Ref<null | number> = ref(null);
@@ -153,34 +149,27 @@
     }
   });
 
-  watch(
-    props.account,
-    () => {
-      balance.value = getAccountBalance();
-    },
-    {
-      deep: true
-    }
-  );
-
   onMounted(() => {
     animationEnabled.value = false;
-    balance.value = getAccountBalance();
 
     void nextTick(() => {
       animationEnabled.value = true;
     });
   });
 
-  function getAccountBalance(): number {
-    const accountStats = accountStore.getStats({ accountId: props.account.id });
+  const balance = computed(() => {
+    const year =
+      settingStore.incomeExpenseAccountsValueFormat.value ===
+      IncomeExpenseAccountsValueFormat.YEARLY
+        ? dayjs().year()
+        : undefined;
 
     if (AccountTypeUtils.isMonthlyAccount(props.account.type)) {
-      return accountStats?.value ?? 0.0;
+      return accountStore.getValue({ accountId: props.account.id, year });
     } else {
-      return accountStats?.balance ?? 0.0;
+      return accountStore.getBalance({ accountId: props.account.id, year });
     }
-  }
+  });
 
   async function handleUpdateAccountName(accountName: string): Promise<void> {
     props.account.name = accountName;

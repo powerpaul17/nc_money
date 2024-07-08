@@ -1,6 +1,8 @@
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 
+import type { IncomeExpenseAccountsValueFormat } from '../stores/settingStore';
+
 let settingApiService: SettingApiService | null = null;
 
 export const useSettingApiService = (): SettingApiService => {
@@ -23,6 +25,7 @@ class SettingApiService {
 
 export type SettingsApiData = {
   useInvertedAccounts?: boolean;
+  incomeExpenseAccountsValueFormat?: IncomeExpenseAccountsValueFormat;
 
   numberFormat_decimals?: number;
   numberFormat_decimalSeparator?: string;

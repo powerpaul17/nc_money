@@ -15,6 +15,11 @@ export function resetSettingStore(): void {
 
 class SettingStore {
   public readonly useInvertedAccounts = ref(true);
+
+  public readonly incomeExpenseAccountsValueFormat = ref<
+    Settings['incomeExpenseAccountsValueFormat']
+  >(IncomeExpenseAccountsValueFormat.MONTHLY);
+
   public readonly numberFormat_decimals = ref(2);
   public readonly numberFormat_decimalSeparator = ref('.');
   public readonly numberFormat_groupBy = ref(3);
@@ -26,6 +31,7 @@ class SettingStore {
     watch(
       [
         this.useInvertedAccounts,
+        this.incomeExpenseAccountsValueFormat,
         this.numberFormat_decimals,
         this.numberFormat_decimalSeparator,
         this.numberFormat_groupBy,
@@ -53,6 +59,8 @@ class SettingStore {
   public readonly state = computed((): Settings => {
     return {
       useInvertedAccounts: this.useInvertedAccounts.value,
+      incomeExpenseAccountsValueFormat:
+        this.incomeExpenseAccountsValueFormat.value,
       numberFormat_decimals: this.numberFormat_decimals.value,
       numberFormat_decimalSeparator: this.numberFormat_decimalSeparator.value,
       numberFormat_groupBy: this.numberFormat_groupBy.value,
@@ -72,9 +80,15 @@ class SettingStore {
 
 export type Settings = {
   useInvertedAccounts: boolean;
+  incomeExpenseAccountsValueFormat: IncomeExpenseAccountsValueFormat;
 
   numberFormat_decimals: number;
   numberFormat_decimalSeparator: string;
   numberFormat_groupBy: number;
   numberFormat_groupSeparator: string;
 };
+
+export enum IncomeExpenseAccountsValueFormat {
+  MONTHLY = 'monthly',
+  YEARLY = 'yearly'
+}

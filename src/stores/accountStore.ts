@@ -97,7 +97,7 @@ class AccountStore {
     );
   }
 
-  public getStats({
+  public getValue({
     accountId,
     year,
     month
@@ -105,12 +105,13 @@ class AccountStore {
     accountId: number;
     year?: number;
     month?: number;
-  }): MonthlyAccountStats {
+  }): number {
     const date = dayjs();
-    const y = year ?? date.year();
-    const m = month ?? date.month() + 1;
 
-    return this.getStatsOfAccount({ accountId, year: y, month: m });
+    const y = year ?? date.year();
+    const m = year && !month ? undefined : month ?? date.month() + 1;
+
+    return this.getStatsOfAccount({ accountId, year: y, month: m }).value;
   }
 
   public getBalance({
@@ -123,8 +124,9 @@ class AccountStore {
     month?: number;
   }): number {
     const date = dayjs();
+
     const y = year ?? date.year();
-    const m = month ?? date.month() + 1;
+    const m = year && !month ? 12 : month ?? date.month() + 1;
 
     return this.getStatsOfAccount({ accountId, year: y, month: m }).balance;
   }
@@ -159,10 +161,10 @@ class AccountStore {
     month?: number;
   }): number {
     const date = dayjs();
-    const y = year ?? date.year();
-    const m = month ?? date.month() + 1;
 
-    return this.getStatsOfAccount({ accountId, year: y, month: m }).value;
+    const y = year ?? date.year();
+
+    return this.getStatsOfAccount({ accountId, year: y, month }).value;
   }
 
   public getSummaryByType({
@@ -289,8 +291,9 @@ class AccountStore {
     month?: number;
   }): number {
     const date = dayjs();
+
     const y = year ?? date.year();
-    const m = month ?? date.month() + 1;
+    const m = year && !month ? 12 : month ?? date.month() + 1;
 
     return accounts.reduce<number>((balance, account) => {
       return (balance += this.getStatsOfAccount({
@@ -307,8 +310,9 @@ class AccountStore {
     month?: number
   ): number {
     const date = dayjs();
+
     const y = year ?? date.year();
-    const m = month ?? date.month() + 1;
+    const m = year && !month ? undefined : month ?? date.month() + 1;
 
     return accounts.reduce<number>((summary, account) => {
       return (summary += this.getStatsOfAccount({
@@ -326,13 +330,22 @@ class AccountStore {
   }: {
     accountId: number;
     year: number;
-    month: number;
+    month?: number;
   }): MonthlyAccountStats {
     const account = this.getById(accountId);
 
     if (!account) throw new Error('cannot get stats of non-existing account');
 
-    const value = account.stats[year]?.[month]?.value ?? 0.0;
+    const yearStats = account.stats[year] ?? {};
+
+    const value =
+      month != null
+        ? yearStats[month]?.value ?? 0.0
+        : Object.values(yearStats).reduce((v, monthValue) => {
+            v += monthValue.value;
+            return v;
+          }, 0.0);
+
     const balance = this.getBalanceOfAccount({ account, year, month });
 
     return {
@@ -344,11 +357,11 @@ class AccountStore {
   private getBalanceOfAccount({
     account,
     year,
-    month
+    month = 1
   }: {
     account: Account;
     year: number;
-    month: number;
+    month?: number;
   }): number {
     const years = Object.keys(account.stats).map(Number);
     if (!years.length) {
