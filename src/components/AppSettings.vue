@@ -6,6 +6,7 @@
 
     <NcSelect
       v-model="incomeExpenseAccountsValueFormatValue"
+      :input-label="t('money', 'Aggregate accounts')"
       :options="[
         {
           label: t('money', 'Monthly'),
