@@ -12,6 +12,8 @@ OC.L10N.register(
     "Are you sure?" : "Ar esate tikri?",
     "No account found" : "Paskyrų nerasta",
     "Add account" : "Pridėti paskyrą",
+    "Monthly" : "Kas mėnesį",
+    "Yearly" : "Kas metus",
     "Date" : "Data",
     "Value" : "Reikšmė",
     "Group By" : "Grupuoti pagal",

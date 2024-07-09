@@ -9,6 +9,8 @@ OC.L10N.register(
     "Are you sure?" : "Bạn chắc chắn?",
     "No account found" : "Không tìm thấy tài khoản",
     "Add account" : "Thêm tài khoản",
+    "Monthly" : "Hằng tháng",
+    "Yearly" : "Hằng năm",
     "Date" : "Date",
     "Value" : "Giá trị",
     "Space" : "Space",

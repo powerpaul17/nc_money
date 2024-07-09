@@ -9,6 +9,8 @@ OC.L10N.register(
     "Are you sure?" : "დარწმუნებული ხართ?",
     "No account found" : "No account found",
     "Add account" : "Add account",
+    "Monthly" : "Monthly",
+    "Yearly" : "Yearly",
     "No name" : "No name",
     "Date" : "Date",
     "Value" : "Value",

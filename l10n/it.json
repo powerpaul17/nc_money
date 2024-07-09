@@ -1,8 +1,8 @@
 { "translations": {
     "Money" : "Soldi",
+    "mo" : "mo",
     "Name" : "Nome",
     "Description" : "Descrizione",
-    "mo" : "mo",
     "Overview" : "Panoramica",
     "'{accountName}' deleted" : "'{accountName}' eliminato",
     "Rename account" : "Rinomina account",
@@ -11,6 +11,8 @@
     "Are you sure?" : "Sei sicuro?",
     "No account found" : "Nessun account trovato",
     "Add account" : "Aggiungi account",
+    "Monthly" : "Mensilmente",
+    "Yearly" : "Annualmente",
     "No name" : "Nessun nome",
     "Unbalanced" : "Sbilanciato",
     "Equity" : "Patrimonio",

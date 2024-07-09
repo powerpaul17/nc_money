@@ -8,6 +8,8 @@ OC.L10N.register(
     "Delete account" : "Dzēst kontu",
     "No account found" : "Nav atrastu kontu",
     "Add account" : "Pievienot kontu",
+    "Monthly" : "Ikmēneša",
+    "Yearly" : "Ik gadu",
     "Date" : "Datums",
     "Value" : "Vērtība",
     "Import" : "Importēt",

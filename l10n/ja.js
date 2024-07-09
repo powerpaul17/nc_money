@@ -10,6 +10,8 @@ OC.L10N.register(
     "Are you sure?" : "本当に？",
     "No account found" : "アカウントが見つかりません",
     "Add account" : "アカウントを追加",
+    "Monthly" : "毎月",
+    "Yearly" : "毎年",
     "No name" : "名前なし",
     "Date" : "日付",
     "Value" : "値",

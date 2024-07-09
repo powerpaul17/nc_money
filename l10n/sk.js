@@ -13,6 +13,8 @@ OC.L10N.register(
     "No account found" : "Účet sa nenašiel",
     "Add account" : "Pridať účet",
     "New Account" : "Nový účet",
+    "Monthly" : "Mesačne",
+    "Yearly" : "Ročne",
     "No name" : "Bez názvu",
     "Unbalanced" : "Nezaúčtované",
     "Equity" : "Akcie",

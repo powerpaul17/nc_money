@@ -13,6 +13,8 @@ OC.L10N.register(
     "Are you sure?" : "Ви впевнені?",
     "No account found" : "Не знайдено облікового запису",
     "Add account" : "Додати обліковий запис",
+    "Monthly" : "Щомісяця",
+    "Yearly" : "Щороку",
     "No name" : "Відсутнє ім'я",
     "Unbalanced" : "Неврівноважений",
     "Equity" : "Власний капітал",

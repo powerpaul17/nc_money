@@ -8,6 +8,8 @@ OC.L10N.register(
     "Are you sure?" : "Apakah Anda yakin?",
     "No account found" : "Tidak ada akun yang ditemukan",
     "Add account" : "Tambah akun",
+    "Monthly" : "Bulanan",
+    "Yearly" : "Tahunan",
     "Date" : "Date",
     "Value" : "Nilari",
     "Import" : "Impor",

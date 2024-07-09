@@ -20,6 +20,8 @@ OC.L10N.register(
     "Add account" : "Lägg till konto",
     "New Account" : "Nytt konto",
     "Show inverted income/liabilities account balances" : "Visa inverterade inkomster/skulder kontosaldon",
+    "Monthly" : "Varje månad",
+    "Yearly" : "Årligen",
     "No name" : "Inget namn",
     "Unbalanced" : "Obalanserad",
     "Equity" : "Värdeökning",

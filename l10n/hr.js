@@ -7,6 +7,8 @@ OC.L10N.register(
     "Delete account" : "Izbriši račun",
     "No account found" : "Račun nije pronađen",
     "Add account" : "Dodaj račun",
+    "Monthly" : "Svaki mjesec",
+    "Yearly" : "Svake godine",
     "No name" : "Bez naziva",
     "Date" : "Datum",
     "Value" : "Vrijednost",

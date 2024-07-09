@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Deskrivadur",
     "Overview" : "Taol-lagad",
     "Add account" : "Ouzhpenn ur c'hont",
+    "Monthly" : "Miziek",
     "Date" : "Deiz",
     "Select File" : "Choazit ur Restr",
     "Import" : "Emporzhiañ ",

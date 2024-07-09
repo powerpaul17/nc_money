@@ -13,6 +13,8 @@ OC.L10N.register(
     "Are you sure?" : "Вы уверены?",
     "No account found" : "Аккаунт не найден",
     "Add account" : "Добавить счёт",
+    "Monthly" : "Ежемесячно",
+    "Yearly" : "Ежегодно",
     "No name" : "Без имени",
     "Unbalanced" : "Расхождение",
     "Equity" : "Собственный капитал",

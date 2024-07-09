@@ -13,6 +13,8 @@ OC.L10N.register(
     "Are you sure?" : "Er du sikker?",
     "No account found" : "Ingen konto fundet",
     "Add account" : "Tilføj konto",
+    "Monthly" : "Månedligt",
+    "Yearly" : "Årligt",
     "Unbalanced" : "Ikke afstemt",
     "Equity" : "Egenkapital",
     "Date" : "Dato",

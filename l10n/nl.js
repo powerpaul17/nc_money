@@ -10,6 +10,8 @@ OC.L10N.register(
     "Are you sure?" : "Weet je het zeker?",
     "No account found" : "Geen account gevonden",
     "Add account" : "Toevoegen account ",
+    "Monthly" : "Maandelijks",
+    "Yearly" : "Jaarlijks",
     "No name" : "Geen naam",
     "Date" : "Datum",
     "Value" : "Waarden",

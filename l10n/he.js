@@ -8,6 +8,8 @@ OC.L10N.register(
     "Are you sure?" : "האם הינך בטוח?",
     "No account found" : "לא נמצא חשבון",
     "Add account" : "הוספת חשבון",
+    "Monthly" : "חודשי",
+    "Yearly" : "שנתי",
     "No name" : "אין שם",
     "Date" : "תאריך",
     "Value" : "ערך",

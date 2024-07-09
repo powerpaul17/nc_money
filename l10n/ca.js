@@ -10,6 +10,7 @@ OC.L10N.register(
     "Are you sure?" : "Estas segur?",
     "No account found" : "No s'ha trobat el compte",
     "Add account" : "Afegeix un compte",
+    "Monthly" : "Mensualment",
     "No name" : "Sense nom",
     "Date" : "Data",
     "Value" : "Valor",

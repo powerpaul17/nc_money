@@ -18,6 +18,8 @@ OC.L10N.register(
     "No account found" : "Tiliä ei löytynyt",
     "Add account" : "Lisää tili",
     "New Account" : "Uusi tili",
+    "Monthly" : "Kuukausittain",
+    "Yearly" : "Vuosittain",
     "No name" : "Ei nimeä",
     "Equity" : "Pääoma",
     "Date" : "Päivä",

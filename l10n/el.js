@@ -12,6 +12,8 @@ OC.L10N.register(
     "Are you sure?" : "Είστε σίγουροι;",
     "No account found" : "Δεν βρέθηκε λογαριασμός",
     "Add account" : "Προσθήκη λογαριασμού",
+    "Monthly" : "Μηνιαίως",
+    "Yearly" : "Ετησίως",
     "No name" : "Ανώνυμο",
     "Unbalanced" : "Μη ισορροπημένα",
     "Equity" : "Μετοχικά κεφάλαια",

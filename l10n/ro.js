@@ -8,6 +8,8 @@ OC.L10N.register(
     "Delete account" : "Delete account",
     "No account found" : "Nici un cont găsit",
     "Add account" : "Adaugă cont",
+    "Monthly" : "Lunar",
+    "Yearly" : "Anual",
     "Date" : "Date",
     "Value" : "Valoare",
     "Select File" : "Selectează Fișier",

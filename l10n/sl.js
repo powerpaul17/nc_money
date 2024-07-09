@@ -11,6 +11,8 @@ OC.L10N.register(
     "No account found" : "Ni najdenega nobenega računa",
     "Add account" : "Dodaj račun",
     "New Account" : "Nov račun",
+    "Monthly" : "Mesečno",
+    "Yearly" : "Letno",
     "No name" : "Brez imena",
     "Date" : "Datum",
     "Value" : "Vrednost",

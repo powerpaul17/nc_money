@@ -6,6 +6,8 @@ OC.L10N.register(
     "Description" : "Disgrifiad",
     "Delete account" : "Delete account",
     "No account found" : "Heb ganfod cyfrif",
+    "Monthly" : "Misol",
+    "Yearly" : "Blynyddol",
     "Date" : "Date",
     "Import" : "Mewnforio",
     "Comment" : "Sylw"
