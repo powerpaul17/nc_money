@@ -22,6 +22,8 @@ OC.L10N.register(
     "Add account" : "Добавяне на регистрация",
     "New Account" : "Нов профил",
     "Show inverted income/liabilities account balances" : "Показване на обърнато салдо по сметките за приходите/пасивите",
+    "Monthly" : "Месечно",
+    "Yearly" : "Годишно",
     "No name" : "Без име",
     "Unbalanced" : "Небалансиран",
     "Equity" : "Собствен капитал",

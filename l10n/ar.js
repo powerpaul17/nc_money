@@ -26,6 +26,8 @@ OC.L10N.register(
     "New Account" : "حساب جديد",
     "New book" : "دفتر جديد",
     "Show inverted income/liabilities account balances" : "عرض أرصدة الدخل/ حسابات الخصوم المقلوبة",
+    "Monthly" : "شهري",
+    "Yearly" : "سنوي",
     "No name" : "لا يوجد اسم",
     "'{bookName}' deleted" : "'{bookName}' تمّ حذفه",
     "Rename book" : "تغيير تسمية الدفتر",
