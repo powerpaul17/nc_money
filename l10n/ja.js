@@ -15,6 +15,7 @@ OC.L10N.register(
     "No name" : "名前なし",
     "Date" : "日付",
     "Value" : "値",
+    "Decimals" : "小数点以下",
     "Space" : "スペース",
     "Select File" : "ファイル選択",
     "Import" : "インポート",
