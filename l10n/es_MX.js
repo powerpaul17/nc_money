@@ -21,6 +21,8 @@ OC.L10N.register(
     "Add account" : "Agregar cuenta",
     "New Account" : "Nueva cuenta",
     "Show inverted income/liabilities account balances" : "Mostrar los balances de cuentas de ingresos/deudas invertidos",
+    "Monthly" : "Mensualmente",
+    "Yearly" : "Anualmente",
     "Unbalanced" : "Sin conciliar",
     "Equity" : "Patrimonio Neto",
     "Date" : "Fecha",
