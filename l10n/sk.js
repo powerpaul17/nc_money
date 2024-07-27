@@ -13,6 +13,7 @@ OC.L10N.register(
     "No account found" : "Účet sa nenašiel",
     "Add account" : "Pridať účet",
     "New Account" : "Nový účet",
+    "New book" : "Nová kniha",
     "Monthly" : "Mesačne",
     "Yearly" : "Ročne",
     "No name" : "Bez názvu",
