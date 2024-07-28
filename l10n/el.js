@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "Περιγραφή",
     "Import transactions" : "Εισαγωγή συναλλαγών",
     "Overview" : "Επισκόπηση",
+    "Account name" : "Όνομα λογαριασμού",
     "Delete account" : "Διαγραφή λογαριασμού",
     "Are you sure?" : "Είστε σίγουροι;",
     "No account found" : "Δεν βρέθηκε λογαριασμός",
