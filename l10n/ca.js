@@ -11,6 +11,7 @@ OC.L10N.register(
     "No account found" : "No s'ha trobat el compte",
     "Add account" : "Afegeix un compte",
     "Monthly" : "Mensualment",
+    "Yearly" : "Anualment",
     "No name" : "Sense nom",
     "Date" : "Data",
     "Value" : "Valor",

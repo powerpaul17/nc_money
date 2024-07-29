@@ -26,6 +26,7 @@ OC.L10N.register(
     "New book" : "Nová kniha",
     "Show inverted income/liabilities account balances" : "Zobrazit stavy účtu příjem/závazky invertovaně",
     "Monthly" : "Měsíčně",
+    "Yearly" : "Každoročně",
     "No name" : "Bez názvu",
     "'{bookName}' deleted" : "„{bookName}“ smazáno",
     "Rename book" : "Přejmenovat knihu",
