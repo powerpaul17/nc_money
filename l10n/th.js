@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "ชื่อ",
     "Description" : "รายละเอียด",
+    "Account name" : "ชื่อบัญชี",
     "Delete account" : "ลบบัญชี",
     "Are you sure?" : "คุณแน่ใจหรือไม่?",
     "Yes, delete account" : "ใช่ ลบบัญชีนี้",
