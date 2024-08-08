@@ -8,6 +8,7 @@ OC.L10N.register(
     "Description" : "Popis",
     "Import transactions" : "Importovať transakcie",
     "Overview" : "Prehľad",
+    "Account name" : "Názov účtu",
     "Delete account" : "Zmazať účet",
     "Are you sure?" : "Ste si istý?",
     "No account found" : "Účet sa nenašiel",
