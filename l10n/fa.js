@@ -23,6 +23,7 @@ OC.L10N.register(
     "Add account" : "افزودن حساب",
     "New Account" : "New Account",
     "Show inverted income/liabilities account balances" : "Show inverted income/liabilities account balances",
+    "Aggregate accounts" : "تجمیع حساب‌ها",
     "Monthly" : "ماهانه",
     "Yearly" : "سالانه",
     "No name" : "بدون نام",
