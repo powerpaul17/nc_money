@@ -19,6 +19,7 @@ OC.L10N.register(
     "No account available" : "Учетная запись недоступна",
     "Add account" : "Добавить счёт",
     "New Account" : "Новая учетная запись",
+    "New book" : "Новая книга",
     "Monthly" : "Ежемесячно",
     "Yearly" : "Ежегодно",
     "No name" : "Без имени",
