@@ -27,6 +27,7 @@ OC.L10N.register(
     "Equity" : "Собственный капитал",
     "Date" : "Дата",
     "Value" : "Значение",
+    "Various settings for the money app" : "Различные настройки для приложения «Деньги»",
     "Space" : "Пробел",
     "Import Transactions" : "Импортировать транзакции",
     "Select File" : "Выбрать файл",
