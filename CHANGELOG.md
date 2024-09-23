@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.29.0] - 2024-09-23
+
 ### Added
 
 - Allow switching to yearly account values
