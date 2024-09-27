@@ -6,6 +6,7 @@ OC.L10N.register(
     "Name" : "Cognom",
     "Description" : "Descripció",
     "Overview" : "Resum",
+    "Account name" : "Nom de compte",
     "Delete account" : "Suprimeix el compte",
     "Are you sure?" : "Estas segur?",
     "No account found" : "No s'ha trobat el compte",
