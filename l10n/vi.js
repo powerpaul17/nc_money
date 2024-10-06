@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "Tên",
     "Description" : "Mô tả",
     "Overview" : "Tổng quan",
+    "Account name" : "Tên tài khoản",
     "Delete account" : "Xóa tài khoản",
     "Are you sure?" : "Bạn chắc chắn?",
     "No account found" : "Không tìm thấy tài khoản",
