@@ -4,7 +4,7 @@ OC.L10N.register(
     "Financial Overview" : "تقييم مالي Financial Overview",
     "Money" : "مال",
     "Manage your finances." : "أدِر أموالك",
-    "Finance manager for Nextcloud." : "المدير المالي Finance manager في نكست كلاود",
+    "Finance manager for Nextcloud." : "المدير المالي في نكست كلاود",
     "yr" : "سنه",
     "mo" : "أنقُل",
     "Name" : "الاسم",
