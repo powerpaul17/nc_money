@@ -1,9 +1,11 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Finanšu pārskats",
     "Money" : "Nauda",
     "Name" : "Vārds",
     "Description" : "Apraksts",
+    "Overview" : "Pārskats",
     "Account name" : "Konta nosaukums",
     "Delete account" : "Dzēst kontu",
     "No account found" : "Nav atrastu kontu",
