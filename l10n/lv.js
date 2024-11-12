@@ -8,6 +8,7 @@ OC.L10N.register(
     "Overview" : "Pārskats",
     "Account name" : "Konta nosaukums",
     "Delete account" : "Dzēst kontu",
+    "Are you sure?" : "Vai tiešām?",
     "No account found" : "Nav atrastu kontu",
     "Add account" : "Pievienot kontu",
     "Monthly" : "Ikmēneša",
