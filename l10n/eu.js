@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Finantza ikuspegi orokorra",
     "Money" : "Dirua",
     "Manage your finances." : "Kudeatu zure finantzak.",
     "Finance manager for Nextcloud." : "Nextclouderako finantza kudeatzailea.",
@@ -10,12 +11,15 @@ OC.L10N.register(
     "Description" : "Deskribapena",
     "Import transactions" : "Inportazio transakzioak",
     "Overview" : "Ikuspegi orokorra",
+    "Filter list" : "Iragazien zerrenda",
+    "'{accountName}' deleted" : "'{accountName}' ezabatuta",
     "Rename account" : "Berrizendatu kontua",
     "Account name" : "Kontuaren izena",
     "Delete account" : "Ezabatu kontua",
     "Are you sure?" : "Ziur zaude?",
     "No, go back" : "Ez, joan atzera",
     "Yes, delete account" : "Bai, ezabatu kontua",
+    "No Account" : "Konturik ez",
     "No account found" : "Ez da konturik aurkitu",
     "Add account" : "Gehitu kontua",
     "New Account" : "Kontu berria",
