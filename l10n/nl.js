@@ -6,6 +6,7 @@ OC.L10N.register(
     "Name" : "Naam",
     "Description" : "Beschrijving",
     "Overview" : "Overzicht",
+    "Account name" : "Accountnaam",
     "Delete account" : "Account verwijderen",
     "Are you sure?" : "Weet je het zeker?",
     "No account found" : "Geen account gevonden",
