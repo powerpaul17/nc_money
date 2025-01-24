@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "Heiti",
     "Description" : "Lýsing",
     "Overview" : "Yfirlit",
+    "Account name" : "Heiti notandaaðgangs",
     "Delete account" : "Eyða notandaaðgangi",
     "No account found" : "Enginn notandaaðgangur fannst",
     "Add account" : "Bæta við notandaaðgangi",
