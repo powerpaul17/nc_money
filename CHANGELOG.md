@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Update translations
+
 ## [0.29.0] - 2024-09-23
 
 ### Added
