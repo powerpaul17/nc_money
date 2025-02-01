@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.29.1] - 2025-02-01
+
 ### Changed
 
 - Update translations
