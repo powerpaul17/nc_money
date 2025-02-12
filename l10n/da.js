@@ -32,6 +32,7 @@ OC.L10N.register(
     "Multiple Accounts" : "Flere konti",
     "Info" : "Info",
     "Assets" : "Aktiver",
+    "Books" : "Bøger",
     "Settings saved" : "Indstillinger gemt",
     "Liabilities" : "Forpligtelser",
     "Income" : "Indtægt",
