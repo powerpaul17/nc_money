@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Yfirlit",
     "Account name" : "Heiti notandaaðgangs",
     "Delete account" : "Eyða notandaaðgangi",
+    "Are you sure?" : "Ertu viss?",
     "No account found" : "Enginn notandaaðgangur fannst",
     "Add account" : "Bæta við notandaaðgangi",
     "Monthly" : "Mánaðarlega",
