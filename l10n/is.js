@@ -15,6 +15,7 @@ OC.L10N.register(
     "No name" : "Ekkert heiti",
     "Date" : "Dagsetning",
     "Value" : "Gildi",
+    "Space" : "Bil",
     "Select File" : "Veldu skrá",
     "Import" : "Flytja inn",
     "Comment" : "Athugasemd",
