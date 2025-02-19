@@ -21,6 +21,7 @@ OC.L10N.register(
     "Date" : "日期",
     "Value" : "值",
     "Decimal Separator" : "十进制分隔符",
+    "Space" : "空间",
     "Import Transactions" : "导入交易",
     "Select File" : "选择文件",
     "Click or drop CSV file" : "点击或拖放CSV文件",
