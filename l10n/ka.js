@@ -15,8 +15,8 @@ OC.L10N.register(
     "Date" : "Date",
     "Value" : "Value",
     "Space" : "Space",
-    "Import" : "Import",
     "Comment" : "Comment",
+    "Import" : "Import",
     "Info" : "Info",
     "Settings saved" : "Settings saved"
 },

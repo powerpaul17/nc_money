@@ -8,7 +8,7 @@ OC.L10N.register(
     "No account found" : "រកមិនឃើញ​គណនី",
     "Date" : "កាលបរិច្ឆេទ",
     "Value" : "តម្លៃ",
-    "Import" : "នាំយកចូល",
-    "Comment" : "មតិ"
+    "Comment" : "មតិ",
+    "Import" : "នាំយកចូល"
 },
 "nplurals=1; plural=0;");

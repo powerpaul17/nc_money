@@ -10,7 +10,7 @@ OC.L10N.register(
     "Add account" : "Legg til konto",
     "Date" : "Dato",
     "Value" : "Verdi",
-    "Import" : "Importer",
-    "Comment" : "Kommentér"
+    "Comment" : "Kommentér",
+    "Import" : "Importer"
 },
 "nplurals=2; plural=(n != 1);");

@@ -6,8 +6,8 @@ OC.L10N.register(
     "Delete account" : "Delete account",
     "No account found" : "Nulle contos trovate",
     "Date" : "Date",
-    "Import" : "Importar",
     "Comment" : "Commentario",
+    "Import" : "Importar",
     "Settings saved" : "Configurationes salveguardate"
 },
 "nplurals=2; plural=(n != 1);");

@@ -12,9 +12,9 @@ OC.L10N.register(
     "No name" : "Bez naziva",
     "Date" : "Datum",
     "Value" : "Vrijednost",
+    "Comment" : "Komentar",
     "Select File" : "Odaberi datoteku",
     "Import" : "Uvezi",
-    "Comment" : "Komentar",
     "Info" : "Informacije",
     "Settings saved" : "Postavke spremljene"
 },

@@ -9,8 +9,8 @@ OC.L10N.register(
     "Add account" : "ანგარიშის დამატება",
     "Date" : "თარიღი",
     "Value" : "მნიშვნელობა",
-    "Import" : "იმპორტი",
     "Comment" : "კომენტარი",
+    "Import" : "იმპორტი",
     "Settings saved" : "პარამეტრები შენახულია"
 },
 "nplurals=2; plural=(n!=1);");

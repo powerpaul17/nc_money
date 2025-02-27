@@ -8,8 +8,8 @@ OC.L10N.register(
     "Add account" : "Shtoni llogari",
     "Date" : "Data",
     "Value" : "Vlerë",
-    "Import" : "Import",
     "Comment" : "Koment",
+    "Import" : "Import",
     "Settings saved" : "Opsjonet u Ruajtën."
 },
 "nplurals=2; plural=(n != 1);");

@@ -7,7 +7,7 @@ OC.L10N.register(
     "No account found" : "Keen Account fonnt",
     "Add account" : "Kont dobäisetzen",
     "Date" : "Date",
-    "Import" : "Importéieren",
-    "Comment" : "Kommentar"
+    "Comment" : "Kommentar",
+    "Import" : "Importéieren"
 },
 "nplurals=2; plural=(n != 1);");

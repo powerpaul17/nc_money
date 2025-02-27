@@ -12,9 +12,9 @@ OC.L10N.register(
     "No name" : "Perunu nùmene",
     "Date" : "Data",
     "Value" : "Balore",
+    "Comment" : "Cummentu",
     "Select File" : "Sèbera archìviu",
     "Import" : "Importa",
-    "Comment" : "Cummentu",
     "Info" : "Informatziones",
     "Settings saved" : "Cunfiguratzione sarvada"
 },

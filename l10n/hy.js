@@ -5,7 +5,7 @@ OC.L10N.register(
     "Description" : "Նկարագրություն",
     "Delete account" : "Delete account",
     "Date" : "Date",
-    "Import" : "Ներմուծում",
-    "Comment" : "Մեկնաբանել"
+    "Comment" : "Մեկնաբանել",
+    "Import" : "Ներմուծում"
 },
 "nplurals=2; plural=(n != 1);");

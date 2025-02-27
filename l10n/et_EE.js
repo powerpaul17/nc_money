@@ -12,8 +12,8 @@ OC.L10N.register(
     "Yearly" : "Igaastane",
     "Date" : "Kuupäev",
     "Value" : "Väärtus",
-    "Import" : "Impordi",
     "Comment" : "Kommentaar",
+    "Import" : "Impordi",
     "Settings saved" : "Seaded salvestatud"
 },
 "nplurals=2; plural=(n != 1);");

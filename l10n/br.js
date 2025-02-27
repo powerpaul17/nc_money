@@ -8,9 +8,9 @@ OC.L10N.register(
     "Monthly" : "Miziek",
     "Yearly" : "Bloaziek",
     "Date" : "Deiz",
+    "Comment" : "Displegadenn",
     "Select File" : "Choazit ur Restr",
     "Import" : "Emporzhiañ ",
-    "Comment" : "Displegadenn",
     "Info" : "Titouroù",
     "Settings saved" : "Stummoù enrollet"
 },

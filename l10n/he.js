@@ -13,9 +13,9 @@ OC.L10N.register(
     "No name" : "אין שם",
     "Date" : "תאריך",
     "Value" : "ערך",
+    "Comment" : "הערה",
     "Select File" : "בחירת קובץ",
     "Import" : "ייבוא",
-    "Comment" : "הערה",
     "Settings saved" : "הגדרות נשמרו"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

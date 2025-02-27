@@ -8,8 +8,8 @@ OC.L10N.register(
     "No account found" : "Hesab tapılmadı",
     "Add account" : "Hesab əlavə et",
     "Date" : "Date",
-    "Import" : "Əlavə et",
     "Comment" : "Komentariya",
+    "Import" : "Əlavə et",
     "Settings saved" : "Parametrlər yaddaşa verildi"
 },
 "nplurals=2; plural=(n != 1);");

@@ -20,11 +20,11 @@ OC.L10N.register(
     "Value" : "Wartość",
     "Decimals" : "Ułamki dziesiętne",
     "Decimal Separator" : "Separator dziesiętny",
+    "Comment" : "Komentarz",
     "Select File" : "Wybierz plik",
     "Click or drop CSV file" : "Kliknij lub przeciągnij plik CSV",
     "Date Format" : "Format daty",
     "Import" : "Importuj",
-    "Comment" : "Komentarz",
     "Info" : "Informacje",
     "Settings saved" : "Ustawienia zapisane",
     "Income" : "Dochód"

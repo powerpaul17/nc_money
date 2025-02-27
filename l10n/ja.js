@@ -17,9 +17,9 @@ OC.L10N.register(
     "Value" : "値",
     "Decimals" : "小数点以下",
     "Space" : "スペース",
+    "Comment" : "コメント",
     "Select File" : "ファイル選択",
     "Import" : "インポート",
-    "Comment" : "コメント",
     "Info" : "情報",
     "Settings saved" : "設定が保存されました"
 },

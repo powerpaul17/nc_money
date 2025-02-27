@@ -17,9 +17,9 @@ OC.L10N.register(
     "Date" : "Data",
     "Value" : "Reikšmė",
     "Group By" : "Grupuoti pagal",
+    "Comment" : "Komentaras",
     "Date Format" : "Datos formatas",
     "Import" : "Importuoti",
-    "Comment" : "Komentaras",
     "Info" : "Informacija",
     "Settings saved" : "Nustatymai įrašyti"
 },

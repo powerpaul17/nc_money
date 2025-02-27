@@ -14,8 +14,8 @@ OC.L10N.register(
     "Yearly" : "Cada an",
     "Date" : "Data",
     "Value" : "Valor",
-    "Import" : "Importar",
     "Comment" : "Comentaris",
+    "Import" : "Importar",
     "Settings saved" : "Paramètres salvats"
 },
 "nplurals=2; plural=(n > 1);");

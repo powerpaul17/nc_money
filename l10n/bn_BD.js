@@ -7,7 +7,7 @@ OC.L10N.register(
     "No account found" : "কোন একাউন্ট খুঁজে পাওয়া গেল না",
     "Add account" : "একাউন্ট যোগ কর",
     "Date" : "Date",
-    "Import" : "আমদানি",
-    "Comment" : "মন্তব্য"
+    "Comment" : "মন্তব্য",
+    "Import" : "আমদানি"
 },
 "nplurals=2; plural=(n != 1);");

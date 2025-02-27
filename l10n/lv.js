@@ -15,8 +15,8 @@ OC.L10N.register(
     "Yearly" : "Ik gadu",
     "Date" : "Datums",
     "Value" : "Vērtība",
-    "Import" : "Importēt",
     "Comment" : "Piebilde",
+    "Import" : "Importēt",
     "Info" : "Informācija",
     "Settings saved" : "Iestatījumi saglabāti"
 },

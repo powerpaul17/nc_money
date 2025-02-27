@@ -9,8 +9,8 @@ OC.L10N.register(
     "No account found" : "Neniu konto troviĝis",
     "Add account" : "Aldoni konton",
     "Date" : "Date",
-    "Import" : "Importi",
     "Comment" : "Komento",
+    "Import" : "Importi",
     "Settings saved" : "Agordoj konservitaj"
 },
 "nplurals=2; plural=(n != 1);");

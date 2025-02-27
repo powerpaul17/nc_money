@@ -8,8 +8,8 @@ OC.L10N.register(
     "Add account" : "Voeg rekening toe",
     "Date" : "Datum",
     "Value" : "Waarde",
-    "Import" : "Voer In",
     "Comment" : "Kommentaar",
+    "Import" : "Voer In",
     "Settings saved" : "Instellings gestoor"
 },
 "nplurals=2; plural=(n != 1);");

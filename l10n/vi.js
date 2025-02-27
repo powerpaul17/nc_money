@@ -15,8 +15,8 @@ OC.L10N.register(
     "Date" : "Date",
     "Value" : "Giá trị",
     "Space" : "Space",
-    "Import" : "Nhập vào",
     "Comment" : "Bình luận",
+    "Import" : "Nhập vào",
     "Info" : "Thông tin",
     "Settings saved" : "Cấu hình đã được lưu"
 },

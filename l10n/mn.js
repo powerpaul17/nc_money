@@ -7,8 +7,8 @@ OC.L10N.register(
     "No account found" : "Бүртгэл байгуулаагүй",
     "Date" : "Он сар өдөр",
     "Value" : "Үнийн дүн",
-    "Import" : "Импорт",
     "Comment" : "undefined",
+    "Import" : "Импорт",
     "Settings saved" : "Тохиргоо хадгалагдлаа"
 },
 "nplurals=2; plural=(n != 1);");

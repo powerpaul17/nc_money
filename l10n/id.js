@@ -12,8 +12,8 @@ OC.L10N.register(
     "Yearly" : "Tahunan",
     "Date" : "Date",
     "Value" : "Nilari",
-    "Import" : "Impor",
     "Comment" : "Komentar",
+    "Import" : "Impor",
     "Settings saved" : "Setelan tersimpan"
 },
 "nplurals=1; plural=0;");

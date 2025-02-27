@@ -18,11 +18,11 @@ OC.L10N.register(
     "Value" : "Valor",
     "Decimals" : "Decimals",
     "Space" : "Espai",
-    "Select File" : "Selecciona un fitxer",
-    "Import" : "Importa",
     "Comment" : "Comentari",
     "Credit" : "Crèdit",
     "Debit" : "Dèbit",
+    "Select File" : "Selecciona un fitxer",
+    "Import" : "Importa",
     "Info" : "Informació",
     "Settings saved" : "S'han desat els paràmetres",
     "Expenses" : "Despeses"

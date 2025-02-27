@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nom",
     "Add account" : "Rnu amiḍan",
-    "Select File" : "Fren afaylu",
-    "Comment" : "Commentaire"
+    "Comment" : "Commentaire",
+    "Select File" : "Fren afaylu"
 },
 "nplurals=2; plural=(n != 1);");
