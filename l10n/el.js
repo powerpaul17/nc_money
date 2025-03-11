@@ -30,6 +30,7 @@ OC.L10N.register(
     "Column Separator" : "Διαχωριστής Στήλης",
     "Date Format" : "Μορφοποίηση Ημερομηνίας",
     "Column Selection" : "Επιλογή Στήλης",
+    "Not selected" : "Δεν έχει επιλεγεί",
     "Import" : "Εισαγωγή",
     "Multiple Accounts" : "Πολλαπλοί Λογαριασμοί",
     "Info" : "Πληροφόρηση",
