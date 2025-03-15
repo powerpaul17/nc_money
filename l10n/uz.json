@@ -1,8 +1,10 @@
 { "translations": {
     "Name" : "Name",
     "Description" : "Tavsif",
+    "Account name" : "Akkaunt nomi",
     "Monthly" : "Oylik",
     "Yearly" : "Yillik",
+    "Date" : "Sana",
     "Settings saved" : "Settings saved"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
