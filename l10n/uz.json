@@ -1,10 +1,13 @@
 { "translations": {
     "Name" : "Name",
     "Description" : "Tavsif",
+    "Overview" : "Umumiy koʻrinish",
     "Account name" : "Akkaunt nomi",
+    "Are you sure?" : "Ishonchingiz komilmi?",
     "Monthly" : "Oylik",
     "Yearly" : "Yillik",
     "Date" : "Sana",
+    "Value" : "Qiymati",
     "Settings saved" : "Settings saved"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
