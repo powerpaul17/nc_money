@@ -10,6 +10,7 @@ OC.L10N.register(
     "Yearly" : "Yillik",
     "Date" : "Sana",
     "Value" : "Qiymati",
+    "Import" : "Import",
     "Settings saved" : "Settings saved"
 },
 "nplurals=1; plural=0;");
