@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nimi",
     "Description" : "Kirjeldus",
     "Overview" : "Ülevaade",
+    "Account name" : "Kasutajakonto nimi",
     "Delete account" : "Kustuta konto",
     "Are you sure?" : "Kas oled kindel?",
     "No account found" : "Kontot ei leitud",
