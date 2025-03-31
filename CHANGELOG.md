@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.30.0] - 2025-03-31
+
 ### Changed
 
 - Enable app for NC 31
