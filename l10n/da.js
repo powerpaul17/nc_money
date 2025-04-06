@@ -31,6 +31,7 @@ OC.L10N.register(
     "Import" : "Importer",
     "Multiple Accounts" : "Flere konti",
     "Info" : "Info",
+    "Properties" : "Egenskaber",
     "Assets" : "Aktiver",
     "Books" : "Bøger",
     "Settings saved" : "Indstillinger gemt",
