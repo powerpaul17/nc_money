@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "Name",
     "Description" : "Description",
     "Overview" : "Overview",
+    "Account name" : "ექაუნთის სახელი",
     "Delete account" : "Delete account",
     "Are you sure?" : "დარწმუნებული ხართ?",
     "No account found" : "No account found",
