@@ -30,6 +30,7 @@ OC.L10N.register(
     "Column Separator" : "列分隔符",
     "Date Format" : "日期格式",
     "Column Selection" : "列选择",
+    "Not selected" : "未选中",
     "Import" : "导入",
     "Multiple Accounts" : "多个账号",
     "Info" : "信息",
