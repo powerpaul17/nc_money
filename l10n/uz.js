@@ -11,6 +11,7 @@ OC.L10N.register(
     "Yearly" : "Yillik",
     "Date" : "Sana",
     "Value" : "Qiymati",
+    "Decimals" : "O'nlik kasrlar",
     "Comment" : "Izoh",
     "Import" : "Import",
     "Settings saved" : "Settings saved"
