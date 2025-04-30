@@ -13,6 +13,7 @@ OC.L10N.register(
     "Yearly" : "Igaastane",
     "Date" : "Kuupäev",
     "Value" : "Väärtus",
+    "Decimals" : "Kümnendkohad",
     "Comment" : "Kommentaar",
     "Import" : "Impordi",
     "Settings saved" : "Seaded salvestatud"
