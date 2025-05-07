@@ -11,6 +11,7 @@ OC.L10N.register(
     "Add account" : "Lisa konto",
     "Monthly" : "Igakuine",
     "Yearly" : "Igaastane",
+    "No name" : "Nime pole",
     "Date" : "Kuupäev",
     "Value" : "Väärtus",
     "Decimals" : "Kümnendkohad",
