@@ -5,6 +5,7 @@ OC.L10N.register(
     "Description" : "Descripción",
     "Overview" : "Generalidades",
     "Delete account" : "Borrar cuenta",
+    "Are you sure?" : "Are you sure?",
     "Add account" : "Agregar cuenta",
     "Date" : "Fecha",
     "Value" : "Valor",
