@@ -17,6 +17,7 @@ OC.L10N.register(
     "Decimals" : "Kümnendkohad",
     "Comment" : "Kommentaar",
     "Import" : "Impordi",
+    "Info" : "Teave",
     "Settings saved" : "Seaded salvestatud"
 },
 "nplurals=2; plural=(n != 1);");
