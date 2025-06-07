@@ -1,0 +1,7 @@
+{ "translations": {
+    "Name" : "Jina",
+    "Description" : "Maelezo",
+    "Monthly" : "Kwa kila mwezi",
+    "Yearly" : "Kwa kila mwaka"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
