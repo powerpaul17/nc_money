@@ -28,7 +28,7 @@ OC.L10N.register(
     "Column Separator" : "Kolonneseparator",
     "Date Format" : "Datoformat",
     "Column Selection" : "Kolonnevalg",
-    "Import" : "Importer",
+    "Import" : "Importér",
     "Multiple Accounts" : "Flere konti",
     "Info" : "Info",
     "Properties" : "Egenskaber",
