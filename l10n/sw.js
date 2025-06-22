@@ -5,9 +5,11 @@ OC.L10N.register(
     "Description" : "Maelezo",
     "Account name" : "Jina la akaunti",
     "Are you sure?" : "Una uhakika?",
+    "Add account" : "Ongeza akaunti",
     "Monthly" : "Kwa kila mwezi",
     "Yearly" : "Kwa kila mwaka",
     "Date" : "Tarehe",
+    "Decimals" : "Desimali",
     "Space" : "Nafasi"
 },
 "nplurals=2; plural=(n != 1);");
