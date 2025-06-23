@@ -10,6 +10,7 @@ OC.L10N.register(
     "Yearly" : "Kwa kila mwaka",
     "Date" : "Tarehe",
     "Decimals" : "Desimali",
-    "Space" : "Nafasi"
+    "Space" : "Nafasi",
+    "Comment" : "Maoni"
 },
 "nplurals=2; plural=(n != 1);");
