@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nome",
     "Description" : "Descrição",
     "Overview" : "Visão Geral",
+    "Account name" : "Nome da conta",
     "Delete account" : "Apagar conta",
     "Are you sure?" : "Tem a certeza?",
     "No account found" : "Não foi encontrada nenhuma conta",
