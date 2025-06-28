@@ -53,8 +53,8 @@ OC.L10N.register(
     "Multiple Accounts" : "Множество сметки",
     "Info" : "Информация",
     "Assets" : "Активи",
-    "Settings saved" : "Настройките са запазени",
     "Liabilities" : "Пасиви",
+    "Settings saved" : "Настройките са запазени",
     "Income" : "Приходи",
     "Expenses" : "Разходи"
 },

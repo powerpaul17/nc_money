@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Delinger",
     "Add transaction" : "Legg til transaksjon",
     "Assets" : "Ressurser",
+    "Liabilities" : "Forpliktelser",
     "No books available" : "Ingen bøker tilgjengelig",
     "Go ahead and create one..." : "Gå videre og lag en...",
     "Books" : "Bøker",
     "Settings saved" : "Innstillinger lagret",
-    "Liabilities" : "Forpliktelser",
     "Income" : "Inntekt",
     "Expenses" : "Utgifter"
 },

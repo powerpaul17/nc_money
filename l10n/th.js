@@ -16,8 +16,8 @@ OC.L10N.register(
     "Date" : "วันที่",
     "Comment" : "ความคิดเห็น",
     "Import" : "นำเข้า",
-    "Settings saved" : "บันทึกการตั้งค่าแล้ว",
     "Liabilities" : "หนี้สิน",
+    "Settings saved" : "บันทึกการตั้งค่าแล้ว",
     "Income" : "รายได้",
     "Expenses" : "รายจ่าย"
 },

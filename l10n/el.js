@@ -35,8 +35,8 @@ OC.L10N.register(
     "Multiple Accounts" : "Πολλαπλοί Λογαριασμοί",
     "Info" : "Πληροφόρηση",
     "Assets" : "Περουσιακά στοιχεία",
-    "Settings saved" : "Οι ρυθμίσεις αποθηκεύτηκαν",
     "Liabilities" : "Υποχρεώσεις",
+    "Settings saved" : "Οι ρυθμίσεις αποθηκεύτηκαν",
     "Income" : "Εισοδήματα",
     "Expenses" : "Έξοδα"
 },

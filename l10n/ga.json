@@ -66,11 +66,11 @@
     "Splits" : "Scoilteann",
     "Add transaction" : "Cuir idirbheart leis",
     "Assets" : "Sócmhainní",
+    "Liabilities" : "Dliteanais",
     "No books available" : "Níl leabhair ar fáil",
     "Go ahead and create one..." : "Téigh ar aghaidh agus cruthaigh ceann...",
     "Books" : "Leabhair",
     "Settings saved" : "Socruithe sábháilte",
-    "Liabilities" : "Dliteanais",
     "Income" : "Ioncam",
     "Expenses" : "Costais"
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"

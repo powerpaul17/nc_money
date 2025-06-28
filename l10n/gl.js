@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Divisións",
     "Add transaction" : "Engadir unha transacción",
     "Assets" : "Activos",
+    "Liabilities" : "Pasivos",
     "No books available" : "Non hai ningún libro dispoñíbel",
     "Go ahead and create one..." : "Anímese e cree un…",
     "Books" : "Libros",
     "Settings saved" : "Axustes gardados",
-    "Liabilities" : "Pasivos",
     "Income" : "Ingresos",
     "Expenses" : "Gastos"
 },

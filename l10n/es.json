@@ -64,11 +64,11 @@
     "Splits" : "Divisiones",
     "Add transaction" : "Añadir transacción",
     "Assets" : "Activos",
+    "Liabilities" : "Deudas",
     "No books available" : "No hay libros disponibles",
     "Go ahead and create one..." : "Siga adelante y cree uno…",
     "Books" : "Libros",
     "Settings saved" : "Ajustes guardados",
-    "Liabilities" : "Deudas",
     "Income" : "Ingreso",
     "Expenses" : "Gastos"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

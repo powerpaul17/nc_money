@@ -22,8 +22,8 @@ OC.L10N.register(
     "Import" : "Import",
     "Info" : "Info",
     "Assets" : "Activa",
-    "Settings saved" : "Instellingen opgeslagen",
     "Liabilities" : "Schulden",
+    "Settings saved" : "Instellingen opgeslagen",
     "Income" : "Inkomen",
     "Expenses" : "Uitgaven"
 },

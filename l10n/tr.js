@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Bölmeler",
     "Add transaction" : "Hesap hareketi ekle",
     "Assets" : "Varlıklar",
+    "Liabilities" : "Sorumluluklar",
     "No books available" : "Kullanılabilecek bir kitap yok",
     "Go ahead and create one..." : "Şimdi bir tane ekleyin...",
     "Books" : "Kitaplar",
     "Settings saved" : "Ayarlar kaydedildi",
-    "Liabilities" : "Sorumluluklar",
     "Income" : "Gelirler",
     "Expenses" : "Giderler"
 },

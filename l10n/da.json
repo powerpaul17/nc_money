@@ -31,9 +31,9 @@
     "Info" : "Info",
     "Properties" : "Egenskaber",
     "Assets" : "Aktiver",
+    "Liabilities" : "Forpligtelser",
     "Books" : "Bøger",
     "Settings saved" : "Indstillinger gemt",
-    "Liabilities" : "Forpligtelser",
     "Income" : "Indtægt",
     "Expenses" : "Udgifter"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Scoilteann",
     "Add transaction" : "Cuir idirbheart leis",
     "Assets" : "Sócmhainní",
+    "Liabilities" : "Dliteanais",
     "No books available" : "Níl leabhair ar fáil",
     "Go ahead and create one..." : "Téigh ar aghaidh agus cruthaigh ceann...",
     "Books" : "Leabhair",
     "Settings saved" : "Socruithe sábháilte",
-    "Liabilities" : "Dliteanais",
     "Income" : "Ioncam",
     "Expenses" : "Costais"
 },

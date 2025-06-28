@@ -33,9 +33,9 @@ OC.L10N.register(
     "Info" : "Info",
     "Properties" : "Egenskaber",
     "Assets" : "Aktiver",
+    "Liabilities" : "Forpligtelser",
     "Books" : "Bøger",
     "Settings saved" : "Indstillinger gemt",
-    "Liabilities" : "Forpligtelser",
     "Income" : "Indtægt",
     "Expenses" : "Udgifter"
 },

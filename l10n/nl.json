@@ -20,8 +20,8 @@
     "Import" : "Import",
     "Info" : "Info",
     "Assets" : "Activa",
-    "Settings saved" : "Instellingen opgeslagen",
     "Liabilities" : "Schulden",
+    "Settings saved" : "Instellingen opgeslagen",
     "Income" : "Inkomen",
     "Expenses" : "Uitgaven"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

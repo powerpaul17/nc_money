@@ -38,8 +38,8 @@ OC.L10N.register(
     "Import" : "Tuo",
     "Multiple Accounts" : "Useita tilejä",
     "Assets" : "Varallisuus",
-    "Settings saved" : "Asetukset tallennettu",
     "Liabilities" : "Velat",
+    "Settings saved" : "Asetukset tallennettu",
     "Income" : "Tulot",
     "Expenses" : "Menot"
 },

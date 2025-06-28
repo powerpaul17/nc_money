@@ -66,11 +66,11 @@
     "Splits" : "Rozdelenie",
     "Add transaction" : "Pridať transakciu",
     "Assets" : "Majetok",
+    "Liabilities" : "Záväzky",
     "No books available" : "Nie sú dostupné žiadne knihy",
     "Go ahead and create one..." : "Pokračovať a vytvoriť ...",
     "Books" : "Knihy",
     "Settings saved" : "Nastavenia uložené",
-    "Liabilities" : "Záväzky",
     "Income" : "Príjmy",
     "Expenses" : "Výdaje"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"

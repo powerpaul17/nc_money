@@ -57,9 +57,9 @@
     "Splits" : "Zatiketak",
     "Add transaction" : "Gehitu transakzioa",
     "Assets" : "Aktiboak",
+    "Liabilities" : "Pasiboak",
     "Books" : "Liburuak",
     "Settings saved" : "Ezarpenak gordeta",
-    "Liabilities" : "Pasiboak",
     "Income" : "Sarrerak",
     "Expenses" : "Gastuak"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

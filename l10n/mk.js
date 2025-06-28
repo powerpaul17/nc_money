@@ -44,8 +44,8 @@ OC.L10N.register(
     "Multiple Accounts" : "Повеќе сметки",
     "Info" : "Инфо",
     "Assets" : "Средства",
-    "Settings saved" : "Параматрите се зачувани",
     "Liabilities" : "Обврски",
+    "Settings saved" : "Параматрите се зачувани",
     "Income" : "Приходи",
     "Expenses" : "Трошоци"
 },

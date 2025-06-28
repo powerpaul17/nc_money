@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "分割",
     "Add transaction" : "新增轉錄",
     "Assets" : "資產",
+    "Liabilities" : "負債",
     "No books available" : "無可用書籍",
     "Go ahead and create one..." : "繼續建立……",
     "Books" : "書",
     "Settings saved" : "設定已儲存",
-    "Liabilities" : "負債",
     "Income" : "收入",
     "Expenses" : "支出"
 },

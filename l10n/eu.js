@@ -59,9 +59,9 @@ OC.L10N.register(
     "Splits" : "Zatiketak",
     "Add transaction" : "Gehitu transakzioa",
     "Assets" : "Aktiboak",
+    "Liabilities" : "Pasiboak",
     "Books" : "Liburuak",
     "Settings saved" : "Ezarpenak gordeta",
-    "Liabilities" : "Pasiboak",
     "Income" : "Sarrerak",
     "Expenses" : "Gastuak"
 },

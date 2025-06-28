@@ -54,8 +54,8 @@ OC.L10N.register(
     "End of transactions" : "End of transactions",
     "Multiple Accounts" : "حساب‌های چندگانه",
     "Assets" : "دارایی‌ها",
-    "Settings saved" : "تنظیمات ذخیره شد",
     "Liabilities" : "بدهی‌ها",
+    "Settings saved" : "تنظیمات ذخیره شد",
     "Income" : "درآمد",
     "Expenses" : "هزینه‌ها"
 },

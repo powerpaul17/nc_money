@@ -66,11 +66,11 @@
     "Splits" : "Splits",
     "Add transaction" : "Add transaction",
     "Assets" : "Assets",
+    "Liabilities" : "Liabilities",
     "No books available" : "No books available",
     "Go ahead and create one..." : "Go ahead and create one...",
     "Books" : "Books",
     "Settings saved" : "Settings saved",
-    "Liabilities" : "Liabilities",
     "Income" : "Income",
     "Expenses" : "Expenses"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

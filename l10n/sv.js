@@ -51,8 +51,8 @@ OC.L10N.register(
     "Multiple Accounts" : "Flera konton",
     "Info" : "Info",
     "Assets" : "Tillgångar",
-    "Settings saved" : "Inställningar sparade",
     "Liabilities" : "Skulder",
+    "Settings saved" : "Inställningar sparade",
     "Income" : "Inkomster",
     "Expenses" : "Utgifter"
 },

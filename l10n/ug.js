@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Splits",
     "Add transaction" : "سودا قوشۇڭ",
     "Assets" : "مۈلۈك",
+    "Liabilities" : "مەسئۇلىيەت",
     "No books available" : "كىتاب يوق",
     "Go ahead and create one..." : "بېرىپ بىرنى قۇر ...",
     "Books" : "كىتابلار",
     "Settings saved" : "تەڭشەكلەر ساقلاندى",
-    "Liabilities" : "مەسئۇلىيەت",
     "Income" : "كىرىم",
     "Expenses" : "چىقىم"
 },

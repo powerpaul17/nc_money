@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "تجزئات",
     "Add transaction" : "إدراج حركة",
     "Assets" : "الأصول",
+    "Liabilities" : "الخصوم",
     "No books available" : "لا توجد أيّ دفاتر ",
     "Go ahead and create one..." : "استمر و قم بإنشاء واحدٍ ...",
     "Books" : "كُتُب",
     "Settings saved" : "تم حفظ الإعدادات",
-    "Liabilities" : "الخصوم",
     "Income" : "الدَّخْل",
     "Expenses" : "المصروفات"
 },

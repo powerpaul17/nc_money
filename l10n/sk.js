@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Rozdelenie",
     "Add transaction" : "Pridať transakciu",
     "Assets" : "Majetok",
+    "Liabilities" : "Záväzky",
     "No books available" : "Nie sú dostupné žiadne knihy",
     "Go ahead and create one..." : "Pokračovať a vytvoriť ...",
     "Books" : "Knihy",
     "Settings saved" : "Nastavenia uložené",
-    "Liabilities" : "Záväzky",
     "Income" : "Príjmy",
     "Expenses" : "Výdaje"
 },

@@ -56,9 +56,9 @@ OC.L10N.register(
     "Info" : "Információ",
     "Properties" : "Tulajdonságok",
     "Assets" : "Pénzeszközök",
+    "Liabilities" : "Kötelezettségek",
     "Books" : "Könyvek",
     "Settings saved" : "Beállítások mentve",
-    "Liabilities" : "Kötelezettségek",
     "Income" : "Bevétel",
     "Expenses" : "Kiadás"
 },

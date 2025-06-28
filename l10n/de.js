@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Aufteilungen",
     "Add transaction" : "Überweisung hinzufügen",
     "Assets" : "Vermögenswerte",
+    "Liabilities" : "Verbindlichkeiten",
     "No books available" : "Keine Bücher verfügbar",
     "Go ahead and create one..." : "Fortfahren und eines erstellen …",
     "Books" : "Bücher",
     "Settings saved" : "Einstellungen gespeichert",
-    "Liabilities" : "Verbindlichkeiten",
     "Income" : "Erträge",
     "Expenses" : "Ausgaben"
 },

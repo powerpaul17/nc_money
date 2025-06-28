@@ -66,11 +66,11 @@
     "Splits" : "Divisions",
     "Add transaction" : "Ajouter une transaction",
     "Assets" : "Actif",
+    "Liabilities" : "Passif",
     "No books available" : "Aucun libre disponible",
     "Go ahead and create one..." : "Poursuivre et en créer un...",
     "Books" : "Livres",
     "Settings saved" : "Paramètres sauvegardés",
-    "Liabilities" : "Passif",
     "Income" : "Revenus",
     "Expenses" : "Dépenses"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

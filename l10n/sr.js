@@ -68,11 +68,11 @@ OC.L10N.register(
     "Splits" : "Поделе",
     "Add transaction" : "Додај трансакцију",
     "Assets" : "Имовина",
+    "Liabilities" : "Дугови",
     "No books available" : "Нема ниједне књиге",
     "Go ahead and create one..." : "Хајде да креирате једну",
     "Books" : "Књиге",
     "Settings saved" : "Поставке сачуване",
-    "Liabilities" : "Дугови",
     "Income" : "Приход",
     "Expenses" : "Трошкови"
 },

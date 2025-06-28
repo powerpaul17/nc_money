@@ -35,8 +35,8 @@ OC.L10N.register(
     "Multiple Accounts" : "多个账号",
     "Info" : "信息",
     "Assets" : "资产类",
-    "Settings saved" : "已保存设置",
     "Liabilities" : "负债类",
+    "Settings saved" : "已保存设置",
     "Income" : "收入",
     "Expenses" : "支出"
 },
