@@ -15,6 +15,7 @@ OC.L10N.register(
     "Date" : "Kuupäev",
     "Value" : "Väärtus",
     "Decimals" : "Kümnendkohad",
+    "Space" : "Tühikuklahv",
     "Comment" : "Kommentaar",
     "Import" : "Impordi",
     "Info" : "Teave",
