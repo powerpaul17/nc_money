@@ -9,6 +9,7 @@ OC.L10N.register(
     "Monthly" : "Kwa kila mwezi",
     "Yearly" : "Kwa kila mwaka",
     "Date" : "Tarehe",
+    "Value" : "Thamani",
     "Decimals" : "Desimali",
     "Space" : "Nafasi",
     "Comment" : "Maoni"
