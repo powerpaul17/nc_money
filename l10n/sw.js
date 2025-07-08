@@ -12,6 +12,8 @@ OC.L10N.register(
     "Value" : "Thamani",
     "Decimals" : "Desimali",
     "Space" : "Nafasi",
-    "Comment" : "Maoni"
+    "Comment" : "Maoni",
+    "Select File" : "Chagua faili",
+    "Settings saved" : "Settings saved"
 },
 "nplurals=2; plural=(n != 1);");
