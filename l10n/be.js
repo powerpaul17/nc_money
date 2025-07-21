@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Name" : "Назва",
     "Delete account" : "Выдаліць уліковы запіс",
     "No account found" : "Уліковы запіс не знойдзены",
     "Date" : "Дата",
