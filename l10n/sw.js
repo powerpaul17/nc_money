@@ -14,6 +14,7 @@ OC.L10N.register(
     "Space" : "Nafasi",
     "Comment" : "Maoni",
     "Select File" : "Chagua faili",
+    "Import" : "Import",
     "Settings saved" : "Settings saved"
 },
 "nplurals=2; plural=(n != 1);");
