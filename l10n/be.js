@@ -7,6 +7,7 @@ OC.L10N.register(
     "Monthly" : "Штомесяц",
     "Yearly" : "Штогод",
     "Date" : "Дата",
+    "Import" : "Імпарт",
     "Info" : "Інфармацыя",
     "Properties" : "Уласцівасці"
 },
