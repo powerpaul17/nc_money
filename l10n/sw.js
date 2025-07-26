@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Jina",
     "Description" : "Maelezo",
+    "Overview" : "Overview",
     "Account name" : "Jina la akaunti",
     "Are you sure?" : "Una uhakika?",
     "Add account" : "Ongeza akaunti",
