@@ -22,6 +22,7 @@ OC.L10N.register(
     "Value" : "Значення",
     "Decimals" : "Знак після коми",
     "Decimal Separator" : "Десятковий роздільник",
+    "Space" : "Простір",
     "Comment" : "Коментар",
     "Credit" : "Кредит",
     "Debit" : "Дебіт",
@@ -36,8 +37,10 @@ OC.L10N.register(
     "Import" : "Імпорт",
     "End of transactions" : "Кінець транзакції",
     "Multiple Accounts" : "Кілька облікових записів",
+    "Properties" : "Властивості",
     "Assets" : "Активи",
     "Liabilities" : "Зобов'язання",
+    "Books" : "Книги",
     "Settings saved" : "Налаштування збережено",
     "Income" : "Дохід",
     "Expenses" : "Витрати"
