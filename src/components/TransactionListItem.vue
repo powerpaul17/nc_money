@@ -120,7 +120,7 @@
   import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
   import Close from 'vue-material-design-icons/Close.vue';
 
-  import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js';
+  import { NcLoadingIcon } from '@nextcloud/vue';
 
   import { NumberUtils } from '../utils/numberUtils';
   import { DateUtils } from '../utils/DateUtils';

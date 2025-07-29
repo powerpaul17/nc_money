@@ -40,10 +40,12 @@
 <script setup lang="ts">
   import { translate as t } from '@nextcloud/l10n';
 
-  import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js';
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
-  import NcAppNavigationSpacer from '@nextcloud/vue/dist/Components/NcAppNavigationSpacer.js';
-  import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js';
+  import {
+    NcAppNavigation,
+    NcAppNavigationItem,
+    NcAppNavigationSpacer,
+    NcAppNavigationNew
+  } from '@nextcloud/vue';
 
   import Finance from 'vue-material-design-icons/Finance.vue';
   import Plus from 'vue-material-design-icons/Plus.vue';

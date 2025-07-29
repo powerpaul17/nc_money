@@ -158,9 +158,7 @@
   import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
-  import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
-  import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js';
+  import { NcModal, NcButton, NcLoadingIcon } from '@nextcloud/vue';
 
   import FileInput from './FileInput.vue';
 

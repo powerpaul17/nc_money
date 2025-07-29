@@ -97,9 +97,7 @@
   import LineChart, { type Data } from './charts/LineChart.vue';
   import BarChart, { type DataItem } from './charts/BarChart.vue';
 
-  import NcActions from '@nextcloud/vue/dist/Components/NcActions.js';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
+  import { NcActions, NcActionButton, NcButton } from '@nextcloud/vue';
 
   import Upload from 'vue-material-design-icons/Upload.vue';
   import Plus from 'vue-material-design-icons/Plus.vue';

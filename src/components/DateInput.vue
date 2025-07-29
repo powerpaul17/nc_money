@@ -30,7 +30,7 @@
 
   import { computed } from 'vue';
 
-  import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js';
+  import { NcDateTimePicker } from '@nextcloud/vue';
 
   const props = defineProps({
     date: {

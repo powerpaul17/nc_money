@@ -118,10 +118,12 @@
     useSettingStore
   } from '../stores/settingStore';
 
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
-  import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
+  import {
+    NcAppNavigationItem,
+    NcActionButton,
+    NcModal,
+    NcButton
+  } from '@nextcloud/vue';
 
   import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
   import Delete from 'vue-material-design-icons/Delete.vue';

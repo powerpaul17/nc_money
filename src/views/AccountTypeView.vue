@@ -36,7 +36,7 @@
 
   import { useSettingStore } from '../stores/settingStore';
 
-  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
+  import { NcAppContent } from '@nextcloud/vue';
 
   import AccountList from '../components/AccountList.vue';
 

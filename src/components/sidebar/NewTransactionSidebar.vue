@@ -115,9 +115,7 @@
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 
-  import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js';
-  import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
+  import { NcAppSidebar, NcAppSidebarTab, NcButton } from '@nextcloud/vue';
 
   import DateInput from '../DateInput.vue';
   import AccountSelect from '../AccountSelect.vue';

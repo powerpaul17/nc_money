@@ -99,8 +99,7 @@
 
   import { translate as t } from '@nextcloud/l10n';
 
-  import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js';
-  import NcAppSidebarTab from '@nextcloud/vue/dist/Components/NcAppSidebarTab.js';
+  import { NcAppSidebar, NcAppSidebarTab } from '@nextcloud/vue';
 
   import DateInput from '../DateInput.vue';
   import AccountSelect from '../AccountSelect.vue';

@@ -91,7 +91,7 @@
 
   import { translate as t } from '@nextcloud/l10n';
 
-  import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js';
+  import { NcSettingsSection } from '@nextcloud/vue';
 
   import { useSettingStore } from '../stores/settingStore';
   import { useSettingService } from '../services/settingService';

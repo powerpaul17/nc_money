@@ -35,9 +35,11 @@
 
   import { Utils } from '../utils/utils';
 
-  import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings.js';
-  import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js';
-  import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js';
+  import {
+    NcAppNavigationSettings,
+    NcCheckboxRadioSwitch,
+    NcSelect
+  } from '@nextcloud/vue';
 
   const settingStore = useSettingStore();
 

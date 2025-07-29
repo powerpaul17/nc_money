@@ -28,7 +28,7 @@
 
   import { useAccountStore, type Account } from '../stores/accountStore';
 
-  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
+  import { NcAppContent } from '@nextcloud/vue';
 
   import AccountList from '../components/AccountList.vue';
   import AccountDetails from '../components/AccountDetails.vue';

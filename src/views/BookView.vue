@@ -22,7 +22,7 @@
   import { useAccountStore } from '../stores/accountStore';
   import { AccountTypeType } from '../stores/accountTypeStore';
 
-  import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js';
+  import { NcAppContent } from '@nextcloud/vue';
 
   import LineChart, {
     type Data as LineChartData

@@ -59,8 +59,7 @@
     useSettingStore
   } from '../stores/settingStore';
 
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
+  import { NcAppNavigationItem, NcActionButton } from '@nextcloud/vue';
 
   import Plus from 'vue-material-design-icons/Plus.vue';
 

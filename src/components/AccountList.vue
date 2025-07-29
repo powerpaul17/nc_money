@@ -72,10 +72,12 @@
 
   import { AccountTypeUtils } from '../utils/accountTypeUtils';
 
-  import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList.js';
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
-  import NcInputField from '@nextcloud/vue/dist/Components/NcInputField.js';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
+  import {
+    NcAppContentList,
+    NcAppNavigationItem,
+    NcInputField,
+    NcButton
+  } from '@nextcloud/vue';
 
   import SortAlphabeticalAscending from 'vue-material-design-icons/SortAlphabeticalAscending.vue';
   import SortAlphabeticalDescending from 'vue-material-design-icons/SortAlphabeticalDescending.vue';

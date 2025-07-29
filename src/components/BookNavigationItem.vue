@@ -132,10 +132,12 @@
 
   import { translate as t } from '@nextcloud/l10n';
 
-  import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js';
-  import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js';
-  import NcModal from '@nextcloud/vue/dist/Components/NcModal.js';
-  import NcButton from '@nextcloud/vue/dist/Components/NcButton.js';
+  import {
+    NcAppNavigationItem,
+    NcActionButton,
+    NcModal,
+    NcButton
+  } from '@nextcloud/vue';
 
   import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
   import Delete from 'vue-material-design-icons/Delete.vue';

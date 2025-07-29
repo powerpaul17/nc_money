@@ -11,7 +11,7 @@
 <script setup lang="ts">
   import { onBeforeMount } from 'vue';
 
-  import NcContent from '@nextcloud/vue/dist/Components/NcContent.js';
+  import { NcContent } from '@nextcloud/vue';
 
   import AppNavigation from './components/AppNavigation.vue';
 
