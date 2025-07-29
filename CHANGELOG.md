@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Changed
+
+- Allow description of transactions/splits to be 1024 characters long
+
 ## [0.30.0] - 2025-03-31
 
 ### Changed
