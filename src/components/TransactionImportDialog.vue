@@ -327,13 +327,15 @@
       if (description === undefined)
         throw new Error('cannot import transaction without a description');
 
+      const srcSplitComment = columns.comment.parsedData[index];
+
       const transactionToCreate = {
         date,
-        description,
+        description: description.slice(0, 1024),
         value,
         convertRate: 1.0,
         srcAccountId: props.accountId,
-        srcSplitComment: columns.comment.parsedData[index]
+        srcSplitComment: srcSplitComment?.slice(0, 1024)
       };
 
       transactionsToImport.push(transactionToCreate);

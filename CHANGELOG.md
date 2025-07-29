@@ -3,6 +3,7 @@
 ### Changed
 
 - Allow description of transactions/splits to be 1024 characters long
+- Trim description before importing transactions
 
 ## [0.30.0] - 2025-03-31
 
