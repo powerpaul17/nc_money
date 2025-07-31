@@ -6,6 +6,7 @@ OC.L10N.register(
     "Overview" : "Overview",
     "Account name" : "Jina la akaunti",
     "Are you sure?" : "Una uhakika?",
+    "No account found" : "No account found",
     "Add account" : "Ongeza akaunti",
     "Monthly" : "Kwa kila mwezi",
     "Yearly" : "Kwa kila mwaka",
