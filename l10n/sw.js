@@ -17,6 +17,7 @@ OC.L10N.register(
     "Comment" : "Maoni",
     "Select File" : "Chagua faili",
     "Import" : "Import",
+    "Info" : "Info",
     "Settings saved" : "Settings saved"
 },
 "nplurals=2; plural=(n != 1);");
