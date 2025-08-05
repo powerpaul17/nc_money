@@ -18,7 +18,7 @@ OC.L10N.register(
     "Date" : "Datums",
     "Value" : "Vērtība",
     "Comment" : "Piebilde",
-    "Import" : "Importēt",
+    "Import" : "Ievietot",
     "Info" : "Informācija",
     "Settings saved" : "Iestatījumi saglabāti"
 },
