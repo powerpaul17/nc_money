@@ -18,6 +18,8 @@ OC.L10N.register(
     "Select File" : "Chagua faili",
     "Import" : "Import",
     "Info" : "Info",
+    "Properties" : "Properties",
+    "Books" : "Vitabu",
     "Settings saved" : "Settings saved"
 },
 "nplurals=2; plural=(n != 1);");
