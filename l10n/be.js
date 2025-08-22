@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Назва",
     "Description" : "Апісанне",
+    "Overview" : "Агляд",
     "Account name" : "Імя ўліковага запісу",
     "Delete account" : "Выдаліць уліковы запіс",
     "No account found" : "Уліковы запіс не знойдзены",
