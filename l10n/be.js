@@ -7,6 +7,7 @@ OC.L10N.register(
     "Account name" : "Імя ўліковага запісу",
     "Delete account" : "Выдаліць уліковы запіс",
     "No account found" : "Уліковы запіс не знойдзены",
+    "Add account" : "Дадаць уліковы запіс",
     "Monthly" : "Штомесяц",
     "Yearly" : "Штогод",
     "Date" : "Дата",

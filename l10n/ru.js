@@ -28,6 +28,7 @@ OC.L10N.register(
     "Date" : "Дата",
     "Value" : "Значение",
     "Various settings for the money app" : "Различные настройки для приложения «Деньги»",
+    "Decimals" : "Десятичные дроби",
     "Space" : "Пробел",
     "Comment" : "Комментарий",
     "Import Transactions" : "Импортировать транзакции",
