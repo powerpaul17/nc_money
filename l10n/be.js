@@ -23,6 +23,7 @@ OC.L10N.register(
     "Add account" : "Дадаць рахунак",
     "Monthly" : "Штомесяц",
     "Yearly" : "Штогод",
+    "No name" : "Няма назвы",
     "'{bookName}' deleted" : "Рахунак '{bookName}' выдалены",
     "Date" : "Дата",
     "Value" : "Значэнне",
