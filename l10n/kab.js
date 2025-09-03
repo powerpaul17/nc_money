@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Name" : "Nom",
     "Add account" : "Rnu amiḍan",
+    "Date" : "Azemz",
     "Comment" : "Commentaire",
     "Select File" : "Fren afaylu"
 },
