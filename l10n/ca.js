@@ -3,7 +3,9 @@ OC.L10N.register(
     {
     "Money" : "Diners",
     "Manage your finances." : "Gestiona les teves finançes.",
-    "Name" : "Cognom",
+    "yr" : "any",
+    "mo" : "mes",
+    "Name" : "Nom",
     "Description" : "Descripció",
     "Overview" : "Resum",
     "Account name" : "Nom de compte",
