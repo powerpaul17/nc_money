@@ -34,8 +34,10 @@ OC.L10N.register(
     "Import" : "Εισαγωγή",
     "Multiple Accounts" : "Πολλαπλοί Λογαριασμοί",
     "Info" : "Πληροφόρηση",
+    "Properties" : "Ιδιότητες",
     "Assets" : "Περουσιακά στοιχεία",
     "Liabilities" : "Υποχρεώσεις",
+    "Books" : "Βιβλία",
     "Settings saved" : "Οι ρυθμίσεις αποθηκεύτηκαν",
     "Income" : "Εισοδήματα",
     "Expenses" : "Έξοδα"
