@@ -11,6 +11,7 @@ OC.L10N.register(
     "Delete account" : "Ištrinti paskyrą",
     "Are you sure?" : "Ar esate tikri?",
     "No account found" : "Paskyrų nerasta",
+    "New Account" : "Nauja paskyra",
     "Add account" : "Pridėti paskyrą",
     "Monthly" : "Kas mėnesį",
     "Yearly" : "Kas metus",
