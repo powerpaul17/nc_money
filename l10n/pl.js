@@ -15,6 +15,8 @@ OC.L10N.register(
     "Monthly" : "Co miesiąc",
     "Yearly" : "Co rok",
     "No name" : "Bez nazwy",
+    "Unbalanced" : "Niezrównoważony",
+    "Equity" : "Sprawiedliwość",
     "All accounts and transactions of this book will be deleted!" : "Wszystkie konta i transakcje tej książki zostaną usunięte!",
     "Date" : "Data",
     "Value" : "Wartość",
