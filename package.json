@@ -25,7 +25,7 @@
     "@nextcloud/dialogs": "^3.2.0",
     "@nextcloud/l10n": "^2.2.0",
     "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^9.0.0-rc.5",
+    "@nextcloud/vue": "^9.1.0",
     "@release-it/bumper": "^5.1.0",
     "@release-it/keep-a-changelog": "^4.0.0",
     "@testing-library/vue": "^8.1.0",
