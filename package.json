@@ -61,6 +61,7 @@
     "vitest": "^1.6.0",
     "vue": "^3.5.18",
     "vue-chartjs": "^5.1.0",
+    "vue-datepicker-next": "^1.0.3",
     "vue-eslint-parser": "^9.1.0",
     "vue-material-design-icons": "^5.1.2",
     "vue-router": "^4.3.0",
