@@ -1,6 +1,9 @@
 <template>
   <label
-    class="flex h-[36px] w-full items-center rounded-large border-2 border-solid border-transparent hover:border-primary-element focus:border-primary-element disabled:text-text-maxcontrast disabled:hover:border-transparent"
+    class="flex h-[36px] w-full items-center rounded-large border-2 border-solid border-transparent hover:border-primary-element focus:border-primary-element"
+    :class="{
+      'text-text-maxcontrast hover:border-transparent': disabled
+    }"
   >
     <slot name="pre"></slot>
     <input
