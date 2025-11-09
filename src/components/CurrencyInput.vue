@@ -10,36 +10,51 @@
       v-if="enableConvertRate"
       #post
     >
-      <NcActions
-        type="tertiary-no-background"
-        :disabled="!editable"
+      <NcPopover
+        popover-base-class="rounded-large"
+        no-focus-trap
       >
-        <template #icon>
-          <NcIconSvgWrapper :path="mdiSwapHorizontal" />
+        <template #trigger>
+          <NcButton
+            variant="tertiary-no-background"
+            :disabled="!editable"
+          >
+            <template #icon>
+              <NcIconSvgWrapper :path="mdiSwapHorizontal" />
+            </template>
+          </NcButton>
         </template>
 
-        <NcActionInput
-          :value.sync="convertRateString"
-          :label="t('money', 'Convert rate')"
-          @submit="handleConvertRateStringChanged"
-        >
-          <template #icon>
-            <NcIconSvgWrapper :path="mdiSwapHorizontal" />
-          </template>
-          {{ t('money', 'Convert rate') }}...
-        </NcActionInput>
+        <template #default>
+          <div class="flex flex-col gap-2 p-2">
+            <NcInputField
+              v-model="convertRateString"
+              :label="t('money', 'Convert rate')"
+              :label-visible="true"
+              :placeholder="t('money', 'Convert rate') + '...'"
+              @keydown.enter="handleConvertRateStringChanged"
+              @focusout="handleConvertRateStringChanged"
+            >
+              <template #trailing-button-icon>
+                <NcIconSvgWrapper :path="mdiSwapHorizontal" />
+              </template>
+            </NcInputField>
 
-        <NcActionInput
-          :value.sync="foreignValueString"
-          :label="t('money', 'Foreign value')"
-          @submit="handleForeignValueStringChanged"
-        >
-          <template #icon>
-            <NcIconSvgWrapper :path="mdiCashMultiple" />
-          </template>
-          {{ t('money', 'Foreign value') }}...
-        </NcActionInput>
-      </NcActions>
+            <NcInputField
+              v-model="foreignValueString"
+              :label="t('money', 'Foreign value')"
+              :label-visible="true"
+              :placeholder="t('money', 'Foreign value') + '...'"
+              @keydown.enter="handleForeignValueStringChanged"
+              @focusout="handleForeignValueStringChanged"
+            >
+              <template #trailing-button-icon>
+                <NcIconSvgWrapper :path="mdiCashMultiple" />
+              </template>
+            </NcInputField>
+          </div>
+        </template>
+      </NcPopover>
     </template>
   </SeamlessInput>
 </template>
@@ -47,15 +62,19 @@
 <script setup lang="ts">
   import { ref, watch, computed, onMounted } from 'vue';
 
+  import { translate as t } from '@nextcloud/l10n';
+
   import { useSettingStore } from '../stores/settingStore';
 
   import { useMathExpression } from '../utils/mathExpression';
   import { NumberUtils } from '../utils/numberUtils';
 
-  import { NcIconSvgWrapper } from '@nextcloud/vue';
-
-  import NcActions from '@nextcloud/vue/dist/Components/NcActions.js';
-  import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js';
+  import {
+    NcPopover,
+    NcButton,
+    NcInputField,
+    NcIconSvgWrapper
+  } from '@nextcloud/vue';
 
   import { mdiSwapHorizontal, mdiCashMultiple } from '@mdi/js';
 
