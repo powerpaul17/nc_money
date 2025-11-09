@@ -20,6 +20,9 @@ module.exports = {
       },
       gridTemplateColumns: {
         transactionListItem: '44px 1fr minmax(0, 4fr) 2fr 1fr 44px'
+      },
+      borderRadius: {
+        large: 'var(--border-radius-large)'
       }
     }
   },
