@@ -224,7 +224,12 @@
   });
 
   const unbalancedValue = computed(() => {
-    return splits.value.reduce((value, s) => (value += s.value * s.convertRate), 0.0) / (splitOfAccount.value?.convertRate ?? 1.0);
+    return (
+      splits.value.reduce(
+        (value, s) => (value += s.value * s.convertRate),
+        0.0
+      ) / (splitOfAccount.value?.convertRate ?? 1.0)
+    );
   });
 
   const isUnbalanced = computed(() => {
@@ -256,9 +261,10 @@
 
   const enableConvertRate = computed(() => {
     return (
-      !!account.value &&
-      !!destAccount.value &&
-      account.value.currency !== destAccount.value.currency
+      NumberUtils.areNotEqual(convertRate.value, 1.0) ||
+      (!!account.value &&
+        !!destAccount.value &&
+        account.value.currency !== destAccount.value.currency)
     );
   });
 

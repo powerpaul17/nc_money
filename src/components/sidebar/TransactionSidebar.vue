@@ -237,9 +237,10 @@
 
   const enableConvertRate = computed(() => {
     return (
-      !!account.value &&
-      !!newSplitDestAccount.value &&
-      account.value.currency !== newSplitDestAccount.value.currency
+      NumberUtils.areNotEqual(newSplitConvertRate.value, 1.0) ||
+      (!!account.value &&
+        !!newSplitDestAccount.value &&
+        account.value.currency !== newSplitDestAccount.value.currency)
     );
   });
 

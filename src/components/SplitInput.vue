@@ -45,6 +45,8 @@
 
   import { useAccountStore } from '../stores/accountStore';
 
+  import { NumberUtils } from '../utils/numberUtils';
+
   const splitService = useSplitService();
   const accountStore = useAccountStore();
 
@@ -91,9 +93,11 @@
 
   const enableConvertRate = computed(() => {
     return (
-      !!sourceAccount.value &&
-      !!destAccount.value &&
-      sourceAccount.value.currency !== destAccount.value.currency
+      NumberUtils.areNotEqual(props.convertRate, 1.0) ||
+      NumberUtils.areNotEqual(props.split.convertRate, 1.0) ||
+      (!!sourceAccount.value &&
+        !!destAccount.value &&
+        sourceAccount.value.currency !== destAccount.value.currency)
     );
   });
 
