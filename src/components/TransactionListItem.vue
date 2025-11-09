@@ -320,7 +320,7 @@
     if (!split) {
       // TODO
     } else {
-      split.value = -value;
+      split.value = -value / split.convertRate;
       await handleSplitChanged(split);
     }
 
