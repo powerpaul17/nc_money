@@ -44,7 +44,10 @@
     >
       <NcActionButton @click="showDeleteConfirmationDialog = true">
         <template #icon>
-          <Delete :size="20" />
+          <NcIconSvgWrapper
+            :path="mdiDelete"
+            :size="20"
+          />
         </template>
 
         {{ t('money', 'Delete account') }}
@@ -72,14 +75,14 @@
               @click="() => (showDeleteConfirmationDialog = false)"
             >
               <template #icon>
-                <ArrowLeft />
+                <NcIconSvgWrapper :path="mdiArrowLeft" />
               </template>
 
               {{ t('money', 'No, go back') }}
             </NcButton>
             <NcButton @click="handleDeleteAccount">
               <template #icon>
-                <Delete />
+                <NcIconSvgWrapper :path="mdiDelete" />
               </template>
 
               {{ t('money', 'Yes, delete account') }}
@@ -122,11 +125,11 @@
     NcAppNavigationItem,
     NcActionButton,
     NcModal,
-    NcButton
+    NcButton,
+    NcIconSvgWrapper
   } from '@nextcloud/vue';
 
-  import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
-  import Delete from 'vue-material-design-icons/Delete.vue';
+  import { mdiArrowLeft, mdiDelete } from '@mdi/js';
 
   import AccountCurrencyText from './AccountCurrencyText.vue';
 

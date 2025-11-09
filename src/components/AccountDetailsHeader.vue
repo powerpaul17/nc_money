@@ -34,7 +34,10 @@
         <NcActions>
           <NcActionButton @click="() => (showImportTransactionsDialog = true)">
             <template #icon>
-              <Upload :size="20" />
+              <NcIconSvgWrapper
+                :path="mdiUpload"
+                :size="20"
+              />
             </template>
             {{ t('money', 'Import transactions') }}
           </NcActionButton>
@@ -46,7 +49,10 @@
             :to="{ name: 'new-transaction' }"
           >
             <template #icon>
-              <Plus :size="20" />
+              <NcIconSvgWrapper
+                :path="mdiPlus"
+                :size="20"
+              />
             </template>
           </NcButton>
         </div>
@@ -97,10 +103,14 @@
   import LineChart, { type Data } from './charts/LineChart.vue';
   import BarChart, { type DataItem } from './charts/BarChart.vue';
 
-  import { NcActions, NcActionButton, NcButton } from '@nextcloud/vue';
+  import {
+    NcActions,
+    NcActionButton,
+    NcButton,
+    NcIconSvgWrapper
+  } from '@nextcloud/vue';
 
-  import Upload from 'vue-material-design-icons/Upload.vue';
-  import Plus from 'vue-material-design-icons/Plus.vue';
+  import { mdiUpload, mdiPlus } from '@mdi/js';
 
   const accountStore = useAccountStore();
   const accountService = useAccountService();

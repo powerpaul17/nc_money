@@ -20,6 +20,7 @@
     "upload": "dotenv node build/upload.js"
   },
   "devDependencies": {
+    "@mdi/js": "^7.4.47",
     "@nextcloud/axios": "^2.4.0",
     "@nextcloud/browserslist-config": "^2.3.0",
     "@nextcloud/dialogs": "^3.2.0",
@@ -63,7 +64,6 @@
     "vue-chartjs": "^5.1.0",
     "vue-datepicker-next": "^1.0.3",
     "vue-eslint-parser": "^9.1.0",
-    "vue-material-design-icons": "^5.1.2",
     "vue-router": "^4.3.0",
     "vue-select": "^4.0.0-beta.6",
     "vue-tsc": "^0.39.4",

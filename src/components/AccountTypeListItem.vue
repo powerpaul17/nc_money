@@ -27,7 +27,7 @@
         :close-after-click="true"
       >
         <template #icon>
-          <Plus />
+          <NcIconSvgWrapper :path="mdiPlus" />
         </template>
 
         <template #default>
@@ -59,9 +59,13 @@
     useSettingStore
   } from '../stores/settingStore';
 
-  import { NcAppNavigationItem, NcActionButton } from '@nextcloud/vue';
+  import {
+    NcAppNavigationItem,
+    NcActionButton,
+    NcIconSvgWrapper
+  } from '@nextcloud/vue';
 
-  import Plus from 'vue-material-design-icons/Plus.vue';
+  import { mdiPlus } from '@mdi/js';
 
   import AccountCurrencyText from './AccountCurrencyText.vue';
 

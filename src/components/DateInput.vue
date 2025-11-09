@@ -12,7 +12,10 @@
       :clearable="false"
     >
       <template #icon-calendar>
-        <CalendarBlank :size="20" />
+        <NcIconSvgWrapper
+          :path="mdiCalendarBlank"
+          :size="20"
+        />
       </template>
     </DatePicker>
   </label>
@@ -889,9 +892,11 @@
   import DatePicker from 'vue-datepicker-next';
   import 'vue-datepicker-next/index.css';
 
-  import CalendarBlank from 'vue-material-design-icons/CalendarBlank.vue';
+  import { mdiCalendarBlank } from '@mdi/js';
 
   import { computed } from 'vue';
+
+  import { NcIconSvgWrapper } from '@nextcloud/vue';
 
   const props = defineProps({
     date: {

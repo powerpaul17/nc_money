@@ -61,12 +61,14 @@
       </template>
 
       <template #actionLast>
-        <Close
+        <NcIconSvgWrapper
           v-if="isOpenInSidebar"
+          :path="mdiClose"
           @click="handleCloseSidebar"
         />
-        <MenuOpen
+        <NcIconSvgWrapper
           v-else
+          :path="mdiMenuOpen"
           @click="handleOpenSidebar"
         />
       </template>
@@ -117,10 +119,9 @@
 
   import { translate as t } from '@nextcloud/l10n';
 
-  import MenuOpen from 'vue-material-design-icons/MenuOpen.vue';
-  import Close from 'vue-material-design-icons/Close.vue';
+  import { mdiMenuOpen, mdiClose } from '@mdi/js';
 
-  import { NcLoadingIcon } from '@nextcloud/vue';
+  import { NcIconSvgWrapper, NcLoadingIcon } from '@nextcloud/vue';
 
   import { NumberUtils } from '../utils/numberUtils';
   import { DateUtils } from '../utils/DateUtils';

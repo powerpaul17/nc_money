@@ -6,7 +6,7 @@
       :description="t('money', 'Go ahead and create one...')"
     >
       <template #icon>
-        <NotebookOutline />
+        <NcIconSvgWrapper :path="mdiNotebookOutline" />
       </template>
     </NcEmptyContent>
 
@@ -34,9 +34,13 @@
 <script setup lang="ts">
   import { translate as t } from '@nextcloud/l10n';
 
-  import { NcAppContent, NcEmptyContent } from '@nextcloud/vue';
+  import {
+    NcAppContent,
+    NcEmptyContent,
+    NcIconSvgWrapper
+  } from '@nextcloud/vue';
 
-  import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
+  import { mdiNotebookOutline } from '@mdi/js';
 
   import BookListItem from '../components/BookListItem.vue';
 

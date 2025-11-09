@@ -9,7 +9,7 @@
         :exact="true"
       >
         <template #icon>
-          <Finance />
+          <NcIconSvgWrapper :path="mdiFinance" />
         </template>
       </NcAppNavigationItem>
 
@@ -28,7 +28,7 @@
         @click="handleAddBook"
       >
         <template #icon>
-          <Plus />
+          <NcIconSvgWrapper :path="mdiPlus" />
         </template>
       </NcAppNavigationNew>
 
@@ -44,11 +44,11 @@
     NcAppNavigation,
     NcAppNavigationItem,
     NcAppNavigationSpacer,
-    NcAppNavigationNew
+    NcAppNavigationNew,
+    NcIconSvgWrapper
   } from '@nextcloud/vue';
 
-  import Finance from 'vue-material-design-icons/Finance.vue';
-  import Plus from 'vue-material-design-icons/Plus.vue';
+  import { mdiFinance, mdiPlus } from '@mdi/js';
 
   import AppSettings from './AppSettings.vue';
   import BookNavigationItem from './BookNavigationItem.vue';

@@ -28,7 +28,7 @@
     @undo="handleUndo"
   >
     <template #icon>
-      <NotebookOutline />
+      <NcIconSvgWrapper :path="mdiNotebookOutline" />
     </template>
 
     <template
@@ -37,7 +37,10 @@
     >
       <NcActionButton @click="showDeleteConfirmationDialog = true">
         <template #icon>
-          <Delete :size="20" />
+          <NcIconSvgWrapper
+            :path="mdiDelete"
+            :size="20"
+          />
         </template>
 
         {{ t('money', 'Delete book') }}
@@ -100,14 +103,14 @@
               @click="() => (showDeleteConfirmationDialog = false)"
             >
               <template #icon>
-                <ArrowLeft />
+                <NcIconSvgWrapper :path="mdiArrowLeft" />
               </template>
 
               {{ t('money', 'No, go back') }}
             </NcButton>
             <NcButton @click="handleDeleteBook">
               <template #icon>
-                <Delete />
+                <NcIconSvgWrapper :path="mdiDelete" />
               </template>
 
               {{ t('money', 'Yes, delete book') }}
@@ -136,12 +139,11 @@
     NcAppNavigationItem,
     NcActionButton,
     NcModal,
-    NcButton
+    NcButton,
+    NcIconSvgWrapper
   } from '@nextcloud/vue';
 
-  import NotebookOutline from 'vue-material-design-icons/NotebookOutline.vue';
-  import Delete from 'vue-material-design-icons/Delete.vue';
-  import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue';
+  import { mdiNotebookOutline, mdiDelete, mdiArrowLeft } from '@mdi/js';
 
   import AccountTypeListItem from './AccountTypeListItem.vue';
   import CurrencyText from './CurrencyText.vue';

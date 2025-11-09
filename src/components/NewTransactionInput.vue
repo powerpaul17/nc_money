@@ -39,8 +39,9 @@
         v-if="isLoading"
         class="icon-loading-small"
       />
-      <Plus
+      <NcIconSvgWrapper
         v-else
+        :path="mdiPlus"
         :class="{ 'opacity-25': !isValid }"
         @click="() => isValid && handleSubmitTransactionClick()"
       />
@@ -55,12 +56,14 @@
 
   import { translate as t } from '@nextcloud/l10n';
 
+  import { NcIconSvgWrapper } from '@nextcloud/vue';
+
   import { NumberUtils } from '../utils/numberUtils';
   import { DateUtils } from '../utils/DateUtils';
 
   import { useTransactionService } from '../services/transactionService';
 
-  import Plus from 'vue-material-design-icons/Plus.vue';
+  import { mdiPlus } from '@mdi/js';
 
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';

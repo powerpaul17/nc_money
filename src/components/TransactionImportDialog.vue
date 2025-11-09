@@ -125,7 +125,10 @@
         >
           <template #icon>
             <NcLoadingIcon v-if="isImporting" />
-            <Upload v-else />
+            <NcIconSvgWrapper
+              v-else
+              :path="mdiUpload"
+            />
           </template>
           {{ t('money', 'Import') }}
         </NcButton>
@@ -158,11 +161,16 @@
   import { useAccountStore } from '../stores/accountStore';
   import { useAccountService } from '../services/accountService';
 
-  import { NcModal, NcButton, NcLoadingIcon } from '@nextcloud/vue';
+  import {
+    NcModal,
+    NcButton,
+    NcLoadingIcon,
+    NcIconSvgWrapper
+  } from '@nextcloud/vue';
 
   import FileInput from './FileInput.vue';
 
-  import Upload from 'vue-material-design-icons/Upload.vue';
+  import { mdiUpload } from '@mdi/js';
 
   import { NumberUtils } from '../utils/numberUtils';
   import { DateUtils } from '../utils/DateUtils';

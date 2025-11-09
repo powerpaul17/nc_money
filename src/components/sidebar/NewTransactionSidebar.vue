@@ -90,8 +90,9 @@
             v-if="isLoading"
             class="icon-loading-small"
           />
-          <Plus
+          <NcIconSvgWrapper
             v-else
+            :path="mdiPlus"
             :size="20"
           />
         </template>
@@ -113,9 +114,14 @@
   import { computed, ref, type Ref } from 'vue';
   import { useRouter } from 'vue-router';
 
-  import Plus from 'vue-material-design-icons/Plus.vue';
+  import { mdiPlus } from '@mdi/js';
 
-  import { NcAppSidebar, NcAppSidebarTab, NcButton } from '@nextcloud/vue';
+  import {
+    NcAppSidebar,
+    NcAppSidebarTab,
+    NcButton,
+    NcIconSvgWrapper
+  } from '@nextcloud/vue';
 
   import DateInput from '../DateInput.vue';
   import AccountSelect from '../AccountSelect.vue';

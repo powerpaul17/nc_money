@@ -24,12 +24,14 @@
         @click="clickOnSortMode(SortMode.BY_NAME)"
       >
         <template #icon>
-          <SortAlphabeticalDescending
+          <NcIconSvgWrapper
             v-if="sortMode === SortMode.BY_NAME && sortDirection"
+            :path="mdiSortAlphabeticalDescending"
             :size="20"
           />
-          <SortAlphabeticalAscending
+          <NcIconSvgWrapper
             v-else
+            :path="mdiSortAlphabeticalAscending"
             :size="20"
           />
         </template>
@@ -40,12 +42,14 @@
         @click="clickOnSortMode(SortMode.BY_VALUE)"
       >
         <template #icon>
-          <SortNumericDescending
+          <NcIconSvgWrapper
             v-if="sortMode === SortMode.BY_VALUE && sortDirection"
+            :path="mdiSortNumericDescending"
             :size="20"
           />
-          <SortNumericAscending
+          <NcIconSvgWrapper
             v-else
+            :path="mdiSortNumericAscending"
             :size="20"
           />
         </template>
@@ -76,14 +80,16 @@
     NcAppContentList,
     NcAppNavigationItem,
     NcInputField,
-    NcButton
+    NcButton,
+    NcIconSvgWrapper
   } from '@nextcloud/vue';
 
-  import SortAlphabeticalAscending from 'vue-material-design-icons/SortAlphabeticalAscending.vue';
-  import SortAlphabeticalDescending from 'vue-material-design-icons/SortAlphabeticalDescending.vue';
-
-  import SortNumericAscending from 'vue-material-design-icons/SortNumericAscending.vue';
-  import SortNumericDescending from 'vue-material-design-icons/SortNumericDescending.vue';
+  import {
+    mdiSortAlphabeticalAscending,
+    mdiSortAlphabeticalDescending,
+    mdiSortNumericAscending,
+    mdiSortNumericDescending
+  } from '@mdi/js';
 
   import AccountListItem from './AccountListItem.vue';
 
