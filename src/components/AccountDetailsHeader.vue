@@ -45,7 +45,7 @@
 
         <div class="ml-2 md:hidden">
           <NcButton
-            type="primary"
+            variant="primary"
             :to="{ name: 'new-transaction' }"
           >
             <template #icon>

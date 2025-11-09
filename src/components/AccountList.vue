@@ -20,7 +20,7 @@
       />
 
       <NcButton
-        :type="sortMode === SortMode.BY_NAME ? 'secondary' : 'tertiary'"
+        :variant="sortMode === SortMode.BY_NAME ? 'secondary' : 'tertiary'"
         @click="clickOnSortMode(SortMode.BY_NAME)"
       >
         <template #icon>
@@ -38,7 +38,7 @@
       </NcButton>
 
       <NcButton
-        :type="sortMode === SortMode.BY_VALUE ? 'secondary' : 'tertiary'"
+        :variant="sortMode === SortMode.BY_VALUE ? 'secondary' : 'tertiary'"
         @click="clickOnSortMode(SortMode.BY_VALUE)"
       >
         <template #icon>

@@ -80,7 +80,7 @@
 
       <NcButton
         class="self-end"
-        type="primary"
+        variant="primary"
         :wide="true"
         :disabled="isLoading || !isValid"
         @click="handleCreateTransaction()"

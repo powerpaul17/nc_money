@@ -71,7 +71,7 @@
           </div>
           <div class="flex justify-evenly">
             <NcButton
-              type="primary"
+              variant="primary"
               @click="() => (showDeleteConfirmationDialog = false)"
             >
               <template #icon>

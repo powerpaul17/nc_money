@@ -119,7 +119,7 @@
       <div class="flex items-center">
         <NcButton
           class="shrink-0"
-          type="primary"
+          variant="primary"
           :disabled="isImporting || !isValid"
           @click="handleImportClick"
         >
