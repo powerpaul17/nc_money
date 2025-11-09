@@ -56,7 +56,10 @@
           :editable="valueIsEditable"
           :placeholder="t('money', 'Value')"
           :inverted-value="invertedValue"
+          :enable-convert-rate="enableConvertRate"
+          :convert-rate="convertRate"
           @value-changed="handleValueChanged"
+          @convert-rate-changed="handleConvertRateChanged"
         />
       </template>
 
@@ -131,6 +134,8 @@
   import { useSplitStore, type Split } from '../stores/splitStore';
   import { useSplitService } from '../services/splitService';
 
+  import { useAccountStore } from '../stores/accountStore';
+
   import TransactionListItemTemplate from './TransactionListItemTemplate.vue';
   import MobileTransactionListItemTemplate from './MobileTransactionListItemTemplate.vue';
   import AccountSelect from './AccountSelect.vue';
@@ -145,6 +150,7 @@
   const transactionService = useTransactionService();
   const splitStore = useSplitStore();
   const splitService = useSplitService();
+  const accountStore = useAccountStore();
 
   const props = defineProps({
     bookId: {
@@ -239,6 +245,34 @@
     );
   });
 
+  const account = computed(() => {
+    return props.accountId ? accountStore.getById(props.accountId) : undefined;
+  });
+
+  const destAccount = computed(() => {
+    const destAccountId = splitOfDestinationAccount.value?.destAccountId;
+    return destAccountId ? accountStore.getById(destAccountId) : undefined;
+  });
+
+  const enableConvertRate = computed(() => {
+    return (
+      !!account.value &&
+      !!destAccount.value &&
+      account.value.currency !== destAccount.value.currency
+    );
+  });
+
+  const convertRate = computed(() => {
+    if (splitOfDestinationAccount.value && splitOfAccount.value) {
+      return (
+        splitOfAccount.value.convertRate /
+        splitOfDestinationAccount.value.convertRate
+      );
+    }
+
+    return 1.0;
+  });
+
   async function handleOpenSidebar(): Promise<void> {
     await router.push({
       name: 'transaction-details',
@@ -296,6 +330,23 @@
       await handleSplitChanged(splitOfAcc);
     } else {
       // TODO
+    }
+  }
+
+  async function handleConvertRateChanged(convertRate: number): Promise<void> {
+    if (hasMultipleDestinationSplits.value)
+      throw new Error('cannot change value of multi-split-transaction');
+
+    if (!splitOfAccount.value)
+      throw new Error('cannot change convert rate without split of account');
+
+    const split = splitOfDestinationAccount.value;
+    if (!split) {
+      // TODO
+    } else {
+      split.value = -splitOfAccount.value.value * convertRate;
+      split.convertRate = splitOfAccount.value.convertRate / convertRate;
+      await handleSplitChanged(split);
     }
   }
 
