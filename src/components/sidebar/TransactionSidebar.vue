@@ -74,7 +74,16 @@
               :editable="false"
               :placeholder="t('money', 'Value')"
               :inverted-value="isInvertedAccount"
+              :enable-convert-rate="enableConvertRate"
+              :convert-rate="
+                splitsOfAccount[0]
+                  ? splitsOfAccount[0]?.convertRate / newSplitConvertRate
+                  : undefined
+              "
               @value-changed="handleNewSplitValueChanged"
+              @convert-rate-changed="
+                (newConvertRate) => (newSplitConvertRate = newConvertRate)
+              "
             />
             <div class="col-span-2">
               <SeamlessInput
@@ -200,6 +209,8 @@
   const newSplitDestAccountId: Ref<number | null> = ref(null);
   const newSplitDescription: Ref<string> = ref('');
 
+  const newSplitConvertRate = ref(1.0);
+
   const splitsOfAccount = computed(() => {
     return splits.value.filter((s) => s.destAccountId === props.accountId);
   });
@@ -216,6 +227,20 @@
     if (!props.accountId) return null;
 
     return accountStore.getById(props.accountId);
+  });
+
+  const newSplitDestAccount = computed(() => {
+    return newSplitDestAccountId.value
+      ? accountStore.getById(newSplitDestAccountId.value)
+      : undefined;
+  });
+
+  const enableConvertRate = computed(() => {
+    return (
+      !!account.value &&
+      !!newSplitDestAccount.value &&
+      account.value.currency !== newSplitDestAccount.value.currency
+    );
   });
 
   const isInvertedAccount = computed(() => {
@@ -285,7 +310,9 @@
       transactionId: transaction.value.id,
       destAccountId: newSplitDestAccountId.value,
       value: newSplitValue.value,
-      convertRate: 1.0,
+      convertRate:
+        splitsOfAccount.value[0]?.convertRate ??
+        1.0 / newSplitConvertRate.value,
       description: newSplitDescription.value
     });
 
