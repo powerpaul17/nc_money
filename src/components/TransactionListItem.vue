@@ -224,7 +224,7 @@
   });
 
   const unbalancedValue = computed(() => {
-    return splits.value.reduce((value, s) => (value += s.value), 0.0);
+    return splits.value.reduce((value, s) => (value += s.value * s.convertRate), 0.0) / (splitOfAccount.value?.convertRate ?? 1.0);
   });
 
   const isUnbalanced = computed(() => {
