@@ -30,6 +30,15 @@ export default createRouter({
       }
     },
     {
+      path: '/book/:bookId/accountType/:accountTypeType',
+      name: 'account-type',
+      component: AccountTypeView,
+      props: (route): { bookId: number; accountTypeType: number } => ({
+        bookId: Number(route.params.bookId),
+        accountTypeType: Number(route.params.accountTypeType)
+      })
+    },
+    {
       path: '/book/:bookId/account/:accountId',
       name: 'account',
       components: {
@@ -94,15 +103,6 @@ export default createRouter({
           }
         }
       ]
-    },
-    {
-      path: '/book/:bookId/accountType/:accountTypeType',
-      name: 'account-type',
-      component: AccountTypeView,
-      props: (route): { bookId: number; accountTypeType: number } => ({
-        bookId: Number(route.params.bookId),
-        accountTypeType: Number(route.params.accountTypeType)
-      })
     }
   ]
 });
