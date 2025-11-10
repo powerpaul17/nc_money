@@ -13,6 +13,13 @@
     >
       / {{ suffixText }}
     </template>
+
+    <template
+      #second-line
+      v-if="!!secondLine"
+    >
+      <span class="text-sm">{{ secondLine }}</span>
+    </template>
   </CurrencyText>
 </template>
 
@@ -43,6 +50,10 @@
     accountType: {
       type: Number,
       required: true
+    },
+    secondLine: {
+      type: String,
+      default: null
     }
   });
 
