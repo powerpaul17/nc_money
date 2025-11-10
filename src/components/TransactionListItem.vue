@@ -329,14 +329,16 @@
       throw new Error('cannot change value of multi-split-transaction');
 
     const split = splitOfDestinationAccount.value;
+    const splitOfAcc = splitOfAccount.value;
+
     if (!split) {
       // TODO
     } else {
-      split.value = -value / split.convertRate;
+      split.value =
+        (-value / split.convertRate) * (splitOfAcc?.convertRate ?? 1.0);
       await handleSplitChanged(split);
     }
 
-    const splitOfAcc = splitOfAccount.value;
     if (splitOfAcc) {
       splitOfAcc.value = value;
       await handleSplitChanged(splitOfAcc);
