@@ -302,20 +302,26 @@
     }
   }
 
-  async function handleTransactionChanged(): Promise<void> {
+  async function handleTransactionChanged(
+    transaction: Transaction
+  ): Promise<void> {
     isLoading.value = true;
-    await transactionService.updateTransaction(props.transaction);
+    await transactionService.updateTransaction(transaction);
     isLoading.value = false;
   }
 
   async function handleDateChanged(date: Date): Promise<void> {
-    props.transaction.date = DateUtils.getDateStringForTransaction(date);
-    await handleTransactionChanged();
+    await handleTransactionChanged({
+      ...props.transaction,
+      date: DateUtils.getDateStringForTransaction(date)
+    });
   }
 
   async function handleDescriptionChanged(description: string): Promise<void> {
-    props.transaction.description = description;
-    await handleTransactionChanged();
+    await handleTransactionChanged({
+      ...props.transaction,
+      description
+    });
   }
 
   async function handleValueChanged(value: number): Promise<void> {
