@@ -34,6 +34,7 @@
         :value="balance"
         :animation="animationEnabled"
         :account-type="account.type"
+        :second-line="account.currency"
       >
       </AccountCurrencyText>
     </template>
