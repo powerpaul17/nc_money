@@ -55,8 +55,6 @@
 </template>
 
 <script setup lang="ts">
-  import dayjs from 'dayjs';
-
   import { ref, computed } from 'vue';
 
   import { translate as t } from '@nextcloud/l10n';
