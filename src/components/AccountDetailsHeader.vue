@@ -23,10 +23,11 @@
           />
         </div>
       </div>
-      <div class="flex shrink-0 grow-0 items-center text-right text-xl">
+      <div class="flex shrink-0 grow-0 items-center text-xl">
         <AccountCurrencyText
           :value="balance"
           :account-type="account.type"
+          :second-line="account.currency"
         >
         </AccountCurrencyText>
       </div>
@@ -41,6 +42,30 @@
             </template>
             {{ t('money', 'Import transactions') }}
           </NcActionButton>
+
+          <NcActionButton @click="handleOpenSidebar()">
+            <template #icon>
+              <NcIconSvgWrapper
+                :path="mdiMenuOpen"
+                :size="20"
+              />
+            </template>
+            {{ t('money', 'Account details') }}
+          </NcActionButton>
+
+          <NcActionInput
+            v-model="currency"
+            :label="t('money', 'Currency')"
+            @submit="handleAccountCurrencyModified"
+          >
+            <template #icon>
+              <NcIconSvgWrapper
+                :path="mdiCashMultiple"
+                :size="20"
+              />
+            </template>
+            {{ t('money', 'Currency') }}...
+          </NcActionInput>
         </NcActions>
 
         <div class="ml-2 md:hidden">
@@ -83,6 +108,7 @@
   import dayjs from 'dayjs';
 
   import { ref, type PropType, computed } from 'vue';
+  import { useRouter } from 'vue-router';
 
   import { translate as t } from '@nextcloud/l10n';
 
@@ -106,11 +132,14 @@
   import {
     NcActions,
     NcActionButton,
+    NcActionInput,
     NcButton,
     NcIconSvgWrapper
   } from '@nextcloud/vue';
 
-  import { mdiUpload, mdiPlus } from '@mdi/js';
+  import { mdiUpload, mdiPlus, mdiCashMultiple, mdiMenuOpen } from '@mdi/js';
+
+  const router = useRouter();
 
   const accountStore = useAccountStore();
   const accountService = useAccountService();
@@ -128,6 +157,7 @@
   });
 
   const showImportTransactionsDialog = ref(false);
+  const currency = ref(props.account.currency);
 
   const balance = computed(() => {
     const year =
@@ -193,19 +223,41 @@
     });
   });
 
-  async function handleAccountNameModified(newName: string): Promise<void> {
-    props.account.name = newName;
-    await handleAccountModified();
+  async function handleAccountNameModified(name: string): Promise<void> {
+    await handleAccountModified({
+      ...props.account,
+      name
+    });
   }
 
   async function handleAccountDescriptionModified(
-    newDescription: string
+    description: string
   ): Promise<void> {
-    props.account.description = newDescription;
-    await handleAccountModified();
+    await handleAccountModified({
+      ...props.account,
+      description
+    });
   }
 
-  async function handleAccountModified(): Promise<void> {
-    await accountService.updateAccount(props.account);
+  async function handleAccountCurrencyModified(): Promise<void> {
+    const newCurrency = (currency.value = currency.value.toUpperCase());
+
+    await handleAccountModified({
+      ...props.account,
+      currency: newCurrency
+    });
+  }
+
+  async function handleAccountModified(account: Account): Promise<void> {
+    await accountService.updateAccount(account);
+  }
+
+  async function handleOpenSidebar(): Promise<void> {
+    await router.push({
+      name: 'account-details',
+      params: {
+        accountId: props.account.id.toString()
+      }
+    });
   }
 </script>

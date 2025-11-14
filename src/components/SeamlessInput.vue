@@ -7,7 +7,7 @@
   >
     <slot name="pre"></slot>
     <input
-      class="my-0 w-full grow overflow-hidden text-ellipsis border-0 border-none bg-inherit"
+      class="my-0 w-full grow overflow-hidden text-ellipsis border-0 border-none bg-inherit shadow-none"
       type="text"
       :placeholder="placeholder + '...'"
       :disabled="disabled"

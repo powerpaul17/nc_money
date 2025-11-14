@@ -194,13 +194,15 @@ class AccountStore {
     }
   }
 
-  public insertAccount(account: Account): void {
+  public insertAccount(account: Account): Account {
     const index = this.getIndex(account.id);
     if (index >= 0) {
       this.accounts.value.splice(index, 1, account);
     } else {
       this.accounts.value.push(account);
     }
+
+    return account;
   }
 
   public addValue({

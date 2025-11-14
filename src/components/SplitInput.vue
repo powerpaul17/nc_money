@@ -45,8 +45,6 @@
 
   import { useAccountStore } from '../stores/accountStore';
 
-  import { NumberUtils } from '../utils/numberUtils';
-
   const splitService = useSplitService();
   const accountStore = useAccountStore();
 
@@ -73,7 +71,7 @@
     },
     sourceAccountId: {
       type: Number,
-      default: undefined
+      required: true
     },
     convertRate: {
       type: Number,
@@ -93,11 +91,9 @@
 
   const enableConvertRate = computed(() => {
     return (
-      NumberUtils.areNotEqual(props.convertRate, 1.0) ||
-      NumberUtils.areNotEqual(props.split.convertRate, 1.0) ||
-      (!!sourceAccount.value &&
-        !!destAccount.value &&
-        sourceAccount.value.currency !== destAccount.value.currency)
+      !!sourceAccount.value &&
+      !!destAccount.value &&
+      sourceAccount.value.currency !== destAccount.value.currency
     );
   });
 
@@ -125,6 +121,7 @@
     split: Split,
     value: number
   ): Promise<void> {
+    // TODO: calculate right value with convert rate(s)!
     split.value = value;
     await handleSplitChanged(split);
   }

@@ -7,6 +7,7 @@ import DashboardView from './views/DashboardView.vue';
 import Sidebar from './components/sidebar/SidebarComponent.vue';
 import TransactionSidebar from './components/sidebar/TransactionSidebar.vue';
 import NewTransactionSidebar from './components/sidebar/NewTransactionSidebar.vue';
+import AccountSidebar from './components/sidebar/AccountSidebar.vue';
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -55,6 +56,27 @@ export default createRouter({
       },
       children: [
         {
+          path: 'details',
+          name: 'account-details',
+          meta: {
+            showSidebar: true
+          },
+          components: {
+            sidebar: AccountSidebar
+          },
+          props: {
+            sidebar: (
+              route
+            ): {
+              bookId: number;
+              accountId: number;
+            } => ({
+              bookId: Number(route.params.bookId),
+              accountId: Number(route.params.accountId)
+            })
+          }
+        },
+        {
           path: 'transaction/:transactionId/details',
           name: 'transaction-details',
           meta: {
@@ -69,7 +91,7 @@ export default createRouter({
             ): {
               bookId: number;
               transactionId: number;
-              accountId?: number;
+              accountId: number;
             } => {
               return {
                 bookId: Number(route.params.bookId),

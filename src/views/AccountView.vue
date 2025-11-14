@@ -50,6 +50,7 @@
 
   const renderComponent = ref(true);
 
+  // TODO: Updated sich nicht, wenn Account genädert wird.
   const selectedAccount = computed(() => {
     return accountStore.getById(props.accountId);
   });

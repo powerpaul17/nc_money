@@ -118,7 +118,9 @@ describe('CurrencyText', () => {
     resetSettingStore();
   });
 
-  function setupEnvironment(renderOptions: RenderOptions<CurrencyText>): {
+  function setupEnvironment(
+    renderOptions: RenderOptions<typeof CurrencyText>
+  ): {
     container: Element;
     updateProps: (props: Object) => Promise<void>;
   } {

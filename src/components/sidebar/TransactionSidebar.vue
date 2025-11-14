@@ -164,7 +164,7 @@
     },
     accountId: {
       type: Number,
-      default: undefined
+      required: true
     },
     editable: {
       type: Boolean,
@@ -235,12 +235,16 @@
       : undefined;
   });
 
+  watch([newSplitDestAccount, account], () => {
+    if (newSplitDestAccount.value?.currency === account.value?.currency)
+      newSplitConvertRate.value = 1.0;
+  });
+
   const enableConvertRate = computed(() => {
     return (
-      NumberUtils.areNotEqual(newSplitConvertRate.value, 1.0) ||
-      (!!account.value &&
-        !!newSplitDestAccount.value &&
-        account.value.currency !== newSplitDestAccount.value.currency)
+      !!account.value &&
+      !!newSplitDestAccount.value &&
+      account.value.currency !== newSplitDestAccount.value.currency
     );
   });
 
@@ -253,7 +257,7 @@
   });
 
   const unbalancedValue = computed(() => {
-    return splits.value.reduce((v, s) => (v += s.value), 0.0);
+    return splits.value.reduce((v, s) => (v += s.value * s.convertRate), 0.0);
   });
 
   const isUnbalanced = computed(() => {

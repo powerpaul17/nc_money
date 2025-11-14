@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Support for multiple currencies
+
 ## [0.31.0] - 2025-11-06
 
 ### Changed
