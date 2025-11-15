@@ -2,6 +2,7 @@ OC.L10N.register(
     "money",
     {
     "Name" : "ຊື່",
+    "Description" : "ລາຍລະອຽດ",
     "No account found" : "ບໍ່ພົບບັນຊີ",
     "Add account" : "ເພີ່ມບັນຊີ",
     "Date" : "ວັນທີ"
