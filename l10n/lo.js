@@ -3,8 +3,20 @@ OC.L10N.register(
     {
     "Name" : "ຊື່",
     "Description" : "ລາຍລະອຽດ",
+    "Overview" : "Overview",
+    "Account name" : "Account name",
+    "Delete account" : "Delete account",
+    "Are you sure?" : "Are you sure?",
     "No account found" : "ບໍ່ພົບບັນຊີ",
     "Add account" : "ເພີ່ມບັນຊີ",
-    "Date" : "ວັນທີ"
+    "Monthly" : "Monthly",
+    "Yearly" : "Yearly",
+    "No name" : "No name",
+    "Date" : "ວັນທີ",
+    "Value" : "Value",
+    "Space" : "Space",
+    "Comment" : "Comment",
+    "Import" : "Import",
+    "Settings saved" : "Settings saved"
 },
 "nplurals=1; plural=0;");
