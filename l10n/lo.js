@@ -17,6 +17,7 @@ OC.L10N.register(
     "Space" : "Space",
     "Comment" : "Comment",
     "Import" : "Import",
+    "Info" : "ຂໍ້ມູນ",
     "Settings saved" : "Settings saved"
 },
 "nplurals=1; plural=0;");
