@@ -14,6 +14,7 @@ OC.L10N.register(
     "No name" : "No name",
     "Date" : "ວັນທີ",
     "Value" : "Value",
+    "Decimals" : "ຈຸດທົດສະນິຍົມ",
     "Space" : "Space",
     "Comment" : "Comment",
     "Import" : "Import",
