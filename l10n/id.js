@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Nama",
     "Description" : "Deskrisi",
     "Overview" : "Ringkasan",
+    "Account name" : "Nama akun",
     "Delete account" : "Delete account",
     "Are you sure?" : "Apakah Anda yakin?",
     "No account found" : "Tidak ada akun yang ditemukan",
