@@ -11,6 +11,7 @@ OC.L10N.register(
     "Add account" : "Tambah akun",
     "Monthly" : "Bulanan",
     "Yearly" : "Tahunan",
+    "No name" : "Tanpa nama",
     "Date" : "Date",
     "Value" : "Nilari",
     "Comment" : "Komentar",
