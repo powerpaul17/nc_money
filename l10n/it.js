@@ -31,7 +31,7 @@ OC.L10N.register(
     "Monthly" : "Mensilmente",
     "Yearly" : "Annualmente",
     "No name" : "Nessun nome",
-    "'{bookName}' deleted" : "'{bookName}' cancellato",
+    "'{bookName}' deleted" : "'{bookName}' eliminato",
     "Rename book" : "Rinomina libro",
     "Book name" : "Nome del libro",
     "Delete book" : "Elimina libro",

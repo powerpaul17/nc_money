@@ -14,6 +14,7 @@ OC.L10N.register(
     "No name" : "Tanpa nama",
     "Date" : "Date",
     "Value" : "Nilari",
+    "Space" : "Spasi",
     "Comment" : "Komentar",
     "Import" : "Impor",
     "Settings saved" : "Setelan tersimpan"
