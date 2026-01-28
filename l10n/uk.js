@@ -52,7 +52,7 @@ OC.L10N.register(
     "Comment" : "Коментар",
     "Credit" : "Кредит",
     "Debit" : "Дебіт",
-    "Import Transactions" : "Імпортувати трансакції",
+    "Import Transactions" : "Імпортувати транзакції",
     "Select File" : "Вибрати файл",
     "Click or drop CSV file" : "Натисніть або опустіть файл CSV",
     "File Settings" : "Параметри файлу",
