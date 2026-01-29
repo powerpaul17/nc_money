@@ -4,6 +4,7 @@ OC.L10N.register(
     "Name" : "Naziv",
     "Description" : "Opis",
     "Overview" : "Pregled",
+    "Account name" : "Korisničko ime",
     "Delete account" : "Izbriši račun",
     "No account found" : "Račun nije pronađen",
     "Add account" : "Dodaj račun",
