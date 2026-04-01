@@ -7,7 +7,7 @@ OC.L10N.register(
     "Description" : "Aprašas",
     "Overview" : "Apžvalga",
     "Rename account" : "Pervadinti paskyrą",
-    "Account name" : "Paskyros pavadinimas",
+    "Account name" : "Paskyros vardas",
     "Delete account" : "Ištrinti paskyrą",
     "Are you sure?" : "Ar esate tikri?",
     "No account found" : "Paskyrų nerasta",
