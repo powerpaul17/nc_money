@@ -17,6 +17,7 @@ OC.L10N.register(
     "Yearly" : "Kas metus",
     "Date" : "Data",
     "Value" : "Reikšmė",
+    "Decimals" : "Dešimtainiai skaičiai",
     "Group By" : "Grupuoti pagal",
     "Comment" : "Komentaras",
     "Date Format" : "Datos formatas",
