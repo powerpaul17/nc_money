@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "yr" : "ປີ",
     "Name" : "ຊື່",
     "Description" : "ລາຍລະອຽດ",
     "Overview" : "Overview",
