@@ -5,6 +5,7 @@ OC.L10N.register(
     "Money" : "Raha",
     "Manage your finances." : "Halda oma rahandust.",
     "Finance manager for Nextcloud." : "Rahanduse haldus Nextcloudi jaoks.",
+    "yr" : "a",
     "Name" : "Nimi",
     "Description" : "Kirjeldus",
     "Import transactions" : "Impordi tehinguid",
@@ -61,9 +62,13 @@ OC.L10N.register(
     "Properties" : "Omadused",
     "Splits" : "Jagamine",
     "Add transaction" : "Lisa tehing",
+    "Assets" : "Varad",
+    "Liabilities" : "Kohustused",
     "No books available" : "Raamatuid pole saadaval",
     "Go ahead and create one..." : "Jätkamiseks tee üks...",
     "Books" : "Raamatud",
-    "Settings saved" : "Seaded salvestatud"
+    "Settings saved" : "Seaded salvestatud",
+    "Income" : "Sissetulek",
+    "Expenses" : "Väljaminekud"
 },
 "nplurals=2; plural=(n != 1);");
