@@ -6,6 +6,7 @@ OC.L10N.register(
     "Manage your finances." : "Halda oma rahandust.",
     "Finance manager for Nextcloud." : "Rahanduse haldus Nextcloudi jaoks.",
     "yr" : "a",
+    "mo" : "k",
     "Name" : "Nimi",
     "Description" : "Kirjeldus",
     "Import transactions" : "Impordi tehinguid",
