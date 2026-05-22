@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Money" : "Pinigai",
     "Manage your finances." : "Tvarkyti savo finansus.",
+    "yr" : "m",
+    "mo" : "mėn",
     "Name" : "Pavadinimas",
     "Description" : "Aprašas",
     "Overview" : "Apžvalga",
