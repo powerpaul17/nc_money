@@ -68,7 +68,7 @@ OC.L10N.register(
     "No books available" : "Raamatuid pole saadaval",
     "Go ahead and create one..." : "Jätkamiseks tee üks...",
     "Books" : "Raamatud",
-    "Settings saved" : "Seaded salvestatud",
+    "Settings saved" : "Seadistused on salvestatud",
     "Income" : "Sissetulek",
     "Expenses" : "Väljaminekud"
 },
