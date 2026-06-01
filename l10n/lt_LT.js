@@ -17,6 +17,7 @@ OC.L10N.register(
     "Add account" : "Pridėti paskyrą",
     "Monthly" : "Kas mėnesį",
     "Yearly" : "Kas metus",
+    "No name" : "Vardo nėra",
     "Date" : "Data",
     "Value" : "Reikšmė",
     "Decimals" : "Dešimtainiai skaičiai",
