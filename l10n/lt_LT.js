@@ -1,8 +1,10 @@
 OC.L10N.register(
     "money",
     {
+    "Financial Overview" : "Finansinė apžvalga",
     "Money" : "Pinigai",
     "Manage your finances." : "Tvarkyti savo finansus.",
+    "Finance manager for Nextcloud." : "„Nextcloud“ finansų vadovas.",
     "yr" : "m",
     "mo" : "mėn",
     "Name" : "Pavadinimas",
