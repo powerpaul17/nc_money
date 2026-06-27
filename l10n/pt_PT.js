@@ -9,6 +9,7 @@ OC.L10N.register(
     "Are you sure?" : "Tem a certeza?",
     "No account found" : "Não foi encontrada nenhuma conta",
     "Add account" : "Adicionar conta",
+    "Monthly" : "Mensalmente",
     "Date" : "Data",
     "Value" : "Valor",
     "Comment" : "Comentário",
