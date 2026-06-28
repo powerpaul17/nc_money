@@ -1,6 +1,7 @@
 OC.L10N.register(
     "money",
     {
+    "Manage your finances." : "Gerencie suas finanças.",
     "Name" : "Nome",
     "Description" : "Descrição",
     "Overview" : "Visão Geral",
@@ -13,6 +14,7 @@ OC.L10N.register(
     "Date" : "Data",
     "Value" : "Valor",
     "Comment" : "Comentário",
+    "Credit" : "Crédito",
     "Import" : "Importar",
     "Settings saved" : "Definições guardadas"
 },
