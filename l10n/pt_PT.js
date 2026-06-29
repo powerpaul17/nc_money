@@ -2,6 +2,7 @@ OC.L10N.register(
     "money",
     {
     "Manage your finances." : "Gerencie suas finanças.",
+    "mo" : "ms",
     "Name" : "Nome",
     "Description" : "Descrição",
     "Overview" : "Visão Geral",
@@ -11,8 +12,10 @@ OC.L10N.register(
     "No account found" : "Não foi encontrada nenhuma conta",
     "Add account" : "Adicionar conta",
     "Monthly" : "Mensalmente",
+    "Yearly" : "Anualmente",
     "Date" : "Data",
     "Value" : "Valor",
+    "Decimals" : "Decimais",
     "Comment" : "Comentário",
     "Credit" : "Crédito",
     "Import" : "Importar",

@@ -1,5 +1,6 @@
 { "translations": {
     "Manage your finances." : "Gerencie suas finanças.",
+    "mo" : "ms",
     "Name" : "Nome",
     "Description" : "Descrição",
     "Overview" : "Visão Geral",
@@ -9,8 +10,10 @@
     "No account found" : "Não foi encontrada nenhuma conta",
     "Add account" : "Adicionar conta",
     "Monthly" : "Mensalmente",
+    "Yearly" : "Anualmente",
     "Date" : "Data",
     "Value" : "Valor",
+    "Decimals" : "Decimais",
     "Comment" : "Comentário",
     "Credit" : "Crédito",
     "Import" : "Importar",
