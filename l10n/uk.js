@@ -41,7 +41,7 @@ OC.L10N.register(
     "Yes, delete book" : "Так, видалити книгу",
     "Date" : "Дата",
     "Value" : "Значення",
-    "Various settings for the money app" : "Різноманітні налаштування додатку \"Гроші",
+    "Various settings for the money app" : "Налаштування застосунку Гроші",
     "Decimals" : "Знак після коми",
     "Values will be rounded to the selected number of decimals." : "Значення будуть округлені до вибраної кількості знаків після коми.",
     "Decimal Separator" : "Десятковий роздільник",
