@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Enable app for NC 34
+- Update PHP and NC versions in workflows
+
 ## [0.31.0] - 2025-11-06
 
 ### Changed
