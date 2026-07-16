@@ -24,7 +24,7 @@
       </navigation>
     </navigations>
     <dependencies>
-      <nextcloud min-version="25" max-version="32" />
+      <nextcloud min-version="25" max-version="34" />
       <database>mysql</database>
       <database>pgsql</database>
     </dependencies>
