@@ -14,9 +14,9 @@ jobs:
     strategy:
       matrix:
         php_version:
-          - '8.2'
+          - '8.4'
         nextcloud_version:
-          - stable27
+          - stable34
         db:
           - mysql
           - pgsql

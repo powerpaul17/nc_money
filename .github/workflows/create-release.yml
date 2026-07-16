@@ -14,8 +14,8 @@ on:
         default: patch
 
 env:
-  PHP_VERSION: 8.1
-  NC_VERSION: stable27
+  PHP_VERSION: 8.4
+  NC_VERSION: stable34
   APP_NAME: money
   POSTGRES_PASSWORD: nextcloud
 
