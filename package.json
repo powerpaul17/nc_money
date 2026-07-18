@@ -45,6 +45,7 @@
     "csv-parse": "^5.3.0",
     "dayjs": "^1.11.4",
     "dotenv-cli": "^6.0.0",
+    "esbuild": "^0.28.1",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-tailwindcss": "^3.8.3",
