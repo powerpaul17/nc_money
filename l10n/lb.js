@@ -7,6 +7,7 @@ OC.L10N.register(
     "No account found" : "Keen Account fonnt",
     "Add account" : "Kont dobäisetzen",
     "Date" : "Date",
+    "Value" : "Wäert",
     "Comment" : "Kommentar",
     "Import" : "Importéieren"
 },
