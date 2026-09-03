@@ -9,6 +9,7 @@ OC.L10N.register(
     "Date" : "Date",
     "Value" : "Wäert",
     "Comment" : "Kommentar",
-    "Import" : "Importéieren"
+    "Import" : "Importéieren",
+    "Settings saved" : "Astellunge gespäichert"
 },
 "nplurals=2; plural=(n != 1);");
