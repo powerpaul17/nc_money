@@ -18,6 +18,7 @@
     "All accounts and transactions of this book will be deleted!" : "本 book 的所有账号和交易都将被删除！",
     "Date" : "日期",
     "Value" : "值",
+    "Decimals" : "小数",
     "Decimal Separator" : "十进制分隔符",
     "Space" : "空间",
     "Comment" : "备注",
