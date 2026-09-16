@@ -27,7 +27,7 @@ OC.L10N.register(
     "Add account" : "Hesap ekle",
     "New book" : "Yeni kitap",
     "Show inverted income/liabilities account balances" : "Tersine çevrilmiş gelir/borç hesap bakiyeleri görüntülensin",
-    "Aggregate accounts" : "Hesaplar toplansın",
+    "Aggregate accounts" : "Hesaplar birleştirilsin",
     "Monthly" : "Aylık",
     "Yearly" : "Yıllık",
     "No name" : "Adsız",
