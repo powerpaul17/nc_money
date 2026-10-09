@@ -70,7 +70,7 @@ OC.L10N.register(
     "Assets" : "Majetok",
     "Liabilities" : "Záväzky",
     "No books available" : "Nie sú dostupné žiadne knihy",
-    "Go ahead and create one..." : "Pokračovať a vytvoriť ...",
+    "Go ahead and create one..." : "Pokračovať a vytvoriť jeden ...",
     "Books" : "Knihy",
     "Settings saved" : "Nastavenia uložené",
     "Income" : "Príjmy",
