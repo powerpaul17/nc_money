@@ -5,6 +5,7 @@ OC.L10N.register(
     "Name" : "Nume",
     "Description" : "Descriere",
     "Overview" : "Prezentare generală",
+    "Account name" : "Nume cont",
     "Delete account" : "Delete account",
     "No account found" : "Nici un cont găsit",
     "Add account" : "Adaugă cont",
