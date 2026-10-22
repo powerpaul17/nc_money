@@ -7,6 +7,7 @@ OC.L10N.register(
     "Overview" : "Prezentare generală",
     "Account name" : "Nume cont",
     "Delete account" : "Delete account",
+    "Are you sure?" : "Ești sigur?",
     "No account found" : "Nici un cont găsit",
     "Add account" : "Adaugă cont",
     "Monthly" : "Lunar",
