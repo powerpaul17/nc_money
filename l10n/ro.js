@@ -14,6 +14,7 @@ OC.L10N.register(
     "Yearly" : "Anual",
     "Date" : "Date",
     "Value" : "Valoare",
+    "Decimals" : "Zecimale",
     "Comment" : "Comentariu",
     "Select File" : "Selectează Fișier",
     "Import" : "Importă",
