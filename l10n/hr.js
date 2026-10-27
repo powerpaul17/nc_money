@@ -6,6 +6,7 @@ OC.L10N.register(
     "Overview" : "Pregled",
     "Account name" : "Korisničko ime",
     "Delete account" : "Izbriši račun",
+    "Are you sure?" : "Jeste li sigurni?",
     "No account found" : "Račun nije pronađen",
     "Add account" : "Dodaj račun",
     "Monthly" : "Svaki mjesec",

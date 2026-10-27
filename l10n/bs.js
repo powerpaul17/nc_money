@@ -3,8 +3,11 @@ OC.L10N.register(
     {
     "Name" : "Ime",
     "Description" : "Opis",
+    "Overview" : "Pregled",
     "Delete account" : "Delete account",
+    "Are you sure?" : "Jeste li sigurni?",
     "Date" : "Date",
+    "Value" : "Vrijednost",
     "Comment" : "Komentar",
     "Import" : "Uvoz"
 },

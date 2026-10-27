@@ -3,10 +3,13 @@ OC.L10N.register(
     {
     "Name" : "Ime",
     "Description" : "Opis",
+    "Overview" : "Pregled",
     "Delete account" : "Delete account",
+    "Are you sure?" : "Da li ste sigurni?",
     "No account found" : "Nije pronađen nalog",
     "Add account" : "Dodajte nalog",
     "Date" : "Date",
+    "Value" : "Vrednost",
     "Comment" : "Komentar",
     "Import" : "Uvezi"
 },

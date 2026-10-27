@@ -3,7 +3,9 @@ OC.L10N.register(
     {
     "Name" : "Emri",
     "Description" : "Përshkrim",
+    "Overview" : "Përmbledhje",
     "Delete account" : "Fshij llogarinë",
+    "Are you sure?" : "Jeni i sigurt?",
     "No account found" : "S’u gjet llogari",
     "Add account" : "Shtoni llogari",
     "Date" : "Data",

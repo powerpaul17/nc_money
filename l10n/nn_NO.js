@@ -6,6 +6,7 @@ OC.L10N.register(
     "Description" : "Skildring",
     "Overview" : "Oversyn",
     "Delete account" : "Delete account",
+    "Are you sure?" : "Er du sikker?",
     "No account found" : "Fann ingen konto",
     "Add account" : "Legg til konto",
     "Monthly" : "Månadleg",

@@ -11,6 +11,7 @@ OC.L10N.register(
     "Overview" : "Преглед",
     "Account name" : "Корисничко име",
     "Delete account" : "Избриши сметка",
+    "Are you sure?" : "Дали сте сигурни?",
     "No account found" : "Не е пронајдена сметка",
     "Add account" : "Додади сметка",
     "Monthly" : "Месечно",
