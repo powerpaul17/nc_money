@@ -29,6 +29,7 @@ OC.L10N.register(
     "Date Format" : "Format daty",
     "Import" : "Importuj",
     "Info" : "Informacje",
+    "Assets" : "Zasób",
     "Settings saved" : "Ustawienia zapisane",
     "Income" : "Dochód"
 },
